@@ -1,0 +1,691 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="HSCSEC 2023-Write Up">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HSCSEC 2023-wp">
+<meta property="og:url" content="http://example.com/2023/02/13/HSCSEC%202023-wp/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="HSCSEC 2023-Write Up">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/hscsec.jpg">
+<meta property="article:published_time" content="2023-02-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-12T16:05:07.735Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="Write Up">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/hscsec.jpg">
+  
+  
+  
+  <title>HSCSEC 2023-wp - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":150,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的秘密基地</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/wp8.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="HSCSEC 2023-wp"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-13 00:00" pubdate>
+          2023年2月13日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          82 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">HSCSEC 2023-wp</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Ancient-MISC"><a href="#Ancient-MISC" class="headerlink" title="Ancient-MISC"></a>Ancient-MISC</h1><h3 id="Watch-the-sky-at-night"><a href="#Watch-the-sky-at-night" class="headerlink" title="Watch the sky at night"></a>Watch the sky at night</h3><p>24星宿<br><code>斗木獬角木蛟奎木狼亢金龙 牛金牛女土蝠氐土貉井木犴 虚日鼠房日兔心月狐鬼金羊 危月燕室火猪尾火虎柳土獐 壁水貐箕水豹斗木獬牛金牛 女土蝠角木蛟亢金龙星日马 虚日鼠张月鹿娄金狗翼火蛇 危月燕氐土貉房日兔轸水蚓 室火猪心月狐井木犴胃土雉 壁水貐斗木獬鬼金羊柳土獐 牛金牛尾火虎箕水豹女土蝠 虚日鼠昴日鸡柳土獐毕月乌 危月燕觜火猴角木蛟星日马 室火猪参水猿奎木狼壁水貐 斗木獬娄金狗牛金牛女土蝠 虚日鼠胃土雉张月鹿昴日鸡 危月燕翼火蛇室火猪亢金龙 壁水貐斗木獬轸水蚓井木犴 牛金牛氐土貉房日兔女土蝠 虚日鼠危月燕心月狐尾火虎 室火猪鬼金羊柳土獐壁水貐</code><br><img src="/mdimg/hscsec/1.png" srcset="/img/loading.gif" lazyload><br>东北西南依次对应0123，4进制</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">m = <span class="hljs-string">&quot;&quot;</span><br>text =<span class="hljs-string">&quot;1020,1103,1003,1103,1011,1003,1323,1003,1032,1133,1001,1232,1203,1221,1211,1232,1310,1133,1001,1100,1331&quot;</span><br><br>c=text.split(<span class="hljs-string">&quot;,&quot;</span>)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> c:<br>        temp = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(i)):<br>            temp += <span class="hljs-built_in">int</span>(i[j]) * (<span class="hljs-number">4</span> ** (<span class="hljs-built_in">len</span>(i) - j -<span class="hljs-number">1</span>))<br>        m += <span class="hljs-built_in">chr</span>(temp)<br><span class="hljs-built_in">print</span> (m)<br><span class="hljs-comment">#HSCSEC&#123;CN_Ancient_AP&#125;</span><br></code></pre></td></tr></table></figure>
+<h3 id="Deduced-gossip"><a href="#Deduced-gossip" class="headerlink" title="Deduced gossip"></a>Deduced gossip</h3><p>盗墓笔记看多了，了解一点，一眼八卦</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">☲☵ ☷☵☳ ☶空 ☷☵☳ ☶☱ ☶空 ☷空☱ ☶空 ☷☳☰ ☷☳☱ ☷☴☳ ☷☳☳ ☷☴☶ ☷☳☳ ☷☷☰ ☷☳空 ☰☴ ☷☴☶ ☷☴☶ ☷☴空 ☷空☲<br></code></pre></td></tr></table></figure>
+<p>八卦有八个卦象，还有一个空字，猜测9进制<br>猜格式是HSCSEC{}<br>前7个对应9进制<code>80,102,74,102,76,74,146</code>，最后一个是<code>148</code><br>则还剩下3，5没有对应，尝试两次就行<br>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python">dict1 = &#123;<span class="hljs-string">&#x27;☵&#x27;</span>:<span class="hljs-string">&#x27;0&#x27;</span>,<span class="hljs-string">&#x27;☷&#x27;</span>:<span class="hljs-string">&#x27;1&#x27;</span>,<span class="hljs-string">&#x27;☳&#x27;</span>:<span class="hljs-string">&#x27;2&#x27;</span>,<span class="hljs-string">&#x27;☴&#x27;</span>:<span class="hljs-string">&#x27;3&#x27;</span>,<span class="hljs-string">&#x27;空&#x27;</span>:<span class="hljs-string">&#x27;4&#x27;</span>,<br>        <span class="hljs-string">&#x27;☰&#x27;</span>:<span class="hljs-string">&#x27;5&#x27;</span>,<span class="hljs-string">&#x27;☱&#x27;</span>:<span class="hljs-string">&#x27;6&#x27;</span>,<span class="hljs-string">&#x27;☶&#x27;</span>:<span class="hljs-string">&#x27;7&#x27;</span>,<span class="hljs-string">&#x27;☲&#x27;</span>:<span class="hljs-string">&#x27;8&#x27;</span>&#125;<br>dict2=&#123;<span class="hljs-string">&#x27;☵&#x27;</span>:<span class="hljs-string">&#x27;0&#x27;</span>,<span class="hljs-string">&#x27;☷&#x27;</span>:<span class="hljs-string">&#x27;1&#x27;</span>,<span class="hljs-string">&#x27;☳&#x27;</span>:<span class="hljs-string">&#x27;2&#x27;</span>,<span class="hljs-string">&#x27;☰&#x27;</span>:<span class="hljs-string">&#x27;3&#x27;</span>,<span class="hljs-string">&#x27;空&#x27;</span>:<span class="hljs-string">&#x27;4&#x27;</span>,<br>        <span class="hljs-string">&#x27;☴&#x27;</span>:<span class="hljs-string">&#x27;5&#x27;</span>,<span class="hljs-string">&#x27;☱&#x27;</span>:<span class="hljs-string">&#x27;6&#x27;</span>,<span class="hljs-string">&#x27;☶&#x27;</span>:<span class="hljs-string">&#x27;7&#x27;</span>,<span class="hljs-string">&#x27;☲&#x27;</span>:<span class="hljs-string">&#x27;8&#x27;</span>&#125;<br>c= <span class="hljs-string">&#x27;☲☵ ☷☵☳ ☶空 ☷☵☳ ☶☱ ☶空 ☷空☱ ☶空 ☷☳☰ ☷☳☱ ☷☴☳ ☷☳☳ ☷☴☶ ☷☳☳ ☷☷☰ ☷☳空 ☰☴ ☷☴☶ ☷☴☶ ☷☴空 ☷空☲&#x27;</span><br>flag1=<span class="hljs-string">&#x27;&#x27;</span><br>flag2= <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-comment">#表1</span><br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> c:<br>    <span class="hljs-keyword">if</span> x==<span class="hljs-string">&#x27; &#x27;</span>:<br>        flag1 +=<span class="hljs-string">&#x27; &#x27;</span><br>        <span class="hljs-keyword">continue</span><br>    flag1 +=  dict1.get(x)<br><span class="hljs-comment">#表2</span><br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> c:<br>    <span class="hljs-keyword">if</span> x==<span class="hljs-string">&#x27; &#x27;</span>:<br>        flag2 +=<span class="hljs-string">&#x27; &#x27;</span><br>        <span class="hljs-keyword">continue</span><br>    flag2+=  dict2.get(x)<br><span class="hljs-built_in">print</span>(flag1)<br><span class="hljs-built_in">print</span>(flag2)<br><span class="hljs-comment">#80 102 74 102 76 74 146 74 125 126 132 122 137 122 115 124 53 137 137 134 148</span><br><span class="hljs-comment">#80 102 74 102 76 74 146 74 123 126 152 122 157 122 113 124 35 157 157 154 148</span><br></code></pre></td></tr></table></figure>
+<p>然后在线转换器转一下发现表1是对的<br><code>HSCSEC&#123;Chinese_g0ssip&#125;</code></p>
+<h1 id="Social-Engineering"><a href="#Social-Engineering" class="headerlink" title="Social Engineering"></a>Social Engineering</h1><h3 id="Happy-Lantern-Festival"><a href="#Happy-Lantern-Festival" class="headerlink" title="Happy Lantern Festival"></a>Happy Lantern Festival</h3><p>说明：<code>flag形式为：HSCSEC&#123;&#125; 例如：HSCSEC&#123;广东省广州市天河区天河市天河路天河步行街&#125;</code><br><img src="/mdimg/hscsec/2.png" srcset="/img/loading.gif" lazyload><br>图片信息：<code>阿勒泰市第13届元宵灯会</code><br><img src="/mdimg/hscsec/3.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/hscsec/4.png" srcset="/img/loading.gif" lazyload><br><code>HSCSEC&#123;新疆维吾尔自治区阿勒泰地区阿勒泰市五百里风情街&#125;</code></p>
+<h3 id="Boat"><a href="#Boat" class="headerlink" title="Boat"></a>Boat</h3><p>说明：<code>flag形式为：HSCSEC&#123;&#125; 例如：HSCSEC&#123;具体地址&#125;</code><br><img src="/mdimg/hscsec/5.png" srcset="/img/loading.gif" lazyload><br>百度识图第一张就是<br><img src="/mdimg/hscsec/6.png" srcset="/img/loading.gif" lazyload><br>地图搜西湖<br><img src="/mdimg/hscsec/7.png" srcset="/img/loading.gif" lazyload><br><code>HSCSEC&#123;浙江省杭州市西湖区龙井路1号&#125;</code></p>
+<h3 id="Cable-car"><a href="#Cable-car" class="headerlink" title="Cable car"></a>Cable car</h3><p><img src="/mdimg/hscsec/8.png" srcset="/img/loading.gif" lazyload><br>一眼重庆<br><img src="/mdimg/hscsec/9.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/hscsec/10.png" srcset="/img/loading.gif" lazyload><br>根据图片基本可以判断一个区域<br><img src="/mdimg/hscsec/11.png" srcset="/img/loading.gif" lazyload><br>看图片是一个靠近江边的地方<br>搜山什集找到类似的图片<br><img src="/mdimg/hscsec/12.png" srcset="/img/loading.gif" lazyload><br><code>HSCSEC&#123;重庆市渝中区白象居4号楼9-1号&#125;</code></p>
+<h3 id="Romantic-firework"><a href="#Romantic-firework" class="headerlink" title="Romantic firework"></a>Romantic firework</h3><p><img src="/mdimg/hscsec/13.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/hscsec/14.png" srcset="/img/loading.gif" lazyload><br>甘肃消防<br><img src="/mdimg/hscsec/15.png" srcset="/img/loading.gif" lazyload><br>图上建筑吻合<br><a target="_blank" rel="noopener" href="https://cul.sohu.com/a/635448600_120801">https://cul.sohu.com/a/635448600_120801</a><img src="/mdimg/hscsec/16.png" srcset="/img/loading.gif" lazyload><br>地图上找位置<br><code>HSCSEC&#123;甘肃省白银市白银区金岭公园&#125;</code></p>
+<h3 id="Airplane"><a href="#Airplane" class="headerlink" title="Airplane"></a>Airplane</h3><p><img src="/mdimg/hscsec/17.png" srcset="/img/loading.gif" lazyload><br>一直分析飞机无果<br>重庆航空，飞机注册号B-30EL<br><img src="/mdimg/hscsec/18.png" srcset="/img/loading.gif" lazyload><br>然查找B-30EL发现：<a target="_blank" rel="noopener" href="https://www.jiemian.com/article/5391407.html">https://www.jiemian.com/article/5391407.html</a><br><img src="/mdimg/hscsec/19.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/hscsec/20.png" srcset="/img/loading.gif" lazyload><br>大兴机场的鸟瞰图<br>对比吻合<br> <code>HSCSEC&#123; 北京市大兴区大兴国际机场&#125;</code></p>
+<h3 id="Beautiful-Lake"><a href="#Beautiful-Lake" class="headerlink" title="Beautiful Lake"></a>Beautiful Lake</h3><p><code>flag形式为：HSCSEC&#123;&#125; 例如：HSCSEC&#123;广东省广州市天河区天湖&#125;</code><br>看图片左侧<br><img src="/mdimg/hscsec/21.png" srcset="/img/loading.gif" lazyload><br>宁夏理工学院<br><img src="/mdimg/hscsec/22.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/hscsec/23.png" srcset="/img/loading.gif" lazyload><br><code>HSCSEC&#123;宁夏回族自治区石嘴山市大武口区星海湖&#125;</code></p>
+<h3 id="Beautiful-Park"><a href="#Beautiful-Park" class="headerlink" title="Beautiful Park"></a>Beautiful Park</h3><p><code>flag形式为：HSCSEC&#123;&#125; 例如：HSCSEC&#123;广东省广州市天河区天河国家湿地公园&#125;</code><br><img src="/mdimg/hscsec/24.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/hscsec/25.png" srcset="/img/loading.gif" lazyload><br>地图搜<br><code>HSCSEC&#123;**河北省张家口市怀来县官厅水库国家湿地公园&#125;**</code></p>
+<h3 id="Apple-Store"><a href="#Apple-Store" class="headerlink" title="Apple Store"></a>Apple Store</h3><p><code>flag形式为：HSCSEC&#123;&#125; 例如：HSCSEC&#123;广东省广州市天河区天河路1号&#125; 例如：HSCSEC&#123;广东省广州市天河区天河路1号环贸F1&#125;</code><br><img src="/mdimg/hscsec/26.png" srcset="/img/loading.gif" lazyload><br>百度地图：苹果西单大悦城店<br><img src="/mdimg/hscsec/27.png" srcset="/img/loading.gif" lazyload><br><code>HSCSEC&#123;北京市西城区西单北大街131号&#125;</code></p>
+<h3 id="Tower"><a href="#Tower" class="headerlink" title="Tower"></a>Tower</h3><p>澳门巴黎铁塔附近<br>全景地图<br><img src="/mdimg/hscsec/28.png" srcset="/img/loading.gif" lazyload><br>看图片应该是在楼梯这个位置拍的<br><code> HSCSEC&#123;澳门特别行政区路氹填海区澳门路氹金光大道连贯公路澳门巴黎人&#125;</code></p>
+<h1 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h1><h3 id="Operator"><a href="#Operator" class="headerlink" title="Operator"></a>Operator</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/bin/python3</span><br><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> bytes_to_long, getPrime<br><br>FLAG = <span class="hljs-string">&quot;*******************MASK****************&quot;</span><br><br><span class="hljs-comment"># print(FLAG)</span><br>number1 = getPrime(<span class="hljs-number">512</span>)<br>number2 = getPrime(<span class="hljs-number">1024</span>)<br><span class="hljs-built_in">print</span>(number1)<br>result = FLAG * number1 % number2<br><span class="hljs-built_in">print</span>(result)<br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Output:</span><br><span class="hljs-string">11488359375916816818731868252559119400126174593041608170883818546254791846479664455120194350355087017477744828351806157930199157462913063513512421460678471</span><br><span class="hljs-string">1890846045246997191702622225497063073251667816125412875121879991742654650976309481716690792328873189601779812108551290078049710826355501933349874438201643986975141068179879506727213209273645848165732801667704040761771</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+<p>显然number2远远大于number1，且flag就30位左右，所以<code>FLAG * number1 mod number2</code> 其实就等于<code>FLAG * number1</code><br>直接<code>FLAG =result// number1</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span>*<br>number1=<span class="hljs-number">11488359375916816818731868252559119400126174593041608170883818546254791846479664455120194350355087017477744828351806157930199157462913063513512421460678471</span><br>result=<span class="hljs-number">1890846045246997191702622225497063073251667816125412875121879991742654650976309481716690792328873189601779812108551290078049710826355501933349874438201643986975141068179879506727213209273645848165732801667704040761771</span><br>flag=result//number1<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;HSCSEC&#x27;</span>+<span class="hljs-built_in">str</span>(long_to_bytes(flag))[<span class="hljs-number">6</span>:])<br><span class="hljs-comment">#HSCSEC&#123;qMmZqWvmj70bBsCfmVLT&#125;</span><br></code></pre></td></tr></table></figure>
+<h3 id="EZRSA"><a href="#EZRSA" class="headerlink" title="EZRSA"></a>EZRSA</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">import</span> gmpy2<br><span class="hljs-keyword">from</span> flag <span class="hljs-keyword">import</span> m<br><br>p = getPrime(<span class="hljs-number">1024</span>)<br>q = getPrime(<span class="hljs-number">1024</span>)<br>n = p * q<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;n =&#x27;</span>,n)<br>e = <span class="hljs-number">0x10001</span><br>M = m * e * <span class="hljs-number">1</span> * <span class="hljs-number">2022</span> * p<br>c = <span class="hljs-built_in">pow</span>(M,e,n)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;c =&#x27;</span>,c)<br><br><span class="hljs-comment"># n = 16266043783454053154037197753138388613864200794483663334493856481522764684650995230938142916968470804276539967429581472897698022852787399956166067156691430593337430691851251036378709799238876668312530223697905925939542713491015517460139150765778057817475571231361809654951289718071760502692960235551663466242938669673675870151921605230499603814070711617511206013584605131901906195136038060653121164252894949526861390984185085201067988694831398388037080993820517447099157891181179389949333832439004857436617834100885739716577641892686620423154860716308518151628754780994043553863224363539879909831811888663875989774849</span><br><span class="hljs-comment"># c = 12716190507848578560760116589677996073721225715245215495257947887969923319693501568134141757778665747980229898129090929698368855086594836111461700857934476682700625486249555753323344759513528101651108919161794915999809784961533946922607642974500946026677116418317599095703217004064379100607278317877894742815660315660254853364776654303066021672567442581774299847661025422994141801987588151758971034155714424052693627277202951522779716696303237915400201362585413354036973117149974017434406560929491956957193491445847385625481870256240443170803497196783872213746269940877814806857222191433079944785910813364137603874411</span><br><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">M = m * e * <span class="hljs-number">1</span> * <span class="hljs-number">2022</span> * p<br>c = <span class="hljs-built_in">pow</span>(M,e,n)<br></code></pre></td></tr></table></figure>
+<p>这里猜测可以公约数求p</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> gmpy2<br><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> *<br>n = <span class="hljs-number">16266043783454053154037197753138388613864200794483663334493856481522764684650995230938142916968470804276539967429581472897698022852787399956166067156691430593337430691851251036378709799238876668312530223697905925939542713491015517460139150765778057817475571231361809654951289718071760502692960235551663466242938669673675870151921605230499603814070711617511206013584605131901906195136038060653121164252894949526861390984185085201067988694831398388037080993820517447099157891181179389949333832439004857436617834100885739716577641892686620423154860716308518151628754780994043553863224363539879909831811888663875989774849</span><br>c = <span class="hljs-number">12716190507848578560760116589677996073721225715245215495257947887969923319693501568134141757778665747980229898129090929698368855086594836111461700857934476682700625486249555753323344759513528101651108919161794915999809784961533946922607642974500946026677116418317599095703217004064379100607278317877894742815660315660254853364776654303066021672567442581774299847661025422994141801987588151758971034155714424052693627277202951522779716696303237915400201362585413354036973117149974017434406560929491956957193491445847385625481870256240443170803497196783872213746269940877814806857222191433079944785910813364137603874411</span><br>e = <span class="hljs-number">0x10001</span><br>x=(c*gmpy2.invert(<span class="hljs-built_in">pow</span>(<span class="hljs-number">2022</span>,e,n),n)*gmpy2.invert(<span class="hljs-built_in">pow</span>(e,e,n),n))%n<br><span class="hljs-comment">#通过乘逆元然后求p，然后解RSA解出M</span><br>p=gmpy2.gcd(x,n)<br>q=n//p<br>d=gmpy2.invert(e,(p-<span class="hljs-number">1</span>)*(q-<span class="hljs-number">1</span>))<br>M=<span class="hljs-built_in">pow</span>(c,d,n)<br><span class="hljs-comment">#然后接着还原flag</span><br>m=M//e//<span class="hljs-number">2022</span>//p<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;HSCSEC&#x27;</span>+<span class="hljs-built_in">str</span>(long_to_bytes(m))[<span class="hljs-number">6</span>:])<br><span class="hljs-comment">#HSCSEC&#123;3e5e2789a93a80615cc35edbff397c05&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="EZVC"><a href="#EZVC" class="headerlink" title="EZVC"></a>EZVC</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-keyword">import</span> flag<br>alphabet = <span class="hljs-string">&#x27;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!&quot;#$%&amp;\&#x27;()*+,-./:;&lt;=&gt;?@[\]^_`&#123;|&#125;~&#x27;</span><br>key = <span class="hljs-string">&#x27;HSC&#x27;</span><br><span class="hljs-keyword">assert</span> flag.startswith(<span class="hljs-string">&#x27;HSCSEC&#123;&#x27;</span>)<br>flag_num_list = []<br>c = []<br><span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> flag:<br>    flag_num_list.append(alphabet.find(item) + <span class="hljs-number">1</span>)<br>key_num = alphabet.find(key) + <span class="hljs-number">1</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> flag_num_list:<br>    m = (i + key_num) % <span class="hljs-number">94</span> - <span class="hljs-number">1</span><br>    <span class="hljs-keyword">if</span> m == <span class="hljs-number">0</span>:<br>        c.append(<span class="hljs-string">&quot;□&quot;</span>)<br>    c.append(alphabet[m-<span class="hljs-number">1</span>:m])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;c = &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(c)))<br><br><span class="hljs-comment"># c = GRBRDB`jg10ij2g01i,g201gi,2gi2,012igaigagi|</span><br></code></pre></td></tr></table></figure>
+<p>逆推一下就行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">alphabet = <span class="hljs-string">&#x27;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!&quot;#$%&amp;\&#x27;()*+,-./:;&lt;=&gt;?@[\]^_`&#123;|&#125;~&#x27;</span><br>key = <span class="hljs-string">&#x27;HSC&#x27;</span><br>c = <span class="hljs-string">&quot;GRBRDB`jg10ij2g01i,g201gi,2gi2,012igaigagi|&quot;</span><br>flag = <span class="hljs-string">&quot;&quot;</span><br>key_num = alphabet.find(key) + <span class="hljs-number">1</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> c:<br>    <span class="hljs-keyword">if</span> i == <span class="hljs-string">&quot;□&quot;</span>:<br>        m = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">else</span>:<br>        m = alphabet.find(i) + <span class="hljs-number">1</span><br>    flag_num = (m - key_num) % <span class="hljs-number">94</span> + <span class="hljs-number">1</span><br>    flag += alphabet[flag_num-<span class="hljs-number">1</span>:flag_num]<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;flag = &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(flag))<br><span class="hljs-comment">#flag = HSCSEC&#123;kh21jk3h12j-h312hj-3hj3-123jhbjhbhj&#125;</span><br></code></pre></td></tr></table></figure>
+<h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><h3 id="EZIMG"><a href="#EZIMG" class="headerlink" title="EZIMG"></a>EZIMG</h3><p><img src="/mdimg/hscsec/29.png" srcset="/img/loading.gif" lazyload><br>010打开发现末尾有反过来的png<br>工具： <a target="_blank" rel="noopener" href="https://github.com/AabyssZG/FileReverse-Tools">https://github.com/AabyssZG/FileReverse-Tools</a><br>逆序一下<code>python3 FileReverse-Tools.py -i desktop.png</code><br><img src="/mdimg/hscsec/30.png" srcset="/img/loading.gif" lazyload><br><code>HSCSEC&#123;p3g_h</code><br><img src="/mdimg/hscsec/31.png" srcset="/img/loading.gif" lazyload><br>在文件尾后发现01数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br>MAX = <span class="hljs-number">25</span><br>pic = Image.new(<span class="hljs-string">&quot;RGB&quot;</span>,(MAX, MAX))<br><span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;0000000001001011000000000000000000011111100000000000000000111010110000000000000000001110000000000000000000000010001100000000000000000010001011000000000000000010101010100000000000000001110110100000000011101111101110001110001001100010100110110100001011111010100100110001000111100100000100101001011000101100111100001101011110010010101001001001111100001110100110110100100011110110110110100001001101101011101001111010100011111101100000000101010011000110110000000010001101101010011000000001111111010001101100000000101100101111110010000000001000011010001100000000001010001111011000100000000111000111100000100000000011101101101010011&quot;</span><br>i=<span class="hljs-number">0</span><br><span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span> (<span class="hljs-number">0</span>,MAX):<br>    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span> (<span class="hljs-number">0</span>,MAX):<br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">str</span>[i] == <span class="hljs-string">&#x27;1&#x27;</span>):<br>            pic.putpixel([x,y],(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>))<br>        <span class="hljs-keyword">else</span>:<br>            pic.putpixel([x,y],(<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>))<br>        i = i+<span class="hljs-number">1</span><br>pic.show()<br>pic.save(<span class="hljs-string">&quot;flag.png&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>转换为二维码<br><img src="/mdimg/hscsec/32.png" srcset="/img/loading.gif" lazyload><br>加定点<br><img src="/mdimg/hscsec/33.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/hscsec/34.png" srcset="/img/loading.gif" lazyload><br><code>flag2:aQR_c0de_and   </code><br><a target="_blank" rel="noopener" href="https://www.wotianna.com/pixels/">https://www.wotianna.com/pixels/</a><br><img src="/mdimg/hscsec/35.png" srcset="/img/loading.gif" lazyload><br><code>_3nc&#125; </code><br>综上所述：<code>HSCSEC&#123;p3G_haQR_c0de_and_3nc&#125;</code></p>
+<h3 id="Salute"><a href="#Salute" class="headerlink" title="Salute"></a>Salute</h3><p><img src="/mdimg/hscsec/36.png" srcset="/img/loading.gif" lazyload><br>末尾有一段MD5<br><code>5d93ceb70e2bf5daa84ec3d0cd2c731a</code><br><img src="/mdimg/hscsec/37.png" srcset="/img/loading.gif" lazyload><br><code>qwer1234</code><br>文件异或qwer1234<br><img src="/mdimg/hscsec/38.png" srcset="/img/loading.gif" lazyload><br>得到压缩包<br><img src="/mdimg/hscsec/39.png" srcset="/img/loading.gif" lazyload><br>对png<br><img src="/mdimg/hscsec/40.png" srcset="/img/loading.gif" lazyload><br><code>flag2/key that_is</code>意思是flag2和KEY都是that_is，那么前面解出来的那串应该就是flag1了<br>steghide分离<br><code>steghide extract -sf /home/kali/桌面/salute.jpg -p that_is</code><br><img src="/mdimg/hscsec/41.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/hscsec/42.png" srcset="/img/loading.gif" lazyload><br><code>flag3:_c0ol&#125;</code><br>综上所述：<code>HSCSEC&#123;qwer1234that_is_c0ol&#125;</code></p>
+<h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><h3 id="EZSSTI"><a href="#EZSSTI" class="headerlink" title="EZSSTI"></a>EZSSTI</h3><p>tplmap 一把梭<br>注入点是name<br><img src="/mdimg/hscsec/43.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/Write-Up/" class="category-chain-item">Write Up</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Write-Up/">#Write Up</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>HSCSEC 2023-wp</div>
+      <div>http://example.com/2023/02/13/HSCSEC 2023-wp/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/10/Byte%20Bandits%20CTF%202023/" title="Byte Bandits CTF 2023">
+                        <span class="hidden-mobile">Byte Bandits CTF 2023</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
