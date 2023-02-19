@@ -1,0 +1,694 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="我见青山多妩媚，料青山见我应如是。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0xL4ughCTF2023">
+<meta property="og:url" content="http://example.com/2023/02/19/0xL4ughCTF/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="我见青山多妩媚，料青山见我应如是。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/wp16.jpg">
+<meta property="article:published_time" content="2023-02-18T23:27:32.000Z">
+<meta property="article:modified_time" content="2023-02-19T03:47:23.347Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="比赛Write Up">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/wp16.jpg">
+  
+  
+  
+  <title>0xL4ughCTF2023 - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":150,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的秘密基地</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/wp17.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="0xL4ughCTF2023"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-19 07:27" pubdate>
+          2023年2月19日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          24k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          199 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">0xL4ughCTF2023</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><strong>部分附件(包含wp内所有题目)：链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/19YZXz_T0S3ZCEbnHkdlV0g?pwd=6666">https://pan.baidu.com/s/19YZXz_T0S3ZCEbnHkdlV0g?pwd=6666</a></strong><br><strong>提取码：6666</strong></p>
+<h2 id="Forensics"><a href="#Forensics" class="headerlink" title="Forensics"></a>Forensics</h2><h3 id="att-ip"><a href="#att-ip" class="headerlink" title="att ip"></a>att ip</h3><h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p><img src="/mdimg/0xl4/1.png" srcset="/img/loading.gif" lazyload><br><code>0xL4ugh&#123;91.243.59.76_23927&#125;</code></p>
+<h3 id="PVE"><a href="#PVE" class="headerlink" title="PVE"></a>PVE</h3><h4 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h4><h5 id="flag1"><a href="#flag1" class="headerlink" title="flag1"></a>flag1</h5><p>volatility3查看linux版本<br><code>0xL4ugh&#123;Ubuntu_4.4.0-186-generic&#125;</code></p>
+<h5 id="flag2"><a href="#flag2" class="headerlink" title="flag2"></a>flag2</h5><p><img src="/mdimg/0xl4/2.png" srcset="/img/loading.gif" lazyload><br><code>0xL4ugh&#123;2.2.14&#125;</code></p>
+<h5 id="flag3"><a href="#flag3" class="headerlink" title="flag3"></a>flag3</h5><p><img src="/mdimg/0xl4/3.png" srcset="/img/loading.gif" lazyload><br><code>0xL4ugh&#123;S4D_Y0U_G07_M3&#125;</code></p>
+<h5 id="flag4"><a href="#flag4" class="headerlink" title="flag4"></a>flag4</h5><p><img src="/mdimg/0xl4/4.png" srcset="/img/loading.gif" lazyload><br><code>0xL4ugh&#123;H1DD3N_1N_PR0CE$$&#125;</code></p>
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h3 id="Bypass-Basic"><a href="#Bypass-Basic" class="headerlink" title="Bypass ( Basic )"></a>Bypass ( Basic )</h3><h4 id="题目说明"><a href="#题目说明" class="headerlink" title="题目说明"></a>题目说明</h4><p>Some one reported to our Bug Bounty Program that he found a secret page that discloses some senstive information and we forbidden any access to it <a target="_blank" rel="noopener" href="http://20.121.121.120/secret.php">link</a><br>Author : abdoghazy</p>
+<h4 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h4><p><a target="_blank" rel="noopener" href="http://web.archive.org/">http://web.archive.org/</a><br><img src="/mdimg/0xl4/5.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><h3 id="Crypto-1"><a href="#Crypto-1" class="headerlink" title="Crypto 1"></a>Crypto 1</h3><h4 id="题目说明-1"><a href="#题目说明-1" class="headerlink" title="题目说明"></a>题目说明</h4><p>Alice and Bob decided to create their own super cryptosystem. However.. it has a super flaw<br>Flag : OSC{}</p>
+<h4 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">ct = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">40</span>, <span class="hljs-number">79</span>, <span class="hljs-number">159</span>, <span class="hljs-number">317</span>, <span class="hljs-number">635</span>, <span class="hljs-number">1269</span>, <span class="hljs-number">2538</span>, <span class="hljs-number">5077</span>, <span class="hljs-number">10154</span>, <span class="hljs-number">20307</span>, <span class="hljs-number">40615</span>, <span class="hljs-number">81229</span>, <span class="hljs-number">162458</span>, <span class="hljs-number">324916</span>, <span class="hljs-number">649832</span>, <span class="hljs-number">1299665</span>, <span class="hljs-number">2599330</span>, <span class="hljs-number">5198659</span>, <span class="hljs-number">10397319</span>, <span class="hljs-number">20794638</span>, <span class="hljs-number">41589276</span>, <span class="hljs-number">83178552</span>, <span class="hljs-number">166357103</span>, <span class="hljs-number">332714207</span>, <span class="hljs-number">665428414</span>, <span class="hljs-number">1330856827</span>, <span class="hljs-number">2661713655</span>, <span class="hljs-number">5323427309</span>, <span class="hljs-number">10646854619</span>, <span class="hljs-number">21293709237</span>, <span class="hljs-number">42587418474</span>, <span class="hljs-number">85174836949</span>, <span class="hljs-number">170349673898</span>, <span class="hljs-number">340699347795</span>, <span class="hljs-number">681398695591</span>, <span class="hljs-number">1362797391181</span>, <span class="hljs-number">2725594782363</span>, <span class="hljs-number">5451189564725</span>, <span class="hljs-number">10902379129451</span>, <span class="hljs-number">21804758258901</span>, <span class="hljs-number">43609516517803</span>, <span class="hljs-number">87219033035605</span>, <span class="hljs-number">174438066071211</span>, <span class="hljs-number">348876132142421</span>, <span class="hljs-number">697752264284843</span>, <span class="hljs-number">1395504528569685</span>, <span class="hljs-number">2791009057139370</span>, <span class="hljs-number">5582018114278740</span>, <span class="hljs-number">11164036228557480</span>, <span class="hljs-number">22328072457114960</span>, <span class="hljs-number">44656144914229920</span>, <span class="hljs-number">89312289828459841</span>, <span class="hljs-number">178624579656919682</span>, <span class="hljs-number">357249159313839363</span>, <span class="hljs-number">714498318627678726</span>, <span class="hljs-number">1428996637255357453</span>, <span class="hljs-number">2857993274510714906</span>, <span class="hljs-number">5715986549021429811</span>, <span class="hljs-number">11431973098042859623</span>, <span class="hljs-number">22863946196085719246</span>, <span class="hljs-number">45727892392171438492</span>, <span class="hljs-number">91455784784342876983</span>, <span class="hljs-number">182911569568685753966</span>, <span class="hljs-number">365823139137371507933</span>, <span class="hljs-number">731646278274743015865</span>, <span class="hljs-number">1463292556549486031730</span>, <span class="hljs-number">2926585113098972063460</span>, <span class="hljs-number">5853170226197944126921</span>, <span class="hljs-number">11706340452395888253841</span>, <span class="hljs-number">23412680904791776507682</span>, <span class="hljs-number">46825361809583553015364</span>, <span class="hljs-number">93650723619167106030728</span>, <span class="hljs-number">187301447238334212061457</span>, <span class="hljs-number">374602894476668424122913</span>, <span class="hljs-number">749205788953336848245827</span>, <span class="hljs-number">1498411577906673696491653</span>, <span class="hljs-number">2996823155813347392983306</span>, <span class="hljs-number">5993646311626694785966613</span>, <span class="hljs-number">11987292623253389571933226</span>, <span class="hljs-number">23974585246506779143866452</span>, <span class="hljs-number">47949170493013558287732903</span>, <span class="hljs-number">95898340986027116575465806</span>, <span class="hljs-number">191796681972054233150931613</span>, <span class="hljs-number">383593363944108466301863225</span>, <span class="hljs-number">767186727888216932603726450</span>, <span class="hljs-number">1534373455776433865207452900</span>, <span class="hljs-number">3068746911552867730414905800</span>, <span class="hljs-number">6137493823105735460829811601</span>, <span class="hljs-number">12274987646211470921659623202</span>, <span class="hljs-number">24549975292422941843319246403</span>, <span class="hljs-number">49099950584845883686638492807</span>, <span class="hljs-number">98199901169691767373276985614</span>, <span class="hljs-number">196399802339383534746553971228</span>, <span class="hljs-number">392799604678767069493107942455</span>, <span class="hljs-number">785599209357534138986215884910</span>, <span class="hljs-number">1571198418715068277972431769821</span>, <span class="hljs-number">3142396837430136555944863539641</span>, <span class="hljs-number">6284793674860273111889727079282</span>, <span class="hljs-number">12569587349720546223779454158564</span>, <span class="hljs-number">25139174699441092447558908317129</span>, <span class="hljs-number">50278349398882184895117816634258</span>, <span class="hljs-number">100556698797764369790235633268515</span>, <span class="hljs-number">201113397595528739580471266537030</span>, <span class="hljs-number">402226795191057479160942533074061</span>, <span class="hljs-number">804453590382114958321885066148122</span>, <span class="hljs-number">1608907180764229916643770132296243</span>, <span class="hljs-number">3217814361528459833287540264592486</span>, <span class="hljs-number">6435628723056919666575080529184973</span>, <span class="hljs-number">12871257446113839333150161058369946</span>, <span class="hljs-number">25742514892227678666300322116739891</span>, <span class="hljs-number">51485029784455357332600644233479783</span>, <span class="hljs-number">102970059568910714665201288466959565</span>, <span class="hljs-number">205940119137821429330402576933919130</span>, <span class="hljs-number">411880238275642858660805153867838260</span>, <span class="hljs-number">823760476551285717321610307735676520</span>, <span class="hljs-number">1647520953102571434643220615471353041</span>, <span class="hljs-number">3295041906205142869286441230942706082</span>, <span class="hljs-number">6590083812410285738572882461885412163</span>, <span class="hljs-number">13180167624820571477145764923770824327</span>, <span class="hljs-number">26360335249641142954291529847541648653</span>, <span class="hljs-number">52720670499282285908583059695083297307</span>, <span class="hljs-number">105441340998564571817166119390166594613</span>, <span class="hljs-number">210882681997129143634332238780333189226</span>, <span class="hljs-number">421765363994258287268664477560666378453</span>, <span class="hljs-number">843530727988516574537328955121332756906</span>, <span class="hljs-number">1687061455977033149074657910242665513811</span>, <span class="hljs-number">3374122911954066298149315820485331027622</span>, <span class="hljs-number">6748245823908132596298631640970662055244</span>, <span class="hljs-number">13496491647816265192597263281941324110489</span>, <span class="hljs-number">26992983295632530385194526563882648220977</span>, <span class="hljs-number">53985966591265060770389053127765296441955</span>, <span class="hljs-number">107971933182530121540778106255530592883909</span>, <span class="hljs-number">215943866365060243081556212511061185767818</span>, <span class="hljs-number">431887732730120486163112425022122371535637</span>, <span class="hljs-number">863775465460240972326224850044244743071274</span>, <span class="hljs-number">1727550930920481944652449700088489486142548</span>, <span class="hljs-number">3455101861840963889304899400176978972285095</span>, <span class="hljs-number">6910203723681927778609798800353957944570190</span>, <span class="hljs-number">13820407447363855557219597600707915889140381</span>, <span class="hljs-number">27640814894727711114439195201415831778280761</span>, <span class="hljs-number">55281629789455422228878390402831663556561522</span>, <span class="hljs-number">110563259578910844457756780805663327113123044</span>, <span class="hljs-number">221126519157821688915513561611326654226246089</span>, <span class="hljs-number">442253038315643377831027123222653308452492178</span>, <span class="hljs-number">884506076631286755662054246445306616904984356</span>, <span class="hljs-number">1769012153262573511324108492890613233809968711</span>, <span class="hljs-number">3538024306525147022648216985781226467619937423</span>, <span class="hljs-number">7076048613050294045296433971562452935239874845</span>, <span class="hljs-number">14152097226100588090592867943124905870479749691</span>, <span class="hljs-number">28304194452201176181185735886249811740959499382</span>, <span class="hljs-number">56608388904402352362371471772499623481918998764</span>, <span class="hljs-number">113216777808804704724742943544999246963837997528</span>, <span class="hljs-number">226433555617609409449485887089998493927675995056</span>, <span class="hljs-number">452867111235218818898971774179996987855351990111</span>, <span class="hljs-number">905734222470437637797943548359993975710703980222</span>, <span class="hljs-number">1811468444940875275595887096719987951421407960445</span>, <span class="hljs-number">3622936889881750551191774193439975902842815920890</span>, <span class="hljs-number">7245873779763501102383548386879951805685631841779</span>, <span class="hljs-number">14491747559527002204767096773759903611371263683559</span>, <span class="hljs-number">28983495119054004409534193547519807222742527367117</span>, <span class="hljs-number">57966990238108008819068387095039614445485054734235</span>, <span class="hljs-number">115933980476216017638136774190079228890970109468469</span>, <span class="hljs-number">231867960952432035276273548380158457781940218936938</span>, <span class="hljs-number">463735921904864070552547096760316915563880437873877</span>, <span class="hljs-number">927471843809728141105094193520633831127760875747754</span>, <span class="hljs-number">1854943687619456282210188387041267662255521751495507</span>, <span class="hljs-number">3709887375238912564420376774082535324511043502991014</span>, <span class="hljs-number">7419774750477825128840753548165070649022087005982029</span>, <span class="hljs-number">14839549500955650257681507096330141298044174011964058</span>, <span class="hljs-number">29679099001911300515363014192660282596088348023928115</span>, <span class="hljs-number">59358198003822601030726028385320565192176696047856231</span>, <span class="hljs-number">118716396007645202061452056770641130384353392095712461</span>, <span class="hljs-number">237432792015290404122904113541282260768706784191424923</span>, <span class="hljs-number">474865584030580808245808227082564521537413568382849845</span>, <span class="hljs-number">949731168061161616491616454165129043074827136765699690</span>, <span class="hljs-number">1899462336122323232983232908330258086149654273531399380</span>, <span class="hljs-number">3798924672244646465966465816660516172299308547062798761</span>, <span class="hljs-number">7597849344489292931932931633321032344598617094125597521</span>, <span class="hljs-number">15195698688978585863865863266642064689197234188251195043</span>, <span class="hljs-number">30391397377957171727731726533284129378394468376502390085</span>, <span class="hljs-number">60782794755914343455463453066568258756788936753004780171</span>, <span class="hljs-number">121565589511828686910926906133136517513577873506009560341</span>, <span class="hljs-number">243131179023657373821853812266273035027155747012019120683</span>, <span class="hljs-number">486262358047314747643707624532546070054311494024038241365</span>, <span class="hljs-number">972524716094629495287415249065092140108622988048076482731</span>, <span class="hljs-number">1945049432189258990574830498130184280217245976096152965461</span>, <span class="hljs-number">3890098864378517981149660996260368560434491952192305930922</span>, <span class="hljs-number">7780197728757035962299321992520737120868983904384611861845</span>, <span class="hljs-number">15560395457514071924598643985041474241737967808769223723690</span>, <span class="hljs-number">31120790915028143849197287970082948483475935617538447447379</span>, <span class="hljs-number">62241581830056287698394575940165896966951871235076894894758</span>, <span class="hljs-number">124483163660112575396789151880331793933903742470153789789517</span>, <span class="hljs-number">248966327320225150793578303760663587867807484940307579579034</span>, <span class="hljs-number">497932654640450301587156607521327175735614969880615159158067</span>, <span class="hljs-number">995865309280900603174313215042654351471229939761230318316135</span>, <span class="hljs-number">1991730618561801206348626430085308702942459879522460636632269</span>, <span class="hljs-number">3983461237123602412697252860170617405884919759044921273264538</span>, <span class="hljs-number">7966922474247204825394505720341234811769839518089842546529077</span>, <span class="hljs-number">15933844948494409650789011440682469623539679036179685093058154</span>, <span class="hljs-number">31867689896988819301578022881364939247079358072359370186116308</span>, <span class="hljs-number">63735379793977638603156045762729878494158716144718740372232615</span>, <span class="hljs-number">127470759587955277206312091525459756988317432289437480744465230</span>, <span class="hljs-number">254941519175910554412624183050919513976634864578874961488930461</span>, <span class="hljs-number">509883038351821108825248366101839027953269729157749922977860921</span>, <span class="hljs-number">1019766076703642217650496732203678055906539458315499845955721842</span>, <span class="hljs-number">2039532153407284435300993464407356111813078916630999691911443684</span>, <span class="hljs-number">4079064306814568870601986928814712223626157833261999383822887368</span>, <span class="hljs-number">8158128613629137741203973857629424447252315666523998767645774737</span>, <span class="hljs-number">16316257227258275482407947715258848894504631333047997535291549474</span>, <span class="hljs-number">32632514454516550964815895430517697789009262666095995070583098947</span>, <span class="hljs-number">65265028909033101929631790861035395578018525332191990141166197894</span>, <span class="hljs-number">130530057818066203859263581722070791156037050664383980282332395789</span>, <span class="hljs-number">261060115636132407718527163444141582312074101328767960564664791578</span>, <span class="hljs-number">522120231272264815437054326888283164624148202657535921129329583155</span>, <span class="hljs-number">1044240462544529630874108653776566329248296405315071842258659166310</span>, <span class="hljs-number">2088480925089059261748217307553132658496592810630143684517318332621</span>, <span class="hljs-number">4176961850178118523496434615106265316993185621260287369034636665242</span>, <span class="hljs-number">8353923700356237046992869230212530633986371242520574738069273330483</span>, <span class="hljs-number">16707847400712474093985738460425061267972742485041149476138546660967</span>, <span class="hljs-number">33415694801424948187971476920850122535945484970082298952277093321934</span>, <span class="hljs-number">66831389602849896375942953841700245071890969940164597904554186643868</span>, <span class="hljs-number">133662779205699792751885907683400490143781939880329195809108373287736</span>, <span class="hljs-number">267325558411399585503771815366800980287563879760658391618216746575472</span>, <span class="hljs-number">534651116822799171007543630733601960575127759521316783236433493150943</span>, <span class="hljs-number">1069302233645598342015087261467203921150255519042633566472866986301887</span>]<br></code></pre></td></tr></table></figure>
+<p>一个规律：<br>从第2个数开始，每个数与前面的数之和的差总为0或者1，由此可以得到2进制数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">ct = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">40</span>, <span class="hljs-number">79</span>, <span class="hljs-number">159</span>, <span class="hljs-number">317</span>, <span class="hljs-number">635</span>, <span class="hljs-number">1269</span>, <span class="hljs-number">2538</span>, <span class="hljs-number">5077</span>, <span class="hljs-number">10154</span>, <span class="hljs-number">20307</span>, <span class="hljs-number">40615</span>, <span class="hljs-number">81229</span>, <span class="hljs-number">162458</span>, <span class="hljs-number">324916</span>, <span class="hljs-number">649832</span>, <span class="hljs-number">1299665</span>, <span class="hljs-number">2599330</span>, <span class="hljs-number">5198659</span>, <span class="hljs-number">10397319</span>, <span class="hljs-number">20794638</span>, <span class="hljs-number">41589276</span>, <span class="hljs-number">83178552</span>, <span class="hljs-number">166357103</span>, <span class="hljs-number">332714207</span>, <span class="hljs-number">665428414</span>, <span class="hljs-number">1330856827</span>, <span class="hljs-number">2661713655</span>, <span class="hljs-number">5323427309</span>, <span class="hljs-number">10646854619</span>, <span class="hljs-number">21293709237</span>, <span class="hljs-number">42587418474</span>, <span class="hljs-number">85174836949</span>, <span class="hljs-number">170349673898</span>, <span class="hljs-number">340699347795</span>, <span class="hljs-number">681398695591</span>, <span class="hljs-number">1362797391181</span>, <span class="hljs-number">2725594782363</span>, <span class="hljs-number">5451189564725</span>, <span class="hljs-number">10902379129451</span>, <span class="hljs-number">21804758258901</span>, <span class="hljs-number">43609516517803</span>, <span class="hljs-number">87219033035605</span>, <span class="hljs-number">174438066071211</span>, <span class="hljs-number">348876132142421</span>, <span class="hljs-number">697752264284843</span>, <span class="hljs-number">1395504528569685</span>, <span class="hljs-number">2791009057139370</span>, <span class="hljs-number">5582018114278740</span>, <span class="hljs-number">11164036228557480</span>, <span class="hljs-number">22328072457114960</span>, <span class="hljs-number">44656144914229920</span>, <span class="hljs-number">89312289828459841</span>, <span class="hljs-number">178624579656919682</span>, <span class="hljs-number">357249159313839363</span>, <span class="hljs-number">714498318627678726</span>, <span class="hljs-number">1428996637255357453</span>, <span class="hljs-number">2857993274510714906</span>, <span class="hljs-number">5715986549021429811</span>, <span class="hljs-number">11431973098042859623</span>, <span class="hljs-number">22863946196085719246</span>, <span class="hljs-number">45727892392171438492</span>, <span class="hljs-number">91455784784342876983</span>, <span class="hljs-number">182911569568685753966</span>, <span class="hljs-number">365823139137371507933</span>, <span class="hljs-number">731646278274743015865</span>, <span class="hljs-number">1463292556549486031730</span>, <span class="hljs-number">2926585113098972063460</span>, <span class="hljs-number">5853170226197944126921</span>, <span class="hljs-number">11706340452395888253841</span>, <span class="hljs-number">23412680904791776507682</span>, <span class="hljs-number">46825361809583553015364</span>, <span class="hljs-number">93650723619167106030728</span>, <span class="hljs-number">187301447238334212061457</span>, <span class="hljs-number">374602894476668424122913</span>, <span class="hljs-number">749205788953336848245827</span>, <span class="hljs-number">1498411577906673696491653</span>, <span class="hljs-number">2996823155813347392983306</span>, <span class="hljs-number">5993646311626694785966613</span>, <span class="hljs-number">11987292623253389571933226</span>, <span class="hljs-number">23974585246506779143866452</span>, <span class="hljs-number">47949170493013558287732903</span>, <span class="hljs-number">95898340986027116575465806</span>, <span class="hljs-number">191796681972054233150931613</span>, <span class="hljs-number">383593363944108466301863225</span>, <span class="hljs-number">767186727888216932603726450</span>, <span class="hljs-number">1534373455776433865207452900</span>, <span class="hljs-number">3068746911552867730414905800</span>, <span class="hljs-number">6137493823105735460829811601</span>, <span class="hljs-number">12274987646211470921659623202</span>, <span class="hljs-number">24549975292422941843319246403</span>, <span class="hljs-number">49099950584845883686638492807</span>, <span class="hljs-number">98199901169691767373276985614</span>, <span class="hljs-number">196399802339383534746553971228</span>, <span class="hljs-number">392799604678767069493107942455</span>, <span class="hljs-number">785599209357534138986215884910</span>, <span class="hljs-number">1571198418715068277972431769821</span>, <span class="hljs-number">3142396837430136555944863539641</span>, <span class="hljs-number">6284793674860273111889727079282</span>, <span class="hljs-number">12569587349720546223779454158564</span>, <span class="hljs-number">25139174699441092447558908317129</span>, <span class="hljs-number">50278349398882184895117816634258</span>, <span class="hljs-number">100556698797764369790235633268515</span>, <span class="hljs-number">201113397595528739580471266537030</span>, <span class="hljs-number">402226795191057479160942533074061</span>, <span class="hljs-number">804453590382114958321885066148122</span>, <span class="hljs-number">1608907180764229916643770132296243</span>, <span class="hljs-number">3217814361528459833287540264592486</span>, <span class="hljs-number">6435628723056919666575080529184973</span>, <span class="hljs-number">12871257446113839333150161058369946</span>, <span class="hljs-number">25742514892227678666300322116739891</span>, <span class="hljs-number">51485029784455357332600644233479783</span>, <span class="hljs-number">102970059568910714665201288466959565</span>, <span class="hljs-number">205940119137821429330402576933919130</span>, <span class="hljs-number">411880238275642858660805153867838260</span>, <span class="hljs-number">823760476551285717321610307735676520</span>, <span class="hljs-number">1647520953102571434643220615471353041</span>, <span class="hljs-number">3295041906205142869286441230942706082</span>, <span class="hljs-number">6590083812410285738572882461885412163</span>, <span class="hljs-number">13180167624820571477145764923770824327</span>, <span class="hljs-number">26360335249641142954291529847541648653</span>, <span class="hljs-number">52720670499282285908583059695083297307</span>, <span class="hljs-number">105441340998564571817166119390166594613</span>, <span class="hljs-number">210882681997129143634332238780333189226</span>, <span class="hljs-number">421765363994258287268664477560666378453</span>, <span class="hljs-number">843530727988516574537328955121332756906</span>, <span class="hljs-number">1687061455977033149074657910242665513811</span>, <span class="hljs-number">3374122911954066298149315820485331027622</span>, <span class="hljs-number">6748245823908132596298631640970662055244</span>, <span class="hljs-number">13496491647816265192597263281941324110489</span>, <span class="hljs-number">26992983295632530385194526563882648220977</span>, <span class="hljs-number">53985966591265060770389053127765296441955</span>, <span class="hljs-number">107971933182530121540778106255530592883909</span>, <span class="hljs-number">215943866365060243081556212511061185767818</span>, <span class="hljs-number">431887732730120486163112425022122371535637</span>, <span class="hljs-number">863775465460240972326224850044244743071274</span>, <span class="hljs-number">1727550930920481944652449700088489486142548</span>, <span class="hljs-number">3455101861840963889304899400176978972285095</span>, <span class="hljs-number">6910203723681927778609798800353957944570190</span>, <span class="hljs-number">13820407447363855557219597600707915889140381</span>, <span class="hljs-number">27640814894727711114439195201415831778280761</span>, <span class="hljs-number">55281629789455422228878390402831663556561522</span>, <span class="hljs-number">110563259578910844457756780805663327113123044</span>, <span class="hljs-number">221126519157821688915513561611326654226246089</span>, <span class="hljs-number">442253038315643377831027123222653308452492178</span>, <span class="hljs-number">884506076631286755662054246445306616904984356</span>, <span class="hljs-number">1769012153262573511324108492890613233809968711</span>, <span class="hljs-number">3538024306525147022648216985781226467619937423</span>, <span class="hljs-number">7076048613050294045296433971562452935239874845</span>, <span class="hljs-number">14152097226100588090592867943124905870479749691</span>, <span class="hljs-number">28304194452201176181185735886249811740959499382</span>, <span class="hljs-number">56608388904402352362371471772499623481918998764</span>, <span class="hljs-number">113216777808804704724742943544999246963837997528</span>, <span class="hljs-number">226433555617609409449485887089998493927675995056</span>, <span class="hljs-number">452867111235218818898971774179996987855351990111</span>, <span class="hljs-number">905734222470437637797943548359993975710703980222</span>, <span class="hljs-number">1811468444940875275595887096719987951421407960445</span>, <span class="hljs-number">3622936889881750551191774193439975902842815920890</span>, <span class="hljs-number">7245873779763501102383548386879951805685631841779</span>, <span class="hljs-number">14491747559527002204767096773759903611371263683559</span>, <span class="hljs-number">28983495119054004409534193547519807222742527367117</span>, <span class="hljs-number">57966990238108008819068387095039614445485054734235</span>, <span class="hljs-number">115933980476216017638136774190079228890970109468469</span>, <span class="hljs-number">231867960952432035276273548380158457781940218936938</span>, <span class="hljs-number">463735921904864070552547096760316915563880437873877</span>, <span class="hljs-number">927471843809728141105094193520633831127760875747754</span>, <span class="hljs-number">1854943687619456282210188387041267662255521751495507</span>, <span class="hljs-number">3709887375238912564420376774082535324511043502991014</span>, <span class="hljs-number">7419774750477825128840753548165070649022087005982029</span>, <span class="hljs-number">14839549500955650257681507096330141298044174011964058</span>, <span class="hljs-number">29679099001911300515363014192660282596088348023928115</span>, <span class="hljs-number">59358198003822601030726028385320565192176696047856231</span>, <span class="hljs-number">118716396007645202061452056770641130384353392095712461</span>, <span class="hljs-number">237432792015290404122904113541282260768706784191424923</span>, <span class="hljs-number">474865584030580808245808227082564521537413568382849845</span>, <span class="hljs-number">949731168061161616491616454165129043074827136765699690</span>, <span class="hljs-number">1899462336122323232983232908330258086149654273531399380</span>, <span class="hljs-number">3798924672244646465966465816660516172299308547062798761</span>, <span class="hljs-number">7597849344489292931932931633321032344598617094125597521</span>, <span class="hljs-number">15195698688978585863865863266642064689197234188251195043</span>, <span class="hljs-number">30391397377957171727731726533284129378394468376502390085</span>, <span class="hljs-number">60782794755914343455463453066568258756788936753004780171</span>, <span class="hljs-number">121565589511828686910926906133136517513577873506009560341</span>, <span class="hljs-number">243131179023657373821853812266273035027155747012019120683</span>, <span class="hljs-number">486262358047314747643707624532546070054311494024038241365</span>, <span class="hljs-number">972524716094629495287415249065092140108622988048076482731</span>, <span class="hljs-number">1945049432189258990574830498130184280217245976096152965461</span>, <span class="hljs-number">3890098864378517981149660996260368560434491952192305930922</span>, <span class="hljs-number">7780197728757035962299321992520737120868983904384611861845</span>, <span class="hljs-number">15560395457514071924598643985041474241737967808769223723690</span>, <span class="hljs-number">31120790915028143849197287970082948483475935617538447447379</span>, <span class="hljs-number">62241581830056287698394575940165896966951871235076894894758</span>, <span class="hljs-number">124483163660112575396789151880331793933903742470153789789517</span>, <span class="hljs-number">248966327320225150793578303760663587867807484940307579579034</span>, <span class="hljs-number">497932654640450301587156607521327175735614969880615159158067</span>, <span class="hljs-number">995865309280900603174313215042654351471229939761230318316135</span>, <span class="hljs-number">1991730618561801206348626430085308702942459879522460636632269</span>, <span class="hljs-number">3983461237123602412697252860170617405884919759044921273264538</span>, <span class="hljs-number">7966922474247204825394505720341234811769839518089842546529077</span>, <span class="hljs-number">15933844948494409650789011440682469623539679036179685093058154</span>, <span class="hljs-number">31867689896988819301578022881364939247079358072359370186116308</span>, <span class="hljs-number">63735379793977638603156045762729878494158716144718740372232615</span>, <span class="hljs-number">127470759587955277206312091525459756988317432289437480744465230</span>, <span class="hljs-number">254941519175910554412624183050919513976634864578874961488930461</span>, <span class="hljs-number">509883038351821108825248366101839027953269729157749922977860921</span>, <span class="hljs-number">1019766076703642217650496732203678055906539458315499845955721842</span>, <span class="hljs-number">2039532153407284435300993464407356111813078916630999691911443684</span>, <span class="hljs-number">4079064306814568870601986928814712223626157833261999383822887368</span>, <span class="hljs-number">8158128613629137741203973857629424447252315666523998767645774737</span>, <span class="hljs-number">16316257227258275482407947715258848894504631333047997535291549474</span>, <span class="hljs-number">32632514454516550964815895430517697789009262666095995070583098947</span>, <span class="hljs-number">65265028909033101929631790861035395578018525332191990141166197894</span>, <span class="hljs-number">130530057818066203859263581722070791156037050664383980282332395789</span>, <span class="hljs-number">261060115636132407718527163444141582312074101328767960564664791578</span>, <span class="hljs-number">522120231272264815437054326888283164624148202657535921129329583155</span>, <span class="hljs-number">1044240462544529630874108653776566329248296405315071842258659166310</span>, <span class="hljs-number">2088480925089059261748217307553132658496592810630143684517318332621</span>, <span class="hljs-number">4176961850178118523496434615106265316993185621260287369034636665242</span>, <span class="hljs-number">8353923700356237046992869230212530633986371242520574738069273330483</span>, <span class="hljs-number">16707847400712474093985738460425061267972742485041149476138546660967</span>, <span class="hljs-number">33415694801424948187971476920850122535945484970082298952277093321934</span>, <span class="hljs-number">66831389602849896375942953841700245071890969940164597904554186643868</span>, <span class="hljs-number">133662779205699792751885907683400490143781939880329195809108373287736</span>, <span class="hljs-number">267325558411399585503771815366800980287563879760658391618216746575472</span>, <span class="hljs-number">534651116822799171007543630733601960575127759521316783236433493150943</span>, <span class="hljs-number">1069302233645598342015087261467203921150255519042633566472866986301887</span>]<br>x = <span class="hljs-number">0</span><br>y = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">len</span>(ct)):<br>   y += <span class="hljs-built_in">str</span>(ct[i]-x)<br>   x += ct[i]<br><span class="hljs-built_in">print</span>(y)<br><span class="hljs-comment">#100111101010011010000110111101101010011010101010101000000110011011100100010000101001110010000110111001000110011001101000011010100110001010011100100011101011111001101010011001101010001010101010011001101001110010000110011001101111101</span><br><br></code></pre></td></tr></table></figure>
+<p>发现只有231位，前面要补一个0<br><img src="/mdimg/0xl4/15.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Crypto-2"><a href="#Crypto-2" class="headerlink" title="Crypto 2"></a>Crypto 2</h3><h4 id="题目说明-2"><a href="#题目说明-2" class="headerlink" title="题目说明"></a>题目说明</h4><p>the professor asked the students to write a paragraph of a story each and submit it by email. But some students copied answers!<br>format : OSC{}</p>
+<h4 id="解题思路-4"><a href="#解题思路-4" class="headerlink" title="解题思路"></a>解题思路</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> bytes_to_long, getPrime<br><span class="hljs-keyword">from</span> secret <span class="hljs-keyword">import</span> messages<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">RSA_encrypt</span>(<span class="hljs-params">message</span>):<br>    m = bytes_to_long(message)<br>    p = getPrime(<span class="hljs-number">1024</span>)<br>    q = getPrime(<span class="hljs-number">1024</span>)<br>    N = p * q<br>    e = <span class="hljs-number">3</span><br>    c = <span class="hljs-built_in">pow</span>(m, e, N)<br>    <span class="hljs-keyword">return</span> N, e, c<br><br><br><span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> messages:<br>    N, e, c = RSA_encrypt(m)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;n = <span class="hljs-subst">&#123;N&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;e = <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;c = <span class="hljs-subst">&#123;c&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>显然低加密指数攻击</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> libnum<br><span class="hljs-keyword">import</span> gmpy2<br>n = <span class="hljs-number">16691865792147194697602300512532851182049374635648801189035809706515463120586646192481229145243032049569188562652509317620313234450062651687702398851985141210252080200118496555573100538082230667123330012596663673730204381449416210246747100065137562877723883087453655498192797717322414163929033958154847172474876805828355467779563924126108244847992313964795565023554963296215243179420547862638306573737884301209065640499511319512400331964327680966267406302192650421152395257843371809022919488155958420254813754963104236903270765037373600427365083337259089056941701762267110792581437924801009323096077817633370816094073</span><br>e = <span class="hljs-number">3</span><br>c = <span class="hljs-number">527715545190279160683427564102415343921040361668522479441727171363460126920288425567651662947621100428078618585624707291232885706132068328305084115992340337032439274527186826778447854890982475878955397378947713414201050357209397140391734937299379698886378260075489810871914081834819238233619226377140629000968272406078503709732856007314599153696811725183993977424740513321277346005097500256459835713834182894305536107589525724571208098322359262186595358977825573193007799376102473240254372327730839223120373818874006086733633525830272119104666835113980722223258389364156995110666626033474727892354233040278510447646</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">exp</span>(<span class="hljs-params">n, e, c</span>):<br>    k = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-number">1</span>:<br>        m1 = k * n + c<br>        m, t = gmpy2.iroot(m1, e)<br>        <span class="hljs-keyword">if</span> t:<br>            <span class="hljs-built_in">print</span>(libnum.n2s(<span class="hljs-built_in">int</span>(m)))<br>            <span class="hljs-keyword">break</span><br>        k += <span class="hljs-number">1</span><br><br>exp(n, e, c)<br><span class="hljs-comment">#b&#x27;OSC&#123;C0N6r47U14710N5!_Y0U_UND3r574ND_H0W_70_U53_H4574D5_8r04DC457_4774CK_______0xL4ugh&#125;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="Detected"><a href="#Detected" class="headerlink" title="Detected"></a>Detected</h3><h4 id="题目说明-3"><a href="#题目说明-3" class="headerlink" title="题目说明"></a>题目说明</h4><p>Can you be undetected ?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python">&lt;?php<br>session_start();<br>$servername = <span class="hljs-string">&quot;localhost&quot;</span>;<br>$username = <span class="hljs-string">&quot;root&quot;</span>;<br>$dbname = <span class="hljs-string">&quot;ctf_test&quot;</span>;<br>$password = <span class="hljs-string">&quot;&quot;</span>;<br>// Create connection<br>$conn = new mysqli($servername, $username, $password,$dbname);<br><br>// Check connection<br><span class="hljs-keyword">if</span> ($conn-&gt;connect_error) &#123;<br>    die(<span class="hljs-string">&quot;Connection failed: &quot;</span> . $conn-&gt;connect_error);<br>&#125;<br><br>$session=mysqli_real_escape_string($conn,$_COOKIE[<span class="hljs-string">&#x27;PHPSESSID&#x27;</span>]);<br>$ip=$_SERVER[<span class="hljs-string">&#x27;REMOTE_ADDR&#x27;</span>];<br><br><br><br><br>$conn-&gt;query(<span class="hljs-string">&quot;INSERT into misc (ip,phpsess)values(&#x27;$ip&#x27;,&#x27;$session&#x27;)&quot;</span>);<br><br><span class="hljs-keyword">if</span>($conn-&gt;query(<span class="hljs-string">&quot;select Distinct ip from misc where phpsess=&#x27;$session&#x27;&quot;</span>)-&gt;num_rows &gt;<span class="hljs-number">20</span>)<br>&#123;<br>    echo <span class="hljs-string">&quot;Flag&#123;here&#125;&quot;</span>;<br>&#125;<br><span class="hljs-keyword">else</span><br>&#123;<br>    echo <span class="hljs-string">&quot;Still Not 20 ip yet :D&quot;</span>;<br>&#125;<br><br><br>?&gt;<br></code></pre></td></tr></table></figure>
+<h4 id="解题思路-5"><a href="#解题思路-5" class="headerlink" title="解题思路"></a>解题思路</h4><p>打开就看到了flag<br><img src="/mdimg/0xl4/6.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="welcome"><a href="#welcome" class="headerlink" title="welcome"></a>welcome</h3><h4 id="解题思路-6"><a href="#解题思路-6" class="headerlink" title="解题思路"></a>解题思路</h4><p><code>0xL4ugh&#123;W3LC0ME_T0_0UR_C7F_FREE_PALESTINE&#125;</code></p>
+<h2 id="Steganography"><a href="#Steganography" class="headerlink" title="Steganography"></a>Steganography</h2><h3 id="Uraa"><a href="#Uraa" class="headerlink" title="Uraa"></a>Uraa</h3><h4 id="题目说明-4"><a href="#题目说明-4" class="headerlink" title="题目说明"></a>题目说明</h4><p>I love Urahara. he keeps hiding the secrets.</p>
+<h4 id="解题思路-7"><a href="#解题思路-7" class="headerlink" title="解题思路"></a>解题思路</h4><p><a target="_blank" rel="noopener" href="https://github.com/RickdeJager/stegseek/releases/tag/v0.6">https://github.com/RickdeJager/stegseek/releases/tag/v0.6</a><br>下载deb包<br>安装：<br><code>sudo apt install ./stegseek_0.6-1.deb </code><br><code>stegseek --crack ./Uraa.jpg</code><br><img src="/mdimg/0xl4/7.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/0xl4/8.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Zar"><a href="#Zar" class="headerlink" title="Zar"></a>Zar</h3><h4 id="题目说明-5"><a href="#题目说明-5" class="headerlink" title="题目说明"></a>题目说明</h4><p>Fast as zaraki boi. try to find him.</p>
+<h4 id="解题思路-8"><a href="#解题思路-8" class="headerlink" title="解题思路"></a>解题思路</h4><p><img src="/mdimg/0xl4/9.png" srcset="/img/loading.gif" lazyload><br>20转0，09转1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">flag=<span class="hljs-string">&#x27;20 20 20 20 09 09 20 20 20 20 0D 0A 09 0D 0A 20 20 20 20 20 09 09 09 09 20 20 20 0D 0A 09 0D 0A 20 20 20 20 20 09 20 20 09 09 20 20 0D 0A 09 0D 0A 20 20 20 20 20 20 09 09 20 09 20 20 0D 0A 09 0D 0A 20 20 20 20 20 09 09 09 20 09 20 09 0D 0A 09 0D 0A 20 20 20 20 20 09 09 20 20 09 09 09 0D 0A 09 0D 0A 20 20 20 20 20 09 09 20 09 20 20 20 0D 0A 09 0D 0A 20 20 20 20 20 09 09 09 09 20 09 09 0D 0A 09 0D 0A 20 20 20 20 20 09 20 20 20 09 09 20 0D 0A 09 0D 0A 20 20 20 20 20 20 09 09 20 09 20 20 0D 0A 09 0D 0A 20 20 20 20 20 09 20 09 20 20 09 09 0D 0A 09 0D 0A 20 20 20 20 20 20 09 09 20 09 20 09 0D 0A 09 0D 0A 20 20 20 20 20 09 20 09 09 09 09 09 0D 0A 09 0D 0A 20 20 20 20 20 20 09 09 20 09 20 20 0D 0A 09 0D 0A 20 20 20 20 20 20 09 09 20 09 20 09 0D 0A 09 0D 0A 20 20 20 20 20 09 20 09 09 09 09 09 0D 0A 09 0D 0A 20 20 20 20 20 09 20 09 09 20 09 20 0D 0A 09 0D 0A 20 20 20 20 20 20 09 09 20 09 20 20 0D 0A 09 0D 0A 20 20 20 20 20 09 20 09 20 20 09 20 0D 0A 09 0D 0A 20 20 20 20 20 20 09 09 20 09 20 20 0D 0A 09 0D 0A 20 20 20 20 20 09 20 20 09 20 09 09 0D 0A 09 0D 0A 20 20 20 20 20 20 09 09 20 20 20 09 0D 0A 09 0D 0A 20 20 20 20 20 09 20 09 09 09 09 09 0D 0A 09 0D 0A 20 20 20 20 20 09 20 20 20 20 09 20 0D 0A 09 0D 0A 20 20 20 20 20 20 09 09 20 20 20 20 0D 0A 09 0D 0A 20 20 20 20 20 09 20 20 09 20 20 09 0D 0A 09 0D 0A 20 20 20 20 20 09 09 09 09 09 20 09 0D 0A 09 0D 0A 20 20 0D 0A 0D 0A 0D 0A&#x27;</span><br><br>a=<span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> flag.split(<span class="hljs-string">&#x27; &#x27;</span>):<br>    <span class="hljs-keyword">if</span> i == <span class="hljs-string">&#x27;20&#x27;</span>:<br>      a+=<span class="hljs-string">&#x27;0&#x27;</span><br>    <span class="hljs-keyword">if</span> i == <span class="hljs-string">&#x27;09&#x27;</span>:<br>       a+=<span class="hljs-string">&#x27;1&#x27;</span><br>    <span class="hljs-keyword">if</span> i == <span class="hljs-string">&#x27;0D&#x27;</span>:<br>       a+=<span class="hljs-string">&#x27; &#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> a.split(<span class="hljs-string">&#x27; &#x27;</span>):<br>   <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(i)&gt;<span class="hljs-number">2</span>:<br>      <span class="hljs-built_in">print</span>(<span class="hljs-built_in">chr</span>(<span class="hljs-built_in">int</span>(i,<span class="hljs-number">2</span>)),end=<span class="hljs-string">&#x27;&#x27;</span>)<br><span class="hljs-comment">#0xL4ugh&#123;F4S5_45_Z4R4K1_B0I&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Colorful"><a href="#Colorful" class="headerlink" title="Colorful"></a>Colorful</h3><h4 id="题目说明-6"><a href="#题目说明-6" class="headerlink" title="题目说明"></a>题目说明</h4><h4 id="解题思路-9"><a href="#解题思路-9" class="headerlink" title="解题思路"></a>解题思路</h4><p><a target="_blank" rel="noopener" href="https://www.dcode.fr/hexahue-cipher">https://www.dcode.fr/hexahue-cipher</a><br><code>0xL4ugh&#123;TH1S_15_H3X4HU3_C0D3&#125;</code></p>
+<h3 id="4-Bloody"><a href="#4-Bloody" class="headerlink" title="4.Bloody"></a>4.Bloody</h3><p>just line ? but it contain a lot of infoooooooos</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br>img = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;./Bloody.png&quot;</span>)<br>flag=<span class="hljs-string">&#x27;&#x27;</span><br>h, w= (img.size)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(h):<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(w):<br>        pixel = (img.getpixel((i,j)))<br>        <span class="hljs-keyword">if</span> pixel != (<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0</span>):<br>          flag+=<span class="hljs-built_in">chr</span>(pixel[<span class="hljs-number">0</span>])<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;&#125;&#x27;</span> <span class="hljs-keyword">in</span> flag:<br>           <span class="hljs-keyword">break</span><br><span class="hljs-built_in">print</span>(flag)<br><span class="hljs-comment">#0xL4ugh&#123;R_G_B_FOR_TH3_W1N&#125;</span><br></code></pre></td></tr></table></figure>
+<h2 id="Osint"><a href="#Osint" class="headerlink" title="Osint"></a>Osint</h2><h3 id="Cat"><a href="#Cat" class="headerlink" title="Cat"></a>Cat</h3><h4 id="题目说明-7"><a href="#题目说明-7" class="headerlink" title="题目说明"></a>题目说明</h4><p>i lost my cat a while ago , and recently i found a photo of it can you help me track my cat by getting the location of this image.<br>flag is in the format: 0xL4ugh{Latitude,Longitude}. Use the 6 digits after the decimal point. (ex: 112.1234567 –&gt; 112.123456)</p>
+<h4 id="解题思路-10"><a href="#解题思路-10" class="headerlink" title="解题思路"></a>解题思路</h4><p>图片左下角<code>Saswat Kumar Dash</code>是摄影师<br>google<code>Saswat Kumar Dash Cat</code><br>通过图片附件的名字找到了一模一样的图<code>[https://www.flickr.com/photos/95789140@N05/10472912333](https://www.flickr.com/photos/95789140@N05/10472912333)</code><br><img src="/mdimg/0xl4/10.png" srcset="/img/loading.gif" lazyload><br>在网站有拍摄地点<br>在url上显示了经纬度<br><code>[https://www.flickr.com/map/?fLat=29.386886&amp;fLon=47.977166&amp;zl=13&amp;everyone_nearby=1&amp;photo=10472912333](https://www.flickr.com/map/?fLat=29.386886&amp;fLon=47.977166&amp;zl=13&amp;everyone_nearby=1&amp;photo=10472912333)</code><br><code>0xL4ugh&#123;29.386886,47.977166&#125;</code></p>
+<h3 id="Hacker"><a href="#Hacker" class="headerlink" title="Hacker"></a>Hacker</h3><h4 id="题目说明-8"><a href="#题目说明-8" class="headerlink" title="题目说明"></a>题目说明</h4><p>A hacker named z1Luxiboy bypassed our system protection with a Bay pass tool</p>
+<h4 id="解题思路-11"><a href="#解题思路-11" class="headerlink" title="解题思路"></a>解题思路</h4><p><img src="/mdimg/0xl4/11.png" srcset="/img/loading.gif" lazyload><br><code>[https://www.reddit.com/user/z1Luxiboy/comments/1149mst/%D8%A8%D9%88%D8%B4%D9%83%D8%A7%D9%83_%D9%85%D8%AD%D9%81%D9%88%D8%B8/](https://www.reddit.com/user/z1Luxiboy/comments/1149mst/%D8%A8%D9%88%D8%B4%D9%83%D8%A7%D9%83_%D9%85%D8%AD%D9%81%D9%88%D8%B8/)</code><br><img src="/mdimg/0xl4/12.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/0xl4/13.png" srcset="/img/loading.gif" lazyload><code>找与这个评论的id相关的 z1Marvelman</code><br>找到github这个b的github<code>[https://github.com/Marvel0x11?tab=repositories](https://github.com/Marvel0x11?tab=repositories)</code><br>有一个骗人的flag<br><code>[https://github.com/Marvel0x11/Baypass-tool/commit/792cc0477af3a8703919133c293877d086908e6a](https://github.com/Marvel0x11/Baypass-tool/commit/792cc0477af3a8703919133c293877d086908e6a)</code><br><img src="/mdimg/0xl4/14.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/%E6%AF%94%E8%B5%9BWrite-Up/" class="category-chain-item">比赛Write Up</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%AF%94%E8%B5%9BWrite-Up/">#比赛Write Up</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>0xL4ughCTF2023</div>
+      <div>http://example.com/2023/02/19/0xL4ughCTF/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/16/HUBUCTF%202022%20%E6%96%B0%E7%94%9F%E8%B5%9B-web-wp/" title="HUBUCTF 2022 新生赛web">
+                        <span class="hidden-mobile">HUBUCTF 2022 新生赛web</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
