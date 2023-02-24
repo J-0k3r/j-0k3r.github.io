@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>MMACTF 2015-miyako</title>
+    <link href="/2023/02/24/MMACTF%202015-miyako/"/>
+    <url>/2023/02/24/MMACTF%202015-miyako/</url>
+    
+    <content type="html"><![CDATA[<p><img src="https://c.img.dasctf.com/images/2023224/1677249633233-04ad9924-59d3-4eff-8bb4-d619375a710d.png"></p><p>提取图片像素</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">import</span> sys<br>im = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">r&quot;stego.png&quot;</span>)<br>bands = <span class="hljs-string">&#x27;&#x27;</span>.join(im.getbands())<br>width, height = im.size<br>pre=<span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(height):<br>    <span class="hljs-keyword">for</span> w <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(width):<br>        pixels = im.getpixel((w,h))<br>        <span class="hljs-keyword">if</span> bands==<span class="hljs-string">&#x27;RGBA&#x27;</span>:<br>            r,g,b,a = pixels<br>            <span class="hljs-built_in">print</span> (r,g,b,a)<br>        <span class="hljs-keyword">elif</span> bands==<span class="hljs-string">&#x27;RGB&#x27;</span>:<br>            r,g,b = pixels<br>            <span class="hljs-built_in">print</span> (r,g,b)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span> (pixels)<br></code></pre></td></tr></table></figure><p>仔细观察，我们发现每个像素及其相邻像素略有不同：</p><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">224 </span><span class="hljs-number">216</span> <span class="hljs-number">216</span><br><span class="hljs-symbol">229 </span><span class="hljs-number">221</span> <span class="hljs-number">222</span><br><span class="hljs-symbol">223 </span><span class="hljs-number">217</span> <span class="hljs-number">222</span><br><span class="hljs-symbol">227 </span><span class="hljs-number">221</span> <span class="hljs-number">217</span><br></code></pre></td></tr></table></figure><p>第一个像素 RGB 值与第二个像素之间的差异约为 6，第二个和第四个像素 RGB 值之间的差异为 5，依此类推。<br>差值的正负号代表了0，1<br>每隔一个像素，我们计算蓝色值与前一个像素的差值，并将其解释为 0（如果为负）或 1（如果为正）。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">import</span> sys<br>im = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">r&quot;stego.png&quot;</span>)<br>pix = im.load()<br>width, height = im.size<br><br>msg=<span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,height):<br>    <span class="hljs-keyword">for</span> w <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,width,<span class="hljs-number">2</span>):<br>        nr=ng=nb=<span class="hljs-number">0</span><br>        r,g,b=pix[w,h]<br>        pr,pg,pb=pix[w-<span class="hljs-number">1</span>,h]<br>        db = b-pb<br>        <span class="hljs-keyword">if</span> db&lt;<span class="hljs-number">0</span>:<br>            pix[w,h]=(<span class="hljs-number">256</span>,<span class="hljs-number">256</span>,<span class="hljs-number">256</span>)<br>            msg+=<span class="hljs-string">&#x27;0&#x27;</span><br>        <span class="hljs-keyword">else</span>:<br>            pix[w,h]=(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>)<br>            msg+=<span class="hljs-string">&#x27;1&#x27;</span><br>        pix[w-<span class="hljs-number">1</span>,h]=(<span class="hljs-number">128</span>,<span class="hljs-number">128</span>,<span class="hljs-number">128</span>)<br><span class="hljs-built_in">print</span> (msg)<br></code></pre></td></tr></table></figure><p>然后转字符串<br><img src="https://c.img.dasctf.com/images/2023224/1677250305921-0528fccf-6824-4169-842f-ba1a10f12d60.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>CTF</category>
+      
+      <category>Write Up</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Write Up</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>内存取证</title>
     <link href="/2023/02/22/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/"/>
     <url>/2023/02/22/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/</url>
