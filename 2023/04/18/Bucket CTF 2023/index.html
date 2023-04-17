@@ -16,24 +16,24 @@
   <meta name="author" content="J_0k3r">
   <meta name="keywords" content="">
   
-    <meta name="description" content="春风得意马蹄疾，一日看尽长安花。">
+    <meta name="description" content="雨打梨花深闭门，忘了青春，误了青春。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker 部署ctf动态靶机">
-<meta property="og:url" content="http://example.com/2023/03/24/docker%20%E9%83%A8%E7%BD%B2ctf%E5%8A%A8%E6%80%81%E9%9D%B6%E6%9C%BA/index.html">
+<meta property="og:title" content="Bucket CTF 2023-wp">
+<meta property="og:url" content="http://example.com/2023/04/18/Bucket%20CTF%202023/index.html">
 <meta property="og:site_name" content="J_0k3r">
-<meta property="og:description" content="春风得意马蹄疾，一日看尽长安花。">
+<meta property="og:description" content="雨打梨花深闭门，忘了青春，误了青春。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/wp27.png">
-<meta property="article:published_time" content="2023-03-24T06:27:32.000Z">
-<meta property="article:modified_time" content="2023-03-24T13:13:53.425Z">
+<meta property="og:image" content="http://example.com/img/wp31.jpg">
+<meta property="article:published_time" content="2023-04-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-04-17T13:31:24.239Z">
 <meta property="article:author" content="J_0k3r">
-<meta property="article:tag" content="小记">
+<meta property="article:tag" content="比赛Write Up">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/wp27.png">
+<meta name="twitter:image" content="http://example.com/img/wp31.jpg">
   
   
   
-  <title>docker 部署ctf动态靶机 - J_0k3r</title>
+  <title>Bucket CTF 2023-wp - J_0k3r</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -205,13 +205,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/wp27.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/img/wp30.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="docker 部署ctf动态靶机"></span>
+            <span id="subtitle" data-typed-text="Bucket CTF 2023-wp"></span>
           
         </div>
 
@@ -227,8 +227,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-24 14:27" pubdate>
-          2023年3月24日 下午
+        <time datetime="2023-04-18 00:00" pubdate>
+          2023年4月18日 凌晨
         </time>
       </span>
     
@@ -239,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          966 字
         
       </span>
     
@@ -250,7 +250,7 @@
         
         
         
-          13 分钟
+          9 分钟
         
       </span>
     
@@ -288,20 +288,30 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">docker 部署ctf动态靶机</h1>
+            <h1 style="display: none">Bucket CTF 2023-wp</h1>
             
             
               <div class="markdown-body">
                 
-                <p><del>坐大牢了呜呜呜</del><br>本文在ubuntu20.04 下进行，且Linux安装，换源以及相关工具和操作已经准备完毕</p>
-<h3 id="docker-安装"><a href="#docker-安装" class="headerlink" title="docker 安装"></a>docker 安装</h3><p>首先先进入根目录<br><code>cd /</code><br>然后进入root //注意最好不要退出root，为了避免你们出错，我命令都加了sudo，如果已一直是su了就可以不用<br><code>su</code><br>然后<br><code>curl -fsSL [https://get.docker.com](https://get.docker.com) | bash -s docker --mirror Aliyun</code><br>然后 <code>docker images</code><br><img src="/note/docker/1.png" srcset="/img/loading.gif" lazyload><br>如图则为安装成功</p>
-<h3 id="配置dockerhub加速"><a href="#配置dockerhub加速" class="headerlink" title="配置dockerhub加速"></a>配置dockerhub加速</h3><p><a target="_blank" rel="noopener" href="https://www.aliyun.com/">https://www.aliyun.com/</a><br>注册一个账号<br>然后在搜索框搜“容器”得到以下界面<br><img src="/note/docker/2.png" srcset="/img/loading.gif" lazyload><br>然后<br><img src="/note/docker/3.png" srcset="/img/loading.gif" lazyload><br>然后<br><img src="/note/docker/4.png" srcset="/img/loading.gif" lazyload><br><img src="/note/docker/5.png" srcset="/img/loading.gif" lazyload><br>然后输入<code>docker info</code><br>出现<img src="/note/docker/6.png" srcset="/img/loading.gif" lazyload>则为成功</p>
-<h3 id="docker-compose安装"><a href="#docker-compose安装" class="headerlink" title="docker-compose安装"></a>docker-compose安装</h3><p><code>sudo curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-</code>uname -s<code>-</code>uname -m<code> -o /usr/local/bin/docker-compose</code><br>或者<br><code>sudo curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.1/docker-compose-</code>uname -s<code>-</code>uname -m<code> -o /usr/local/bin/docker-compose</code><br>然后授权<br><code>sudo chmod +x /usr/local/bin/docker-compose</code><br>然后输入检查<br><code>docker-compose --version</code><br><img src="/note/docker/7.png" srcset="/img/loading.gif" lazyload><br>返回版本就成功了捏</p>
-<h3 id="dockerhub"><a href="#dockerhub" class="headerlink" title="dockerhub"></a>dockerhub</h3><p><a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a><br>注册一个账号<br>然后在ubuntu登录<br><code>sudo docker login</code><br>然后把你的题目文件夹丢进去虚拟机<br>以下以一个web题为例子<br>进入到你题目文件夹<br><img src="/note/docker/8.png" srcset="/img/loading.gif" lazyload><br>源码和sh放在同一个目录下，Dockerfile放在与src目录平行的位置<br><img src="/note/docker/9.png" srcset="/img/loading.gif" lazyload><br>Dockerfile：<br>内容如下</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> ctftraining/base_image_nginx_mysql_php_73      //基础镜像<br><span class="hljs-keyword">LABEL</span><span class="language-bash"> Author=<span class="hljs-string">&quot;J_0k3r&quot;</span>                               //作者</span><br><span class="hljs-keyword">LABEL</span><span class="language-bash"> Blog=<span class="hljs-string">&quot;https://j-0k3r.github.io/&quot;</span>        //博客</span><br>//上面这两行可有可无<br><span class="hljs-keyword">COPY</span><span class="language-bash"> src /var/www/html              //docker内执行的操作，把src的复制到后面的路径中</span><br></code></pre></td></tr></table></figure>
-<p>flag.sh：<br>内容</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment">#!/bin/sh	#必需的东西没什么好讲的</span><br>sed -i <span class="hljs-string">&quot;s/flag&#123;testflag&#125;/$GZCTF_FLAG/&quot;</span> /var/www/html/index.php <span class="hljs-comment">#使用平台的动态flag替换index.php中的flag，这里我使用的平台为GZCTF，因此动态flag环境变量为$GZCTF_FLAG，其他平台一般为$FLAG</span><br>export GZCTF_FLAG=<span class="hljs-string">&quot;&quot;</span>	<span class="hljs-comment">#这句应该是对接平台的动态flag接口</span><br></code></pre></td></tr></table></figure>
-<p>使用时请务必把中文注释都删掉<br>上面的都准备好之后<br>开始本地搭镜像并且传到dockerhub<br><img src="/note/docker/10.png" srcset="/img/loading.gif" lazyload><br>先在dockerhub建好，再本地搭<br><code>sudo docker build -t 用户名/题目名 .</code><br>用户名是你dockerhub登录的用户名，题目名要和你在dockerhub上面的一样（命令后面的.不要忘了<br><img src="/note/docker/11.png" srcset="/img/loading.gif" lazyload><br>这样就是成功了<br>然后push到dockerhub<br><code>sudo docker push 用户名/题目名</code><br><img src="/note/docker/12.png" srcset="/img/loading.gif" lazyload><br>然后就可以去dockerhub看看<br><img src="/note/docker/13.png" srcset="/img/loading.gif" lazyload><br>然后就是测试题目了<br>这里就不展示测试了<br>到这，题目docker就搞定了<br>呜<del>呜呜，写完博客继续去坐牢给校赛测试题目了</del></p>
+                <h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h3 id="sqli1"><a href="#sqli1" class="headerlink" title="sqli1"></a>sqli1</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span>&#x27; or <span class="hljs-number">1</span>=<span class="hljs-number">1</span> #<br></code></pre></td></tr></table></figure>
+
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span>&#x27; or <span class="hljs-number">1</span>=<span class="hljs-number">1</span> #<br></code></pre></td></tr></table></figure>
+<h3 id="sqli2"><a href="#sqli2" class="headerlink" title="sqli2"></a>sqli2</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span>&#x27; or <span class="hljs-number">1</span>=<span class="hljs-number">1</span> #<br></code></pre></td></tr></table></figure>
+<h4 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h4><h3 id="sqli3"><a href="#sqli3" class="headerlink" title="sqli3"></a>sqli3</h3><h4 id="题目说明"><a href="#题目说明" class="headerlink" title="题目说明"></a>题目说明</h4><p>Finally! I moved the secret into a <strong>COMPLETELY</strong> different table. There is <strong>NO</strong> way you can find it now.</p>
+<h4 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h4><p>sqlmap:<br>1.txt:<br><img src="https://c.img.dasctf.com/images/2023417/1681737646797-c2d6e049-bf32-490f-b539-adcb5e1997dc.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Ping-check"><a href="#Ping-check" class="headerlink" title="Ping check"></a>Ping check</h3><h4 id="题目说明-1"><a href="#题目说明-1" class="headerlink" title="题目说明"></a>题目说明</h4><p>WEB<br>EASY<br>Did you know that this CTF is run on <a target="_blank" rel="noopener" href="https://github.com/EmergencyBucket/pail">custom built open source software</a>? Note: The flag is not in the usual bucket{} format.<br>Do not overthink.<br>You don’t need to go to any other page.</p>
+<h4 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h4><p>题目说明里有网站源码：<a target="_blank" rel="noopener" href="https://github.com/EmergencyBucket/pail">https://github.com/EmergencyBucket/pail</a><br><img src="https://c.img.dasctf.com/images/2023417/1681737664294-96f2b9e5-769f-418d-883b-affc308ae1b4.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Gif"><a href="#Gif" class="headerlink" title="Gif"></a>Gif</h3><h4 id="题目说明-2"><a href="#题目说明-2" class="headerlink" title="题目说明"></a>题目说明</h4><p>I made a <strong>secure</strong> php web app where I can upload all my gifs. Some people on the internet told me to run it in a docker container just to protect it from my personal files, but who cares.</p>
+<h4 id="解题思路-4"><a href="#解题思路-4" class="headerlink" title="解题思路"></a>解题思路</h4><p><img src="https://c.img.dasctf.com/images/2023417/1681737674775-5c92e9f7-bb7d-4253-904f-32c8a9719bc2.png" srcset="/img/loading.gif" lazyload><br>看他的表单提交，接收2个参数，文件名，和文件<br><img src="https://c.img.dasctf.com/images/2023417/1681737682403-8a0bb99f-876a-4ede-a0d8-0b7ae934e202.png" srcset="/img/loading.gif" lazyload><br>需要加个gif的magic header <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_file_signatures">https://en.wikipedia.org/wiki/List_of_file_signatures</a><br><img src="https://c.img.dasctf.com/images/2023417/1681738088838-d94af952-59b4-4d03-ac9a-fd838c783ab8.png" srcset="/img/loading.gif" lazyload><br><img src="https://c.img.dasctf.com/images/2023417/1681737699420-bcafc684-8134-4abf-a840-61386bcdfb1a.png" srcset="/img/loading.gif" lazyload><br>貌似不能eval，直接system执行命令可以<br><img src="https://c.img.dasctf.com/images/2023417/1681737707376-2c33a240-2e4e-4714-a6af-94fab843aebf.png" srcset="/img/loading.gif" lazyload><br><img src="https://c.img.dasctf.com/images/2023417/1681737714395-3b56b13c-813b-46ff-8bff-dda39f32fab8.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="sqli4"><a href="#sqli4" class="headerlink" title="sqli4"></a>sqli4</h3><p>貌似和3一样<br><img src="https://c.img.dasctf.com/images/2023417/1681737722357-3378f2a9-21a5-4db5-91a2-06358e4f6ec5.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h2><h3 id="Apps"><a href="#Apps" class="headerlink" title="Apps"></a>Apps</h3><h4 id="解题思路-5"><a href="#解题思路-5" class="headerlink" title="解题思路"></a>解题思路</h4><p><img src="https://c.img.dasctf.com/images/2023417/1681737732590-e9b3aea7-5685-4c79-85fe-8e67c48344a5.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="minecraft"><a href="#minecraft" class="headerlink" title="minecraft"></a>minecraft</h3><h4 id="解题思路-6"><a href="#解题思路-6" class="headerlink" title="解题思路"></a>解题思路</h4><p><img src="https://c.img.dasctf.com/images/2023417/1681737741855-a73ed541-8aeb-4007-95bd-b35c7b738b93.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Discord"><a href="#Discord" class="headerlink" title="Discord"></a>Discord</h3><h4 id="解题思路-7"><a href="#解题思路-7" class="headerlink" title="解题思路:"></a>解题思路:</h4><p><img src="https://c.img.dasctf.com/images/2023417/1681737749433-e41b262e-672b-4bfb-8e7a-daa75db02535.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Transmission"><a href="#Transmission" class="headerlink" title="Transmission"></a>Transmission</h3><h4 id="解题思路-8"><a href="#解题思路-8" class="headerlink" title="解题思路"></a>解题思路</h4><p><img src="https://c.img.dasctf.com/images/2023417/1681737756700-6a075b2a-3beb-4626-a985-a1af0612be06.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="P-clocks-解题做题人"><a href="#P-clocks-解题做题人" class="headerlink" title="P | clocks | 解题做题人"></a>P | clocks | 解题做题人</h3><h4 id="解题思路-9"><a href="#解题思路-9" class="headerlink" title="解题思路"></a>解题思路</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">tshark -r clocks_medium.pcap -T fields -e frame.time_delta | <span class="hljs-built_in">cut</span> -c3-3 | <span class="hljs-built_in">tr</span> <span class="hljs-string">&#x27;15&#x27;</span> <span class="hljs-string">&#x27;01&#x27;</span> | <span class="hljs-built_in">tr</span> -d <span class="hljs-string">&#x27;\n&#x27;</span> | <span class="hljs-built_in">cut</span> -c2- | perl -lpe <span class="hljs-string">&#x27;$_=pack&quot;B*&quot;,$_&#x27;</span></span><br>bucket&#123;look_at_the_times_sometimes&#125;<br></code></pre></td></tr></table></figure>
+
+
+
 
                 
               </div>
@@ -320,12 +330,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="category-chain-item">环境配置</a>
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  <a href="/categories/CTF/%E6%AF%94%E8%B5%9BWrite-Up/" class="category-chain-item">比赛Write Up</a>
   
   
 
@@ -342,7 +352,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%B0%8F%E8%AE%B0/">#小记</a>
+        <a href="/tags/%E6%AF%94%E8%B5%9BWrite-Up/">#比赛Write Up</a>
       
     </div>
   
@@ -354,8 +364,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>docker 部署ctf动态靶机</div>
-      <div>http://example.com/2023/03/24/docker 部署ctf动态靶机/</div>
+      <div>Bucket CTF 2023-wp</div>
+      <div>http://example.com/2023/04/18/Bucket CTF 2023/</div>
     </div>
     <div class="license-meta">
       
@@ -367,7 +377,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年3月24日</div>
+          <div>2023年4月18日</div>
         </div>
       
       
@@ -392,18 +402,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/18/Bucket%20CTF%202023/" title="Bucket CTF 2023-wp">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Bucket CTF 2023-wp</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/24/kali%20linux%20%E5%AE%89%E8%A3%85/" title="kali linux 安装">
-                        <span class="hidden-mobile">kali linux 安装</span>
+                      <a href="/2023/03/24/docker%20%E9%83%A8%E7%BD%B2ctf%E5%8A%A8%E6%80%81%E9%9D%B6%E6%9C%BA/" title="docker 部署ctf动态靶机">
+                        <span class="hidden-mobile">docker 部署ctf动态靶机</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
