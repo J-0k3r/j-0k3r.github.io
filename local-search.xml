@@ -355,33 +355,6 @@
   
   
   <entry>
-    <title>社工</title>
-    <link href="/2023/02/13/%E6%B6%A9%E6%B6%A9/"/>
-    <url>/2023/02/13/%E6%B6%A9%E6%B6%A9/</url>
-    
-    <content type="html"><![CDATA[<p><strong>本题附件传送门：<a href="https://github.com/J-0k3r/something">https://github.com/J-0k3r/something</a></strong></p><p>如果喜欢，点个star捏（逃</p><h2 id="杰哥，我还要涩（整活出的一道涩工）-逃"><a href="#杰哥，我还要涩（整活出的一道涩工）-逃" class="headerlink" title="杰哥，我还要涩（整活出的一道涩工）(逃"></a>杰哥，我还要涩（整活出的一道涩工）(逃</h2><p>这题设置了两条路，两条路都可以解出来<br>readme.txt:</p><ul><li>flag{飞机型号(简称)-座位-目的地(不是机场)}</li><li>良学良是一个带黑阔，他经常要到处跑恰大钱。</li><li>有一个地方他每年都要去的。</li><li>p2是第3次他出去恰钱拍的，p1是他第2次出去拍的（他有个怪癖，每次出去都要坐同一型号的灰鸡）</li><li>最近他又要出去第4次恰了，他买了最近的票准备又去一次，</li><li>他说他上一次去坐的内个位置很舒服，这次再预定一次，</li><li>为了抓住他撅爆他，你能帮我找到他的座位吗？</li><li>噢，还有，前两次他出去时给我发的一些照片，以及一些聊天记录</li><li>你能帮我找到他到底去哪了吗？<h4 id="解1："><a href="#解1：" class="headerlink" title="解1："></a>解1：</h4>要知道飞机座位，需要知道：飞机型号以及航空公司<br>p1：<br><img src="/mdimg/%E6%B6%A9/1.png"><br><a href="https://www.gaitubao.com/exif">https://www.gaitubao.com/exif</a><br><img src="/mdimg/%E6%B6%A9/2.png"><br><img src="/mdimg/%E6%B6%A9/3.png"><br>说明这是在起飞地附近<br>查看exif可以知道是在广州市花都区拍的，根据readme里的说明可以找到起飞的机场是<code>广州白云机场</code><br>p2：<br><img src="/mdimg/%E6%B6%A9/4.png"><br>由p2可以知道这是<code>南方航空</code>的飞机，readme里面说了要坐同一型号的飞机，并且知道了这是在机翼旁边且为机翼前部的靠窗的座位（我去的时候是坐左边，但由于拍照存在视觉误差，所以左边和右边都对）<br>p3：<br><img src="/mdimg/%E6%B6%A9/5.png"><br>根据图可以知道，这里面有落地机场的信息，炒饭很容易想到是扬州炒饭，想不到也没关系<br><img src="/mdimg/%E6%B6%A9/6.png"><br>查看这个图片的exif可以知道诗句的下一句是说<code>扬州</code>（作者的这里的是QQ号，根据放在作者这个位置以及附件都是QQ聊天记录截图，可以猜到是QQ号，这是第2条解题途径，放在同一张图片就是为了用QQ这条路去验证你前面这条路的，QQ这条路比较清晰）<br><img src="/mdimg/%E6%B6%A9/7.png"><br>由以上分析可以知道：<code>南方航空公司，广州白云机场飞往扬州泰州机场</code><br>结合readme里说的买最近的机票(即2月11日)<br><img src="/mdimg/%E6%B6%A9/8.png"><br>得到了飞机型号是<code>空客A320</code>：<a href="https://www.csair.com/cn/tourguide/flight_service/cabin_layout/kongke/18h1tllaukv3c.shtml">https://www.csair.com/cn/tourguide/flight_service/cabin_layout/kongke/18h1tllaukv3c.shtml</a><br><img src="/mdimg/%E6%B6%A9/9.png"><br>根据p2拍摄的位置，可以知道为<code>36A 或者36K</code><br>至此，flag的前半段出来了：<code>flag&#123;空客A320-36A</code><br>p4：<br><img src="/mdimg/%E6%B6%A9/10.png"><br>这两张图片搜图应该可以知道是第一张是上海的外滩，第二张是在东方明珠的脚下<br>搜不到也没关系<br><img src="/mdimg/%E6%B6%A9/11.png"><br>p5里面很清楚的说到，最高，632  百度就知道<br><img src="/mdimg/%E6%B6%A9/12.png"><br>（这里也有后面要用到的信息：<code>陆家嘴</code>，(其实这(陆家嘴金融贸易区)也是一个坑<img src="/mdimg/%E6%B6%A9/a.png">，误导后面的flag)</li></ul><p>但是没发现也问题不大，看下面<br>p6：<br><img src="/mdimg/%E6%B6%A9/13.png"><br>这里就很精彩的给出了一张在外滩拍摄的<code>陆家嘴CBD</code>的图片，里面包含的东方明珠，以及上海中心大厦是前面的图片里的<br>到这很清晰的知道是上海，而且flag的格式说的很清楚：<code>地方+属性 例子：**曼哈顿***</code><br>百度曼哈顿可以知道它是纽约的CBD（有学过地理的可以一眼丁真，没学过也没关系有百度）<br>根据hint可以知道 例子：纽约曼哈顿CBD （这里我已经故意找了一个字数和flag一样的例子了，比如广州天河CBD就相差了一个字）<br>那就可以知道就是<code>上海的CBD</code>了，百度可以知道是<code>陆家嘴</code><br>（这里的逻辑其实很清楚，聊天记录里说：这其实都是一个地方&amp;他们由共同的特点……..附件里面的关于上海的照片都在一个很小的范围内，几个地方相隔不到200米，他们都隶属语陆家嘴CBD。如果单纯是上海，上海辣么大，为什么不放其他地方的照片捏。还有就是曼哈顿了，一个在美国，一个在中国，他们怎么扯上关系，怎么有相同的特点呢？曼哈顿的属性就是纽约的CBD呐)<br>综上所述：后半段<code>上海陆家嘴CBD</code><br><code>flag&#123;空客A320-36A-上海陆家嘴CBD&#125;</code>&amp; <code>flag&#123;空客A320-36K-上海陆家嘴CBD&#125;</code></p><h4 id="解2："><a href="#解2：" class="headerlink" title="解2："></a>解2：</h4><p>前面都一样的操作，从P3开始<br>由QQ号可以<br><img src="/mdimg/%E6%B6%A9/14.png"><br><code>这个头像就是前面聊天记录的解题的要找的那个人啊！涩一个人最好肯定就是翻他的QQ空间和朋友圈啦</code><br><img src="/mdimg/%E6%B6%A9/15.png"><br>得到了目的地机场：<code>扬州泰州机场</code><br>然后的操作和解1一样<br>继续翻<br><img src="/mdimg/%E6%B6%A9/16.png"><br>百度<code>600663</code><br><img src="/mdimg/%E6%B6%A9/17.png"><br><code>陆家嘴</code><br>继续翻<br><img src="/mdimg/%E6%B6%A9/18.png"><br><img src="/mdimg/%E6%B6%A9/19.png"><br><code>CBD</code><br>这样就肥肠清晰了捏<br><code>flag&#123;空客A320-36A-上海陆家嘴CBD&#125;</code>&amp; <code>flag&#123;空客A320-36K-上海陆家嘴CBD&#125;</code><br>两条路任意一条都可以<br>当然可以都走一走，相互验证就更加清晰明了了，第一条路比较需要逻辑能力，第二条就百度就完事了（逃</p><p><img src="/mdimg/%E6%B6%A9/20.gif"></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>CTF</category>
-      
-      <category>Write Up</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>Write Up</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>HSCSEC 2023-wp</title>
     <link href="/2023/02/13/HSCSEC%202023-wp/"/>
     <url>/2023/02/13/HSCSEC%202023-wp/</url>
