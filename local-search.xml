@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>MemProcFS 内存取证</title>
+    <link href="/2023/12/05/MemProcFS%E4%BD%BF%E7%94%A8/"/>
+    <url>/2023/12/05/MemProcFS%E4%BD%BF%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<p>ok啊，kali没内存了，vol用不上<br>刚好接触新工具MemProcFS，很直观能看到各种文件，不用记命令<br>但是第一次用不太熟，也没看到啥文章，一个个横冲直撞的找文件很煎熬<br>注册表这种也是看不懂<br>道阻且长</p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>pip install leechcorepyc</code><br><a href="https://github.com/ufrisk/MemProcFS/releases">https://github.com/ufrisk/MemProcFS/releases</a><br>安装最新版本<br>解压即可食用</p><h2 id="某医疗行业赛取证"><a href="#某医疗行业赛取证" class="headerlink" title="某医疗行业赛取证"></a>某医疗行业赛取证</h2><h3 id="鱼叉攻击场景溯源-1"><a href="#鱼叉攻击场景溯源-1" class="headerlink" title="鱼叉攻击场景溯源_1"></a>鱼叉攻击场景溯源_1</h3><p>题目内容：<br>某医院门诊挂号系统遭遇钓鱼攻击，系统内被植入木马程序，现请你对该场景下受灾系统进行分析溯源并回答如下问题。<br>（本题附件名：yuchagongji.7z）<br>请分析受灾系统的主机基本信息（答案格式为flag{系统主机名+系统用户名+系统用户SID+操作系统构建build编号+主机网卡的固定IP地址的md5值}<br>例如：系统主机名为weiruan，系统用户名为user1，系统用户SID为S-1-4-18-3218096128-1257898252-2035427519-1003，操作系统构建build编号为20230，主机网卡的固定IP地址为192.168.20.23，flag即为flag{md5(weiruan+user1+S-1-4-18-3218096128-1257898252-2035427519-1003+20230+192.168.20.23)}即flag{41e10eec498a50be9591c8e641aafcf3}<br><code>.\MemProcFS.exe -device \Desktop\forensic.raw -forensic 0</code> （相关命令可以参考<a href="https://github.com/ufrisk/MemProcFS/wiki/_CommandLine">https://github.com/ufrisk/MemProcFS/wiki/_CommandLine</a><br><img src="/mdimg/memprocfs/1.png"><br>此时这个工具给我们生成了一个虚拟磁盘（默认是M 如果M已经存在，加上-mount Z 指定别名<br><img src="/mdimg/memprocfs/2.png"><br>在sys目录下存放了系统相关信息<br><img src="/mdimg/memprocfs/3.png"><br>在sys目录下可以得到以下信息</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">系统主机名             CORE-<span class="hljs-number">2023</span><br>系统用户名                           H_admin     <span class="hljs-regexp">//</span> 在sys<span class="hljs-regexp">/users/</span><br>系统用户SID             S-<span class="hljs-number">1</span>-<span class="hljs-number">5</span>-<span class="hljs-number">21</span>-<span class="hljs-number">3114095118</span>-<span class="hljs-number">2402888954</span>-<span class="hljs-number">2065529513</span>-<span class="hljs-number">1001</span>    <span class="hljs-regexp">//</span> 在sys<span class="hljs-regexp">/users/</span><br>操作系统构建build编号     <span class="hljs-number">22621</span><br></code></pre></td></tr></table></figure><p><code>sys/net</code>目录下存放了服务及网卡监听端口信息，里面有本机ip<br><img src="/mdimg/memprocfs/4.png"><br><code>192.168.52.130</code><br>flag<br><code>CORE-2023+H_admin+S-1-5-21-3114095118-2402888954-2065529513-1001+22621+192.168.52.130 ``flag&#123;e2e33285c9d60df458717e45c3bcfe01&#125; </code></p><h3 id="鱼叉攻击场景溯源-2"><a href="#鱼叉攻击场景溯源-2" class="headerlink" title="鱼叉攻击场景溯源_2"></a>鱼叉攻击场景溯源_2</h3><p>题目内容：<br>遭受钓鱼攻击的不当操作源头网络信息为（答案格式为flag{钓鱼攻击使用网站标题+钓鱼攻击使用的恶意程序http下载链接的md5值，例如<a href="http://192.168.150.1/test.zip/">http://192.168.150.1/test.zip/</a>，链接目录结尾保留“/”}）<br>例如：钓鱼攻击使用网站标题是”系统检查”,钓鱼攻击使用的恶意程序http下载链接是<a href="http://192.168.20.23:9999/hello.zip/">http://192.168.20.23:9999/hello.zip/</a>，flag即为flag{md5(系统检查+<a href="http://192.168.20.23:9999/hello.zip/">http://192.168.20.23:9999/hello.zip/)</a>)}即flag{8d58631224fd41cb30d94edb9e1e9b77}<br>这里直接010打开镜像文件检索<code>[http://192](http://192)</code> 右下角改为显示文本和utf-8编码<br><img src="/mdimg/memprocfs/5.png"><br>得到下载链接<br><code>http://192.168.2.113:2222/Patch_Update.zip/</code><br>网站标题<br><code>医疗系统补丁更新下载站</code><br>这里有一个工具<a href="https://www.gimp.org/">GIMP - GNU Image Manipulation Program</a> 是一个类似ps的图像编辑器<br>可以导入如.raw的镜像来查看数据<br>找到<code>M:\name\msedge.exe-7276\minidump</code> 的<code>.dmp</code>文件 改后缀为<code>.data</code>然后拖进gimp<br>调整图像宽高可以看到<br><img src="/mdimg/memprocfs/6.png"></p><h3 id="鱼叉攻击场景溯源-3"><a href="#鱼叉攻击场景溯源-3" class="headerlink" title="鱼叉攻击场景溯源_3"></a>鱼叉攻击场景溯源_3</h3><p>题目内容：<br>请分析钓鱼攻击使用的恶意程序软件，还原恶意程序软件名及植入木马程序的命令(答案格式为flag{恶意程序软件名+恶意命令的小写md5值}，恶意程序软件名包括文件名和文件大写扩展名，例如name.EXE，去除恶意命令中的“,”号，命令中空格间隔均为1个)<br>例如恶意程序软件名是shell.exe,恶意命令为curl.exe <a href="http://www.baidu.com,flag即为flag{md5/">www.baidu.com,flag即为flag{md5</a>(shell.exe+curl.exe <a href="http://www.baidu.com)}即flag{4b17c1d9b0e22e773554f91994db048b}/">www.baidu.com)}即flag{4b17c1d9b0e22e773554f91994db048b}</a><br>待定</p><h3 id="鱼叉攻击场景溯源-4"><a href="#鱼叉攻击场景溯源-4" class="headerlink" title="鱼叉攻击场景溯源_4"></a>鱼叉攻击场景溯源_4</h3><p>题目内容：<br>钓鱼攻击后该系统被植入的木马程序为（答案格式为flag{木马程序软件名+木马程序回连地址的md5值}，回连地址格式为ip:port，例如192.168.150.1:443）<br>例如192.168.150.1:443对应的flag是flag{md5(192.168.150.1:443)}即flag{05bb4939f4da0952d17f3a8fec3fbbf2}<br>查看<code> &quot;M:\sys\net\netstat-v.txt&quot;</code> 文件<br><img src="/mdimg/memprocfs/7.png"><br>可以看到这个helper.exe是上面钓鱼网站下载下来的木马程序<br>并且可以得到与主机通讯连接的ip端口 为 <code>192.168.2.120:8023</code></p><h3 id="鱼叉攻击场景溯源-5"><a href="#鱼叉攻击场景溯源-5" class="headerlink" title="鱼叉攻击场景溯源_5"></a>鱼叉攻击场景溯源_5</h3><p>题目内容：<br>该受灾系统曾经备份过的操作用户表中的admin用户明文为（答案格式为flag{admin用户明文密码的16进制值的md5值}，密码破解字典可使用kali自带密码本进行）<br>例如：admin明文是hello123，对应的16进制值就是68656c6c6f313233，md5值就是md5(68656c6c6f313233)最终结果为d2c4b16c3624a40efc2f28d7aa54f8c2，再加上flag{}即flag{d2c4b16c3624a40efc2f28d7aa54f8c2}<br>找到记事本的进程 <code>M:\name\Notepad.exe-4920</code><br><code>M:\name\Notepad.exe-4920\minidump</code> 把.bmp改为.data 然后gimp打开<br><img src="/mdimg/memprocfs/8.png"><br><code>6d1ce7aa0a1d988dc96a2abcd187b45a</code><br>用hashcat爆破<br><code>hashcat -a 0 -m 0 6d1ce7aa0a1d988dc96a2abcd187b45a ./misc/rockyou.txt</code><br><img src="/mdimg/memprocfs/9.png"><br><code>aptx4869</code></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>CTF</category>
+      
+      <category>笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>笔记</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>无列名注入</title>
     <link href="/2023/12/04/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/"/>
     <url>/2023/12/04/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/</url>

