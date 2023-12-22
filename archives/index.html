@@ -60,7 +60,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":150,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":180,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -71,6 +71,19 @@
   <script  src="/js/color-schema.js" ></script>
   
 
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
   
 
   
@@ -255,6 +268,12 @@
       
       <p class="h5">2023</p>
     
+    <a href="/2023/12/21/%E5%BC%BA%E7%BD%91%E6%9D%AF2023/" class="list-group-item list-group-item-action">
+      <time>12-21</time>
+      <div class="list-group-item-title">强网杯2023 wp</div>
+    </a>
+  
+    
     <a href="/2023/12/06/Quine%E6%B3%A8%E5%85%A5/" class="list-group-item list-group-item-action">
       <time>12-06</time>
       <div class="list-group-item-title">Quine注入</div>
@@ -306,12 +325,6 @@
     <a href="/2023/09/19/$%7B%7D%E4%B8%8Epreg_replace_e%E6%A8%A1%E5%BC%8F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C--%5BBJDCTF2020%5DZJCTF/" class="list-group-item list-group-item-action">
       <time>09-19</time>
       <div class="list-group-item-title">${}与preg_replace_e模式命令执行--[BJDCTF2020]ZJCTF</div>
-    </a>
-  
-    
-    <a href="/2023/05/16/ctfshow-%E5%91%A8%E6%9C%AB%E5%A4%A7%E6%8C%91%E6%88%982023.5.12-PARSE_URL/" class="list-group-item list-group-item-action">
-      <time>05-16</time>
-      <div class="list-group-item-title">ctfshow-周末大挑战2023.5.12-PARSE_URL</div>
     </a>
   
 </div>

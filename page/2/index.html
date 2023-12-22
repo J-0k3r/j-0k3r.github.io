@@ -60,7 +60,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":150,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":180,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -71,6 +71,19 @@
   <script  src="/js/color-schema.js" ></script>
   
 
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
   
 
   
@@ -215,7 +228,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="如果心声真有疗效 谁怕暴露更多  -《Shall We Talk》陈奕迅"></span>
+            <span id="subtitle" data-typed-text="如果心声真有疗效 谁怕暴露更多"></span>
           
         </div>
 
@@ -251,8 +264,82 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/05/16/ctfshow-%E5%91%A8%E6%9C%AB%E5%A4%A7%E6%8C%91%E6%88%982023.5.12-PARSE_URL/" target="_blank">
+          <img src="/img/c.jpg" srcset="/img/loading.gif" lazyload alt="ctfshow-周末大挑战2023.5.12-PARSE_URL">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/16/ctfshow-%E5%91%A8%E6%9C%AB%E5%A4%A7%E6%8C%91%E6%88%982023.5.12-PARSE_URL/" target="_blank">
+          ctfshow-周末大挑战2023.5.12-PARSE_URL
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/2023/05/16/ctfshow-%E5%91%A8%E6%9C%AB%E5%A4%A7%E6%8C%91%E6%88%982023.5.12-PARSE_URL/" target="_blank">
+        <div>
+          黄金广场内分手 在时代门外再聚 - 《黄金时代》
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-16 00:00" pubdate>
+              2023-05-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/%E6%AF%94%E8%B5%9BWrite-Up/" class="category-chain-item">比赛Write Up</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%AF%94%E8%B5%9BWrite-Up/">#比赛Write Up</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2023/04/23/HDCTF/" target="_blank">
-          <img src="/img/wp33.jpg" srcset="/img/loading.gif" lazyload alt="HDCTF2023-wp">
+          <img src="/img/50.jpg" srcset="/img/loading.gif" lazyload alt="HDCTF2023-wp">
         </a>
       </div>
     
@@ -267,7 +354,7 @@
       
       <a class="index-excerpt " href="/2023/04/23/HDCTF/" target="_blank">
         <div>
-          但屈指西风几时来，又不道流年暗中偷换。
+          没有献出我的脸怎拍响 没有两巴掌怎制止痕痒 - 《斯德哥尔摩情人》
         </div>
       </a>
 
@@ -326,7 +413,7 @@
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2023/04/18/Bucket%20CTF%202023/" target="_blank">
-          <img src="/img/wp31.jpg" srcset="/img/loading.gif" lazyload alt="Bucket CTF 2023-wp">
+          <img src="/img/wbt.jpg" srcset="/img/loading.gif" lazyload alt="Bucket CTF 2023-wp">
         </a>
       </div>
     
@@ -341,7 +428,7 @@
       
       <a class="index-excerpt " href="/2023/04/18/Bucket%20CTF%202023/" target="_blank">
         <div>
-          雨打梨花深闭门，忘了青春，误了青春。
+          谁都只得那双手靠拥抱亦难任你拥有 要拥有必先懂失去怎接受 - 《富士山下》
         </div>
       </a>
 
@@ -548,7 +635,7 @@
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2023/02/25/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/" target="_blank">
-          <img src="/img/wp24.jpg" srcset="/img/loading.gif" lazyload alt="内存取证">
+          <img src="/img/duo.png" srcset="/img/loading.gif" lazyload alt="内存取证">
         </a>
       </div>
     
@@ -563,7 +650,7 @@
       
       <a class="index-excerpt " href="/2023/02/25/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/" target="_blank">
         <div>
-          人生代代无穷已，江月年年望相似。
+          有感情 就会一生一世吗 又再惋惜有用吗 - 《喜帖街》
         </div>
       </a>
 
@@ -610,80 +697,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2023/02/24/MMACTF%202015-miyako/" target="_blank">
-          <img src="/img/wp22.jpg" srcset="/img/loading.gif" lazyload alt="MMACTF 2015-miyako">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/02/24/MMACTF%202015-miyako/" target="_blank">
-          MMACTF 2015-miyako
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt " href="/2023/02/24/MMACTF%202015-miyako/" target="_blank">
-        <div>
-          闲看庭前花开花落，漫随天外云卷云舒。
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-24 14:27" pubdate>
-              2023-02-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/CTF/Write-Up/" class="category-chain-item">Write Up</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Write-Up/">#Write Up</a>
             
           </div>
         

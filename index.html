@@ -60,7 +60,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":150,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":180,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -71,6 +71,19 @@
   <script  src="/js/color-schema.js" ></script>
   
 
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
   
 
   
@@ -215,7 +228,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="如果心声真有疗效 谁怕暴露更多  -《Shall We Talk》陈奕迅"></span>
+            <span id="subtitle" data-typed-text="如果心声真有疗效 谁怕暴露更多"></span>
           
         </div>
 
@@ -251,6 +264,80 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/12/21/%E5%BC%BA%E7%BD%91%E6%9D%AF2023/" target="_blank">
+          <img src="/img/a10.jpg" srcset="/img/loading.gif" lazyload alt="强网杯2023 wp">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/12/21/%E5%BC%BA%E7%BD%91%E6%9D%AF2023/" target="_blank">
+          强网杯2023 wp
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/2023/12/21/%E5%BC%BA%E7%BD%91%E6%9D%AF2023/" target="_blank">
+        <div>
+          差不多冬至一早一晚还是有雨 -《葡萄成熟时》
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-12-21 23:59" pubdate>
+              2023-12-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/%E6%AF%94%E8%B5%9BWrite-Up/" class="category-chain-item">比赛Write Up</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%AF%94%E8%B5%9BWrite-Up/">#比赛Write Up</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2023/12/06/Quine%E6%B3%A8%E5%85%A5/" target="_blank">
           <img src="/img/a10.jpg" srcset="/img/loading.gif" lazyload alt="Quine注入">
         </a>
@@ -267,7 +354,7 @@
       
       <a class="index-excerpt " href="/2023/12/06/Quine%E6%B3%A8%E5%85%A5/" target="_blank">
         <div>
-          好风景多的是 夕阳平常事 然而每天眼见的 永远不相似 -《夕阳无限好》陈奕迅
+          好风景多的是 夕阳平常事 然而每天眼见的 永远不相似 -《夕阳无限好》
         </div>
       </a>
 
@@ -341,7 +428,7 @@
       
       <a class="index-excerpt " href="/2023/12/05/MemProcFS%E4%BD%BF%E7%94%A8/" target="_blank">
         <div>
-          不开心未必不堪 快乐也要找原因 -《开不了心》陈奕迅
+          不开心未必不堪 快乐也要找原因 -《开不了心》
         </div>
       </a>
 
@@ -415,7 +502,7 @@
       
       <a class="index-excerpt " href="/2023/12/04/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/" target="_blank">
         <div>
-          情人游天地 日月换行李 -《我们万岁》陈奕迅
+          情人游天地 日月换行李 -《我们万岁》
         </div>
       </a>
 
@@ -489,7 +576,7 @@
       
       <a class="index-excerpt " href="/2023/11/29/ISCTF%202023/" target="_blank">
         <div>
-          但我拖着躯壳 发现沿途寻找的快乐 -《一丝不挂》陈奕迅
+          但我拖着躯壳 发现沿途寻找的快乐 -《一丝不挂》
         </div>
       </a>
 
@@ -563,7 +650,7 @@
       
       <a class="index-excerpt " href="/2023/10/16/moectf2023/" target="_blank">
         <div>
-          从何时你也学会不要离群 从何时发觉没有同伴不行 -《任我行》陈奕迅
+          从何时你也学会不要离群 从何时发觉没有同伴不行 -《任我行》
         </div>
       </a>
 
@@ -637,7 +724,7 @@
       
       <a class="index-excerpt " href="/2023/10/16/NewStarCTF%202023%20week2/" target="_blank">
         <div>
-          不說一句的愛有多好 只有一次記得實在接觸到 -《单车》陈奕迅
+          不說一句的愛有多好 只有一次記得實在接觸到 -《单车》
         </div>
       </a>
 
@@ -711,7 +798,7 @@
       
       <a class="index-excerpt " href="/2023/10/07/ctfshow-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8Cweb29-web77/" target="_blank">
         <div>
-          当初的亲密 犹像热带雨林 逐分钟消失4.8里-《热带雨林》陈奕迅
+          当初的亲密 犹像热带雨林 逐分钟消失4.8里-《热带雨林》
         </div>
       </a>
 
@@ -785,7 +872,7 @@
       
       <a class="index-excerpt " href="/2023/10/04/NewStarCTF%202023%20week1/" target="_blank">
         <div>
-          珍惜淡定的心境 苦过后更加清 万般过去亦无味但有领会留下 -《苦瓜》陈奕迅
+          珍惜淡定的心境 苦过后更加清 万般过去亦无味但有领会留下 -《苦瓜》
         </div>
       </a>
 
@@ -859,7 +946,7 @@
       
       <a class="index-excerpt " href="/2023/09/19/$%7B%7D%E4%B8%8Epreg_replace_e%E6%A8%A1%E5%BC%8F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C--%5BBJDCTF2020%5DZJCTF/" target="_blank">
         <div>
-          有人性 镜头里总有丰收 -《沙龙》 陈奕迅
+          有人性 镜头里总有丰收 -《沙龙》
         </div>
       </a>
 
@@ -906,80 +993,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2023/05/16/ctfshow-%E5%91%A8%E6%9C%AB%E5%A4%A7%E6%8C%91%E6%88%982023.5.12-PARSE_URL/" target="_blank">
-          <img src="/img/wp35.jpg" srcset="/img/loading.gif" lazyload alt="ctfshow-周末大挑战2023.5.12-PARSE_URL">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/05/16/ctfshow-%E5%91%A8%E6%9C%AB%E5%A4%A7%E6%8C%91%E6%88%982023.5.12-PARSE_URL/" target="_blank">
-          ctfshow-周末大挑战2023.5.12-PARSE_URL
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt " href="/2023/05/16/ctfshow-%E5%91%A8%E6%9C%AB%E5%A4%A7%E6%8C%91%E6%88%982023.5.12-PARSE_URL/" target="_blank">
-        <div>
-          一夜雨声凉到梦，万荷叶上送秋来。
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-05-16 00:00" pubdate>
-              2023-05-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/CTF/%E6%AF%94%E8%B5%9BWrite-Up/" class="category-chain-item">比赛Write Up</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%AF%94%E8%B5%9BWrite-Up/">#比赛Write Up</a>
             
           </div>
         
