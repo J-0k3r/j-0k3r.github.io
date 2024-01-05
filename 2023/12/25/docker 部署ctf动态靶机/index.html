@@ -16,26 +16,26 @@
   <meta name="author" content="J_0k3r">
   <meta name="keywords" content="">
   
-    <meta name="description" content="春风得意马蹄疾，一日看尽长安花。">
+    <meta name="description" content="Merry,merry christmas Lonely,lonely christmas - 《Lonely Christmas》">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker 部署ctf动态靶机">
-<meta property="og:url" content="http://example.com/2023/03/24/docker%20%E9%83%A8%E7%BD%B2ctf%E5%8A%A8%E6%80%81%E9%9D%B6%E6%9C%BA/index.html">
+<meta property="og:title" content="docker 部署ctf php动态靶机">
+<meta property="og:url" content="http://example.com/2023/12/25/docker%20%E9%83%A8%E7%BD%B2ctf%E5%8A%A8%E6%80%81%E9%9D%B6%E6%9C%BA/index.html">
 <meta property="og:site_name" content="J_0k3r">
-<meta property="og:description" content="春风得意马蹄疾，一日看尽长安花。">
+<meta property="og:description" content="Merry,merry christmas Lonely,lonely christmas - 《Lonely Christmas》">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/wp27.png">
-<meta property="article:published_time" content="2023-03-24T06:27:32.000Z">
-<meta property="article:modified_time" content="2023-03-24T13:13:53.425Z">
+<meta property="og:image" content="http://example.com/img/57.jpg">
+<meta property="article:published_time" content="2023-12-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-05T10:00:14.106Z">
 <meta property="article:author" content="J_0k3r">
 <meta property="article:tag" content="小记">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/wp27.png">
+<meta name="twitter:image" content="http://example.com/img/57.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>docker 部署ctf动态靶机 - J_0k3r</title>
+  <title>docker 部署ctf php动态靶机 - J_0k3r</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -235,13 +235,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/wp27.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/img/lonely.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="docker 部署ctf动态靶机"></span>
+            <span id="subtitle" data-typed-text="docker 部署ctf php动态靶机"></span>
           
         </div>
 
@@ -257,8 +257,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-24 14:27" pubdate>
-          2023年3月24日 下午
+        <time datetime="2023-12-25 00:00" pubdate>
+          2023年12月25日 凌晨
         </time>
       </span>
     
@@ -330,12 +330,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">docker 部署ctf动态靶机</h1>
+            <h1 style="display: none">docker 部署ctf php动态靶机</h1>
             
             
               <div class="markdown-body">
                 
-                <p><del>坐大牢了呜呜呜</del><br>本文在ubuntu20.04 下进行，且Linux安装，换源以及相关工具和操作已经准备完毕</p>
+                <p>本文在ubuntu20.04 下进行，且Linux安装，换源以及相关工具和操作已经准备完毕</p>
 <h3 id="docker-安装"><a href="#docker-安装" class="headerlink" title="docker 安装"></a>docker 安装</h3><p>首先先进入根目录<br><code>cd /</code><br>然后进入root //注意最好不要退出root，为了避免你们出错，我命令都加了sudo，如果已一直是su了就可以不用<br><code>su</code><br>然后<br><code>curl -fsSL [https://get.docker.com](https://get.docker.com) | bash -s docker --mirror Aliyun</code><br>然后 <code>docker images</code><br><img src="/note/docker/1.png" srcset="/img/loading.gif" lazyload><br>如图则为安装成功</p>
 <h3 id="配置dockerhub加速"><a href="#配置dockerhub加速" class="headerlink" title="配置dockerhub加速"></a>配置dockerhub加速</h3><p><a target="_blank" rel="noopener" href="https://www.aliyun.com/">https://www.aliyun.com/</a><br>注册一个账号<br>然后在搜索框搜“容器”得到以下界面<br><img src="/note/docker/2.png" srcset="/img/loading.gif" lazyload><br>然后<br><img src="/note/docker/3.png" srcset="/img/loading.gif" lazyload><br>然后<br><img src="/note/docker/4.png" srcset="/img/loading.gif" lazyload><br><img src="/note/docker/5.png" srcset="/img/loading.gif" lazyload><br>然后输入<code>docker info</code><br>出现<img src="/note/docker/6.png" srcset="/img/loading.gif" lazyload>则为成功</p>
 <h3 id="docker-compose安装"><a href="#docker-compose安装" class="headerlink" title="docker-compose安装"></a>docker-compose安装</h3><p><code>sudo curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-</code>uname -s<code>-</code>uname -m<code> -o /usr/local/bin/docker-compose</code><br>或者<br><code>sudo curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.1/docker-compose-</code>uname -s<code>-</code>uname -m<code> -o /usr/local/bin/docker-compose</code><br>然后授权<br><code>sudo chmod +x /usr/local/bin/docker-compose</code><br>然后输入检查<br><code>docker-compose --version</code><br><img src="/note/docker/7.png" srcset="/img/loading.gif" lazyload><br>返回版本就成功了捏</p>
@@ -343,7 +343,7 @@
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> ctftraining/base_image_nginx_mysql_php_73      //基础镜像<br><span class="hljs-keyword">LABEL</span><span class="language-bash"> Author=<span class="hljs-string">&quot;J_0k3r&quot;</span>                               //作者</span><br><span class="hljs-keyword">LABEL</span><span class="language-bash"> Blog=<span class="hljs-string">&quot;https://j-0k3r.github.io/&quot;</span>        //博客</span><br>//上面这两行可有可无<br><span class="hljs-keyword">COPY</span><span class="language-bash"> src /var/www/html              //docker内执行的操作，把src的复制到后面的路径中</span><br></code></pre></td></tr></table></figure>
 <p>flag.sh：<br>内容</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment">#!/bin/sh	#必需的东西没什么好讲的</span><br>sed -i <span class="hljs-string">&quot;s/flag&#123;testflag&#125;/$GZCTF_FLAG/&quot;</span> /var/www/html/index.php <span class="hljs-comment">#使用平台的动态flag替换index.php中的flag，这里我使用的平台为GZCTF，因此动态flag环境变量为$GZCTF_FLAG，其他平台一般为$FLAG</span><br>export GZCTF_FLAG=<span class="hljs-string">&quot;&quot;</span>	<span class="hljs-comment">#这句应该是对接平台的动态flag接口</span><br></code></pre></td></tr></table></figure>
-<p>使用时请务必把中文注释都删掉<br>上面的都准备好之后<br>开始本地搭镜像并且传到dockerhub<br><img src="/note/docker/10.png" srcset="/img/loading.gif" lazyload><br>先在dockerhub建好，再本地搭<br><code>sudo docker build -t 用户名/题目名 .</code><br>用户名是你dockerhub登录的用户名，题目名要和你在dockerhub上面的一样（命令后面的.不要忘了<br><img src="/note/docker/11.png" srcset="/img/loading.gif" lazyload><br>这样就是成功了<br>然后push到dockerhub<br><code>sudo docker push 用户名/题目名</code><br><img src="/note/docker/12.png" srcset="/img/loading.gif" lazyload><br>然后就可以去dockerhub看看<br><img src="/note/docker/13.png" srcset="/img/loading.gif" lazyload><br>然后就是测试题目了<br>这里就不展示测试了<br>到这，题目docker就搞定了<br>呜<del>呜呜，写完博客继续去坐牢给校赛测试题目了</del></p>
+<p>使用时请务必把中文注释都删掉<br>上面的都准备好之后<br>开始本地搭镜像并且传到dockerhub<br><img src="/note/docker/10.png" srcset="/img/loading.gif" lazyload><br>先在dockerhub建好，再本地搭<br><code>sudo docker build -t 用户名/题目名 .</code><br>用户名是你dockerhub登录的用户名，题目名要和你在dockerhub上面的一样（命令后面的.不要忘了<br><img src="/note/docker/11.png" srcset="/img/loading.gif" lazyload><br>这样就是成功了<br>然后push到dockerhub<br><code>sudo docker push 用户名/题目名</code><br><img src="/note/docker/12.png" srcset="/img/loading.gif" lazyload><br>然后就可以去dockerhub看看<br><img src="/note/docker/13.png" srcset="/img/loading.gif" lazyload><br>然后就是测试题目了<br>这里就不展示测试了<br>到这，题目docker就搞定了</p>
 
                 
               </div>
@@ -396,8 +396,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>docker 部署ctf动态靶机</div>
-      <div>http://example.com/2023/03/24/docker 部署ctf动态靶机/</div>
+      <div>docker 部署ctf php动态靶机</div>
+      <div>http://example.com/2023/12/25/docker 部署ctf动态靶机/</div>
     </div>
     <div class="license-meta">
       
@@ -409,7 +409,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年3月24日</div>
+          <div>2023年12月25日</div>
         </div>
       
       
@@ -434,9 +434,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/18/Bucket%20CTF%202023/" title="Bucket CTF 2023-wp">
+                      <a href="/2023/12/31/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" title="2023年终总结">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Bucket CTF 2023-wp</span>
+                        <span class="hidden-mobile">2023年终总结</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -444,8 +444,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/24/kali%20linux%20%E5%AE%89%E8%A3%85/" title="kali linux 安装">
-                        <span class="hidden-mobile">kali linux 安装</span>
+                      <a href="/2023/12/21/%E5%BC%BA%E7%BD%91%E6%9D%AF2023/" title="强网杯2023 wp">
+                        <span class="hidden-mobile">强网杯2023 wp</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
