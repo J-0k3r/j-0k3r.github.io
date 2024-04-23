@@ -16,26 +16,26 @@
   <meta name="author" content="J_0k3r">
   <meta name="keywords" content="">
   
-    <meta name="description" content="遗憾我当时年纪不可亲手拥抱你欣赏 -《时光倒流二十年》">
+    <meta name="description" content="情人游天地 日月换行李 -《我们万岁》">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DASCTF X GFCTF 2024｜四月开启第一局">
-<meta property="og:url" content="http://example.com/2024/04/20/DASCTF%20X%20GFCTF%202024%EF%BD%9C%E5%9B%9B%E6%9C%88%E5%BC%80%E5%90%AF%E7%AC%AC%E4%B8%80%E5%B1%80/index.html">
+<meta property="og:title" content="二次注入">
+<meta property="og:url" content="http://example.com/2024/04/23/%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="J_0k3r">
-<meta property="og:description" content="遗憾我当时年纪不可亲手拥抱你欣赏 -《时光倒流二十年》">
+<meta property="og:description" content="情人游天地 日月换行李 -《我们万岁》">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/Live%20In%20Hong%20Kong,%202013.jpg">
-<meta property="article:published_time" content="2024-04-20T15:59:59.000Z">
-<meta property="article:modified_time" content="2024-04-23T13:48:20.077Z">
+<meta property="og:image" content="http://example.com/img/44.jpg">
+<meta property="article:published_time" content="2024-04-23T15:27:32.000Z">
+<meta property="article:modified_time" content="2024-04-23T13:52:23.033Z">
 <meta property="article:author" content="J_0k3r">
-<meta property="article:tag" content="比赛Write Up">
+<meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/Live%20In%20Hong%20Kong,%202013.jpg">
+<meta name="twitter:image" content="http://example.com/img/44.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>DASCTF X GFCTF 2024｜四月开启第一局 - J_0k3r</title>
+  <title>二次注入 - J_0k3r</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -235,13 +235,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/sgdlesl.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/a3.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="DASCTF X GFCTF 2024｜四月开启第一局"></span>
+            <span id="subtitle" data-typed-text="二次注入"></span>
           
         </div>
 
@@ -257,8 +257,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-04-20 23:59" pubdate>
-          2024年4月20日 晚上
+        <time datetime="2024-04-23 23:27" pubdate>
+          2024年4月23日 晚上
         </time>
       </span>
     
@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          1.4k 字
         
       </span>
     
@@ -280,7 +280,7 @@
         
         
         
-          16 分钟
+          12 分钟
         
       </span>
     
@@ -330,19 +330,28 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">DASCTF X GFCTF 2024｜四月开启第一局</h1>
+            <h1 style="display: none">二次注入</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="cool-index"><a href="#cool-index" class="headerlink" title="cool_index"></a>cool_index</h1><p><img src="/mdimg/DASCTFXGFCTF2024/1713603570881-2690a145-002d-4cab-8ce8-fe957fb1f6cc.png" srcset="/img/loading.gif" lazyload><br>查看源码<br>在server.js<br><code>const JWT_SECRET = crypto.randomBytes(64).toString(&quot;hex&quot;);</code><br>jwt的key被设置为64位的随机字节的16进制，想爆破基本不行<br>flag放在了articles数组的最后一个<br>在/article路由中</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs javascript">app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/article&quot;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> token = req.<span class="hljs-property">cookies</span>.<span class="hljs-property">token</span>;<br>  <span class="hljs-keyword">if</span> (token) &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-keyword">const</span> decoded = jwt.<span class="hljs-title function_">verify</span>(token, <span class="hljs-variable constant_">JWT_SECRET</span>);<br>      <span class="hljs-keyword">let</span> index = req.<span class="hljs-property">body</span>.<span class="hljs-property">index</span>;<br>      <span class="hljs-keyword">if</span> (req.<span class="hljs-property">body</span>.<span class="hljs-property">index</span> &lt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;你知道我要说什么&quot;</span> &#125;);<br>      &#125;<br>      <span class="hljs-keyword">if</span> (decoded.<span class="hljs-property">subscription</span> !== <span class="hljs-string">&quot;premium&quot;</span> &amp;&amp; index &gt;= <span class="hljs-number">7</span>) &#123;<br>        <span class="hljs-keyword">return</span> res<br>          .<span class="hljs-title function_">status</span>(<span class="hljs-number">403</span>)<br>          .<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;订阅高级会员以解锁&quot;</span> &#125;);<br>      &#125;<br>      index = <span class="hljs-built_in">parseInt</span>(index);<br>      <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Number</span>.<span class="hljs-built_in">isNaN</span>(index) || index &gt; articles.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;你知道我要说什么&quot;</span> &#125;);<br>      &#125;<br><br>      <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>(articles[index]);<br>    &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>      res.<span class="hljs-title function_">clearCookie</span>(<span class="hljs-string">&quot;token&quot;</span>);<br>      <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">403</span>).<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;重新登录罢&quot;</span> &#125;);<br>    &#125;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">403</span>).<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;未登录&quot;</span> &#125;);<br>  &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
-<p><code>return res.json(articles[index]);</code>有机会可以输出flag<br>需要绕过前面3个if<br>index不能小于0不能大于数组长度-1也就是7<br>其中前两个if直接去index值<br>而在第三个if前执行了   <code> index = parseInt(index);</code>将index转为int值 然后判断<code>Number.isNaN(index)</code>index传入的值是否为 NaN（Not-a-Number）<br>js  中&gt;比较会先类型转换<br>如果数组包含多个元素或元素不能转换为数字，数组将不会被转换为一个有效的数字，而是返回 NaN（Not-a-Number）。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;7&quot;</span>&gt;=<span class="hljs-number">7</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>([<span class="hljs-string">&quot;7&quot;</span>] &gt;= <span class="hljs-number">7</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>([<span class="hljs-number">7</span>]&gt;=<span class="hljs-number">7</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>([<span class="hljs-number">7</span>,<span class="hljs-string">&quot;7&quot;</span>] &gt;= <span class="hljs-number">7</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-built_in">parseInt</span>([<span class="hljs-number">7</span>, <span class="hljs-string">&quot;7&quot;</span>]))<br><br><span class="hljs-literal">true</span><br><span class="hljs-literal">true</span><br><span class="hljs-literal">true</span><br><span class="hljs-literal">false</span><br><span class="hljs-number">7</span><br></code></pre></td></tr></table></figure>
-<p>payload<code>&#123;&quot;index&quot;:[7,&quot;7&quot;]&#125;</code></p>
-<h1 id="EasySignin"><a href="#EasySignin" class="headerlink" title="EasySignin"></a>EasySignin</h1><p>随便注册一个账号<br>发现在修改密码的update.php<br>注册一个账号进去<br>然后<br><img src="/mdimg/DASCTFXGFCTF2024/1713607005355-f89d122f-5db7-4245-a2e6-b990f4ee8b51.png" srcset="/img/loading.gif" lazyload><br>登录后admin发现<code>/getpicture.php?url=[https://tvax3.sinaimg.cn//large/0072Vf1pgy1foxkc9gjl2j31hc0u0h7m.jpg](https://tvax3.sinaimg.cn//large/0072Vf1pgy1foxkc9gjl2j31hc0u0h7m.jpg)</code>存在ssrf<br>gopher打mysql<br><img src="/mdimg/DASCTFXGFCTF2024/1713607077649-abd09512-b195-427b-8937-8d9a91c50be6.png" srcset="/img/loading.gif" lazyload></p>
-<p>把gopher://127.0.0.1:3306/_ 后的的再次url编码</p>
-<p><img src="/mdimg/DASCTFXGFCTF2024/1713607086147-61d790e6-59eb-440e-97df-27d8a1289bba.png" srcset="/img/loading.gif" lazyload><br>解码返回的base64得到flag</p>
+                <p>用户跟程序交互时，通过注册，修改密码等操作将数据存入数据库中，如果没有进行过滤或者只是简单的转义后就写入到数据库中，假如用户输入恶意sql语句造成sql语句的拼接和截断，就会造成越权或者sql注入。</p>
+<p>二次注入是存储型注入，二次注入一般出现在注册和修改密码等处</p>
+<p>例如修改密码的sql语句是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">$ sql = <span class="hljs-string">&quot;UPDATE users SET PASSWORD=&#x27;$ pass&#x27; where username=&#x27;$ username&#x27; and password=&#x27;$ curr_pass&#x27; &quot;</span>;<br></code></pre></td></tr></table></figure>
+<p>我传入的username为<code>admin&#39;#</code><br>那么语句就会变成</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">$ sql = <span class="hljs-string">&quot;UPDATE users SET PASSWORD=’$ pass’ where username=’admin‘#’ and password=’$ curr_pass’ &quot;</span>;<br></code></pre></td></tr></table></figure>
+<p>实际上执行的是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">$ sql = <span class="hljs-string">&quot;UPDATE users SET PASSWORD=’$ pass’ where username=’admin‘</span><br></code></pre></td></tr></table></figure>
+<p>那么就可以越权修改admin的密码了</p>
+<p>例题1<br>注册账号，无过滤</p>
+<h3 id="October-2019-Twice-SQL-Injection"><a href="#October-2019-Twice-SQL-Injection" class="headerlink" title="[October 2019]Twice SQL Injection"></a>[October 2019]Twice SQL Injection</h3><p>开局有一个注册的跳转<br>随便注册一个进去发现没有利用的地方<br>尝试构造语句<br>注册 用户名1’ union select 666 #   密码123 登录<br><img src="/mdimg/eczr/1713877125276-d15ca93a-c553-4ab0-9149-6180eb8535a3.png" srcset="/img/loading.gif" lazyload alt="image.png"><br>发现回显<br>没有过滤，直接联合查询找到flag在flag表<br>最终payload  1 ‘union select flag from flag #  123</p>
+<p>例题2<br>修改密码，无过滤</p>
+<h3 id="NSSRound-1-Basic-sql-by-sql"><a href="#NSSRound-1-Basic-sql-by-sql" class="headerlink" title="[NSSRound#1 Basic]sql_by_sql"></a>[NSSRound#1 Basic]sql_by_sql</h3><p>随便注册一个账号登录<br>发现/update路由修改密码<br>查看源码</p>
+<!-- update user set password='%s' where username='%s'; -->
+<p>注册一个<code>admin&#39;--+</code>#账号<br>然后登录<code>admin&#39;--+</code><br><strong>点击修改密码</strong><br><strong>修改成功后admin的密码被修改了，这里相对于执行</strong>update user set password=’%s’ where username=’admin’–+’;<br><strong>登录admin</strong><br>抓个查询的包</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable constant_">POST</span> /query <span class="hljs-variable constant_">HTTP</span>/<span class="hljs-number">1.1</span><br><span class="hljs-title class_">Host</span>: node4.<span class="hljs-property">anna</span>.<span class="hljs-property">nssctf</span>.<span class="hljs-property">cn</span>:<span class="hljs-number">28167</span><br><span class="hljs-title class_">Accept</span>: *<span class="hljs-comment">/*</span><br><span class="hljs-comment">Referer: http://node4.anna.nssctf.cn:28167/home</span><br><span class="hljs-comment">Origin: http://node4.anna.nssctf.cn:28167</span><br><span class="hljs-comment">Accept-Encoding: gzip, deflate</span><br><span class="hljs-comment">Content-Type: application/x-www-form-urlencoded; charset=UTF-8</span><br><span class="hljs-comment">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="hljs-comment">Cookie: session=eyJyb2xlIjoxLCJ1c2VybmFtZSI6ImFkbWluIn0.Zie6ig.W2qNyQXizv2MXtqtjL4v-8M4oGM</span><br><span class="hljs-comment">X-Requested-With: XMLHttpRequest</span><br><span class="hljs-comment">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36</span><br><span class="hljs-comment">Content-Length: 4</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">id=1</span><br></code></pre></td></tr></table></figure>
+<p><code>sqlmap -r 1.txt --batch --random-agent  -T flag -C flag --dump</code></p>
 
                 
               </div>
@@ -366,7 +375,7 @@
   
     <span>></span>
     
-  <a href="/categories/CTF/%E6%AF%94%E8%B5%9BWrite-Up/" class="category-chain-item">比赛Write Up</a>
+  <a href="/categories/CTF/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
   
   
 
@@ -383,7 +392,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%AF%94%E8%B5%9BWrite-Up/">#比赛Write Up</a>
+        <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
       
     </div>
   
@@ -395,8 +404,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>DASCTF X GFCTF 2024｜四月开启第一局</div>
-      <div>http://example.com/2024/04/20/DASCTF X GFCTF 2024｜四月开启第一局/</div>
+      <div>二次注入</div>
+      <div>http://example.com/2024/04/23/二次注入/</div>
     </div>
     <div class="license-meta">
       
@@ -408,7 +417,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年4月20日</div>
+          <div>2024年4月23日</div>
         </div>
       
       
@@ -433,18 +442,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/04/23/%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5/" title="二次注入">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">二次注入</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/02/16/hgame2024/" title="hgame2024">
-                        <span class="hidden-mobile">hgame2024</span>
+                      <a href="/2024/04/20/DASCTF%20X%20GFCTF%202024%EF%BD%9C%E5%9B%9B%E6%9C%88%E5%BC%80%E5%90%AF%E7%AC%AC%E4%B8%80%E5%B1%80/" title="DASCTF X GFCTF 2024｜四月开启第一局">
+                        <span class="hidden-mobile">DASCTF X GFCTF 2024｜四月开启第一局</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

