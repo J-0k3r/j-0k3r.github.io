@@ -56,31 +56,6 @@
   
   
   <entry>
-    <title>test</title>
-    <link href="/2024/10/11/test/"/>
-    <url>/2024/10/11/test/</url>
-    
-    <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="忘记它 仿似遗忘密码" data-whm="只差一點點 即可以 再會面">  <script id="hbeData" type="hbeData" data-hmacdigest="d3f0c3374c96f41106521dbf0c66dcafadb78c19b61a4564f38aed3260809282">76ebbf8c19ce5395bbb8ad352f3bfbcdf7e4d7f5f431a0a98f3a1fcbde726d84</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-up">      <input class="hbe hbe-input-field hbe-input-field-up" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-up" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-up">无密码 方可以忘记它</span>      </label>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-    
-    
-    <categories>
-      
-      <category>Dig</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>Log</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>LIT CTF 2024 web</title>
     <link href="/2024/08/13/LIT%20CTF%202024%20web/"/>
     <url>/2024/08/13/LIT%20CTF%202024%20web/</url>
