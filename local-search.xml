@@ -4,33 +4,6 @@
   
   
   <entry>
-    <title>jwt</title>
-    <link href="/2025/07/23/jwt/"/>
-    <url>/2025/07/23/jwt/</url>
-    
-    <content type="html"><![CDATA[<h2 id="JWT的定义"><a href="#JWT的定义" class="headerlink" title="JWT的定义"></a>JWT的定义</h2><blockquote><p>Json web token（JWT）是为了网络应用环境间传递声明而执行的一种基于JSON的开发标准（RFC 7519），该token被设计为紧凑且安全的，特别适用于分布式站点的单点登陆（SSO）场景。JWT的声明一般被用来在身份提供者和服务提供者间传递被认证的用户身份信息，以便于从资源服务器获取资源，也可以增加一些额外的其它业务逻辑所必须的声明信息，该token也可直接被用于认证，也可被加密。</p><p><strong>什么情况下使用JWT比较适合？授权：</strong>这是最常见的使用场景，解决单点登录问题。因为JWT使用起来轻便，开销小，服务端不用记录用户状态信息（无状态），所以使用比较广泛； <strong>信息交换：</strong>JWT是在各个服务之间安全传输信息的好方法。因为JWT可以签名，例如，使用公钥/私钥对儿 - 可以确定请求方是合法的。此外，由于使用标头和有效负载计算签名，还可以验证内容是否未被篡改。</p></blockquote><h2 id="JWT流程"><a href="#JWT流程" class="headerlink" title="JWT流程"></a>JWT流程</h2><p>服务身份认证一般流程是： </p><p>1、用户向服务器发送用户名和密码。 </p><p>2、服务器验证通过后，在当前对话（session）里面保存相关数据，比如用户角色、登录时间等等。 </p><p>3、服务器向用户返回一个 session_id，写入用户的 Cookie。 </p><p>4、用户随后的每一次请求，都会通过 Cookie，将 session_id 传回服务器。 </p><p>5、服务器收到 session_id，找到前期保存的数据，由此得知用户的身份。</p><p>这种模式的问题在于，扩展性（scaling）不好，举例来说，A 网站和 B 网站是同一家公司的关联服务。如何让用户只要在其中一个网站登录，再访问另一个网站就会自动登录</p><p>JWT： 服务器不保存 session 数据，所有数据都保存在客户端，每次请求都发回服务器，访问AB网站就不用再次登陆。</p><h2 id="JWT-的原理"><a href="#JWT-的原理" class="headerlink" title="JWT 的原理"></a>JWT 的原理</h2><p>JWT 的原理是，服务器认证以后，生成一个 JSON 对象，发回给用户，就像下面这样。 </p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html">&#123;<br>&quot;姓名&quot;: &quot;张三&quot;,<br>&quot;角色&quot;: &quot;管理员&quot;,<br>&quot;到期时间&quot;: &quot;2018年7月1日0点0分&quot;<br>&#125;<br></code></pre></td></tr></table></figure><p>以后，用户与服务端通信的时候，都要发回这个 JSON 对象。服务器完全只靠这个对象认定用户身份。为了防止用户篡改数据，服务器在生成这个对象的时候，会加上签名。</p><p><strong>服务器就不保存任何 session 数据了，也就是说，服务器变成无状态了，从而比较容易实现扩展。</strong></p><p><strong>区别</strong> </p><p>(1) session 存储在服务端占用服务器资源，而 JWT 存储在客户端 </p><p>(2) session 存储在 Cookie 中，存在伪造跨站请求伪造攻击的风险</p><p> (3) session 只存在一台服务器上，那么下次请求就必须请求这台服务器，不利于分布式应用</p><p> (4) 存储在客户端的 JWT 比存储在服务端的 session 更具有扩展性</p><h2 id="JWT的结构"><a href="#JWT的结构" class="headerlink" title="JWT的结构"></a>JWT的结构</h2><p>一个token分3部分，按顺序:</p><ul><li>头部（header)</li><li>载荷（payload)</li><li>签证（signature) 对象为一个很长的字符串，字符之间通过”.”分隔符分为三个子串。注意JWT对象为一个长字串，各字串之间也没有换行符，一般格式为：<code>xxxxx.yyyyy.zzzzz </code>。 例如 <code>yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</code></li></ul><p><img src="/mdimg/jwt/1753152906989-b15f622f-9379-4bd6-b9e2-4b692f4d3536.png"></p><p>JWT里验证和签名使用的算法，可选择下面的：</p><table><thead><tr><th align="left">&gt;JWS</th><th align="left">&gt;算法名称</th><th align="left">&gt;描述</th></tr></thead><tbody><tr><td align="left">HS256</td><td align="left">HMAC256</td><td align="left">HMAC with SHA-256</td></tr><tr><td align="left">HS384</td><td align="left">HMAC384</td><td align="left">HMAC with SHA-384</td></tr><tr><td align="left">HS512</td><td align="left">HMAC512</td><td align="left">HMAC with SHA-512</td></tr><tr><td align="left">RS256</td><td align="left">RSA256</td><td align="left">RSASSA-PKCS1-v1_5 with SHA-256</td></tr><tr><td align="left">RS384</td><td align="left">RSA384</td><td align="left">RSASSA-PKCS1-v1_5 with SHA-384</td></tr><tr><td align="left">RS512</td><td align="left">RSA512</td><td align="left">RSASSA-PKCS1-v1_5 with SHA-512</td></tr><tr><td align="left">ES256</td><td align="left">ECDSA256</td><td align="left">ECDSA with curve P-256 and SHA-256</td></tr><tr><td align="left">ES384</td><td align="left">ECDSA384</td><td align="left">ECDSA with curve P-384 and SHA-384</td></tr><tr><td align="left">ES512</td><td align="left">ECDSA512</td><td align="left">ECDSA with curve P-521 and SHA-512</td></tr></tbody></table><h2 id="JWT签名验证原理"><a href="#JWT签名验证原理" class="headerlink" title="JWT签名验证原理"></a>JWT签名验证原理</h2><p>首先，需要指定一个<code>secret</code>，这个密钥由服务器生成，只有服务器才知道，不能泄露给用户。然后，使用<code>Header</code>里面指定的签名算法（默认是<code>HMAC SHA256</code>），按照下面的公式产生签名。</p><p><code> HMACSHA256( base64UrlEncode(header) + &quot;.&quot; + base64UrlEncode(payload), secret)</code></p><blockquote><p>JWT 作为一个令牌（token），有些场合可能会放到 URL（比如 api.example.com/?token=xxx）。Base64 有三个字符+、/和=，在 URL 里面有特殊含义，所以要被替换掉：=被省略、+替换成-，/替换成_ 。这就是 Base64URL 算法。</p></blockquote><p>实际上就是JWT的第三部分对前两部分进行签名，当带着这个JWT访问网站时，服务器会获取并再次对前两部分进行签名，然后对比第三部分，如果一致（也就是登陆后服务端发给客户端的和现在客户端给服务端的是一样的），说明内容没有被修改，身份验证通过，当访问关联服务的时候也就无需重新登陆，只需要验证JWT即可。</p><h2 id="JWT攻击"><a href="#JWT攻击" class="headerlink" title="JWT攻击"></a>JWT攻击</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html">&#123;<br>&quot;name&quot;: &quot;张三&quot;,<br>&quot;admin&quot;: false,<br>&quot;到期时间&quot;: &quot;2018年7月1日0点0分&quot;<br>&#125;<br></code></pre></td></tr></table></figure><p>如果要把获取admin权限，需要把admin改为true。但是直接修改的话，由于不知道key，签名就无法和服务端签名的一样（因为key不同）。所以要进行JWT伪造的前提是知道key。</p><p>如果key设置得很常见，比如123456，admin这种，可以使用工具进行爆破。</p><p>原理就是使用不同的key对前两部分进行签名，然后比对原来的签名，如果相等，说明找到了key。</p><p>如下面设置key为<code>123456</code></p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOiJkZW1vIiwiaWF0IjoxNzUzMTU0MTk1LCJuYmYiOjE3NTMxNTQxOTUsImV4cCI6MTc1MzI0MDU5NX0.Ywogt5frEo1tCrtjZ0xl72fK-Ag2VxMBZpSOd6mKKEM<br></code></pre></td></tr></table></figure><p><img src="/mdimg/jwt/1753154322692-eb6b6f14-083d-4201-8cb9-6b27f346188d.png"></p><p>jwt_tool</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html">python3 jwt_tool.py eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOiJkZW1vIiwiaWF0IjoxNzUzMTU0MTk1LCJuYmYiOjE3NTMxNTQxOTUsImV4cCI6MTc1MzI0MDU5NX0.Ywogt5frEo1tCrtjZ0xl72fK-Ag2VxMBZpSOd6mKKEM -C -d jwt-common.txt<br></code></pre></td></tr></table></figure><p><img src="/mdimg/jwt/1753154497983-e9b8bab0-c033-4af9-a609-42cd84897593.png"></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>研究</category>
-      
-      <category>笔记</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>笔记</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>fastjson利用</title>
     <link href="/2025/06/01/fastjson%20%E5%88%A9%E7%94%A8/"/>
     <url>/2025/06/01/fastjson%20%E5%88%A9%E7%94%A8/</url>
