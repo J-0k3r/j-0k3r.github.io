@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/wbt.jpg">
 <meta property="article:published_time" content="2025-10-02T05:14:52.000Z">
-<meta property="article:modified_time" content="2025-10-02T16:30:31.012Z">
+<meta property="article:modified_time" content="2025-10-15T08:02:43.886Z">
 <meta property="article:author" content="J_0k3r">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -290,7 +290,7 @@
         
         
         
-          114 分钟
+          115 分钟
         
       </span>
     
@@ -344,7 +344,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年10月3日 凌晨
+                    本文最后更新于 2025年10月15日 下午
                   
                 
               </p>
@@ -362,7 +362,7 @@
 <ol start="2">
 <li>Spring类</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Spring Controller 内存马<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Spring Controller 内存马<br>spring intercetor 内存马<br></code></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>Tomcat Valve 内存马</li>
@@ -411,10 +411,17 @@
 </tr>
 <tr>
 <td><strong>Spring Controller</strong></td>
-<td>注入到 HandlerMapping 成功</td>
+<td>注入到 <code>HandlerMapping</code> 成功</td>
 <td>随 Spring MVC 分发器持续生效</td>
 <td><code>/refresh</code> / Context 重启 / 应用重启</td>
 <td>✅ 是（/refresh 即可）</td>
+</tr>
+<tr>
+<td><strong>Spring Intercepto</strong></td>
+<td>成功注入到 <code>HandlerMapping.interceptorList</code></td>
+<td>所有匹配请求经 Spring MVC 分发时被调用</td>
+<td>Spring Context 重启 / 应用重启</td>
+<td>✅ 是（可通过反射移除</td>
 </tr>
 <tr>
 <td><strong>Java Agent</strong></td>
@@ -949,6 +956,11 @@
 <td><strong>Spring Controller</strong></td>
 <td>无需反射，直接注入 HandlerMapping，但易被刷新</td>
 </tr>
+<tr>
+<td>Spring 环境隐蔽持久化</td>
+<td><strong>Spring Interceptor</strong></td>
+<td>深度集成 Spring MVC，可记录/篡改请求响应，比 Controller 更隐蔽，且不易被业务日志发现</td>
+</tr>
 </tbody></table>
 <h5 id="提高隐蔽性总体方向"><a href="#提高隐蔽性总体方向" class="headerlink" title="提高隐蔽性总体方向"></a>提高隐蔽性总体方向</h5><ul>
 <li>路径/参数/文件名无敏感词</li>
@@ -975,6 +987,10 @@
 <tr>
 <td>Spring Controller</td>
 <td>禁用 Actuator <code>/refresh</code>；监控 <code>RequestMappingHandlerMapping</code> 修改</td>
+</tr>
+<tr>
+<td>Spring Interceptor</td>
+<td>监控 HandlerMapping 的 interceptorList / adaptedInterceptors 字段变更；限制反射访问 Spring 内部类；启用运行时字节码审计（如 RASP）</td>
 </tr>
 <tr>
 <td>Java Agent</td>
@@ -1193,7 +1209,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       J_0k3r <i class="iconfont icon-love"></i> Hor1zon<br /> 感谢 <a target="_blank" rel="noopener" href="https://www.dkdun.cn/">DK盾</a> 赞助|DK盾 QQ群:727077055 
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon<br /> 
     </div>
   
   
