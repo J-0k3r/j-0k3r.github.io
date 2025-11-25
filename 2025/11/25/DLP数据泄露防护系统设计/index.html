@@ -1,0 +1,830 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="不懂得编辑旅程 只记得孤单意境 -《一个旅人》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java内存马原理及利用">
+<meta property="og:url" content="http://example.com/2025/11/25/DLP%E6%95%B0%E6%8D%AE%E6%B3%84%E9%9C%B2%E9%98%B2%E6%8A%A4%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="不懂得编辑旅程 只记得孤单意境 -《一个旅人》">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/a1.jpg">
+<meta property="article:published_time" content="2025-11-25T05:14:52.000Z">
+<meta property="article:modified_time" content="2025-11-25T12:49:48.366Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/a1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Java内存马原理及利用 - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":180,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的无人之境</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/playlist/" target="_self">
+                <i class="iconfont icon-music"></i>
+                <span>音乐</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/yglr.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java内存马原理及利用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-25 13:14" pubdate>
+          2025年11月25日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Java内存马原理及利用</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年11月25日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>项目链接：<a target="_blank" rel="noopener" href="https://github.com/J-0k3r/JJDLP">https://github.com/J-0k3r/JJDLP</a></p>
+<h3 id="前期思考"><a href="#前期思考" class="headerlink" title="前期思考"></a>前期思考</h3><ul>
+<li>开发基于正常业务考虑，只做关键识别与处理流程。去除繁杂另类功能。如正常业务上传文件类型与肯定与后缀一致，故不做文件类型分析校验，所以只做一个统一文件上传入口只根据后缀进入不同识别分支，如果上传文件类型与后缀不一致则只输出识别失败，而不会根据文件头尾纠错。</li>
+<li>api封装：路由请求和返回值统一用json格式并将系统封装为api，可作为识别模块方便外部服务调用。</li>
+<li>只考虑了中国大陆条件下的敏感信息（港澳台国外身份证/银行卡/手机号等不考虑）。</li>
+<li>只记录，不存储：出于安全考虑不存储所有上传识别/脱敏的文件，仅作记录。</li>
+<li>模块化设计：不同的识别/脱敏等功能分别作为单独模块（如pdf单独一个.py，json单独一个.py），方便维护。</li>
+<li>扩展性：提供自定义敏感数据类型和识别/脱敏规则扩展接口，方便扩展新的敏感数据。</li>
+</ul>
+<h3 id="识别模块"><a href="#识别模块" class="headerlink" title="识别模块"></a>识别模块</h3><p><a target="_blank" rel="noopener" href="https://github.com/J-0k3r/JJDLP/tree/master/processors">https://github.com/J-0k3r/JJDLP/tree/master/processors</a></p>
+<h4 id="csv识别"><a href="#csv识别" class="headerlink" title="csv识别"></a>csv识别</h4><p>由于CSV结构化数据特性，基于正常业务考虑，同一列下的数据是同类的，对于敏感数据来说，如身份证号列下的数据肯定都是身份证号。</p>
+<p>故在识别csv敏感数据的时候，只要识别到一条验证为敏感数据则将该列归类为同类型敏感数据并统计数量，然后进行后续流程，省去每一条数据验证的重复任务，在数据量大的情况下大大节省时间开支。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">姓名,证件号码,手机号码,电子邮箱<br>张三,<span class="hljs-number">310101199003072316</span>,<span class="hljs-number">13812345678</span>,zhangsan@example.com  <span class="hljs-comment">#仅识别第一行数据</span><br>李四,<span class="hljs-number">310101198512124512</span>,<span class="hljs-number">13987654321</span>,lisi@example.com<br>王五,<span class="hljs-number">310101199206187890</span>,<span class="hljs-number">15011112222</span>,wangwu@example.com<br>赵六,<span class="hljs-number">310101198811113210</span>,<span class="hljs-number">18666668888</span>,zhaoliu@example.com<br></code></pre></td></tr></table></figure>
+
+<h4 id="json识别"><a href="#json识别" class="headerlink" title="json识别"></a>json识别</h4><p> json同为结构化数据类型，在处理时同CSV考虑。对于同一键名，只要识别到一条敏感数据，则该键名的键值全视为同类型的敏感数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;<br>  <span class="hljs-string">&quot;people&quot;</span>: [<br>    &#123;<br>      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;张三&quot;</span>,<br>      <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-string">&quot;310101199003072316&quot;</span>, // 身份证号码<br>      <span class="hljs-string">&quot;phone&quot;</span>: <span class="hljs-string">&quot;13812345678&quot;</span>,     // 手机号码<br>      <span class="hljs-string">&quot;email&quot;</span>: <span class="hljs-string">&quot;zhangsan@example.com&quot;</span><br>    &#125;,<br>    &#123;<br>      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;李四&quot;</span>,<br>      <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-string">&quot;310101198512124512&quot;</span>, // 身份证号码<br>      <span class="hljs-string">&quot;phone&quot;</span>: <span class="hljs-string">&quot;13987654321&quot;</span>,     // 手机号码<br>      <span class="hljs-string">&quot;email&quot;</span>: <span class="hljs-string">&quot;lisi@example.com&quot;</span><br>    &#125;,<br>    &#123;<br>      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;王五&quot;</span>,<br>      <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-string">&quot;310101199206187890&quot;</span>, // 身份证号码<br>      <span class="hljs-string">&quot;phone&quot;</span>: <span class="hljs-string">&quot;15011112222&quot;</span>,     // 手机号码<br>      <span class="hljs-string">&quot;email&quot;</span>: <span class="hljs-string">&quot;wangwu@example.com&quot;</span><br>    &#125;,<br>    &#123;<br>      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;赵六&quot;</span>,<br>      <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-string">&quot;310101198811113210&quot;</span>, // 身份证号码<br>      <span class="hljs-string">&quot;phone&quot;</span>: <span class="hljs-string">&quot;18666668888&quot;</span>,     // 手机号码<br>      <span class="hljs-string">&quot;email&quot;</span>: <span class="hljs-string">&quot;zhaoliu@example.com&quot;</span><br>    &#125;<br>  ]<br>&#125;<br><br>取键名为<span class="hljs-built_in">id</span>的所有键值当作身份证号码。<br></code></pre></td></tr></table></figure>
+
+<h4 id="docx-识别"><a href="#docx-识别" class="headerlink" title="docx 识别"></a>docx 识别</h4><p> docx文件本质是压缩包，其内容在xml里，通过xml标签可以定位其数据。在业务中，以docx存储的文件通常是技术文档/方案，身份证/银行卡等扫描件、图片，包含身份证、地址等敏感信息的申请表（如入职表含个人信息身份证/电话号码等）。根据xml标签来做不同的识别，如果识别到图片标签则调用图片识别的方法，表格标签则编写对应的方法来识别。</p>
+<p><img src="E:\13log\blog\node_modules\hexo-theme-fluid\source\mdimg\jjdlp\1764065195635-1418d5eb-b3fa-4c84-823b-a1f4f69c23a2.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="E:\13log\blog\node_modules\hexo-theme-fluid\source\mdimg\jjdlp\1764065270322-e18cd877-858f-46bd-ab36-ef6ff6823da3.png" srcset="/img/loading.gif" lazyload></p>
+<p>  由于技术文档/方案等敏感数据的特征不明显，识别起来较难（通过检测盲水印或者机器学习等来识别），所以如果是这种类型的文件通过手动导入进行标注即可。</p>
+<h4 id="PDF识别"><a href="#PDF识别" class="headerlink" title="PDF识别"></a>PDF识别</h4><p>PDF的本质是二进制数据流，内容通常以文本对象、图像对象、矢量图形、表格（伪表格/真实表格）等形式存储。在业务中，PDF与docx的内容数据大致相同，所以识别规则同docx。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python">┌──────────────────────────────────────┐<br>│            PDF 文件头部              │  ← %PDF-<span class="hljs-number">1.</span>x（如 %PDF-<span class="hljs-number">1.7</span>）<br>└──────────────────────────────────────┘<br>┌──────────────────────────────────────┐<br>│           主体部分（Body）           │<br>│  ┌─────────────┐  ┌─────────────┐   │<br>│  │ 对象 <span class="hljs-number">1</span>      │  │ 对象 <span class="hljs-number">2</span>      │   │<br>│  │ (文本内容)  │  │ (图像流)    │   │<br>│  └─────────────┘  └─────────────┘   │<br>│  ┌─────────────┐  ┌─────────────┐   │<br>│  │ 对象 <span class="hljs-number">3</span>      │  │ 对象 <span class="hljs-number">4</span>      │   │<br>│  │ (页面树)    │  │ (字体资源)  │   │<br>│  └─────────────┘  └─────────────┘   │<br>│  ...（多个间接对象，编号唯一）       │<br>└──────────────────────────────────────┘<br>┌──────────────────────────────────────┐<br>│        交叉引用表（xref table）      │<br>│  <span class="hljs-number">0</span> <span class="hljs-number">0000000000</span> <span class="hljs-number">65535</span> f               │<br>│  <span class="hljs-number">1</span> 0000000123 <span class="hljs-number">00000</span> n               │ ← 指向对象<span class="hljs-number">1</span>在文件中的字节偏移<br>│  <span class="hljs-number">2</span> 0000000456 <span class="hljs-number">00000</span> n               │ ← 指向对象<span class="hljs-number">2.</span>..<br>│  ...                                │<br>└──────────────────────────────────────┘<br>┌──────────────────────────────────────┐<br>│             文件尾（Trailer）        │<br>│  &lt;&lt;                                 │<br>│    /Size <span class="hljs-number">5</span>                          │ ← 对象总数<br>│    /Root <span class="hljs-number">1</span> <span class="hljs-number">0</span> R                      │ ← 根对象（Catalog）<br>│    /Info <span class="hljs-number">2</span> <span class="hljs-number">0</span> R                      │ ← 文档信息<br>│  &gt;&gt;                                 │<br>│  startxref                          │<br>│  <span class="hljs-number">9876</span>                               │ ← xref 表起始位置<br>│  %%EOF                              │ ← 文件结束标志<br>└──────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h4 id="图片识别"><a href="#图片识别" class="headerlink" title="图片识别"></a>图片识别</h4><p>正常业务中以图片形式存储的敏感数据大多以单条形式存在，比如某一张身份证扫描图片/学信网截图/营业执照图片。对于图像数据来说这些图片大部分是相同的（如身份证布局&amp;字段都是一样的只有值不同），可以考虑引入机器学习的分类思想来识别（这里重点是识别是否是敏感数据而不提取敏感数据本身）。</p>
+<p>  这个功能大多数情况是供docx、PDF格式出现图片的情况下调用识别（这里不输出具体的敏感数据内容，只输出类型，如“包含身份证图片/银行卡图片”，主要是做一个分类区分）。</p>
+<p>具体模型训练见<a target="_blank" rel="noopener" href="https://github.com/J-0k3r/JJDLP/blob/master/idcard_ocr/%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E8%AF%B4%E6%98%8E.md">模型训练说明</a>。训练图片数据来源于互联网。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">- **模型**: MobileNetV2（14MB）<br>- **方法**: 迁移学习 + 深度学习<br>- **准确率**: 通常在<span class="hljs-number">90</span>%以上（取决于数据质量）<br>- **速度**: CPU 100ms/张，GPU 20ms/张<br>- **部署**: 支持Windows/Linux，Python <span class="hljs-number">3.9</span>+<br><br>通过将通用特征提取（MobileNetV2）和特定任务分类（身份证/银行卡）相结合，实现了在少量数据上的高效训练和准确识别。<br></code></pre></td></tr></table></figure>
+
+<h4 id="文本识别"><a href="#文本识别" class="headerlink" title="文本识别"></a>文本识别</h4><p>文本识别作为识别基础，提供给文件识别功能进行调用识别。在业务中，纯文本格式的数据如txt的类型比较少，更多可能是处于日志、聊天记录等中的文本。如某hr系统在操作中会生成日志包含身份证等敏感信息。这个模块主要是给json、csv确定某键/某列属于哪种敏感数据，以及docx、pdf等含有到非结构化表格/文本时调用识别提取敏感信息。在webui中保留这个功能，通过文本框输入文本然后识别输出敏感信息类型和敏感等级以及处置建议，以方便对少量的文本数据进行识别（与文件识别的分开入库，只有通过这个ui来识别的才单独记录）</p>
+<h3 id="敏感数据识别引擎"><a href="#敏感数据识别引擎" class="headerlink" title="敏感数据识别引擎"></a>敏感数据识别引擎</h3><p><a target="_blank" rel="noopener" href="https://github.com/J-0k3r/JJDLP/tree/master/core">https://github.com/J-0k3r/JJDLP/tree/master/core</a></p>
+<p>匹配互斥，即不可能同时识别为身份证和银行卡（数字类）、姓名和地址（中文类）</p>
+<h4 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h4><p>   对于太宽泛的地址，不具有现实意义，即无法定位到一个极小的范围。即至少到某个小区或者某路的xx号或者某村的xx号）并且至少包含x市x区x镇/路（同名市的情况很少并且有区佐证）。基于考虑正常业务不会存储无意义的地址，并且地址更多可能会出现在docx、pdf中，所以匹配到x省x市x区或者x市x区就算做敏感数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">匹配“XX省XX市XX区…”或“XX市XX区…”型。进一步识别详细为：省市区+任意若干（大于一的汉字+<span class="hljs-number">1</span>-<span class="hljs-number">6</span>数字+大于一的汉字），如“建国路<span class="hljs-number">88</span>号”、“中山大道<span class="hljs-number">21</span>栋<span class="hljs-number">805</span>”等。<br></code></pre></td></tr></table></figure>
+
+<h4 id="姓名"><a href="#姓名" class="headerlink" title="姓名"></a>姓名</h4><p>   匹配2-4个中文字符（要姓氏开头），姓氏列表可能不全，但可以遇到再加。少数民族可能名字更长（少数情况先不考虑）、公司内部区分同名可能会在名字后加数字，这里也不作考虑（因为业务中更可能是通过结构化数据格式存储的，同一列/键名都当作了是同一种敏感数据）。</p>
+<h4 id="身份证"><a href="#身份证" class="headerlink" title="身份证"></a>身份证</h4><p>判断输入是否身份证号，含长度、校验位。只考虑中国大陆18位身份证。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">pattern = <span class="hljs-string">r&#x27;^[1-9]\d&#123;5&#125;(?:18|19|20)\d&#123;2&#125;(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])\d&#123;3&#125;[\dXx]$&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>身份证校验码（即中国居民身份证号码的第18位）是根据前17位数字，通过特定算法计算得出的，用于验证身份证号码的有效性。其计算过程遵循国家标准 GB 11643-1999</p>
+<p><img src="E:\13log\blog\node_modules\hexo-theme-fluid\source\mdimg\jjdlp\1764069674592-1689f828-a93f-44ba-b0a6-8ee729442684.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="银行卡"><a href="#银行卡" class="headerlink" title="银行卡"></a>银行卡</h4><pre><code class="hljs">判断是否为银行卡号（16、17或19位，纯数字，Luhn算法校验；18位直接排除）
+</code></pre>
+<h4 id="电话号码"><a href="#电话号码" class="headerlink" title="电话号码"></a>电话号码</h4><pre><code class="hljs">   只识别中国大陆11位手机号+常见号段，不匹配固话。
+</code></pre>
+<p><img src="E:\13log\blog\node_modules\hexo-theme-fluid\source\mdimg\jjdlp\1764069975658-6b3d8b8d-24dc-4d83-b138-761548ebe379.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="邮箱"><a href="#邮箱" class="headerlink" title="邮箱"></a>邮箱</h4><p>xx@xx</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">email_pattern = r<span class="hljs-string">&#x27;\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]&#123;2,&#125;\b&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h4><pre><code class="hljs"> IPv4、IPv6
+</code></pre>
+<p><img src="E:\13log\blog\node_modules\hexo-theme-fluid\source\mdimg\jjdlp\1764070014356-bce7b6d9-06ce-4900-bda1-df05564cd648.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="数据脱敏"><a href="#数据脱敏" class="headerlink" title="数据脱敏"></a>数据脱敏</h3><p><a target="_blank" rel="noopener" href="https://github.com/J-0k3r/JJDLP/tree/master/core">https://github.com/J-0k3r/JJDLP/tree/master/core</a></p>
+<p>分为文本脱敏和文件脱敏。文本就调用文本识别然后对结果脱敏然后渲染到页面，文件则对应文件结果脱敏然后写入文件供导出。</p>
+<h4 id="csv"><a href="#csv" class="headerlink" title="csv"></a>csv</h4><pre><code class="hljs">  结构化类型的数据脱敏较容易实现，因为默认同一列下的数据是同一种敏感数据，对每一行的该列数据调用相同的该类型敏感数据的脱敏方法即可。然后提供导出功能来导出脱敏后的文件。
+</code></pre>
+<h4 id="json"><a href="#json" class="headerlink" title="json"></a>json</h4><pre><code class="hljs"> 结构化类型的数据脱敏规则同csv。
+</code></pre>
+<h4 id="pdf-docx-图片"><a href="#pdf-docx-图片" class="headerlink" title="pdf/docx/图片"></a>pdf/docx/图片</h4><pre><code class="hljs">  非结构化的数据文件要整个自动脱敏并原格式输出比较困难。所以只根据相应的识别方法识别出来的文件里的的敏感数据然后对其进行脱敏，渲染到页面，并提供导出功能（导出的为该脱敏路由的返回值即json数据，格式为json文件）。
+</code></pre>
+<h3 id="业务标记"><a href="#业务标记" class="headerlink" title="业务标记"></a>业务标记</h3><p>对识别到的敏感文件标记其所属业务、部门、负责人、入库时间、处理建议、敏感等级、备注等。除了下拉预设选项外还可以自定义并添加到选项。</p>
+<h3 id="自定义敏感数据类型"><a href="#自定义敏感数据类型" class="headerlink" title="自定义敏感数据类型"></a>自定义敏感数据类型</h3><p><a target="_blank" rel="noopener" href="https://github.com/J-0k3r/JJDLP/blob/master/core/custom_rules.py">https://github.com/J-0k3r/JJDLP/blob/master/core/custom_rules.py</a></p>
+<pre><code class="hljs"> 敏感数据这个定义其实很宽泛，具体到一个公司某个业务线的一份策划到这个公司的利润报告，都可以视为敏感数据。但一个共同的特性就是不希望暴露在外让所有人都能够看见的数据。
+
+但人始终是敏感数据产生的主体，换句话说，不管是什么类型的公司、企业，都有人参与在里面。一个公司/企业最少会存有员工的个人信息（即使没有客户的个人信息）。所以初始提供的默认敏感信息大部分都是个人敏感信息，至少这一块是所有公司/企业都存在的敏感数据，而不至于让做的这个dlp毫无用处。
+
+鉴于敏感数据种类繁多、参差不齐、标准不一。所以提供一个自定义敏感数据类型的接口来增强dlp的扩展性。
+</code></pre>
+<h3 id="关于风险分数和风险等级"><a href="#关于风险分数和风险等级" class="headerlink" title="关于风险分数和风险等级"></a>关于风险分数和风险等级</h3><p>   在对单个敏感数据类型给定敏感级别时（如姓名为低，身份证号为高）是基于该数据的唯一性强弱考量的，同名的人有很多但身份证号码是唯一的。单拿个人的敏感数据来说，基于敏感数据的现实意义考量，需要多种敏感数据类型组合才能真正具备敏感性（数据泄露后的潜在的危害程度）如：</p>
+<p><code>姓名/住址+电话号码/邮箱=精准诈骗、钓鱼...</code></p>
+<p><code>身份证号+银行卡号=信用卡恶意透支、金融欺诈、冒名贷款....</code></p>
+<p><code>身份证图片（人脸）+地址=跟踪、骚扰...</code></p>
+<p><code>身份证号+手机号+地址=身份冒充（注册公司、犯罪等）</code></p>
+<p>   传统按单一敏感数据字段定级存在局限。依据实际危害采用动态组合来计算风险分数并定风险等级。强调组合而非数量。比如某个csv存了1w条身份证号，另一个csv存了2w条手机号但这两个的风险分数会远小于500条的身份证+手机号的csv，因为身份证号和手机号需要对应组合才能确定为同一个人的敏感信息，而单独的两个csv不一定互相对应。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">风险评估的风险分数的计算和风险等级的评定优化一下。分数上限是<span class="hljs-number">100</span>（保留<span class="hljs-number">2</span>位小数），分为<span class="hljs-number">5</span>个风险等级（微、低、中、高、极高），xx分到xx分对应什么等级（不一定要<span class="hljs-number">100</span>/<span class="hljs-number">5</span>来平均分）。并且分数的计算要考虑包含敏感种类（种类越多，分数越高）的多少和数量（数量越多分数越高），但是组合的分数要远大于只含一种类型的（身份证图片/银行卡图片除外）如果只包含一种低敏感级别的（姓名、ip地址、地址）则视为无风险。但是包含姓名+地址的则至少是中风险等级（数量大的话可到高但不可能到极高）。ip地址跟任何一个其他类型组合都不当作是组合（如ip+手机号）只当作只有手机号。身份证图片/银行卡图片单独作为一个加分项（就是有的话就加分，但不和其他组合一起算分。比如身份证图片+手机号+姓名：算手机号+姓名的组合分，再加上身份证图片的分数）<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-number">1.</span> 风险评估算法优化<br>分数上限：<span class="hljs-number">100</span>分，保留<span class="hljs-number">2</span>位小数<br>风险等级：<span class="hljs-number">5</span>个等级<br>微：<span class="hljs-number">0</span>分<br>低：<span class="hljs-number">0.01</span>-<span class="hljs-number">20</span>分<br>中：<span class="hljs-number">20.01</span>-<span class="hljs-number">50</span>分<br>高：<span class="hljs-number">50.01</span>-<span class="hljs-number">80</span>分<br>极高：<span class="hljs-number">80.01</span>-<span class="hljs-number">100</span>分<br><span class="hljs-number">2.</span> 评分规则实现<br>种类影响：类型越多，组合加成越大（<span class="hljs-number">2</span>种×<span class="hljs-number">2.5</span>，<span class="hljs-number">3</span>种×<span class="hljs-number">3.5</span>，<span class="hljs-number">4</span>种及以上×<span class="hljs-number">5.0</span>）<br>数量影响：使用对数函数计算数量加成<br>组合加成：组合分数远大于单种类型<br>特殊规则：<br>只包含一种低敏感类型（姓名、IP地址、地址）时视为无风险（<span class="hljs-number">0</span>分）<br>姓名+地址至少中风险（≥<span class="hljs-number">20</span>分），最高只能到高（≤<span class="hljs-number">80</span>分），不能到极高<br>IP地址不参与组合计算（如IP+手机号只按手机号计算）<br>图片加分：身份证图片/银行卡图片每个+<span class="hljs-number">15</span>分，单独计算，不参与组合<br></code></pre></td></tr></table></figure>
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A0%94%E7%A9%B6/" class="category-chain-item">研究</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java内存马原理及利用</div>
+      <div>http://example.com/2025/11/25/DLP数据泄露防护系统设计/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年11月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/10/02/Java%E5%86%85%E5%AD%98%E9%A9%AC%E5%8E%9F%E7%90%86%E5%8F%8A%E5%88%A9%E7%94%A8/" title="Java内存马原理及利用">
+                        <span class="hidden-mobile">Java内存马原理及利用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+           <!--音乐--> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script> <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="9723733050" data-server="netease" data-type="playlist" autoplay="true" data-order="list"  data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div> 
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon<br /> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
