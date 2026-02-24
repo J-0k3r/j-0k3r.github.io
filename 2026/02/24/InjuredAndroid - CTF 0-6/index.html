@@ -1,0 +1,850 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="台是幻觉搭出来 而你是我后台 并不塌下来 -《后台》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="InjuredAndroid - CTF 0-6">
+<meta property="og:url" content="http://example.com/2026/02/24/InjuredAndroid%20-%20CTF%200-6/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="台是幻觉搭出来 而你是我后台 并不塌下来 -《后台》">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/2004.jpg">
+<meta property="article:published_time" content="2026-02-24T05:14:52.000Z">
+<meta property="article:modified_time" content="2026-02-24T10:14:30.907Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/2004.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>InjuredAndroid - CTF 0-6 - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":180,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的无人之境</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/playlist/" target="_self">
+                <i class="iconfont icon-music"></i>
+                <span>音乐</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/ht.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="InjuredAndroid - CTF 0-6"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-02-24 13:14" pubdate>
+          2026年2月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">InjuredAndroid - CTF 0-6</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年2月24日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p><a target="_blank" rel="noopener" href="https://github.com/B3nac/InjuredAndroid/releases">https://github.com/B3nac/InjuredAndroid/releases</a></p>
+<p>通过apk安装</p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771854148586-96e6e004-d7ca-4c1a-8edd-f171463410b2.png)</p>
+<h3 id="XSSTEXT"><a href="#XSSTEXT" class="headerlink" title="XSSTEXT"></a>XSSTEXT</h3><p>存在xss漏洞</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;script&gt;alert(&#x27;XSS&#x27;);&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771854830969-8dcc57d4-561e-4e82-9491-9aa81fb92c80.png)</p>
+<p>反编译apk，定位到<code>b3nac.injuredandroid.XSSTextActivity</code></p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771856219470-ea424cbf-e401-4ec9-96f9-ac635816338e.png)</p>
+<p>没有对用户输入进行处理。</p>
+<p>跟进到<code>com.b3nac.injuredandroid.DisplayPostXSS</code></p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771856280700-d98ef7ef-70ce-4d96-9935-7bd27bb8def7.png)</p>
+<p>webview配置允许执行JavaScript，</p>
+<p>并且<code>webView.loadData(stringExtra, &quot;text/html&quot;, &quot;UTF-8&quot;);</code>将用户输入直接渲染为html页面，数据流如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">用户输入 → XSSTextActivity → Intent Extra → DisplayPostXSS → loadData()<br></code></pre></td></tr></table></figure>
+
+<h3 id="FLAG-ONE-LOGIN"><a href="#FLAG-ONE-LOGIN" class="headerlink" title="FLAG ONE - LOGIN"></a>FLAG ONE - LOGIN</h3><p>定位到<code>b3nac.injuredandroid.FlagOneLoginActivity</code></p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771857160898-9c2add91-d857-4b81-a62d-18c74dc5c00f.png)</p>
+<p>flag硬编码为<code>F1ag_0n3</code></p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771857192186-f124ad04-17a8-47e8-bc04-2adfd85c47b1.png)</p>
+<p>点击submit会跳转</p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771857212657-650c5940-7e9d-482c-bcba-7ee27d659ec1.png)</p>
+<p>此题旨在展示登录密码硬编码的漏洞。</p>
+<h3 id="FLAG-TWO-EXPORTED-ACTIVITY"><a href="#FLAG-TWO-EXPORTED-ACTIVITY" class="headerlink" title="FLAG TWO - EXPORTED ACTIVITY"></a>FLAG TWO - EXPORTED ACTIVITY</h3><p>提示<code>There is a way to bypass the main activity and invoke other activities that are exported.</code>绕过main activity调用其他可导出的activity</p>
+<p>使用dorzer</p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771859256441-9dd8abb1-c1ad-4833-8602-5d59012f21b0.png)</p>
+<p>直接在<code>AndroidManifest.xml</code>找</p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771860856660-22cbc5a1-2ee2-43fd-9f09-791b9b6197c8.png)</p>
+<p>调用这个activity</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">run app.activity.start --component b3nac.injuredandroid  b3nac.injuredandroid.b25lActivity<br></code></pre></td></tr></table></figure>
+
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771861039987-12db7717-ff2b-4658-ab2a-91185d859925.png)</p>
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">adb shell am start -W -n b3nac.injuredandroid/.b25lActivity<br></code></pre></td></tr></table></figure>
+
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771861347981-264c7f05-a507-4291-a66a-1303c7c9059a.png)</p>
+<table>
+<thead>
+<tr>
+<th align="left"><code>exported=&quot;true&quot;</code></th>
+<th align="left">该Activity可以被其他应用程序(其他app或者activity)的组件启动</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>exported=&quot;false&quot;</code></td>
+<td align="left">该Activity只能被同一应用内的组件启动</td>
+</tr>
+</tbody></table>
+<h3 id="FLAG-THREE-RESOURCES"><a href="#FLAG-THREE-RESOURCES" class="headerlink" title="FLAG THREE - RESOURCES"></a>FLAG THREE - RESOURCES</h3><p>![](/mdimg/InjuredAndroid - CTF 0-6/1771861651316-05f9a590-cc31-444b-8fd6-a4990925b41a.png)</p>
+<p>加载了一个字符串资源</p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771861706712-ae51485a-101d-47a4-860e-e71696345a94.png)</p>
+<p><code>F1ag_thr33</code></p>
+<p>本题旨在演示信息泄露类漏洞，加载的资源可能包含敏感信息如加密密钥，apikey等</p>
+<h3 id="FLAG-FOUR-LOGIN2"><a href="#FLAG-FOUR-LOGIN2" class="headerlink" title="FLAG FOUR - LOGIN2"></a>FLAG FOUR - LOGIN2</h3><p><code>b3nac.injuredandroid.FlagFourActivity</code></p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771911596845-498b7094-11a0-4937-884f-ba1515a6afdc.png)</p>
+<p>字符串比较</p>
+<p>定位这个数组值是g类的a方法<code>b3nac.injuredandroid.g</code></p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771911669414-382c11c8-d1d6-4e71-8152-5d51409ad15d.png)</p>
+<p>解码得<code>4_overdone_omelets</code></p>
+<p>本题相对于login1字符串比较做了base64编码，旨在演示登录时比较硬编码用户名或密码的问题，但硬编码内容非明文。</p>
+<h3 id="FLAG-FIVE-EXPORTED-BROADCAST-RECEIVER"><a href="#FLAG-FIVE-EXPORTED-BROADCAST-RECEIVER" class="headerlink" title="FLAG FIVE- EXPORTED BROADCAST RECEIVER"></a>FLAG FIVE- EXPORTED BROADCAST RECEIVER</h3><p>![](/mdimg/InjuredAndroid - CTF 0-6/1771912351460-75be9c68-5252-468a-a02a-d5c6ef574c26.png)</p>
+<p>第一次点击</p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771912303352-999570df-283e-4bbd-892b-096061179b4b.png)</p>
+<p>第二次</p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771912329365-721c1172-f079-48dd-93eb-2b6b7fa550b0.png)</p>
+<p>第三次</p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771912337307-cb2efa75-c100-48dd-bdd9-a0349c91ef24.png)</p>
+<p>查看<code>b3nac.injuredandroid.FlagFiveActivity</code></p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771912645651-47d19aa0-dc1d-418b-8e3c-2e9b8d2018f5.png)</p>
+<p>注册了一个<code>FlagFiveReceiver</code>并用<code>F()</code>方法发送广播</p>
+<p>监听器<code>b3nac.injuredandroid.FlagFiveReceiver</code></p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771912833672-97418cad-cb1e-4953-b29f-97cd5f595aac.png)</p>
+<p>就是上面点击题目后的逻辑</p>
+<p>第一次点击<code>i2=0</code>执行这段代码</p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771912901324-b068ce91-a2fa-4970-9b7b-2861d2c2f318.png)</p>
+<p>第二次点击<code>i2=1</code>，进入第一个if返回<code>Keep trying!</code></p>
+<p>第三次点击<code>i2=2</code>，返回<code>String str = &quot;You are a winner &quot; + k.a(&quot;Zkdlt0WwtLQ=&quot;);</code>，经过k.a des解密</p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771913085795-a0aa1fb1-314f-4f34-9fa9-f066529b3942.png)</p>
+<p>得到<code>&#123;f1v3!&#125;</code></p>
+<p>数据流向</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">用户点击按钮 → H() → F() → sendBroadcast() → FlagFiveReceiver接收 → 处理逻辑<br></code></pre></td></tr></table></figure>
+
+<p>查看<code>AndroidManifest.xml</code>，这个广播接收器是可导出的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;receiver<br>    android:name=&quot;b3nac.injuredandroid.FlagFiveReceiver&quot;<br>    android:exported=&quot;true&quot;/&gt;<br><br></code></pre></td></tr></table></figure>
+
+<p>这意味着该 <code>BroadcastReceiver</code> 可以被任何其他应用访问和触发。可以构造特定Intent触发Receiver执行内部逻辑。</p>
+<h3 id="FLAG-SIX-LOGIN3"><a href="#FLAG-SIX-LOGIN3" class="headerlink" title="FLAG SIX - LOGIN3"></a>FLAG SIX - LOGIN3</h3><p>![](/mdimg/InjuredAndroid - CTF 0-6/1771916877203-e06c441e-b0eb-493c-a4c7-473a77c568df.png)</p>
+<p>字符串比较经过了des加密</p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771916914972-0017ddbe-2808-47a0-b67e-ddc1d95643dd.png)</p>
+<p>找到key<code>f1472a = h.b();</code></p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771916933935-e069a343-ee1a-473d-8390-3314baf2abc2.png)</p>
+<p>解密</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">import base64<br><br>from Crypto.Cipher import DES<br><br>ENCODED_KEY = &quot;Q2FwdHVyM1RoMXM=&quot;<br>ENCODED_STRING = &quot;k3FElEG9lnoWbOateGhj5pX6QsXRNJKh///8Jxi8KXW7iDpk2xRxhQ==&quot;<br><br>def decrypt():<br>    key_byte_array = base64.b64decode(ENCODED_KEY)[:8]<br>    string_byte_array = base64.b64decode(ENCODED_STRING)<br>    des_handler = DES.new(key_byte_array, DES.MODE_ECB)<br><br>    print(des_handler.decrypt(string_byte_array))<br><br>if __name__ == &#x27;__main__&#x27;:<br>    decrypt()<br>  ###b&quot;&#123;This_Isn&#x27;t_Where_I_Parked_My_Car&#125;\x06\x06\x06\x06\x06\x06&quot;<br><br></code></pre></td></tr></table></figure>
+
+<p>虽然登录验证的硬编码经过加密，但是依旧不安全，因为加密方法和密钥硬编码导致能解密原文。</p>
+<p>像这种情况还可以直接用frida来hook这个解密方法调用来解密。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs plain">// hook.js<br>// 目标类: b3nac.injuredandroid.k<br>// 目标方法: a (String) -&gt; String<br><br>Java.perform(function () &#123;<br>    console.log(&quot;[*] Java VM initialized, starting hook...&quot;);<br><br>    try &#123;<br>        // 定义目标类<br>        var KClass = Java.use(&quot;b3nac.injuredandroid.k&quot;);<br><br>        // Hook k.a(String str) 方法<br>        // 注意：在 Smali 中方法名是 a，在 Java 中也是 a<br>        KClass.a.overload(&#x27;java.lang.String&#x27;).implementation = function (str) &#123;<br>            console.log(&quot;[+] Intercepted call to k.a()&quot;);<br>            console.log(&quot;[+] Input (Base64): &quot; + str);<br><br>            // 调用原始方法执行解密<br>            var result = this.a(str);<br><br>            console.log(&quot;[+] Output (Decrypted): &quot; + result);<br><br>            return result;<br>        &#125;;<br><br>        console.log(&quot;[*] Hook successful for b3nac.injuredandroid.k.a&quot;);<br><br>        setTimeout(function() &#123;<br>            var targetString = &quot;k3FElEG9lnoWbOateGhj5pX6QsXRNJKh///8Jxi8KXW7iDpk2xRxhQ==&quot;;<br>            console.log(&quot;\n[*] Attempting to decrypt hardcoded string: &quot; + targetString);<br>            try &#123;<br>                var decrypted = KClass.a(targetString);<br>                console.log(&quot;[***] DECRYPTED RESULT: &quot; + decrypted);<br>            &#125; catch (e) &#123;<br>                console.log(&quot;[-] Error during manual decryption: &quot; + e);<br>            &#125;<br>        &#125;, 2000);<br>        <br><br>    &#125; catch (err) &#123;<br>        console.error(&quot;[-] Error setting up hook: &quot; + err);<br>        console.error(err.stack);<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>执行脚本<code> frida -U -f b3nac.injuredandroid -l hook.js</code></p>
+<p>![](/mdimg/InjuredAndroid - CTF 0-6/1771927073015-c7cb8811-3f49-4b23-afc3-bee6a9279176.png)</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A0%94%E7%A9%B6/" class="category-chain-item">研究</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>InjuredAndroid - CTF 0-6</div>
+      <div>http://example.com/2026/02/24/InjuredAndroid - CTF 0-6/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年2月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/12/23/Java%20SSTI/" title="Java SSTI">
+                        <span class="hidden-mobile">Java SSTI</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+           <!--音乐--> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script> <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="9723733050" data-server="netease" data-type="playlist" autoplay="true" data-order="list"  data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div> 
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon<br /> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
