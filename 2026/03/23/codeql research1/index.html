@@ -1,0 +1,821 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="想听得见 用耳听未必听见 将心摆耳边 才骤觉沉默有深浅 -《想听》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="codeql research-1">
+<meta property="og:url" content="http://example.com/2026/03/23/codeql%20research1/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="想听得见 用耳听未必听见 将心摆耳边 才骤觉沉默有深浅 -《想听》">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/LifeContinues.jpg">
+<meta property="article:published_time" content="2026-03-23T05:14:52.000Z">
+<meta property="article:modified_time" content="2026-03-23T09:23:08.311Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/LifeContinues.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>codeql research-1 - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":180,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的无人之境</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/playlist/" target="_self">
+                <i class="iconfont icon-music"></i>
+                <span>音乐</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/xt.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="codeql research-1"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-23 13:14" pubdate>
+          2026年3月23日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">codeql research-1</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年3月23日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>CodeQL 是由 GitHub 开发的一种强大的静态分析引擎，它将代码视为数据，允许安全研究员和开发人员像查询数据库一样来检索代码中的漏洞。</p>
+<p>它是现代 DevSecOps 流程中 SAST（静态应用程序安全测试） 的代表性工具，目前广泛应用于 GitHub 的自动代码扫描（Code Scanning）中。</p>
+<h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><p>不同于传统SAST使用规则/正则匹配的方式，codeql核心逻辑是将源代码及其语义信息（如控制流、数据流）转化为一个可查询的关系型数据库，再用专用的类似SQL的QL语言来编写查询规则和查询。</p>
+<p>并且针对编译型语言和解释型语言，CodeQL 的构建机制有着本质的区别：</p>
+<ul>
+<li>编译型语言（如C/C++, Java, C#, Go, Kotlin, Swift）：</li>
+</ul>
+<ol>
+<li><p>当你执行 <code>codeql database create</code> 并指定 <code>--command</code>（如 <code>mvn clean install</code>）时（必须指定编译命令，这正是编译型语言的特点），CodeQL 会启动一个观察者进程。</p>
+</li>
+<li><p>注入环境变量：CodeQL 会修改当前 shell 的环境变量（如 <code>PATH</code>、<code>LD_PRELOAD </code>或特定的编译器hook）。</p>
+</li>
+<li><p>拦截调用：当你的构建脚本（<code>Maven</code>, <code>Gradle</code>, <code>Make</code>）尝试调用真正的编译器（如 <code>javac</code>, <code>gcc</code>, <code>clang</code>）时，CodeQL 会先“截获”这个请求。</p>
+</li>
+<li><p>双重动作：</p>
+<p>  让真正的编译器继续工作，生成可执行文件或字节码（确保构建不报错）。同时运行 CodeQL 提取器（Extractor），解析编译器正在处理的同一份源代码，捕获其完整的语义上下文。</p>
+</li>
+</ol>
+<ul>
+<li>解释型语言（如Python, JavaScript, TypeScript, Ruby, PHP）：<ol>
+<li>构建原理： 由于不需要编译，CodeQL 直接调用相应的提取器来扫描指定目录下的所有源文件。</li>
+<li>提取过程： 提取器解析文件系统中的源代码，并将其直接转化为数据库记录。</li>
+<li>核心要求： 只要源代码文件存在且格式正确即可，不需要任何复杂的环境配置。</li>
+</ol>
+</li>
+</ul>
+<h5 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h5><p>codeql的一个核心功能是污点分析。通俗来讲就是追踪“不安全”的数据（如用户输入）是否能在不经过滤的情况下，流向“危险”的操作（如数据库执行、文件写入）。</p>
+<p>污点分析可拆解为三个核心概念（3S）：</p>
+<ol>
+<li>Source (源头)：不可信数据的入口（如 HttpRequest、Intent）。</li>
+<li>Sink (关键操作)：执行敏感操作的危险函数（如 SQL 执行语句、Runtime.exec()）。</li>
+<li>Sanitizer (过滤器)：对数据进行校验、过滤或转义的逻辑（如 HtmlUtils.htmlEscape）。</li>
+</ol>
+<p>污点分析本质上是在寻找一条从 Source 到 Sink 的有效路径，且该路径上没有经过有效的 Sanitizer。</p>
+<h5 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h5><p>支持的语言和框架：<a target="_blank" rel="noopener" href="https://codeql.github.com/docs/codeql-overview/supported-languages-and-frameworks/">https://codeql.github.com/docs/codeql-overview/supported-languages-and-frameworks/</a></p>
+<p><img src="/mdimg/codeql-research/1774191284064-57bdad95-a25d-489f-be13-3caf9c7cc6ae.png" srcset="/img/loading.gif" lazyload></p>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://codeql.github.com/docs/">https://codeql.github.com/docs/</a></p>
+<p>引擎：<a target="_blank" rel="noopener" href="https://github.com/github/codeql-cli-binaries/releases">https://github.com/github/codeql-cli-binaries/releases</a></p>
+<p>sdk：<a target="_blank" rel="noopener" href="https://github.com/github/codeql">https://github.com/github/codeql</a></p>
+<h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">ql-demo/<br>├── pom.xml<br>└── src/main/java/com/example/demo/<br>    ├── DemoApplication.java<br>    └── DiagnosticController.java<br></code></pre></td></tr></table></figure>
+
+<p>pom</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;<br>  xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;<br>    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;<br>    &lt;groupId&gt;com.example&lt;/groupId&gt;<br>    &lt;artifactId&gt;ql-demo&lt;/artifactId&gt;<br>    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;<br>    &lt;parent&gt;<br>        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;<br>        &lt;version&gt;3.2.0&lt;/version&gt;<br>    &lt;/parent&gt;<br>    &lt;dependencies&gt;<br>        &lt;dependency&gt;<br>            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;<br>        &lt;/dependency&gt;<br>    &lt;/dependencies&gt;<br>&lt;/project&gt;<br></code></pre></td></tr></table></figure>
+
+<p>DiagnosticController.java</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs plain">package com.example.demo;<br><br>import org.springframework.web.bind.annotation.*;<br>import java.io.*;<br>import java.util.regex.Pattern;<br><br>@RestController<br>@RequestMapping(&quot;/api&quot;)<br>public class DiagnosticController &#123;<br><br>    /**<br>     * 【漏洞接口】<br>     * 没有任何过滤，直接拼接命令。<br>     * 攻击示例：target=127.0.0.1 &amp;&amp; whoami<br>     */<br>    @GetMapping(&quot;/vulnerable/ping&quot;)<br>    public String insecurePing(@RequestParam String target) throws IOException &#123;<br>        String command = &quot;ping -c 1 &quot; + target;<br>        return executeCommand(command);<br>    &#125;<br><br>    /**<br>     * 【安全接口】<br>     * 增加了正则校验。CodeQL 默认可能仍报错，除非在 QL 脚本中定义其为 Sanitizer。<br>     */<br>    @GetMapping(&quot;/safe/ping&quot;)<br>    public String safePing(@RequestParam String target) throws IOException &#123;<br>        if (!isValidIp(target)) &#123;<br>            return &quot;Invalid Input&quot;;<br>        &#125;<br>        String command = &quot;ping -c 1 &quot; + target;<br>        return executeCommand(command);<br>    &#125;<br><br>    // 逻辑过滤函数<br>    private boolean isValidIp(String ip) &#123;<br>        return Pattern.matches(&quot;^(\\d&#123;1,3&#125;\\.)&#123;3&#125;\\d&#123;1,3&#125;$&quot;, ip);<br>    &#125;<br><br>    // 辅助执行函数 (Sink 所在地)<br>    private String executeCommand(String cmd) throws IOException &#123;<br>        Process p = Runtime.getRuntime().exec(cmd); // CodeQL 追踪的终点<br>        BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));<br>        return r.readLine();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>构建codeql数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">codeql database create java-rce-db --language=java --command=&quot;mvn clean compile&quot;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/codeql-research/1774193225468-ab8db866-8727-4f0c-bbdc-9353a6893d04.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/mdimg/codeql-research/1774193306347-4816046d-25fc-4f53-bd73-a28641bb31f3.png" srcset="/img/loading.gif" lazyload></p>
+<p>codeql的内置规则是基于CWE框架写的。命令执行相关的内置规则在<code>CWE-078</code></p>
+<p><img src="/mdimg/codeql-research/1774194789112-0c67c192-364f-48d0-9eb7-bf856d4689c4.png" srcset="/img/loading.gif" lazyload></p>
+<p>两处命令执行都被检测到了，并且标注了source和sink</p>
+<p><img src="/mdimg/codeql-research/1774194673290-e7b135cc-41c8-4cd4-96d3-cc6383ea6673.png" srcset="/img/loading.gif" lazyload></p>
+<p>虽然<code>isValidIp()</code>做了较安全的正则过滤，但是内置脚本无法识别到这个<code>Sanitizer</code>。这是因为这是自定义的过滤方法而非标准库或者业界公认的安全库方法（如<code>Integer.parseInt()</code>类型转换、<code>HTML</code> 转义库等）。为了减少漏报的情况，内置规则审计的原则是“疑罪从有”，即不会识别到方法名叫 <code>check</code>、<code>validate</code>等的方法就当作是<code>Sanitizer</code>而不报告这条攻击路径，因为它并不知道这些自定义方法是否真的能保障安全。</p>
+<p>当发生上述情况的时候，可以通过手动设置<code>Sanitizer</code>来清除自定义过滤方法产生的误报。</p>
+<p><img src="/mdimg/codeql-research/1774253163179-d62aa7b5-b537-4153-bce2-ab12f77fffdd.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里是<code>isBarrier</code>方法，官方库好像没有<code>isSanitizer</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><code class="hljs plain">/**<br> * @name Command Injection<br> * @kind path-problem        // 关键：声明这是一个路径问题，允许 IDE 渲染从 Source 到 Sink 的跳转路径<br> * @problem.severity error   // 严重程度：在扫描报告中标记为“错误”<br> * @id java/modern-command-injection<br> */<br><br>import java<br>import semmle.code.java.dataflow.TaintTracking // 导入污点追踪库，支持跨方法的变量传递分析<br>import semmle.code.java.dataflow.FlowSources  // 导入预定义的攻击源库（如 Spring/Servlet 入口）<br><br>/**<br> * 模块化定义配置（Modern API）<br> * 使用 ConfigSig 签名确保配置符合最新版标准<br> */<br>module CommandInjectionConfig implements DataFlow::ConfigSig &#123;<br>  <br>  /**<br>   * 定义【污点源】(Source)<br>   * 即：攻击者可以控制的输入数据从哪里进入系统。<br>   */<br>  predicate isSource(DataFlow::Node source) &#123;<br>    // RemoteFlowSource 涵盖了常见的 Web 框架入口<br>    // 例如 Spring Boot 的 @RequestParam String target<br>    source instanceof RemoteFlowSource<br>  &#125;<br><br>  /**<br>   * 定义【汇聚点】(Sink)<br>   * 即：危险的操作在哪里执行，且使用了被污染的数据。<br>   */<br>  predicate isSink(DataFlow::Node sink) &#123;<br>    exists(MethodCall ma |<br>      // 匹配方法名为 &quot;exec&quot; 的调用<br>      ma.getMethod().hasName(&quot;exec&quot;) and<br>      // 且该方法属于 java.lang.Runtime 类<br>      ma.getMethod().getDeclaringType().hasQualifiedName(&quot;java.lang&quot;, &quot;Runtime&quot;) and<br>      // 污点数据（sink）是该方法的第一个参数 (index 0)<br>      sink.asExpr() = ma.getArgument(0)<br>    )<br>  &#125;<br><br>  /**<br>   * 定义【屏障/净化器】(Barrier/Sanitizer)<br>   * 最新版 API 中使用 isBarrier。如果数据经过此逻辑，则认为它变安全了，停止追踪。<br>   */<br>  predicate isBarrier(DataFlow::Node node) &#123;<br>    exists(MethodCall ma |<br>      // 如果数据作为参数传入了 isValidIp 方法<br>      ma.getMethod().hasName(&quot;isValidIp&quot;) and<br>      // 这里的 node 代表该方法的参数，在此处截断污点流<br>      node.asExpr() = ma.getArgument(0)<br>    )<br>  &#125;<br>&#125;<br><br>/**<br> * 【实例化】<br> * 将我们定义的配置（ConfigSig）注入到 TaintTracking 引擎中。<br> * Global 模块会自动处理所有复杂的图计算逻辑。<br> */<br>module CommandInjectionFlow = TaintTracking::Global&lt;CommandInjectionConfig&gt;;<br><br>/**<br> * 【导入路径图】<br> * 必须从生成的流量模块中导入 PathGraph，才能在 select 中使用 PathNode 类型。<br> */<br>import CommandInjectionFlow::PathGraph<br><br>/**<br> * 【最终查询】<br> * 使用 from-where-select 结构输出结果。<br> */<br>from CommandInjectionFlow::PathNode source, CommandInjectionFlow::PathNode sink<br>where <br>  // 调用引擎计算是否存在从 source 到 sink 的可达路径<br>  CommandInjectionFlow::flowPath(source, sink)<br>select <br>  sink.getNode(), // 漏洞触发点<br>  source,         // 攻击路径起点（用于绘图）<br>  sink,           // 攻击路径终点（用于绘图）<br>  &quot;Potential command injection from $@.&quot;, // 提示信息，$@ 占位符会被后续参数填充<br>  source.getNode(), // 对应 $@ 的第一个链接点<br>  &quot;user input&quot;      // 对应 $@ 的链接文字<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/codeql-research/1774253314396-da0b97ac-bd8e-48dc-8c0f-616f8919e2b6.png" srcset="/img/loading.gif" lazyload></p>
+<p>要将库目录加入工作区并且</p>
+<p>设置qlpack.yml，codeql会在当前工作区自动寻找库的位置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">name: my-custom-queries<br>version: 1.0.0<br>dependencies:<br>  codeql/java-all: &quot;*&quot;<br></code></pre></td></tr></table></figure>
+
+<p>右键运行</p>
+<p><img src="/mdimg/codeql-research/1774253432883-c2ba8538-8699-406d-a7cc-3721300a97f0.png" srcset="/img/loading.gif" lazyload></p>
+<p>运行后结果</p>
+<p><img src="/mdimg/codeql-research/1774253103247-410392b0-1c22-4f1d-b399-0eeb2a6ac8dc.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A0%94%E7%A9%B6/" class="category-chain-item">研究</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>codeql research-1</div>
+      <div>http://example.com/2026/03/23/codeql research1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年3月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/03/07/allsafe-android/" title="allsafe-android">
+                        <span class="hidden-mobile">allsafe-android</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+           <!--音乐--> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script> <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="9723733050" data-server="netease" data-type="playlist" autoplay="true" data-order="list"  data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div> 
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon<br /> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
